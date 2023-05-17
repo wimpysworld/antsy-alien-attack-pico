@@ -102,6 +102,7 @@ The game code will be licensed under the MIT license, but I'll be using graphics
 ## Juice 🧃
 
 - [ ] Particle system
+- [ ] Screen shake
 
 ## Build tools 🛠️
 
