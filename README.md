@@ -128,6 +128,13 @@ The game code will be licensed under the MIT license, but I'll be using graphics
 - [ ] Asteroid field
 - [ ] Post-wave report
 
+## Publishing 🕹️
+
+- [x] GitHub page
+- [ ] Itch.io page
+- [ ] Snapstore page
+- [ ] Flathub page
+
 ## Stretch Goals 💪
 
 - [ ] Predictable wave patterns/timings
