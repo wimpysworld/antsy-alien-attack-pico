@@ -111,6 +111,7 @@ The game code will be licensed under the MIT license, but I'll be using graphics
 
 ## Player 🚀
 
+- [ ] Controls and movement
 - [ ] Weapon patterns
 - [ ] Collider handling
 - [ ] HUD
@@ -134,6 +135,9 @@ The game code will be licensed under the MIT license, but I'll be using graphics
 - [ ] Ship velocity/friction
 - [ ] Scene change transitions/wipes
 - [ ] Hiscore table
+- [ ] Formation "animations"
+- [ ] Player gravity-guided pick-ups
+- [ ] Pick-up animations
 
 # Graphics Discovery 🖌️
 
