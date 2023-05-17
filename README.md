@@ -73,6 +73,7 @@ A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-
 
 The game code will be licensed under the MIT license, but I'll be using graphics, sounds and music from other sources and they have their own licenses.
 
+- All player ship is from [Krystian Majewski](https://www.lexaloffle.com/bbs/?uid=16423) and released under the [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
 - All the music is from [Gruber](https://www.lexaloffle.com/bbs/?uid=11292) and released under the [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
 
 # TODO
