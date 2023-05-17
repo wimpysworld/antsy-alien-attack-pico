@@ -1,20 +1,23 @@
 # Antsy Alien Attack Pico 👾🛸💥
 
-A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-attack).
+A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-attack) to be developed during [Linux Game Jam 2023](https://itch.io/jam/linux-game-jam2023) 🐧 using [pico-8](https://www.lexaloffle.com/pico-8.php) because I want to learn it 🧑‍🎓
 
-- Use [pico-8](https://www.lexaloffle.com/pico-8.php) because I want to learn it.
+## Game design 📐
+
 - Vertical shooter
 - 1-UP or 2-UP
-- Asteroid belt to each wave (mini-game)
-  - Hyperspeed, no weapons
 - 5 waves each with a boss
-- Post wave status report
+- Post-wave status report
 - 5 (or more) distinct alien enemies
 - 1 life governed by HP meter
+- Mini-games between waves
+  - Asteroid belt - Go fast, don't die
+  - Power spree - A few seconds to grab fast-moving power-ups
+    - Both run at hyper-speed with no weapons
 - "Juice"
 - Publish Linux builds
- - `.deb`, Snap and Flatpak
  - GitHub workflow for Itch.io
+ - `.deb`, Snap and Flatpak
 
 ## Pickups ⚡️
 
@@ -30,10 +33,10 @@ A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-
   - Damage all aliens and wipeout all alien projectiles
 - Power
   - Charges the generator
-  - Fully charged generator yeilds player HP
-  - Hold second button to release a smart bomb
+  - A fully charged generator yields player HP
+  - Hold the second button to release a smart bomb
 
-## Design 📐
+## Technical considerations 🧠
 
 - 1-UP accent is green, 2-UP accent is red.
 - Alien projectiles will always be yellow/orange
@@ -63,8 +66,14 @@ A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-
 
 - Reference for packaging/distribution pico-8 games to Linux users
 - pico-8 tooling to use for making more games
-- Learn some basic juicing and game feel mechanics
+- Learn some basic juicing and game-feel mechanics
 - Fun
+
+# License 👨‍⚖️
+
+The game code will be licensed under the MIT license, but I'll be using graphics, sounds and music from other sources and they have their own licenses.
+
+- All the music is from [Gruber](https://www.lexaloffle.com/bbs/?uid=11292) and released under the [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
 
 # TODO
 
@@ -121,14 +130,14 @@ A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-
 ## Stretch Goals 💪
 
 - [ ] Predictable wave patterns/timings
-- [ ] Sprite rotatation and zooming
+- [ ] Sprite rotation and zooming
 - [ ] Ship velocity/friction
 - [ ] Scene change transitions/wipes
 - [ ] Hiscore table
 
 # Graphics Discovery 🖌️
 
-Think about portability to 8x8 or 16x16 sprites with fixed pico-8 16-color palette.
+Think about portability to 8x8 or 16x16 sprites with the fixed pico-8 16 colour palette.
 
 - https://opengameart.org/content/modular-ships
 - https://opengameart.org/content/bullet-collection-2-m484-games
@@ -147,10 +156,9 @@ SFX 35 to 63 are free after the music is added.
 
 # Music Discovery 🎹
 
-Gruber has two carts with music selection that can be used in games. This is
-what I've picked:
+[Gruber](https://www.lexaloffle.com/bbs/?uid=11292) has two carts with music selection that can be used in games. This is what I've picked:
 
-## From Vol 1
+## From [Pico-8 Tunes Vol. 1](https://www.lexaloffle.com/bbs/?tid=29008)
 
 1. pat 00 - 05
 2. pat 06 - 13
@@ -165,7 +173,7 @@ what I've picked:
 11. pat 55 - 58
 12. pat 59 - 63
 
-## From Vol 2
+## From [Pico-8 Tunes Vol. 2](https://www.lexaloffle.com/bbs/?tid=33675)
 
 1. pat 00 - 06  Use as Game Win
 2. pat 07 - 12
@@ -179,13 +187,17 @@ what I've picked:
 
 ## Music patterns
 
-I used Renoiser to make a new cart with the following music patterns. Not
-feasible to add music for the asteroid belt, there would not be sufficient
-SFX slots left over.
+I used [Renoiser](https://www.lexaloffle.com/bbs/?tid=36922) to make a new cart with the following music patterns. Not feasible to add music for the asteroid belt, there would not be sufficient SFX slots left over.
 
-pat 0  - Attract
-pat 6  - In Game
-pat 14 - Boss Fight
-pat 18 - Game Win
-pat 24 - Game Over
+- pat 0  - Attract
+- pat 6  - In Game
+- pat 14 - Boss Fight
+- pat 18 - Game Win
+- pat 24 - Game Over
 
+# Development tools 🧑‍💻
+
+All development was done on Linux workstations, running either [NixOS](https://nixos.org) ❄️ or [elementary OS](https://elementary.io/). I decided to use pico-8 directly for all development, and the following tools to help with the process:
+
+- [Renoiser](https://www.lexaloffle.com/bbs/?tid=36922)
+- [respriter](https://www.lexaloffle.com/bbs/?tid=35255)
