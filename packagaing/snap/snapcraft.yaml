@@ -1,0 +1,72 @@
+name: antsy-alien-attack-pico
+title: Antsy Alien Attack Pico
+summary: Retro styled shoot em up
+description: |
+  Made for the Linux Game Jam 2023
+license: "MIT"
+version: '0'
+grade: stable
+base: core22
+compression: lzo
+confinement: strict
+assumes:
+ - snapd2.54
+
+architectures:
+ - build-on: amd64
+
+plugs:
+  graphics-core22:
+    interface: content
+    target: $SNAP/graphics
+    default-provider: mesa-core22
+
+layout:
+  /usr/share/libdrm:
+    bind: $SNAP/graphics/usr/share/libdrm
+  /usr/share/drirc.d:
+    symlink: $SNAP/graphics/usr/share/drirc.d
+  /usr/share/X11/XErrorDB:
+    symlink: $SNAP/graphics/usr/share/X11/XErrorDB
+  /usr/share/X11/locale:
+    symlink: $SNAP/graphics/usr/share/X11/locale
+
+parts:
+  antsy-alien-attack-pico:
+    plugin: dump
+    source: game
+    stage-packages:
+     - libsdl2-2.0-0
+
+  graphics-core22:
+    after: [antsy-alien-attack-pico]
+    source: https://github.com/MirServer/graphics-core22.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/graphics-core22-cleanup mesa-core22 nvidia-core22
+    prime:
+    - bin/graphics-core22-wrapper
+
+  cleanup:
+    after: [graphics-core22]
+    plugin: nil
+    build-snaps: [ gnome-42-2204 ]
+    override-prime: |
+      set -eux
+      cd /snap/gnome-42-2204/current
+      find . -type f,l -exec rm -f $CRAFT_PRIME/{} \;
+
+apps:
+  antsy-alien-attack-pico:
+    extensions: [gnome]
+    command-chain:
+     - bin/graphics-core22-wrapper
+    command: antsy-alien-attack-pico -windowed 0
+    desktop: antsy-alien-attack-pico.desktop
+    plugs:
+      - audio-playback
+      - joystick
+      - home
+      - opengl
+      - screen-inhibit-control
