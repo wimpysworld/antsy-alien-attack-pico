@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+REALNAME="Antsy Alien Attack Pico"
+LOWERNAME="${REALNAME,,}"
+FILENAME="${LOWERNAME// /-}"
+VER="0.$(date +%y.%j)"
+P8="main.p8"
+OPTS="-windowed -0 -home ./config -root_path ."
+
+function pico_export() {
+  local TARGET="${1}"
+  local EXPORT_PATH="exports/${TARGET}"
+  mkdir -p "${EXPORT_PATH}"
+
+  # Custom PICO-8 HTML template with WebGL CRT
+  if [ ! -e ./config/plates/crtplate.html ]; then
+   wget -qc "https://raw.githubusercontent.com/carlc27843/pico8-crt-plate/main/crtplate.html" -O "./config/plates/crtplate.html"
+   sed -i "s/PICO-8 Cartridge/${REALNAME}/" ./config/plates/crtplate.html
+  fi
+
+  # Add any target specific export options
+  local EXPORT_OPTS=""
+  if [[ ${TARGET} == *wasm* ]]; then
+    EXPORT_OPTS+=" -w"
+  fi
+
+  if [[ ${TARGET} == *crt* ]]; then
+    EXPORT_OPTS+=" -p ./config/plates/crtplate"
+  fi
+
+  # Export the target
+  case "${TARGET}" in
+   bin) pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}-${VER}.bin" "${P8}"
+        mv "${EXPORT_PATH}/${FILENAME}-${VER}.bin/"*.zip exports/
+        ;;
+   cart) pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" "${P8}"
+         mv "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" exports/
+         ;;
+   html*|wasm*) pico8 "${OPTS}" -export "${EXPORT_OPTS} ${EXPORT_PATH}/${FILENAME}-${VER}.html" "${P8}";;
+  esac
+
+  # Make .zip of the HTML/WASM export for Itch.io.
+  if [[ ${TARGET} == *html* ]] || [[ ${TARGET} == *wasm* ]]; then
+    mv "${EXPORT_PATH}/${FILENAME}-${VER}.html" "exports/${TARGET}/index.html"
+    pushd "${EXPORT_PATH}"
+    zip -9 "../${FILENAME}-${VER}_${TARGET}.zip" *
+    popd
+  fi
+}
+
+function pico_appimage() {
+  # https://www.booleanworld.com/creating-linux-apps-run-anywhere-appimage/
+  # https://github.com/boolean-world/appimage-resources/tree/master/hello-world-appimage
+  return
+}
+
+function pico_flatpak() {
+  # https://www.steinzone.de/wordpress/how-to-build-a-flatpak-of-a-sdl2-game-commander-genius/
+  return
+}
+
+function pico_snap() {
+  if [ -x /snap/bin/snapcraft ]; then
+    local TARGET="snap"
+    mkdir -p "exports/${TARGET}/snap"
+    cp -a packaging/snap/* "exports/${TARGET}/snap/"
+    local EXPORT_PATH="exports/${TARGET}"
+    mkdir -p "${EXPORT_PATH}/game"
+    cp "exports/bin/${FILENAME}-${VER}.bin/linux/${FILENAME}-${VER}" "${EXPORT_PATH}/game/antsy-alien-attack-pico"
+    cp "exports/bin/${FILENAME}-${VER}.bin/linux/data.pod" "${EXPORT_PATH}/game/"
+    cp "exports/bin/${FILENAME}-${VER}.bin/linux/${FILENAME}-${VER}.png" "${EXPORT_PATH}/game/antsy-alien-attack-pico.png"
+    cp packaging/antsy-alien-attack-pico.desktop "${EXPORT_PATH}/game/"
+    sed -i s'|Icon=antsy-alien-attack-pico|Icon=/antsy-alien-attack-pico\.png|' "${EXPORT_PATH}/game/antsy-alien-attack-pico.desktop"
+    sed -i "s/version: '0'/version: '${VER}'/" "${EXPORT_PATH}/snap/snapcraft.yaml"
+    pushd "${EXPORT_PATH}"
+    snapcraft
+    popd
+    mv "${EXPORT_PATH}/"*.snap exports/
+  fi
+}
+
+function pico_deb() {
+  if [ -x /usr/bin/dpkg-buildpackage ]; then
+    local TARGET="deb"
+    mkdir -p "exports/${TARGET}/debian"
+    cp -a packaging/debian/* "exports/${TARGET}/debian/"
+    local EXPORT_PATH="exports/${TARGET}"
+    mkdir -p "${EXPORT_PATH}/opt/antsy-alien-attack-pico"
+    mkdir -p "${EXPORT_PATH}/usr/share/icons/hicolor/128x128/apps"
+    mkdir -p "${EXPORT_PATH}/usr/share/applications"
+    cp "exports/bin/${FILENAME}-${VER}.bin/linux/${FILENAME}-${VER}" "${EXPORT_PATH}/opt/antsy-alien-attack-pico/antsy-alien-attack-pico"
+    cp "exports/bin/${FILENAME}-${VER}.bin/linux/data.pod" "${EXPORT_PATH}/opt/antsy-alien-attack-pico/"
+    cp "exports/bin/${FILENAME}-${VER}.bin/linux/${FILENAME}-${VER}.png" "${EXPORT_PATH}/usr/share/icons/hicolor/128x128/apps/antsy-alien-attack-pico.png"
+    cp packaging/antsy-alien-attack-pico.desktop "${EXPORT_PATH}/usr/share/applications/"
+
+    pushd "${EXPORT_PATH}"
+    dch --newversion="${VER}" --distribution unstable "Release ${REALNAME} ${VER}"
+    dpkg-buildpackage --build=binary --no-check-builddeps --compression=gzip
+    popd
+  fi
+}
+
+function pico_dmg() {
+  # https://stackoverflow.com/a/7553878
+  if [ -x /usr/local/bin/dmg ]; then
+    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}-${VER}_uncompressed.dmg" "exports/bin/${FILENAME}-${VER}.bin/${FILENAME}-${VER}.app/"
+    dmg "exports/${FILENAME}-${VER}_uncompressed.dmg" "exports/${FILENAME}-${VER}.dmg"
+    rm "exports/${FILENAME}-${VER}_uncompressed.dmg"
+  else
+    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}-${VER}.dmg" "exports/bin/${FILENAME}-${VER}.bin/${FILENAME}-${VER}.app/"
+  fi
+}
+
+if ! grep -q __label__ "${P8}"; then
+  echo "ERROR! Your pico-8 project doesn't have a label."
+  echo "       Run your game and press F2 to create one"
+  exit 1
+fi
+
+rm -rf exports
+pico_export bin
+pico_export cart
+pico_export html
+pico_export html_crt
+pico_export wasm
+pico_export wasm_crt
+pico_deb
+pico_snap
+pico_dmg
