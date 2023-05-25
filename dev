@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+P8="main.p8"
+mkdir -p screenshots
+
+pico8 \
+ -windowed 1 \
+ -home ./config \
+ -root_path "." \
+ -desktop "./screenshots" \
+ -screenshot_scale 4 \
+ -gif_scale 4 \
+ -gif_len 120 \
+ "${P8}" &
