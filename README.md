@@ -2,7 +2,29 @@
 
 A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-attack) to be developed during [Linux Game Jam 2023](https://itch.io/jam/linux-game-jam2023) 🐧 using [pico-8](https://www.lexaloffle.com/pico-8.php) because I want to learn it 🧑‍🎓
 
-## Game design 📐
+# Install
+
+## Debian/Ubuntu
+
+Download the `.deb` package from Itch.io and install it using `apt-get`:
+
+```bash
+apt-get install ./antsy-alien-attack-pico_0.23.145_amd64.deb
+```
+
+## Snap
+
+```bash
+snap install antsy-alien-attack-pico
+snap connect antsy-alien-attack-pico:joystick
+```
+
+## Other Linux
+
+Download the Linux `.zip` from Itch.io, extract it and then run the `antsy-alien-attack-pico` binary. You will aslo need to install the SDL2 package for your distribution.
+
+
+# Game design 📐
 
 - Vertical shooter
 - 1-UP or 2-UP
