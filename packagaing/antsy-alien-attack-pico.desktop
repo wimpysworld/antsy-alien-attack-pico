@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Antsy Alien Attack Pico
+GenericName=Shoot em up Game
+Comment=Local 2 player shooter
+Exec=antsy-alien-attack-pico -windowed 0
+Icon=antsy-alien-attack-pico
+Categories=Game;ArcadeGame;
+Keywords=game;multiplayer;
