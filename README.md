@@ -1,6 +1,66 @@
-# Antsy Alien Attack Pico 👾🛸💥
+<h1 align="center">
+  <img src="exports/antsy-alien-attack-pico.p8.png" alt="Antsy Alien Attack Pico">
+  <br />
+  Antsy Alien Attack Pico 👾🛸💥
+</h1>
+<div align="center">
+<a href="https://wimpress.itch.io/antsy-alien-attack-pico" target="_blank"><img width="128" src="https://jessemillar.github.io/available-on-itchio-badge/badge-bw.png" /></a>
+<a href="https://snapcraft.io/antsy-alien-attack-pico"><img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" /></a>
+</div>
 
-A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-attack) to be developed during [Linux Game Jam 2023](https://itch.io/jam/linux-game-jam2023) 🐧 using [pico-8](https://www.lexaloffle.com/pico-8.php) because I want to learn it 🧑‍🎓
+# Plot
+
+Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
+
+> **The year is 2139. Planet Earth is under attack by aliens, and they're (still) antsy!**
+
+## Objective
+
+🚀 **You're a mercenary** with a state-of-the-art space fighter and a gun for hire
+👾 The United Federation of Planet Earth has hired you to **dispatch the aliens and restore calm**
+💰️ **Complete every mission** to fulfil your contract and earn your pay
+
+### One ship. One life. One mission.
+
+💥 Destroy aliens by **shooting, colliding with them or using smart weapons**
+🛸️ **Avoid the aliens** if you can't destroy them
+🔋 Collect power-ups to **charge the ship generator** and enhance your weapons
+🛡️ A fully charged **generator replenishes your shields**
+💣️ You can also **use generator power to unleash smart weapons**
+🛑 **Weapons go offline** when traveling at hyperspeed
+🌌 When your shields are depleted, **you're lost to the vacuum of space**
+
+## Controls 🕹️
+
+Antsy Alien Attack Pico should work with most game controllers. The in-game visuals show the PICO-8 buttons, but the following shows the equivalent buttons for Xbox controllers.
+
+| Action    |  Key  |
+|:---------:|:-----:|
+| Move      | <img src="art/controls/XboxOne_Dpad.png" width="32" alt="D-pad"><img src="art/controls/XboxOne_Left_Stick.png" width="32" alt="Left Stick"> |
+| Fire      | <img src="art/controls/XboxOne_A.png" width="32" alt="A"> |
+| Generator | <img src="art/controls/XboxOne_B.png" width="32" alt="B"> |
+
+### 1-UP Keyboard 1️⃣
+
+| Action    |  Key(s) |
+|:---------:|:-----:|
+| Left      | <img src="art/controls/Arrow_Left_Key_Dark.png" width="32"> |
+| Right     | <img src="art/controls/Arrow_Right_Key_Dark.png" width="32"> |
+| Up        | <img src="art/controls/Arrow_Up_Key_Dark.png" width="32"> |
+| Down      | <img src="art/controls/Arrow_Down_Key_Dark.png" width="32"> |
+| Fire      | <img src="art/controls/N_Key_Dark.png" width="32" alt="N"><img src="art/controls/Z_Key_Dark.png" width="32" alt="Z"><img src="art/controls/C_Key_Dark.png" width="32" alt="C"> |
+| Generator | <img src="art/controls/M_Key_Dark.png" width="32" alt="M"><img src="art/controls/X_Key_Dark.png" width="32" alt="X"><img src="art/controls/V_Key_Dark.png" width="32" alt="V"> |
+
+### 2-UP Keyboard 2️⃣
+
+| Action    |  Key(s) |
+|:---------:|:-----:|
+| Left      | <img src="art/controls/S_Key_Dark.png" width="32" alt="S"> |
+| Right     | <img src="art/controls/F_Key_Dark.png" width="32" alt="F"> |
+| Up        | <img src="art/controls/E_Key_Dark.png" width="32" alt="E"> |
+| Down      | <img src="art/controls/D_Key_Dark.png" width="32" alt="D"> |
+| Fire      | <img src="art/controls/Tab_Key_Dark.png" width="32" alt="Tab"><img src="art/controls/Q_Key_Dark.png" width="32" alt="Q">|
+| Generator | <img src="art/controls/Shift_Key_Dark.png" width="32" alt="Shift"><img src="art/controls/A_Key_Dark.png" width="32" alt="A">|
 
 # Install
 
@@ -21,10 +81,11 @@ snap connect antsy-alien-attack-pico:joystick
 
 ## Other Linux
 
-Download the Linux `.zip` from Itch.io, extract it and then run the `antsy-alien-attack-pico` binary. You will aslo need to install the SDL2 package for your distribution.
-
+Download the Linux `.zip` from Itch.io, extract it and then run `./antsy-alien-attack-pico` from a terminal. **You will also need to install the SDL2 package for your distribution.**
 
 # Game design 📐
+
+A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-attack) developed during [Linux Game Jam 2023](https://itch.io/jam/linux-game-jam2023) 🐧 using [pico-8](https://www.lexaloffle.com/pico-8.php). I've been looking for an excuse to learn pico-8 and this is it!
 
 - Vertical shooter
 - 1-UP or 2-UP
@@ -93,16 +154,22 @@ Download the Linux `.zip` from Itch.io, extract it and then run the `antsy-alien
 - Learn some basic juicing and game-feel mechanics
 - Fun
 
-# License 👨‍⚖️
+## Credits 🙇 & Licenses 👨‍⚖️
 
-The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/MIT_License) and all game assets are licensed using[CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). I'm using graphics, sounds and music from other creators, and those are all under the CC-BY-NC-SA 4.0 license. So the few SFX and sprites I created are also released under the CC-BY-NC-SA 4.0 to keep things simple.
+A big *"Thank you!"* to everyone below who contributed to the making Antsy Alien Attack Pico during the game jam. Antsy Alien Attack Pico would have been boring shapes and silence had it not been for these fine people:
 
-- The player ship is from [Krystian Majewski](https://www.lexaloffle.com/bbs/?uid=16423) and under the [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
-- Most of the other sprites are created by [Alice Masters](https://linktr.ee/alethium_art) and released under the [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
-- All the music is from [Gruber](https://www.lexaloffle.com/bbs/?uid=11292) and released under the [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
-- Most of the SFX are from [Gruber](https://www.lexaloffle.com/bbs/?uid=11292) and released under the [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
+The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/MIT_License) and all game assets are licensed using [CC-BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). As I'm using assets from other creators, and they use the CC-BY-NC-SA 4.0 license, the few SFX and sprites I created are also released under the CC-BY-NC-SA 4.0 to keep things simple.
 
-# TODO
+- The player ship is from [Krystian Majewski](https://www.lexaloffle.com/bbs/?uid=16423) [CC-BY-NC-SA 4.0]
+- Most of the other sprites are created by [Alice Masters](https://linktr.ee/alethium_art) [CC-BY-NC-SA 4.0]
+- All the music is from [Gruber](https://www.lexaloffle.com/bbs/?uid=11292) [CC-BY-NC-SA 4.0]
+- Most of the SFX are from [Gruber](https://www.lexaloffle.com/bbs/?uid=11292) [CC-BY-NC-SA 4.0]
+
+# Task List
+
+10 Days! Welp 😅
+
+- **DevLog** - *coming soon*
 
 ## Engine ⚙️
 
@@ -189,9 +256,17 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [ ] Player gravity-guided pick-ups
 - [ ] Pick-up animations
 
+# Development tools 🧑‍💻
+
+All development was done on Linux workstations, running either [NixOS](https://nixos.org) ❄️  or [elementary OS](https://elementary.io/). I decided to use pico-8 directly for all development, and the following tools to help with the process:
+
+- [PICO-8 CRT effect HTML template](https://github.com/carlc27843/pico8-crt-plate)
+- [Renoiser](https://www.lexaloffle.com/bbs/?tid=36922)
+- [respriter](https://www.lexaloffle.com/bbs/?tid=35255) (*I didn't use this in the end*)
+
 # Graphics Discovery 🖌️
 
-Think about portability to 8x8 or 16x16 sprites with the fixed pico-8 16 colour palette.
+Think about portability to 8x8 or 16x16 sprites with the fixed pico-8 16 colour palette. I found these, most are not suitable for pico-8 😭 Thankfully Alice Masters helped out.
 
 - https://opengameart.org/content/modular-ships
 - https://opengameart.org/content/1616-ship-collection
@@ -245,7 +320,7 @@ I used [Renoiser](https://www.lexaloffle.com/bbs/?tid=36922) to make a new cart 
 
 # SFX Discovery 🔊
 
-SFX 35 to 63 are free after the music is added. Only two channels are available for SFX so none of them can be particularly long running.
+SFX 35 to 63 are free after the music is added. Only two channels are available for SFX so none of them can be particularly long-running and I'll need to manage the channel usage dynamically.
 
 [Gruber](https://www.lexaloffle.com/bbs/?uid=11292) also has a [Pico-8 SFX Pack](https://www.lexaloffle.com/bbs/?tid=34367) he's created for various pico-8 games.
 
@@ -267,12 +342,3 @@ Here are the SFX slot numbers and what the corresponding SFX is used for. Any th
 - 11: Generator Power  : From 51
 - 12: Smartbomb        : From 45
 - 13: Weapons Disabled : From 40
-
-# Development tools 🧑‍💻
-
-All development was done on Linux workstations, running either [NixOS](https://nixos.org) ❄️  or [elementary OS](https://elementary.io/). I decided to use pico-8 directly for all development, and the following tools to help with the process:
-
-- [PICO-8 CRT effect HTML template](https://github.com/carlc27843/pico8-crt-plate)
-- [Renoiser](https://www.lexaloffle.com/bbs/?tid=36922)
-- [respriter](https://www.lexaloffle.com/bbs/?tid=35255)
-
