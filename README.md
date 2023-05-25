@@ -34,7 +34,7 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 
 **Antsy Alien Attack Pico should work with most game controllers** 🎮️ The in-game visuals show the PICO-8 buttons, but the following shows the equivalent buttons for Xbox controllers.
 
-| Action    |  Key  |
+| Action    |  Button / Stick  |
 |:---------:|:-----:|
 | Move      | <img src="art/controls/XboxOne_Dpad.png" width="32" alt="D-pad"><img src="art/controls/XboxOne_Left_Stick.png" width="32" alt="Left Stick"> |
 | Fire      | <img src="art/controls/XboxOne_A.png" width="32" alt="A"> |
@@ -199,9 +199,9 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Build tools 🛠️
 
-- [ ] Linux, Raspberry Pi, Windows, & macOS binaries
-- [ ] `.deb`
-- [ ] Snap
+- [x] Linux, Raspberry Pi, Windows, & macOS binaries
+- [x] `.deb`
+- [x] Snap
 - [ ] Flatpak (*stretch goal*)
 - [ ] AppImage (*stretch goal*)
 
@@ -241,8 +241,8 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 ## Publishing 🕹️
 
 - [x] GitHub page
-- [ ] Itch.io page
-- [ ] Snapstore page
+- [x] Itch.io page
+- [x] Snapstore page
 
 ## Stretch Goals 💪
 
