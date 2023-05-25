@@ -16,23 +16,23 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 
 ## Objective
 
-🚀 **You're a mercenary** with a state-of-the-art space fighter and a gun for hire
-👾 The United Federation of Planet Earth has hired you to **dispatch the aliens and restore calm**
-💰️ **Complete every mission** to fulfil your contract and earn your pay
+🚀 **You're a mercenary** with a state-of-the-art space fighter and a gun for hire  
+👾 The United Federation of Planet Earth has hired you to **dispatch the aliens and restore calm**  
+💰️ **Complete every mission** to fulfil your contract and earn your pay  
 
 ### One ship. One life. One mission.
 
-💥 Destroy aliens by **shooting, colliding with them or using smart weapons**
-🛸️ **Avoid the aliens** if you can't destroy them
-🔋 Collect power-ups to **charge the ship generator** and enhance your weapons
-🛡️ A fully charged **generator replenishes your shields**
-💣️ You can also **use generator power to unleash smart weapons**
-🛑 **Weapons go offline** when traveling at hyperspeed
-🌌 When your shields are depleted, **you're lost to the vacuum of space**
+💥 Destroy aliens by **shooting, colliding with them or using smart weapons**  
+🛸️ **Avoid the aliens** if you can't destroy them  
+🔋 Collect power-ups to **charge the ship generator** and enhance your weapons  
+🛡️ A fully charged **generator replenishes your shields**  
+💣️ You can also **use generator power to unleash smart weapons**  
+🛑 **Weapons go offline** when travelling at hyperspeed  
+🌌 When your shields are depleted, **you're lost to the vacuum of space**  
 
 ## Controls 🕹️
 
-Antsy Alien Attack Pico should work with most game controllers. The in-game visuals show the PICO-8 buttons, but the following shows the equivalent buttons for Xbox controllers.
+**Antsy Alien Attack Pico should work with most game controllers** 🎮️ The in-game visuals show the PICO-8 buttons, but the following shows the equivalent buttons for Xbox controllers.
 
 | Action    |  Key  |
 |:---------:|:-----:|
@@ -85,7 +85,7 @@ Download the Linux `.zip` from Itch.io, extract it and then run `./antsy-alien-a
 
 # Game design 📐
 
-A *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-attack) developed during [Linux Game Jam 2023](https://itch.io/jam/linux-game-jam2023) 🐧 using [pico-8](https://www.lexaloffle.com/pico-8.php). I've been looking for an excuse to learn pico-8 and this is it!
+Antsy Alien Attack Pico is a *"sequel"* to [Antsy Alien Attack](https://github.com/wimpysworld/antsy-alien-attack). Antsy Alien Attack Pico was developed during [Linux Game Jam 2023](https://itch.io/jam/linux-game-jam2023) 🐧 using [PICO-8](https://www.lexaloffle.com/pico-8.php). I've been looking for an excuse to learn PICO-8 and this is it!
 
 - Vertical shooter
 - 1-UP or 2-UP
@@ -268,15 +268,15 @@ All development was done on Linux workstations, running either [NixOS](https://n
 
 Think about portability to 8x8 or 16x16 sprites with the fixed pico-8 16 colour palette. I found these, most are not suitable for pico-8 😭 Thankfully Alice Masters helped out.
 
-- https://opengameart.org/content/modular-ships
-- https://opengameart.org/content/1616-ship-collection
-- https://opengameart.org/content/bullet-collection-2-m484-games
-- https://opengameart.org/content/shmup-ships
-- https://opengameart.org/content/space-ship-shooter-pixel-art-assets
-- https://opengameart.org/content/retro-spaceships
-- https://opengameart.org/content/space-war-man-platform-shmup-set
-- https://opengameart.org/content/super-dead-space-gunner-merc-redux-platform-shmup-hero
-- https://opengameart.org/content/some-invaders
+- <https://opengameart.org/content/modular-ships>
+- <https://opengameart.org/content/1616-ship-collection>
+- <https://opengameart.org/content/bullet-collection-2-m484-games>
+- <https://opengameart.org/content/shmup-ships>
+- <https://opengameart.org/content/space-ship-shooter-pixel-art-assets>
+- <https://opengameart.org/content/retro-spaceships>
+- <https://opengameart.org/content/space-war-man-platform-shmup-set>
+- <https://opengameart.org/content/super-dead-space-gunner-merc-redux-platform-shmup-hero>
+- <https://opengameart.org/content/some-invaders>
 
 # Music Discovery 🎹
 
