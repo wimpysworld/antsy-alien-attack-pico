@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+REALNAME="Antsy Alien Attack Pico"
+LOWERNAME="${REALNAME,,}"
+FILENAME="${LOWERNAME// /-}"
+ITCH_USER="wimpress"
+ITCH_GAME="${FILENAME}"
+
+if [ -e "${HOME}"/.config/itch/butler_creds ]; then
+  VER=$(ls -1 exports/${FILENAME}*_linux.zip | cut -d '_' -f1 | cut -d'-' -f5)
+  for PLATFORM in cart deb dmg linux raspi snap wasm_crt windows; do
+    case "${PLATFORM}" in
+     cart)
+       PLATFORM="p8"
+       CHANNEL="pico-8"
+       EXT="png"
+       butler push "exports/${FILENAME}-${VER}.${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       ;;
+     deb)
+       PLATFORM="amd64"
+       CHANNEL="linux_debian"
+       EXT="deb"
+       butler push "exports/${FILENAME}_${VER}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       ;;
+     dmg)
+       PLATFORM=""
+       CHANNEL="osx"
+       EXT="dmg"
+       butler push "exports/${FILENAME}-${VER}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       ;;
+     html*|wasm*)
+       CHANNEL="html"
+       EXT="zip"
+       butler push "exports/${FILENAME}-${VER}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       ;;
+     raspi)
+       CHANNEL="linux_raspi"
+       EXT="zip"
+       butler push "exports/${FILENAME}-${VER}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       ;;
+     snap)
+       PLATFORM="amd64"
+       EXT="snap"
+       snapcraft upload "exports/${FILENAME}-${VER}_${PLATFORM}.${EXT}" --release stable
+       ;;
+     *)
+       CHANNEL="${PLATFORM}"
+       EXT="zip"
+       butler push "exports/${FILENAME}-${VER}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       ;;
+    esac
+  done
+else
+  echo "WARNING! Not crednetial for Butler found. Skipping Itch publishing."
+fi
