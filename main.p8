@@ -63,10 +63,8 @@ function draw_attract()
  local c=nil
  cls(0)
  draw_stars()
- _big()
- print_fx("antsy alien",nil,2,11,3,3)
- print_fx("attack!",nil,16,8,2,2) 
- _normal()
+ print_fx("antsy alien",nil,2,11,3,3,"big")
+ print_fx("attack!",nil,16,8,2,2,"big") 
  print_fx(_puny("pico"),nil,28,7)
  print_bounce("coming june 6th 2023!",nil,60,12,1,1,32,8)   
  print_fx(_puny("(c) 2023 wimpysworld.com"),nil,120,7,5,5)
@@ -179,43 +177,39 @@ function _center(txt)
 end
 
 //https://pico-8.fandom.com/wiki/p8scii_control_codes
-function _normal()
- poke(0x5f58,0)
+function _normal(txt)
  _txt_wide,_txt_high=4,5
+ return "\^-w\^-t\^-=\^-p\^-i\^-b\^-#"..txt
 end
 
-function _wide()
- poke(0x5f58, 0x1 | 0x4)
+function _wide(txt)
  _txt_wide=8
+ return "\^w"..txt
 end
 
-function _tall()
- poke(0x5f58, 0x1 | 0x8)
+function _tall(txt)
  _txt_high=10
+ return "\^t"..txt
 end
 
-function _big()
- _wide() //just set font w
- _tall() //just set font h
- poke(0x5f58, 0x1 | 0x4 | 0x8)
+function _big(txt)
+ return _wide(_tall(txt))
 end
 
-function _solid()
- poke(0x5f58, 0x1 | 0x10)
+function _solid(txt)
+ return "^\#"..txt
 end
 
-function _invert()
- poke(0x5f58, 0x1 | 0x20)
+function _invert(txt)
+ return "\^i"..txt
 end
 
-function _dotty()
- _big() //just set font w/h
- poke(0x5f58, 0x1 | 0x4 | 0x8 | 0x40)
+function _dotty(txt)
+ return _big("\^p")..txt
 end
 
 function _puny(txt)
  local txt_out=""
- _normal()
  for i=1,#txt do
   local c=ord(txt,i)
   txt_out..=chr(c>96 and c<123 and c-32 or c)
@@ -223,33 +217,42 @@ function _puny(txt)
  return txt_out
 end
 
-function print_fx(txt,x,y,c,lo,hi)
+function print_fx(txt,x,y,c,lo,hi,style)
+ local stxt=_normal(txt)
+ if (style=="big")      stxt=_big(txt)
+ if (style=="invert")   stxt=_invert(txt)
+ if (style=="dotty")    stxt=_dotty(txt)
+ if (style=="solid")    stxt=_solid(txt)
+ //if (style=="stripy_t") return "\^t\^="
+ //if (style=="stripy_w") return "\^w\^="
+ if (style=="tall")     stxt=_tall(txt)
+ if (style=="wide")     stxt=_wide(txt)
  x = x or _center(txt)
 
  --highlight
  if hi then
-  ?txt,x-1,y,hi
-  ?txt,x,y-1,hi
+  ?stxt,x-1,y,hi
+  ?stxt,x,y-1,hi
  end
 
  --shadow
  if lo then
-  ?txt,x+1,y,lo
-  ?txt,x,y+1,lo
+  ?stxt,x+1,y,lo
+  ?stxt,x,y+1,lo
  end
 
- ?txt,x,y,c
+ ?stxt,x,y,c
 end
 
 function print_scroll(txt,x,y,w,c)
- local len=#txt*_txt_wide+w
+ local len=#txt*4+w
  local ox=(tick/dt)%len
  clip(x,y,w,_txt_high)
  print_fx(txt,x+w-ox,y,c)
  clip()
 end
 
-function print_bounce(txt,x,y,c,lo,hi,speed,bounce)
+function print_bounce(txt,x,y,c,lo,hi,speed,bounce,style)
  x = x or _center(txt)
  for i=1,#txt do
   print_fx(
@@ -258,12 +261,13 @@ function print_bounce(txt,x,y,c,lo,hi,speed,bounce)
    y+cos(tick+i/speed)*bounce,
    c,
    lo,
-   hi)
+   hi,
+   style)
   x+=_txt_wide
  end
 end
 
-function print_wave(txt,x,y,c,lo,hi,speed,wave)
+function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
  speed=speed or 0
  wave=wave or 0
  for i=1,#txt do
@@ -274,7 +278,8 @@ function print_wave(txt,x,y,c,lo,hi,speed,wave)
    y,
    c,
    lo,
-   hi)
+   hi,
+   style)
   y+=_txt_high+1
  end
 end
