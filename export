@@ -6,7 +6,6 @@ FILENAME="${LOWERNAME// /-}"
 VER="0.$(date +%y.%j)"
 P8="main.p8"
 OPTS="-windowed -0 -home ./config -root_path ."
-echo "${VER}" > exports/version.txt
 
 function pico_export() {
   local TARGET="${1}"
@@ -125,6 +124,8 @@ if ! grep -q __label__ "${P8}"; then
 fi
 
 rm -rf exports
+mkdir -p exports
+echo "${VER}" > exports/version.txt
 pico_export bin
 pico_export cart
 pico_export html

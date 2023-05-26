@@ -7,14 +7,14 @@ ITCH_USER="wimpress"
 ITCH_GAME="${FILENAME}"
 
 if [ -e "${HOME}"/.config/itch/butler_creds ]; then
-  VER=$(ls -1 exports/${FILENAME}*_linux.zip | cut -d '_' -f1 | cut -d'-' -f5)
+  VER=$(head -n1 exports/version.txt)
   for PLATFORM in cart deb dmg linux raspi snap wasm_crt windows; do
     case "${PLATFORM}" in
      cart)
        PLATFORM="p8"
        CHANNEL="pico-8"
        EXT="png"
-       butler push "exports/${FILENAME}-${VER}.${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       butler push "exports/${FILENAME}.${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
        ;;
      deb)
        PLATFORM="amd64"
@@ -26,27 +26,27 @@ if [ -e "${HOME}"/.config/itch/butler_creds ]; then
        PLATFORM=""
        CHANNEL="osx"
        EXT="dmg"
-       butler push "exports/${FILENAME}-${VER}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       butler push "exports/${FILENAME}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
        ;;
      html*|wasm*)
        CHANNEL="html"
        EXT="zip"
-       butler push "exports/${FILENAME}-${VER}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       butler push "exports/${FILENAME}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
        ;;
      raspi)
        CHANNEL="linux_raspi"
        EXT="zip"
-       butler push "exports/${FILENAME}-${VER}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       butler push "exports/${FILENAME}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
        ;;
      snap)
        PLATFORM="amd64"
        EXT="snap"
-       snapcraft upload "exports/${FILENAME}-${VER}_${PLATFORM}.${EXT}" --release stable
+       snapcraft upload "exports/${FILENAME}_${VER}_${PLATFORM}.${EXT}" --release stable
        ;;
      *)
        CHANNEL="${PLATFORM}"
        EXT="zip"
-       butler push "exports/${FILENAME}-${VER}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       butler push "exports/${FILENAME}_${PLATFORM}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
        ;;
     esac
   done
