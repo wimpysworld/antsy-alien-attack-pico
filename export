@@ -28,6 +28,9 @@ function pico_export() {
     EXPORT_OPTS+=" -p ./config/plates/crtplate"
   fi
 
+  # Show EXIT in the main menu by default
+  echo "show_exit=true" > build_config.p8
+
   # Export the target
   case "${TARGET}" in
    bin) pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}-${VER}.bin" "${P8}"
@@ -37,7 +40,10 @@ function pico_export() {
          cp "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" exports/
          mv "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" "exports/${FILENAME}.p8.png"
          ;;
-   html*|wasm*) pico8 "${OPTS}" -export "${EXPORT_OPTS} ${EXPORT_PATH}/${FILENAME}-${VER}.html" "${P8}";;
+   html*|wasm*)
+     # disbale the EXIT option on HTML/WASM export, it is useless here
+     echo "show_exit=false" > build_config.p8
+     pico8 "${OPTS}" -export "${EXPORT_OPTS} ${EXPORT_PATH}/${FILENAME}-${VER}.html" "${P8}";;
   esac
 
   # Make .zip of the HTML/WASM export for Itch.io.
