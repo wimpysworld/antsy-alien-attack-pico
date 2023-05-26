@@ -9,6 +9,23 @@ function _init()
  cartdata("wimpy_antsy-alien-attack-pico_"..version_data)
  extcmd("set_title","antsy alien attack pico")
 
+ // persist hi_score
+ hi_score=dget(0)
+ if hi_score==0 then
+  for i=1,5 do
+   hi_score+=10000 >> 16
+  end
+  dset(0,hi_score)
+ end
+
+ // 0: new cart
+ // 1: on
+ //-1: off
+ music_enabled=dget(1)
+ if music_enabled==0 then
+  music_enabled=1
+  dset(1,music_enabled)
+ end
  dt,fc,tick,l_titck,sparkle=0,0,0,0,0
  init_attract()
 end
