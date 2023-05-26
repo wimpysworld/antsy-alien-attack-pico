@@ -1,1 +1,1 @@
-show_exit=false
+show_exit=true
