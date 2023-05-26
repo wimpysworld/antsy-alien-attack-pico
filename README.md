@@ -173,7 +173,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Engine ⚙️
 
-- [ ] Text renderer
+- [x] Text renderer
 - [ ] State system
 - [ ] Actors object
 - [ ] Weapons object
@@ -184,13 +184,13 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Menus & Game State 🎛️
 
-- [ ] Main screen with Tux
-- [ ] Credits
+- [x] Main screen with Tux
+- [x] Credits
 - [ ] Help
 - [ ] Game Over
 - [ ] Game Win
-- [ ] Toggle music
-- [ ] Persist Hiscore
+- [x] Toggle music
+- [x] Persist Hiscore
 
 ## Juice 🧃
 
@@ -243,6 +243,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] GitHub page
 - [x] Itch.io page
 - [x] Snapstore page
+- [ ] Lexaloffle BBS page
 
 ## Stretch Goals 💪
 
