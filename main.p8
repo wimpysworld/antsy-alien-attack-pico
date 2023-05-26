@@ -84,6 +84,7 @@ function init_attract()
   sfx(1)
  end
  ignore_input=10
+ music_play(0)
  init_stars()
  update_loop,draw_loop=
   update_attract,draw_attract
