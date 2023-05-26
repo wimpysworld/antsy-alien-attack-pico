@@ -28,6 +28,7 @@ end
 
 function _draw()
  draw_loop()
+ add(debug,stat(5))
  cursor(0,12)
  color(7)
  for d in all(debug) do
