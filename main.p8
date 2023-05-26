@@ -92,7 +92,7 @@ function init_attract()
  add_menu_item("music",50,music_toggle)
  add_menu_item("help",60,init_help)
  add_menu_item("credits",70,init_credits)
- add_menu_item("exit",80,exit_game)  
+ if (show_exit) add_menu_item("exit",80,exit_game)  
 end
 
 function update_attract()
