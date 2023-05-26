@@ -35,7 +35,7 @@ function pico_export() {
         ;;
    cart) pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" "${P8}"
          cp "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" exports/
-         mv "${EXPORT_PATH}/${FILENAME}.p8.png" exports/
+         mv "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" "exports/${FILENAME}.p8.png"
          ;;
    html*|wasm*) pico8 "${OPTS}" -export "${EXPORT_OPTS} ${EXPORT_PATH}/${FILENAME}-${VER}.html" "${P8}";;
   esac
