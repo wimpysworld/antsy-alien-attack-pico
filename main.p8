@@ -61,10 +61,36 @@ end
 -->8
 -- game state & menus
 
+function add_menu_item(name,pos,init)
+ add(menu_items,{
+  name=name,
+  pos=pos,
+  col=12,
+  out=1,
+  init=init
+ })
+end
+
+function exit_game()
+ extcmd("shutdown")
+end
+
 function init_attract()
+ if not menu_pos then
+  menu_pos=1
+ else
+  sfx(1)
+ end
+ ignore_input=10
  init_stars()
  update_loop,draw_loop=
   update_attract,draw_attract
+ menu_items={}
+ add_menu_item("play",40,init_game)
+ add_menu_item("music",50,music_toggle)
+ add_menu_item("help",60,init_help)
+ add_menu_item("credits",70,init_credits)
+ add_menu_item("exit",80,exit_game)  
 end
 
 function update_attract()
@@ -81,6 +107,26 @@ function update_attract()
  end
 
  update_stars()
+ if any_action_btnp() then
+  if (menu_pos!=1) sfx(1)
+  menu_items[menu_pos].init()
+ end
+
+ if any_btnp(2) then
+  menu_pos-=1
+  sfx(0)
+ elseif any_btnp(3) then
+  menu_pos+=1
+  sfx(0)
+ end
+ menu_pos=mid(1,menu_pos,#menu_items)
+
+ if any_btnp(0) or any_btnp(1) then
+  if (menu_pos==1) num_players+=1
+  if (menu_pos==2) music_toggle()
+  if (num_players>2) num_players=1
+  sfx(1)
+ end 
 end
 
 function draw_attract()
@@ -90,7 +136,23 @@ function draw_attract()
  print_fx("antsy alien",nil,2,11,3,3,"big")
  print_fx("attack!",nil,16,8,2,2,"big") 
  print_fx(_puny("pico"),nil,28,7)
- print_bounce("coming june 6th 2023!",nil,60,12,1,1,32,8)   
+
+ local music_state="off"
+ if (music_enabled>=0) music_state="on"
+ for i=1,#menu_items do
+  local m=menu_items[i]
+  if (i==1) m.name="play "..tostr(num_players).."-up"
+  if (i==2) m.name="music "..music_state
+  if (menu_pos==i) c=sparkle else c=m.col
+  print_fx(m.name,nil,m.pos,c,m.out,m.out)
+
+  -- draw hints for toggles
+  if i<=2 and i==menu_pos then
+   print_fx("⬅️",31,m.pos,sparkle,1,1)
+   print_fx("➡️",88,m.pos,sparkle,1,1)
+  end
+ end
+ 
  print_fx(_puny("(c) 2023 wimpysworld.com"),nil,120,7,5,5)
 
  local tux=sprite_create({140},4,4)
@@ -98,7 +160,8 @@ function draw_attract()
  sprite_draw(tux,89,90)
  print_fx(_puny("made with ♥ for"),nil,100,7)
  print_fx(_puny("          ♥    "),nil,100,8,2,14)
- print_fx(_puny("linux game jam"),nil,105,7)
+ print_fx(_puny("linux game jam"),nil,105,7) 
+end
  
 end
 
