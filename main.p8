@@ -33,7 +33,7 @@ function _init()
 
  num_players=1
 
- dt,fc,tick,l_titck,sparkle=0,0,0,0,0
+ dt,fc,tick,l_tick,sparkle=0,0,0,0,0
  init_attract()
 end
 
