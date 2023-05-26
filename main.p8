@@ -162,9 +162,91 @@ function draw_attract()
  print_fx(_puny("          ♥    "),nil,100,8,2,14)
  print_fx(_puny("linux game jam"),nil,105,7) 
 end
- 
+
+function init_help()
+ ignore_input=60
+ update_loop,draw_loop=
+  update_help,draw_help
 end
 
+function update_help()
+ update_stars()
+ if (any_action_btnp()) init_attract()
+end
+
+function draw_help()
+ cls(0)
+ draw_stars()
+ print_fx("                    ",nil,4+8,6,13,13,"invert")
+ print_bounce("help",nil,9,10,9,9,16,3)
+
+ local help_text={
+  " antsy alien attack pico ",
+  "                         ",
+  " if it moves shoot first ",
+  " and ask questions later ",
+  "                         ",
+  "  some explosions yield  ",
+  " power ups, collect them ",
+  "        good luck!       ",
+ }
+
+ print_wave(help_text,nil,24,12,1,1)
+ menu_footer()
+end
+
+function add_credits(name,humans,y,lt,dk)
+ add(credits,{
+  name=name,
+  humans=humans,
+  y=y,
+  lt=lt,
+  dk=dk
+ })
+end
+
+function init_credits()
+ ignore_input=60
+ update_loop,draw_loop=
+  update_credits,draw_credits
+ credits={}
+ add_credits("code",    "martin wimpress",3,8,2)
+ add_credits("music",   "chris donnelly",27,9,4)
+ add_credits("sound",   "chris donnelly & martin wimpress",50,10,9)
+ add_credits("graphics","alice masters, krystian majewski & martin wimpress",73,11,3)
+ add_credits("testing", "neil mcphail, stuart langridge & simon butcher",96,12,1)
+end
+
+function update_credits()
+ update_stars()
+ if (any_action_btnp()) init_attract()
+end
+
+function draw_credits()
+ cls(0)
+ draw_stars()
+ for c in all(credits) do
+  print_fx("                    ",nil,c.y+6,c.lt,c.dk,c.dk,"invert")
+  print_bounce(c.name,nil,c.y+3,6,5,5,8,3)
+  print_scroll(c.humans,22,c.y+14,83,c.lt)
+ end
+ menu_footer()
+end
+
+function menu_footer()
+ print_fx("press ❎ or 🅾️",nil,120,6)
+ print_fx("      ❎    🅾️",nil,120,sparkle)
+end
+
+-- menus respond to multiple controllers
+function any_btnp(b)
+ if (ignore_input>0) return
+ return btnp(b,0) or btnp(b,1)
+end
+
+function any_action_btnp()
+ return any_btnp(4) or any_btnp(5)
+end
 -->8
 -- vfx
 
