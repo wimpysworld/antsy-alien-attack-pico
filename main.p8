@@ -452,8 +452,48 @@ function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
   y+=_txt_high+1
  end
 end
+
+function zero_pad(txt,len)
+ if (#txt<len) return "0"..zero_pad(txt,len-1)
+ return txt
+end
+
+function numtostr(num,pad)
+ local txt=tostr(num,0x2)
+ if (pad) txt=zero_pad(txt,pad)
+ return txt
+end
 -->8
--- tab 3
+-- game logic
+
+function init_game()
+ gametime=0
+ hyperspeed_target=5
+ update_loop,draw_loop=
+  update_game,draw_game
+end
+
+function update_game()
+ cls(0)
+ gametime+=1
+ draw_stars()
+ print_fx("hi "..numtostr(hi_score,7),_center("hi 0000000",4),0,7)
+
+ print_bounce("coming june 6th 2023!",nil,60,12,1,1,32,8)
+
+ if hyperspeed<=0 and gametime>=300 then
+   update_loop,draw_loop=
+    update_attract,draw_attract   
+ elseif gametime>=300 then
+  hyperspeed_target=0 
+ elseif gametime<300 then
+  hyperspeed_target=5
+ end
+end
+
+function draw_game()
+ update_stars()
+end
 -->8
 --tab 4
 -->8
