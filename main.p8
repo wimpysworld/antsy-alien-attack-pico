@@ -378,6 +378,20 @@ function sprite_draw(s,x,y)
  end
 end
 
+function music_play(pat)
+ if music_enabled>0 then
+  music(pat,0,3)
+ else
+  music(-1,1000,0)
+ end
+end
+
+function music_toggle()
+ music_enabled*=-1
+ music_play(max(-1,music_enabled))
+ dset(1,music_enabled)
+end
+
 function get_x_axis(controller)
  local btn0_mask,btn1_mask=0x0001,0x0002
  if controller==1 then
