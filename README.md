@@ -169,7 +169,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 10 Days! Welp 😅
 
-- **DevLog** - *coming soon*
+- 🪵 [**DevLog**](https://itch.io/jam/linux-game-jam2023/topic/2880148/devlog-antsy-alien-attack-pico-)
 
 ## Engine ⚙️
 
