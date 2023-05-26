@@ -2,3 +2,4 @@ config/activity_log.txt
 config/log.txt
 config/backup/
 exports/
+build_config.p8
