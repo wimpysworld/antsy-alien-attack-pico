@@ -6,6 +6,7 @@ FILENAME="${LOWERNAME// /-}"
 VER="0.$(date +%y.%j)"
 P8="main.p8"
 OPTS="-windowed -0 -home ./config -root_path ."
+echo "${VER}" > exports/version.txt
 
 function pico_export() {
   local TARGET="${1}"
@@ -33,24 +34,25 @@ function pico_export() {
 
   # Export the target
   case "${TARGET}" in
-   bin) pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}-${VER}.bin" "${P8}"
-        mv "${EXPORT_PATH}/${FILENAME}-${VER}.bin/"*.zip exports/
-        ;;
-   cart) pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" "${P8}"
-         cp "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" exports/
-         mv "${EXPORT_PATH}/${FILENAME}-${VER}.p8.png" "exports/${FILENAME}.p8.png"
-         ;;
+   bin)
+     pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}.bin" "${P8}"
+     mv "${EXPORT_PATH}/${FILENAME}.bin"/*.zip exports/
+     ;;
+   cart)
+     pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}.p8.png" "${P8}"
+     cp "${EXPORT_PATH}/${FILENAME}.p8.png" exports/
+     ;;
    html*|wasm*)
      # disbale the EXIT option on HTML/WASM export, it is useless here
      echo "show_exit=false" > build_config.p8
-     pico8 "${OPTS}" -export "${EXPORT_OPTS} ${EXPORT_PATH}/${FILENAME}-${VER}.html" "${P8}";;
+     pico8 "${OPTS}" -export "${EXPORT_OPTS} ${EXPORT_PATH}/${FILENAME}.html" "${P8}";;
   esac
 
   # Make .zip of the HTML/WASM export for Itch.io.
   if [[ ${TARGET} == *html* ]] || [[ ${TARGET} == *wasm* ]]; then
-    mv "${EXPORT_PATH}/${FILENAME}-${VER}.html" "exports/${TARGET}/index.html"
+    mv "${EXPORT_PATH}/${FILENAME}.html" "exports/${TARGET}/index.html"
     pushd "${EXPORT_PATH}"
-    zip -9 "../${FILENAME}-${VER}_${TARGET}.zip" *
+    zip -9 "../${FILENAME}_${TARGET}.zip" *
     popd
   fi
 }
@@ -73,9 +75,7 @@ function pico_snap() {
     cp -a packaging/snap/* "exports/${TARGET}/snap/"
     local EXPORT_PATH="exports/${TARGET}"
     mkdir -p "${EXPORT_PATH}/game"
-    cp "exports/bin/${FILENAME}-${VER}.bin/linux/${FILENAME}-${VER}" "${EXPORT_PATH}/game/antsy-alien-attack-pico"
-    cp "exports/bin/${FILENAME}-${VER}.bin/linux/data.pod" "${EXPORT_PATH}/game/"
-    cp "exports/bin/${FILENAME}-${VER}.bin/linux/${FILENAME}-${VER}.png" "${EXPORT_PATH}/game/antsy-alien-attack-pico.png"
+    cp "exports/bin/${FILENAME}.bin/linux/"* "${EXPORT_PATH}/game/"
     cp packaging/antsy-alien-attack-pico.desktop "${EXPORT_PATH}/game/"
     sed -i s'|Icon=antsy-alien-attack-pico|Icon=/antsy-alien-attack-pico\.png|' "${EXPORT_PATH}/game/antsy-alien-attack-pico.desktop"
     sed -i "s/version: '0'/version: '${VER}'/" "${EXPORT_PATH}/snap/snapcraft.yaml"
@@ -95,9 +95,9 @@ function pico_deb() {
     mkdir -p "${EXPORT_PATH}/opt/antsy-alien-attack-pico"
     mkdir -p "${EXPORT_PATH}/usr/share/icons/hicolor/128x128/apps"
     mkdir -p "${EXPORT_PATH}/usr/share/applications"
-    cp "exports/bin/${FILENAME}-${VER}.bin/linux/${FILENAME}-${VER}" "${EXPORT_PATH}/opt/antsy-alien-attack-pico/antsy-alien-attack-pico"
-    cp "exports/bin/${FILENAME}-${VER}.bin/linux/data.pod" "${EXPORT_PATH}/opt/antsy-alien-attack-pico/"
-    cp "exports/bin/${FILENAME}-${VER}.bin/linux/${FILENAME}-${VER}.png" "${EXPORT_PATH}/usr/share/icons/hicolor/128x128/apps/antsy-alien-attack-pico.png"
+    cp "exports/bin/${FILENAME}.bin/linux/antsy-alien-attack-pico" "${EXPORT_PATH}/opt/antsy-alien-attack-pico/"
+    cp "exports/bin/${FILENAME}.bin/linux/data.pod" "${EXPORT_PATH}/opt/antsy-alien-attack-pico/"
+    cp "exports/bin/${FILENAME}.bin/linux/${FILENAME}.png" "${EXPORT_PATH}/usr/share/icons/hicolor/128x128/apps/antsy-alien-attack-pico.png"
     cp packaging/antsy-alien-attack-pico.desktop "${EXPORT_PATH}/usr/share/applications/"
 
     pushd "${EXPORT_PATH}"
@@ -110,11 +110,11 @@ function pico_deb() {
 function pico_dmg() {
   # https://stackoverflow.com/a/7553878
   if [ -x /usr/local/bin/dmg ]; then
-    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}-${VER}_uncompressed.dmg" "exports/bin/${FILENAME}-${VER}.bin/${FILENAME}-${VER}.app/"
-    dmg "exports/${FILENAME}-${VER}_uncompressed.dmg" "exports/${FILENAME}-${VER}.dmg"
-    rm "exports/${FILENAME}-${VER}_uncompressed.dmg"
+    genisoimage -V "${REALNAME} ${VER}" -D -R -apple -no-pad -o "exports/${FILENAME}_uncompressed.dmg" "exports/bin/${FILENAME}.bin/${FILENAME}.app/"
+    dmg "exports/${FILENAME}_uncompressed.dmg" "exports/${FILENAME}.dmg"
+    rm "exports/${FILENAME}_uncompressed.dmg"
   else
-    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}-${VER}.dmg" "exports/bin/${FILENAME}-${VER}.bin/${FILENAME}-${VER}.app/"
+    genisoimage -V "${REALNAME} ${VER}" -D -R -apple -no-pad -o "exports/${FILENAME}.dmg" "exports/bin/${FILENAME}.bin/${FILENAME}.app/"
   fi
 }
 
