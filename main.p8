@@ -14,8 +14,8 @@ function _init()
  // persist hi_score
  hi_score=dget(0)
  if hi_score==0 then
-  for i=1,5 do
-   hi_score+=10000 >> 16
+  for i=1,7 do
+   hi_score+=25000 >> 16
   end
   dset(0,hi_score)
  end
