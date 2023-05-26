@@ -181,6 +181,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [ ] Bitwise controller system
 - [ ] uint32 handler
 - [ ] SFX channel allocator
+- [ ] [fake-08](https://github.com/jtothebell/fake-08) compatibility
 
 ## Menus & Game State 🎛️
 
