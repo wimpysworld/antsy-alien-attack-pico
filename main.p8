@@ -26,6 +26,11 @@ function _init()
   music_enabled=1
   dset(1,music_enabled)
  end
+
+ ignore_input=0
+
+ num_players=1
+
  dt,fc,tick,l_titck,sparkle=0,0,0,0,0
  init_attract()
 end
@@ -36,6 +41,7 @@ function _update60()
  tick=time()
  dt=tick-l_tick
  fc+=1
+ ignore_input=max(0,ignore_input-1)
 
  sparkle+=1
  if (sparkle<=1 or sparkle>15) sparkle=2
