@@ -92,7 +92,7 @@ function init_attract()
  add_menu_item("music",50,music_toggle)
  add_menu_item("help",60,init_help)
  add_menu_item("credits",70,init_credits)
- if (show_exit) add_menu_item("exit",80,exit_game)  
+ if (show_exit) add_menu_item("exit",80,exit_game)
 end
 
 function update_attract()
@@ -128,7 +128,7 @@ function update_attract()
   if (menu_pos==2) music_toggle()
   if (num_players>2) num_players=1
   sfx(1)
- end 
+ end
 end
 
 function draw_attract()
@@ -136,7 +136,7 @@ function draw_attract()
  cls(0)
  draw_stars()
  print_fx("antsy alien",nil,2,11,3,3,"big")
- print_fx("attack!",nil,16,8,2,2,"big") 
+ print_fx("attack!",nil,16,8,2,2,"big")
  print_fx(_puny("pico"),nil,28,7)
 
  local music_state="off"
