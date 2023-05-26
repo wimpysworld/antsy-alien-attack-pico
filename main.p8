@@ -4,6 +4,8 @@ __lua__
 -- antsy alien attack pico
 -- wimpysworld.com
 
+#include build_config.p8
+
 function _init()
  version_data,version_game="1","1"
  cartdata("wimpy_antsy-alien-attack-pico_"..version_data)
