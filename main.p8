@@ -517,7 +517,7 @@ end
 function apply_stars_accel(dx,dy)
  local players=active_players()
 
- stars_accx+=(dx*0.5)/players
+ stars_accx-=(dx*0.5)/players
 
  if dy==-1 then
   stars_accy-=dy*0.05/players
