@@ -742,6 +742,10 @@ function rnd_range(low,high)
  return flr(rnd(high+1-low)+low)
 end
 
+function is_outside_playarea(x,y)
+ return (((x<-32 or y<-32) or (x>144 or y>144)))
+end
+
 function get_x_axis(controller)
  local btn0_mask,btn1_mask=0x0001,0x0002
  if controller==1 then
