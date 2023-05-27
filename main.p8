@@ -365,6 +365,121 @@ function draw_shockwaves()
 	 )
  end
 end
+
+function emit_plume(x,y,wait,maxage,max_radius,spread,style)
+ for i=1,rnd_range(1,5) do
+  local dist=rnd(spread)+i
+		style = style or rnd_range(1,3)
+
+	 add(explosions,{
+			x=x+sin(dist)*dist/2,
+			y=y+cos(dist)*dist/2,
+			r=3,
+			tor=max_radius*0.75+rnd(max_radius*0.25),
+			tox=x+sin(dist)*dist,
+			toy=y+cos(dist)*dist,
+			wait=wait,
+			maxage=maxage,
+			at_end="collapse",
+			spd=2,
+			age=0,
+			style=style
+		})
+	end
+end
+
+function emit_explosion(x,y,size,explosion_style,debris_style)
+ local wait=size+size*2+(3/size)
+ local max_radius=size*3+(3/size)+size
+ local spread=size*6+(4/size)
+	local maxage=rnd(wait)+wait/2+size
+
+ emit_debris(x,y,size,debris_style)
+ emit_shockwave(x,y,size)
+
+	--x,y,wait,maxage,max_radius,spread
+	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+	if (size>=2)	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+	if (size>=3) emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+end
+
+function update_explosions()
+	for ex in all(explosions) do
+		if ex.wait then
+			ex.wait-=0.95
+			if (ex.wait<=0)	ex.wait=nil
+		else
+			ex.age+=0.85
+
+			if ex.sx then
+				ex.x+=ex.sx
+				ex.y+=ex.sy
+				if ex.tox	then
+				 ex.tox+=ex.sx
+				 ex.toy+=ex.sy
+				end
+			end
+
+		 --cloud rate of collapse
+		 if (ex.tor) ex.r+=ex.tor-ex.r*ex.spd/1.25
+
+			if ex.tox then
+				ex.x+=(ex.tox-ex.x)/ex.spd/250
+				ex.y+=(ex.toy-ex.y)/ex.spd/500
+			end
+
+   //clouds drift upwards
+			ex.y-=0.75
+
+		 --max age
+	 	if ex.age>=ex.maxage or ex.r<1 then
+			 if ex.at_end=="collapse" then
+				 ex.at_end=nil
+				 ex.maxage+=300
+				 ex.tor=0
+				 ex.spd=0.2
+				 ex.wait=0
+			 else
+	 		 del(explosions,ex)
+			 end
+		 end
+	 end
+	end
+end
+
+function draw_explosions()
+	for ex in all(explosions) do
+		if (not ex.wait) then
+		 local r=ex.r
+			local layer={
+		  0,
+		  r*0.05,
+			 r*0.17,
+			 r*0.35,
+			 r*0.60
+			}
+			local style={
+			 "1,4,9,10,7",  --yellow
+			 "5,4,9,10,15", --orange
+			 "1,4,8,9,10",  --fire
+		  "1,5,13,6,7",  --smoke
+			 "1,2,8,14,7",  --red
+			 "1,3,11,10,7", --green
+			 "1,13,12,6,7"  --blue
+			}
+
+			for i=1,#layer do
+			 circfill(
+			  ex.x,
+			  ex.y-layer[i],
+			  ex.r-layer[i],
+			  split(style[ex.style])[i]
+			 )
+			end
+		end
+	end
+end
 // cls with flash and shake
 function cls_fx(col,flash)
  if screen_flash>0 then
