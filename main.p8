@@ -743,10 +743,13 @@ end
 function shmup()
  local win_target=level*100
  if not gamestate.ready then
+  gamestate.hud_target=win_target
+
   gamestate.aliens_max=10
   gamestate.title="shmuuuuup!"
   gamestate.text="destory "..tostr(win_target).." aliens"
  else
+  gamestate.hud_progress=gamestate.aliens_destroyed
   if #aliens<gamestate.aliens_max then
    create_alien(rnd_range(16,112),rnd_range(-16,-8))
   end
