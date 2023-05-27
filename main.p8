@@ -465,7 +465,8 @@ function _tall(txt)
 end
 
 function _big(txt)
- return _wide(_tall(txt))
+ _txt_wide,_txt_high=8,10
+ return "\^t\^w"..txt
 end
 
 function _solid(txt)
@@ -477,7 +478,8 @@ function _invert(txt)
 end
 
 function _dotty(txt)
- return _big("\^p")..txt
+ _txt_wide,_txt_high=8,10
+ return "\^t\^w\^p"..txt
 end
 
 function _puny(txt)
