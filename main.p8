@@ -1269,18 +1269,37 @@ function create_alien(x,y,breed)
 
  al=aliens[#aliens]
  al.breed=breed
- al.hp=40
- al.debris_size=1
- al.explosion_size=1
- al.sprite=sprite_create({66},1,1)
- sprite_hitbox(al.sprite,1,1,5,5)
- al.sprite.show_hitbox=true
+ if breed=="asteroid" then
+  al.hp=30
+  al.debris_size=2
+  al.explosion_size=2
+  local rocks=split("71,72,73,74")
+  if (rnd_range(1,2)==2) rocks=split("87,88,89,90")
+  al.sprite=sprite_create(rocks,1,1)
+  sprite_hitbox(al.sprite,2,1,3,4)
+  al.sprite.frame=rnd_range(1,#rocks)
+  al.sprite.show_hitbox=true
+  al.speed_y=1+(rnd(0.5))
+  al.speed_x=-0.50+rnd(0.5)+0.25
+ else
+  al.hp=40
+  al.debris_size=1
+  al.explosion_size=1
+  al.sprite=sprite_create({66},1,1)
+  sprite_hitbox(al.sprite,1,1,5,5)
+  //al.sprite.show_hitbox=true
+ end
 end
 
 function update_aliens()
  for al in all(aliens) do
   al.y+=al.speed_y
-  al.sprite.frame+=0.075
+  if al.breed=="asteroid" then
+    al.sprite.frame+=0.085
+    al.x+=al.speed_x
+  else
+    al.sprite.frame+=0.075
+  end
   if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
 
   if is_outside_playarea(al.x,al.y) then
