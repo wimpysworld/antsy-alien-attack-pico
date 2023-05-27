@@ -705,6 +705,44 @@ end
 -->8
 -- game logic
 
+function init_game()
+ debris,
+ shockwaves,
+ explosions=
+  {},{},{}
+
+ music_play(6)
+ init_players()
+ update_loop,draw_loop=
+  update_game,draw_game
+end
+
+function update_game()
+ update_screen_shake()
+ update_stars()
+ update_players()
+ update_shockwaves()
+ update_debris()
+ update_explosions()
+
+ if active_players()<1 and #explosions<=0 then
+  init_gameover()
+ end
+end
+
+function draw_game()
+ cls_fx(0,9)
+ draw_stars()
+ 
+ print_bounce("coming june 6th 2023!",nil,60,12,1,1,32,8) 
+ 
+ draw_players()
+ draw_shockwaves()
+ draw_debris()
+ draw_explosions()
+ print_fx("hi "..numtostr(hi_score,7),_center("hi 0000000",4),0,7)
+end
+
 // recreated for each objective
 // counters used to determine
 // if game objectives have been
