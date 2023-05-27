@@ -666,6 +666,9 @@ function print_scroll(txt,x,y,w,c)
 end
 
 function print_bounce(txt,x,y,c,lo,hi,speed,bounce,style)
+ //this just gets the font
+ //dimensions
+ style_text(txt,style)
  x = x or _center(txt)
  for i=1,#txt do
   print_fx(
@@ -681,6 +684,10 @@ function print_bounce(txt,x,y,c,lo,hi,speed,bounce,style)
 end
 
 function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
+ //this just gets the font
+ //dimensions 
+ style_text(txt,style)
+
  speed=speed or 0
  wave=wave or 0
  for i=1,#txt do
