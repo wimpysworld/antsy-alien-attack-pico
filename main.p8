@@ -773,6 +773,40 @@ end
 -->8
 --players
 
+function emit_rocket(player_num)
+ emit_muzzle_flash(player_num)
+ local pl=players[player_num]
+ for i=1,2 do
+  local rx=pl.x
+  if (i==2) rx=pl.x+8
+  add(rockets,create_projectile(pl,rx,pl.y-4))
+
+  local rocket=rockets[#rockets]
+  rocket.owner=player_num
+  rocket.sprite=sprite_create({10,11,10,12},1,2)
+  sprite_hitbox(rocket.sprite,0,1,7,10)
+  rocket.sprite.show_hitbox=true
+  add(rocket.sprite.pal_swaps,{9,pl.col_dk})
+  add(rocket.sprite.pal_swaps,{10,pl.col_lt})
+ end
+end
+
+function update_rockets()
+ for rocket in all(rockets) do
+  sprite_loop_frame(rocket.sprite,0.75)
+  rocket.y-=rocket.speed
+  if is_outside_playarea(rocket.x,rocket.y) then
+   del(rockets,rocket)  
+  end
+ end
+end
+
+function draw_rockets()
+ for rocket in all(rockets) do
+  sprite_draw(rocket.sprite,rocket.x,rocket.y)
+ end
+end
+
 function active_players()
  local active=0
  for pl in all(players) do
@@ -881,7 +915,7 @@ function update_players()
   if btn(4,controller) then
    if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
     pl.shot_cooldown_timer=pl.shot_cooldown
-    emit_muzzle_flash(pl.num)
+    emit_rocket(pl.num)
    end
   end
 
@@ -894,9 +928,11 @@ function update_players()
 
   ::next_player::
  end
+ update_rockets()
 end
 
 function draw_players()
+ draw_rockets()
  draw_muzzle_flashes()
  for pl in all(players) do
   sprite_draw(pl.sprite,pl.x,pl.y)
