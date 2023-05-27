@@ -1141,7 +1141,40 @@ function draw_muzzle_flashes()
 end
 
 -->8
--- tab 5
+--aliens
+
+function create_alien(x,y,breed)
+ add(aliens,create_actor(x,y))
+
+ al=aliens[#aliens]
+ al.breed=breed
+ al.hp=20
+ al.debris_size=1
+ al.explosion_size=1
+ al.sprite=sprite_create({66},1,1)
+ sprite_hitbox(al.sprite,1,1,5,5)
+ al.sprite.show_hitbox=true
+end
+
+function update_aliens()
+ for al in all(aliens) do
+  al.y+=al.speed_y
+  al.sprite.frame+=0.075
+  if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
+
+  if is_outside_playarea(al.x,al.y) then
+   gamestate.aliens_escaped+=1
+   del(aliens,al)
+  end
+ end
+end
+
+function draw_aliens()
+ for al in all(aliens) do
+  sprite_draw(al.sprite,al.x,al.y)
+ end
+end
+
 -->8
 -- helpers
 
