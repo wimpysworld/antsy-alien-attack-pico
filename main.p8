@@ -99,11 +99,13 @@ function init_attract()
  update_loop,draw_loop=
   update_attract,draw_attract
  menu_items={}
- add_menu_item("play",40,init_game)
- add_menu_item("music",50,music_toggle)
- add_menu_item("help",60,init_help)
- add_menu_item("credits",70,init_credits)
- if (show_exit) add_menu_item("exit",80,exit_game)
+ local menu_y=48
+ if (show_exit) menu_y=44
+ add_menu_item("play",menu_y,init_game)
+ add_menu_item("music",menu_y+10,music_toggle)
+ add_menu_item("help",menu_y+20,init_help)
+ add_menu_item("credits",menu_y+30,init_credits)
+ if (show_exit) add_menu_item("exit",menu_y+40,exit_game)
 end
 
 function update_attract()
