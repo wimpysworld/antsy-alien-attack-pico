@@ -765,6 +765,11 @@ function sprite_draw(s,x,y)
  end
 end
 
+function sprite_loop_frame(s,val)
+  s.frame+=val
+  if (flr(s.frame)>#s.frames) s.frame=1
+end
+
 // http://gamedev.docrobs.co.uk/first-steps-in-pico-8-hitting-things
 function sprite_collision(a,b)
  local xd=abs((a.x+a.hb_x+a.hb_hw)-(b.x+b.hb_x+b.hb_hw))
