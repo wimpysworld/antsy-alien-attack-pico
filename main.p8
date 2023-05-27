@@ -799,6 +799,26 @@ function create_gamestate()
   draw=nil,
  }
 end
+
+function get_next_objective()
+ current_objective+=1
+ objective_complete=false
+ objectives=split(mission)
+ objective=objectives[current_objective]
+
+ //initialise game state
+ aliens={}
+
+ gamestate=create_gamestate()
+end
+
+function get_next_mission()
+ current_objective=0
+ current_mission+=1
+ level=current_mission-1
+ mission=missions[current_mission]
+ get_next_objective()
+end
 -->8
 --players
 
