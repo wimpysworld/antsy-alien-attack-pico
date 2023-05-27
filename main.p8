@@ -865,14 +865,21 @@ function draw_game()
  draw_stars()
  draw_aliens()
  
- //mini-game mission brief
- draw_mission()
-
  draw_players()
  draw_shockwaves()
  draw_debris()
  draw_explosions()
  print_fx("hi "..numtostr(hi_score,7),_center("hi 0000000",4),0,7)
+
+ //mini-game hud
+ if gamestate.hud_target then
+   line(44,6,82,6,9)
+   if gamestate.hud_progress>0 then
+    line(44,6,44+round(38/100*(gamestate.hud_progress/gamestate.hud_target*100)),6,10)
+   end
+ end
+ //mini-game mission brief
+ draw_mission()
 end
 
 // recreated for each objective
