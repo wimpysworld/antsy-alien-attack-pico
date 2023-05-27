@@ -107,18 +107,6 @@ function init_attract()
 end
 
 function update_attract()
- stars_accx=0
- stars_accy*=.999
-
- for i=0,1 do
- local dx,dy=
-  get_x_axis(controller),
-  get_y_axis(controller)
-  
-  // integrate starfield accel
-  apply_stars_accel(dx,dy)
- end
-
  update_stars()
  if any_action_btnp() then
   if (menu_pos!=1) sfx(1)
