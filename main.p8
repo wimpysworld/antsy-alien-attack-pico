@@ -732,37 +732,102 @@ function create_gamestate()
   draw=nil,
  }
 end
+-->8
+--players
 
-function init_game()
- gametime=0
- hyperspeed_target=5
- update_loop,draw_loop=
-  update_game,draw_game
+function active_players()
+ local active=0
+ for pl in all(players) do
+  if (pl.hp>0) active+=1
+ end
+ return active
 end
 
-function update_game()
- cls(0)
- gametime+=1
- draw_stars()
- print_fx("hi "..numtostr(hi_score,7),_center("hi 0000000",4),0,7)
-
- print_bounce("coming june 6th 2023!",nil,60,12,1,1,32,8)
-
- if hyperspeed<=0 and gametime>=300 then
-   update_loop,draw_loop=
-    update_attract,draw_attract   
- elseif gametime>=300 then
-  hyperspeed_target=0 
- elseif gametime<300 then
-  hyperspeed_target=5
+function players_startx()
+ if active_players()==2 then
+  players[1].startx,players[2].startx=24,88
+ else
+  // works for 1-up or 2-up
+  // even if 1-up dies
+  for p in all(players) do
+   p.startx=56
+  end
  end
 end
 
-function draw_game()
- update_stars()
+function create_player(player)
+ local x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot=
+  56,11,3,1,6,debris_green,2
+ if player==2 then
+  x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot=
+   56,8,2,100,5,debis_red,3
+ end
+ add(players,create_actor(x,96))
+
+ local pl=players[#players]
+ pl.num=player
+	pl.col_lt,pl.col_dk=col_lt,col_dk
+	pl.speed=1.35
+	pl.hud_x=hud_x
+	pl.debris_style=debris_style
+	pl.explosion_size=3
+	pl.explosion_style=explosion_style
+	pl.shot_speed=2.5
+	pl.sfx_shoot=sfx_shoot
+	pl.shields=100
+	pl.prev_dir=-1
+
+ pl.sprite=sprite_create({0,2,4,6,8},2,2)
+ pl.sprite.frame=3.5
+ add(pl.sprite.pal_swaps,{10,pl.col_lt})
+ add(pl.sprite.pal_swaps,{9,pl.col_dk})
 end
--->8
---tab 4
+
+function init_players()
+ players,flashes,rockets={},{},{}
+ create_player(1)
+ if (num_players==2) create_player(2)
+ players_startx()
+end
+
+function update_players()
+ stars_accx=0
+ stars_accy*=.999
+
+ for pl in all(players) do
+  local controller=pl.num-1
+  local dx,dy,dir=
+   get_x_axis(controller),
+   get_y_axis(controller),
+   get_direction(controller)
+
+  pl.prev_dir=dir
+
+  // integrate starfield accel
+  apply_stars_accel(dx,dy)
+
+  pl.x+=dx*pl.speed
+  pl.y+=dy*pl.speed
+
+  // animate banking
+  local spr_frame=pl.sprite.frame
+  if dx==0 then
+   if (spr_frame<3.5) spr_frame+=0.2
+   if (spr_frame>3.5) spr_frame-=0.2
+  elseif pl.controls_enabled then
+   spr_frame+=dx*0.2
+  end
+  pl.sprite.frame=mid(1.1,spr_frame,5.9)
+
+ end
+end
+
+function draw_players()
+ for pl in all(players) do
+  sprite_draw(pl.sprite,pl.x,pl.y)
+ end
+end
+
 -->8
 -- tab 5
 -->8
