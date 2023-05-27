@@ -3,7 +3,7 @@
 REALNAME="Antsy Alien Attack Pico"
 LOWERNAME="${REALNAME,,}"
 FILENAME="${LOWERNAME// /-}"
-VER="0.$(date +%y.%j)"
+VER="0.$(date +%y.%j%H)"
 P8="main.p8"
 OPTS="-windowed -0 -home ./config -root_path ."
 
@@ -109,11 +109,11 @@ function pico_deb() {
 function pico_dmg() {
   # https://stackoverflow.com/a/7553878
   if [ -x /usr/local/bin/dmg ]; then
-    genisoimage -V "${REALNAME} ${VER}" -D -R -apple -no-pad -o "exports/${FILENAME}_uncompressed.dmg" "exports/bin/${FILENAME}.bin/${FILENAME}.app/"
+    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}_uncompressed.dmg" "exports/bin/${FILENAME}.bin/${FILENAME}.app/"
     dmg "exports/${FILENAME}_uncompressed.dmg" "exports/${FILENAME}.dmg"
     rm "exports/${FILENAME}_uncompressed.dmg"
   else
-    genisoimage -V "${REALNAME} ${VER}" -D -R -apple -no-pad -o "exports/${FILENAME}.dmg" "exports/bin/${FILENAME}.bin/${FILENAME}.app/"
+    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}.dmg" "exports/bin/${FILENAME}.bin/${FILENAME}.app/"
   fi
 }
 
@@ -133,5 +133,5 @@ pico_export html_crt
 pico_export wasm
 pico_export wasm_crt
 pico_deb
-pico_snap
 pico_dmg
+pico_snap

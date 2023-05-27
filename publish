@@ -8,7 +8,7 @@ ITCH_GAME="${FILENAME}"
 
 if [ -e "${HOME}"/.config/itch/butler_creds ]; then
   VER=$(head -n1 exports/version.txt)
-  for PLATFORM in cart deb dmg linux raspi snap wasm_crt windows; do
+  for PLATFORM in cart deb dmg linux raspi wasm_crt windows snap; do
     case "${PLATFORM}" in
      cart)
        PLATFORM="p8"
