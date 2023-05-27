@@ -712,6 +712,12 @@ function init_missions()
  objective_complete=false
 	missions={}
 end
+function wait()
+ if (not gamestate.ready) gamestate.ready=true
+ if gamestate.gametime>1200 and #explosions<=0 then
+  objective_complete=true
+ end
+end
 function jump()
  hyperspeed_target=5
  if hyperspeed>=hyperspeed_target then
