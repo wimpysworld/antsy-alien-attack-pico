@@ -772,6 +772,7 @@ function autopilot(destination)
 end
 
 function wait()
+ gamestate.ready=true 
  if gamestate.gametime>120 and #explosions<=0 then
   objective_complete=true
  end
@@ -951,13 +952,40 @@ function emit_rocket(player_num)
  end
 end
 
+function check_rocket_collision(rocket)
+ local pl=players[rocket.owner]
+ for al in all(aliens) do
+  if sprite_collision(rocket.sprite,al.sprite) then
+   gamestate.aliens_hit+=1
+   al.hp-=rocket.damage
+   if al.hp<=0 then
+    //sfx
+    gamestate.aliens_destroyed+=1
+    score_update(pl,al.reward)
+    emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,nil,pl.debris_style)
+    screen_flash+=al.explosion_screen_flash
+    screen_shake+=al.explosion_screen_shake
+    sfx(5+al.explosion_size)
+    del(aliens,al)
+   else
+    emit_debris(al.sprite.emit_x,al.sprite.emit_y,al.debris_size,pl.debris_style)
+    al.sprite.pal_whiteflash=4
+    sound_play(5)
+   end
+   del(rockets,rocket)
+  end
+ end
+end
+
 function update_rockets()
  for rocket in all(rockets) do
   sprite_loop_frame(rocket.sprite,0.75)
   rocket.y-=rocket.speed
   if is_outside_playarea(rocket.x,rocket.y) then
    gamestate.player_misses+=1
-   del(rockets,rocket)  
+   del(rockets,rocket)
+  else
+   check_rocket_collision(rocket)
   end
  end
 end
