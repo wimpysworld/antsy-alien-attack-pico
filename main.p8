@@ -164,7 +164,7 @@ function draw_attract()
  sprite_draw(tux,89,90)
  print_fx(_puny("made with ♥ for"),nil,100,7)
  print_fx(_puny("          ♥    "),nil,100,8,2,14)
- print_fx(_puny("linux game jam"),nil,105,7) 
+ print_fx(_puny("linux game jam"),nil,105,7)
 end
 
 function init_gameover()
