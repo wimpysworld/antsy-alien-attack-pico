@@ -167,6 +167,45 @@ function draw_attract()
  print_fx(_puny("linux game jam"),nil,105,7) 
 end
 
+function init_gameover()
+ hyperspeed_target=0
+ ignore_input=180
+ music_play(0)
+ update_loop,draw_loop=
+  update_gameover,draw_gameover
+end
+
+function update_gameover()
+ update_stars()
+ if (any_action_btnp()) init_attract()
+end
+
+function draw_gameover()
+ cls(0)
+ draw_stars()
+ print_bounce("game over",nil,48,8,nil,nil,32,8,"dotty")
+ menu_footer()
+end
+
+function init_gamewin()
+ ignore_input=180
+ music_play(18)
+ update_loop,draw_loop=
+  update_gamewin,draw_gamewin
+end
+
+function update_gamewin()
+ update_stars()
+ if (any_action_btnp()) init_attract()
+end
+
+function draw_gamewin()
+ cls(0)
+ draw_stars()
+ print_bounce("game win!",nil,48,11,nil,nil,32,8,"dotty")
+ menu_footer()
+end
+
 function init_help()
  ignore_input=60
  update_loop,draw_loop=
@@ -489,6 +528,34 @@ end
 -->8
 -- game logic
 
+// recreated for each objective
+// counters used to determine
+// if game objectives have been
+// completed
+function create_gamestate()
+ return {
+  aliens_destroyed=0,
+  aliens_escaped=0,
+  aliens_hit=0,
+  aliens_max=0,
+  player_collisions=0,
+  player_bombs=0,
+  player_misses=0,
+  player_pickups=0,
+  player_shots=0,
+  hud_progress=0,
+  hud_target=nil,
+  boss_hp=0,
+  ally_hp=0,
+  gametime=0,
+  mission_report_time=0,
+  ready=false,
+  title="",
+  text="",
+  draw=nil,
+ }
+end
+
 function init_game()
  gametime=0
  hyperspeed_target=5
@@ -606,6 +673,43 @@ function music_toggle()
  dset(1,music_enabled)
 end
 
+function sound_channel_available(ch1,ch2,ch3,ch4)
+ //if music is playing only check
+ //channels 3 and 4 which are
+ //reserved for sfx by music_play()
+ if music_enabled>0 then
+  if stat(ch3)==-1 or stat(ch4)==-1 then
+   return true
+  end
+ else
+  if stat(ch1)==-1 or stat(ch2)==-1 or stat(ch3)==-1 or stat(ch4)==-1 then
+   return true
+  end 
+ end
+ return false
+end
+
+// only plays sfx if a channel
+// is available. use for low
+// priority sounds. essential
+// sounds should be played with
+// sfx() as it will drop currently
+// playing sfx
+function sound_play(sound)
+ // use deprecated audio sys
+ // calls on pico-8 < 0.2.4
+ if stat(5) < 36 then
+  if sound_channel_available(16,17,18,19) then
+   sfx(sound)  
+  end
+ else
+  //pico-8 >= 0.2.4
+  if sound_channel_available(46,47,48,49) then
+   sfx(sound)
+  end
+ end
+end
+
 function round(n)
  return (n%1<0.5) and flr(n) or ceil(n)
 end
@@ -613,6 +717,7 @@ end
 function rnd_range(low,high)
  return flr(rnd(high+1-low)+low)
 end
+
 function get_x_axis(controller)
  local btn0_mask,btn1_mask=0x0001,0x0002
  if controller==1 then
@@ -860,6 +965,7 @@ __label__
 00000000000000000500055005000000555055505550555000005550555050505000550055005550550050500550550005000550550050500000000000000000
 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
 __sfx__
 000400002152526535005000050000500005000050000500005000050000500005000050000500005000050000500005000050000500005000050000500005000050000500005000050000500005000050000500
 00030000180251f535260452a55512604176011b6011f601226012560128601296012b601296012760124601216011f6011c601186011560113601116010f6010e60500500005000050000500005000050000500
