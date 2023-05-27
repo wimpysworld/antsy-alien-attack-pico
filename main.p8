@@ -4,6 +4,9 @@ __lua__
 -- antsy alien attack pico
 -- wimpysworld.com
 
+// token anxiety
+// 27/may: 2500
+
 #include build_config.p8
 
 function _init()
