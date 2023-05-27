@@ -711,9 +711,9 @@ function init_missions()
  level=0
  objective_complete=false
 	missions={
-	 "jump,drop",
+	 "players_off,jump,players_on,drop",
 	 "wait",
-	 "jump,drop"
+	 "players_off,jump,drop"
 	}
 end
 function wait()
@@ -768,6 +768,8 @@ function update_game()
  add(debug,objective)
 
  //execute game logic
+ if (objective=="players_off") activate_players(false)
+ if (objective=="players_on") activate_players(true)
  if (objective=="jump") jump()
  if (objective=="drop") drop()
  if (objective=="wait") wait()
@@ -843,6 +845,16 @@ function get_next_mission()
  mission=missions[current_mission]
  get_next_objective()
 end
+
+//control when players respond
+//to input
+function activate_players(status)
+ for pl in all(players) do
+  pl.controls_enabled=status
+ end
+ objective_complete=true
+end
+
 -->8
 --players
 
@@ -952,30 +964,31 @@ function update_players()
    get_y_axis(controller),
    get_direction(controller)
 
-  //free points
   score_update(pl,rnd_range(1,3))
 
-  // if moving diagonally
-  if abs(dx)+abs(dy)==2 then
-   // normalize movement vector
-   // 1.41 is the sqrt(2)
-   dx/=1.41
-   dy/=1.41
-   // prevent staircasing
-   // clamp to whole pixel x,y
-   // reference as origin
-   if dir!=pl.prev_dir then
-    pl.x,pl.y=flr(pl.x),flr(pl.y)
-   end
+  if pl.controls_enabled then
+	  // if moving diagonally
+	  if abs(dx)+abs(dy)==2 then
+	   // normalize movement vector
+	   // 1.41 is the sqrt(2)
+	   dx/=1.41
+	   dy/=1.41
+	   // prevent staircasing
+	   // clamp to whole pixel x,y
+	   // reference as origin
+	   if dir!=pl.prev_dir then
+	    pl.x,pl.y=flr(pl.x),flr(pl.y)
+	   end
+	  end
+	  pl.prev_dir=dir
+
+	  // integrate starfield accel
+	  apply_stars_accel(dx,dy)
+
+	  // finally, apply the input direction to the player
+	  pl.x+=dx*pl.speed
+	  pl.y+=dy*pl.speed
   end
-  pl.prev_dir=dir
-
-  // integrate starfield accel
-  apply_stars_accel(dx,dy)
-
-  // finally, apply the input direction to the player
-  pl.x+=dx*pl.speed
-  pl.y+=dy*pl.speed
 
   // animate banking
   local spr_frame=pl.sprite.frame
