@@ -705,6 +705,13 @@ end
 -->8
 -- game logic
 
+function init_missions()
+ current_mission=0
+ current_objective=0
+ level=0
+ objective_complete=false
+	missions={}
+end
 function init_game()
  aliens,
  rockets,
@@ -715,6 +722,7 @@ function init_game()
 
  music_play(6)
  init_players()
+ init_missions()
  update_loop,draw_loop=
   update_game,draw_game
 end
