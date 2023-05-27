@@ -938,6 +938,7 @@ function draw_players()
  draw_rockets()
  draw_muzzle_flashes()
  for pl in all(players) do
+  if (pl.hp<=0) goto hud_only
   sprite_draw(pl.sprite,pl.x,pl.y)
   sprite_draw(pl.jet,pl.x+3,pl.y+15)
   sprite_draw(pl.jet,pl.x+6,pl.y+15)
@@ -953,6 +954,13 @@ function draw_players()
     fillp()
    end
   end
+  ::hud_only::
+  // hud; score
+  print_fx(numtostr(pl.score,7),pl.hud_x,0,pl.col_lt)
+
+  // hud; hp & generator
+  hud_line(pl.hud_x,6,pl.hp,pl.col_lt,pl.col_dk)
+  hud_line(pl.hud_x,7,pl.generator,12,1)
  end
 end
 
@@ -1192,6 +1200,13 @@ end
 
 function is_outside_playarea(x,y)
  return (((x<-32 or y<-32) or (x>144 or y>144)))
+end
+
+function hud_line(x,y,val,col_lt,col_dk)
+ line(x,y,x+26,y,col_dk)
+ if val>0 then
+  line(x,y,x+round(26/100*(val/100*100)),y,col_lt)
+ end
 end
 
 function get_x_axis(controller)
