@@ -841,11 +841,25 @@ function update_players()
    get_y_axis(controller),
    get_direction(controller)
 
+  // if moving diagonally
+  if abs(dx)+abs(dy)==2 then
+   // normalize movement vector
+   // 1.41 is the sqrt(2)
+   dx/=1.41
+   dy/=1.41
+   // prevent staircasing
+   // clamp to whole pixel x,y
+   // reference as origin
+   if dir!=pl.prev_dir then
+    pl.x,pl.y=flr(pl.x),flr(pl.y)
+   end
+  end
   pl.prev_dir=dir
 
   // integrate starfield accel
   apply_stars_accel(dx,dy)
 
+  // finally, apply the input direction to the player
   pl.x+=dx*pl.speed
   pl.y+=dy*pl.speed
 
