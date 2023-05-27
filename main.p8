@@ -800,6 +800,8 @@ function update_game()
  //execute game logic
  if (objective=="players_off") activate_players(false)
  if (objective=="players_on") activate_players(true)
+ if (objective=="weapons_off") activate_weapons(false)
+ if (objective=="weapons_on") activate_weapons(true)
  if (objective=="jump") jump()
  if (objective=="drop") drop()
  if (objective=="wait") wait()
@@ -885,6 +887,15 @@ function activate_players(status)
  for pl in all(players) do
   pl.lock_to_screen,
   pl.controls_enabled=status,status
+ end
+ activate_weapons(status)
+ objective_complete=true
+end
+
+function activate_weapons(status)
+ for pl in all(players) do
+  pl.bomb_enabled,
+  pl.shot_enabled=status,status
  end
  objective_complete=true
 end
@@ -1047,6 +1058,8 @@ function update_players()
    if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
     pl.shot_cooldown_timer=pl.shot_cooldown
     emit_rocket(pl.num)
+   elseif not pl.shot_enabled then
+    sound_play(13)
    end
   end
 
