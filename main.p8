@@ -877,6 +877,18 @@ function update_players()
   end
   pl.sprite.frame=mid(1.1,spr_frame,5.9)
 
+  //fire lazer
+  if btn(4,controller) then
+   if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
+    pl.shot_cooldown_timer=pl.shot_cooldown
+    emit_muzzle_flash(pl.num)
+   end
+  end
+
+  pl.shot_cooldown_timer-=1
+  pl.shot_cooldown_timer=max(pl.shot_cooldown_timer,0)
+
+
   // animate jets
   sprite_loop_frame(pl.jet,0.3)
 
@@ -885,10 +897,34 @@ function update_players()
 end
 
 function draw_players()
+ draw_muzzle_flashes()
  for pl in all(players) do
   sprite_draw(pl.sprite,pl.x,pl.y)
   sprite_draw(pl.jet,pl.x+3,pl.y+15)
   sprite_draw(pl.jet,pl.x+6,pl.y+15)
+ end
+end
+
+function emit_muzzle_flash(player_num)
+ if #flashes<active_players() then
+  add(flashes,{
+   player=player_num,
+   sprite=sprite_create({32,34,36,38},2,2)
+  })
+  sound_play(players[player_num].sfx_shoot)
+ end
+end
+
+function draw_muzzle_flashes()
+ for fl in all(flashes) do
+  local pl=players[fl.player]
+  sprite_loop_frame(fl.sprite,0.45)
+  if fl.sprite.frame>#fl.sprite.frames then
+   del(flashes,fl)
+  else
+   sprite_draw(fl.sprite,pl.x-4,pl.y-6)
+   sprite_draw(fl.sprite,pl.x+4,pl.y-6)
+  end
  end
 end
 
