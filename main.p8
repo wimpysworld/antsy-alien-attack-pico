@@ -931,7 +931,7 @@ function activate_weapons(status)
 end
 
 -->8
---players
+-- players
 
 function emit_rocket(player_num)
  emit_muzzle_flash(player_num)
