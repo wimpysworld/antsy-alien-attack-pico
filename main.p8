@@ -1021,6 +1021,23 @@ function create_player(player)
  add(pl.jet.pal_swaps,{10,pl.col_lt})
 end
 
+function check_player_collisions(pl)
+ for al in all(aliens) do
+  if sprite_collision(pl.sprite,al.sprite) then
+   // destroy the alien
+   gamestate.aliens_destroyed+=1
+   gamestate.player_collisions+=1
+   score_update(pl,al.reward)
+   emit_explosion(al.x+8,al.y,al.explosion_size)
+   del(aliens,al)
+   sfx(5+al.explosion_size)
+
+   // damage the player
+   apply_player_damage(pl,al.collision_damage)
+  end
+ end
+end
+
 function init_players()
  players,flashes,rockets={},{},{}
  create_player(1)
@@ -1097,6 +1114,8 @@ function update_players()
 
   pl.shot_cooldown_timer-=1
   pl.shot_cooldown_timer=max(pl.shot_cooldown_timer,0)
+
+  check_player_collisions(pl)
 
   ::next_player::
  end
