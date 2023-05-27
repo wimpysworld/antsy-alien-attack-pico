@@ -93,7 +93,7 @@ function init_attract()
  else
   sfx(1)
  end
- ignore_input=10
+ ignore_input=60
  music_play(0)
  init_stars()
  update_loop,draw_loop=
@@ -166,7 +166,7 @@ end
 
 function init_gameover()
  hyperspeed_target=0
- ignore_input=180
+ ignore_input=60
  music_play(0)
  update_loop,draw_loop=
   update_gameover,draw_gameover
@@ -185,7 +185,7 @@ function draw_gameover()
 end
 
 function init_gamewin()
- ignore_input=180
+ ignore_input=60
  music_play(18)
  update_loop,draw_loop=
   update_gamewin,draw_gamewin
