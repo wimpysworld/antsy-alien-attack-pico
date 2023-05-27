@@ -634,6 +634,46 @@ end
 -->8
 -- helpers
 
+// generic properties for
+// players and npcs
+function create_actor(x,y)
+ return {
+  x=x,
+  y=y,
+  breed=nil,
+  speed_x=0,
+  speed_y=0.5,
+  score=0,
+  reward=123,
+  bomb_enabled=true,
+  debris_size=1,
+  debris_style=nil,
+  explosion_size=1,
+  explosion_quantity=1,
+  explosion_screen_flash=0,
+  explosion_screen_shake=0,
+  explosion_style=nil,
+  sfx_birth=nil,
+  sfx_death=nil,
+  sfx_shoot=nil,
+  shot_enabled=true,
+  shot_cooldown=4,
+  shot_cooldown_timer=0,
+  shot_pattern="",
+  shot_damage=10,
+  shot_speed=0.2,
+  collision_damage=20,
+  col_lt=10,
+  col_dk=9,
+  sprite={},
+  jet={},
+  hp=100,
+  generator=0,
+  shields=0,
+  lock_to_screen=false,
+  controls_enabled=true,
+ }
+end
 // hitboxes have to be
 // created using this function!
 function sprite_hitbox(s,hbx,hby,hbw,hbh,show)
