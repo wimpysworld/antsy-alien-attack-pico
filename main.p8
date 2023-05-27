@@ -591,6 +591,19 @@ end
 -->8
 -- helpers
 
+// hitboxes have to be
+// created using this function!
+function sprite_hitbox(s,hbx,hby,hbw,hbh,show)
+ s.hb_x,s.hb_y,s.hb_width,s.hb_height=
+  hbx,hby,hbw,hbh
+ s.show_hitbox=show
+
+ // calculate half widths/heights
+ // used for collision detection
+ s.hb_hw=s.hb_width/2
+ s.hb_hh=s.hb_height/2
+end
+
 function sprite_create(sprites,w,h)
  return {
   frames=sprites,
@@ -657,6 +670,17 @@ function sprite_draw(s,x,y)
 	  y+s.hb_y+s.hb_height,
 	  sparkle)
  end
+end
+
+// http://gamedev.docrobs.co.uk/first-steps-in-pico-8-hitting-things
+function sprite_collision(a,b)
+ local xd=abs((a.x+a.hb_x+a.hb_hw)-(b.x+b.hb_x+b.hb_hw))
+ local xs=a.hb_hw+b.hb_hw
+ local yd=abs((a.y+a.hb_y+a.hb_hh)-(b.y+b.hb_y+b.hb_hh))
+ local ys=a.hb_hh+b.hb_hh
+
+ if (xd<xs and yd<ys) return true
+ return false
 end
 
 function music_play(pat)
