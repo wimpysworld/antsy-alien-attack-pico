@@ -468,6 +468,7 @@ function draw_explosions()
 		end
 	end
 end
+
 // cls with flash and shake
 function cls_fx(col,flash)
  if screen_flash>0 then
@@ -742,12 +743,14 @@ function autopilot(destination)
   end
  end
 end
+
 function wait()
  if (not gamestate.ready) gamestate.ready=true
  if gamestate.gametime>1200 and #explosions<=0 then
   objective_complete=true
  end
 end
+
 function jump()
  hyperspeed_target=5
  if hyperspeed>=hyperspeed_target then
@@ -761,6 +764,7 @@ function drop()
 		objective_complete=true
  end
 end
+
 function init_game()
  aliens,
  rockets,
@@ -1158,6 +1162,7 @@ function create_actor(x,y)
   controls_enabled=true,
  }
 end
+
 // hitboxes have to be
 // created using this function!
 function sprite_hitbox(s,hbx,hby,hbw,hbh,show)
