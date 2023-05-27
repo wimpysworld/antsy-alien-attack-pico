@@ -1379,8 +1379,8 @@ function sprite_create(sprites,w,h)
   // used for collision detection
   hb_hw=8*w/2,
   hb_hh=8*w/2,
-  emit_x=-32,
-  emit_y=144,
+  emit_x=63,
+  emit_y=-64,
   frame=1,
   pal_swaps={},
   pal_trans=0,
