@@ -655,9 +655,9 @@ end
 
 function print_scroll(txt,x,y,w,c)
  local len=#txt*4+w
- local ox=(tick/dt)%len
- clip(x,y,w,_txt_high)
- print_fx(txt,x+w-ox,y,c)
+ local ox=(tick/0.03)%len
+ clip(x,y,w,5)
+ print(txt,x+w-ox,y,c)
  clip()
 end
 
