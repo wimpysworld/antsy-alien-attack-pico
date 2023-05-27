@@ -711,10 +711,36 @@ function init_missions()
  level=0
  objective_complete=false
 	missions={
-	 "players_off,jump,players_on,drop",
+	 "players_off,jump,flyin,players_on,drop",
 	 "wait",
-	 "players_off,jump,drop"
-	}
+	 "players_off,jump,flyout,drop"
+ }
+end
+
+function autopilot(destination)
+ //init
+ if destination=="flyin" and not gamestate.ready then
+	 for pl in all(players) do
+	  pl.x,pl.y=pl.startx,192
+	 end
+	 gamestate.ready=true
+	end
+
+ //autopilot
+ for pl in all(players) do
+  pl.y-=1
+ end
+
+ //arrived at destination?
+ if destination=="flyout" then
+  if players[#players].y<-32 then
+   objective_complete=true
+  end
+ elseif destination=="flyin" then
+  if flr(players[#players].x)==players[#players].startx and flr(players[#players].y)==96 then
+   objective_complete=true
+  end
+ end
 end
 function wait()
  if (not gamestate.ready) gamestate.ready=true
@@ -773,6 +799,9 @@ function update_game()
  if (objective=="jump") jump()
  if (objective=="drop") drop()
  if (objective=="wait") wait()
+ if (objective=="flyin") autopilot("flyin")
+ if (objective=="flyout") autopilot("flyout")
+
  update_screen_shake()
  update_stars()
  update_players()
@@ -919,7 +948,7 @@ function create_player(player)
   x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot=
    56,8,2,100,5,debis_red,3
  end
- add(players,create_actor(x,96))
+ add(players,create_actor(x,192))
 
  local pl=players[#players]
  pl.num=player
