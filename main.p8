@@ -37,6 +37,12 @@ function _init()
  num_players=1
  screen_flash,screen_shake,sparkle=0,0,4
 
+ //TODO: find a better way to
+ //store this data
+ debris_red="14,14,8,8,2,2"
+ debris_green="10,11,11,11,3,3"
+ debris_fire="10,9,9,8,8,2"
+
  dt,fc,tick,l_tick=0,0,0,0
  init_attract()
 end
@@ -295,6 +301,38 @@ function any_action_btnp()
 end
 -->8
 -- vfx
+
+function emit_debris(x,y,size,style)
+ style = style or debris_fire
+ col=split(style)[rnd_range(1,6)]
+
+ for i=1,10 do
+  add(debris,{
+   x=x,
+   y=y,
+   sx=(rnd()-0.5)*6.5,
+   sy=(rnd()-0.5)*2,
+   col=col,
+   decay=13
+  })
+	end
+end
+
+function update_debris()
+ for d in all(debris) do
+  d.sy-=0.2
+  d.x+=d.sx
+  d.y+=d.sy
+  d.decay-=0.6
+  if (d.decay<=0) del(debris,d)
+ end
+end
+
+function draw_debris()
+ for d in all(debris) do
+  pset(d.x,d.y,d.col)
+ end
+end
 
 // cls with flash and shake
 function cls_fx(col,flash)
