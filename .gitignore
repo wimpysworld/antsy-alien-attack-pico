@@ -3,3 +3,5 @@ config/log.txt
 config/backup/
 exports/
 build_config.p8
+
+screenshots/
