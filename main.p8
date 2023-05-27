@@ -921,12 +921,13 @@ function update_players()
    end
   end
 
-  pl.shot_cooldown_timer-=1
-  pl.shot_cooldown_timer=max(pl.shot_cooldown_timer,0)
-
-
   // animate jets
   sprite_loop_frame(pl.jet,0.3)
+
+  pl.shields=mid(0,pl.shields-1,pl.shields)
+
+  pl.shot_cooldown_timer-=1
+  pl.shot_cooldown_timer=max(pl.shot_cooldown_timer,0)
 
   ::next_player::
  end
@@ -940,6 +941,18 @@ function draw_players()
   sprite_draw(pl.sprite,pl.x,pl.y)
   sprite_draw(pl.jet,pl.x+3,pl.y+15)
   sprite_draw(pl.jet,pl.x+6,pl.y+15)
+  if pl.shields>0 then
+   //ship has shields up
+   if fc%6<3 then
+    circ(pl.x+8,pl.y+10,14,pl.col_lt)
+   elseif pl.shields%2 then
+    local col=pl.col_dk
+    if (pl.shields<=50) col=5
+    fillp(░)
+    circfill(pl.x+8,pl.y+10,14,col)
+    fillp()
+   end
+  end
  end
 end
 
