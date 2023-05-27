@@ -762,6 +762,32 @@ function shmup()
  end
 end
 
+function asteroid_belt()
+ local win_target=2000
+ hyperspeed=3
+ if not gamestate.ready then
+  gamestate.hud_target=win_target
+
+  gamestate.aliens_max=16
+  gamestate.title="asteroid belt"
+  gamestate.text="fly to survive"
+ else
+  gamestate.hud_progress=gamestate.gametime
+  if #aliens<gamestate.aliens_max then
+   if (rnd_range(1,5)==3) create_alien(rnd_range(8,120),-16,"asteroid")
+  end
+
+  for pl in all(players) do
+   score_update(pl,flr(gamestate.gametime/2))
+  end
+
+  if gamestate.gametime>=win_target then
+   objective_cleanup()
+   objective_complete=true
+  end
+ end
+end
+
 function autopilot(destination)
  //init
  if destination=="flyin" and not gamestate.ready then
@@ -851,6 +877,7 @@ function update_game()
  if (objective=="flyin") autopilot("flyin")
  if (objective=="flyout") autopilot("flyout")
  if (objective=="shmup") shmup()
+ if (objective=="asteroid_belt") asteroid_belt()
 
  update_screen_shake()
  update_stars()
