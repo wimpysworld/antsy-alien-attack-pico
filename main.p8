@@ -729,6 +729,16 @@ function init_missions()
  }
 end
 
+function objective_cleanup()
+ // visual indication the objective is complete
+ for al in all(aliens) do
+  emit_explosion(al.sprite.emit_x,al.sprite.emit_y,3,3,debris_fire)
+  del(aliens,al)
+  screen_shake+=1
+ end
+ screen_flash+=3
+ sfx(8)
+end
 function shmup()
  local win_target=level*100
  if not gamestate.ready then
@@ -739,7 +749,7 @@ function shmup()
    create_alien(rnd_range(16,112),rnd_range(-16,-8))
   end
   if gamestate.aliens_destroyed>=win_target then
-   cleanup()
+   objective_cleanup()
    objective_complete=true
   end
  end
