@@ -883,7 +883,8 @@ end
 //to input
 function activate_players(status)
  for pl in all(players) do
-  pl.controls_enabled=status
+  pl.lock_to_screen,
+  pl.controls_enabled=status,status
  end
  objective_complete=true
 end
@@ -1034,6 +1035,12 @@ function update_players()
    spr_frame+=dx*0.2
   end
   pl.sprite.frame=mid(1.1,spr_frame,5.9)
+
+  if pl.lock_to_screen then
+   pl.x,pl.y=
+    mid(-4,pl.x,116),
+    mid(0,pl.y,112)
+  end
 
   //fire lazer
   if btn(4,controller) then
