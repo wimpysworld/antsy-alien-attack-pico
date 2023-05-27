@@ -712,6 +712,19 @@ function init_missions()
  objective_complete=false
 	missions={}
 end
+function jump()
+ hyperspeed_target=5
+ if hyperspeed>=hyperspeed_target then
+  objective_complete=true
+ end
+end
+
+function drop()
+ hyperspeed_target=0
+ if hyperspeed<=hyperspeed_target then
+		objective_complete=true
+ end
+end
 function init_game()
  aliens,
  rockets,
