@@ -724,9 +724,25 @@ function init_missions()
  objective_complete=false
 	missions={
 	 "players_off,jump,flyin,players_on,drop",
-	 "wait",
+	 "shmup,wait",
 	 "players_off,jump,flyout,drop"
  }
+end
+
+function shmup()
+ local win_target=level*100
+ if not gamestate.ready then
+  gamestate.ready=true
+  gamestate.aliens_max=10
+ else
+  if #aliens<gamestate.aliens_max then
+   create_alien(rnd_range(16,112),rnd_range(-16,-8))
+  end
+  if gamestate.aliens_destroyed>=win_target then
+   cleanup()
+   objective_complete=true
+  end
+ end
 end
 
 function autopilot(destination)
@@ -756,8 +772,7 @@ function autopilot(destination)
 end
 
 function wait()
- if (not gamestate.ready) gamestate.ready=true
- if gamestate.gametime>1200 and #explosions<=0 then
+ if gamestate.gametime>120 and #explosions<=0 then
   objective_complete=true
  end
 end
@@ -818,10 +833,12 @@ function update_game()
  if (objective=="wait") wait()
  if (objective=="flyin") autopilot("flyin")
  if (objective=="flyout") autopilot("flyout")
+ if (objective=="shmup") shmup()
 
  update_screen_shake()
  update_stars()
  update_players()
+ update_aliens()
  update_shockwaves()
  update_debris()
  update_explosions()
@@ -834,6 +851,7 @@ end
 function draw_game()
  cls_fx(0,9)
  draw_stars()
+ draw_aliens()
  
  print_bounce("coming june 6th 2023!",nil,60,12,1,1,32,8) 
  
@@ -1021,8 +1039,6 @@ function update_players()
    get_x_axis(controller),
    get_y_axis(controller),
    get_direction(controller)
-
-  score_update(pl,rnd_range(1,3))
 
   if pl.controls_enabled then
 	  // if moving diagonally
