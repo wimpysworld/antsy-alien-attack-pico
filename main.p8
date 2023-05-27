@@ -634,6 +634,16 @@ end
 -->8
 -- helpers
 
+function create_projectile(actor,x,y)
+ return {
+  x=x,
+  y=y,
+  damage=actor.shot_damage,
+  speed=actor.shot_speed,
+  pattern=actor.shot_pattern
+ }
+end
+
 // generic properties for
 // players and npcs
 function create_actor(x,y)
