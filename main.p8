@@ -819,8 +819,11 @@ function create_player(player)
  pl.sprite.frame=3.5
  sprite_hitbox(pl.sprite,4,3,7,9)
  pl.sprite.show_hitbox=true
+ pl.jet=sprite_create({40,41,56},1,1)
+ // recolor the sprite using palette swap
  add(pl.sprite.pal_swaps,{10,pl.col_lt})
  add(pl.sprite.pal_swaps,{9,pl.col_dk})
+ add(pl.jet.pal_swaps,{10,pl.col_lt})
 end
 
 function init_players()
@@ -873,12 +876,16 @@ function update_players()
   end
   pl.sprite.frame=mid(1.1,spr_frame,5.9)
 
+  // animate jets
+  sprite_loop_frame(pl.jet,0.3)
  end
 end
 
 function draw_players()
  for pl in all(players) do
   sprite_draw(pl.sprite,pl.x,pl.y)
+  sprite_draw(pl.jet,pl.x+3,pl.y+15)
+  sprite_draw(pl.jet,pl.x+6,pl.y+15)
  end
 end
 
