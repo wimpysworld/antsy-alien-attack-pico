@@ -243,7 +243,7 @@ function draw_help()
   "        good luck!       ",
  }
 
- print_wave(help_text,nil,24,12,1,1)
+ print_wave(help_text,nil,24,12,1,1,32,4)
  menu_footer()
 end
 
