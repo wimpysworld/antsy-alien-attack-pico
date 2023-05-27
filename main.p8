@@ -1021,6 +1021,17 @@ function create_player(player)
  add(pl.jet.pal_swaps,{10,pl.col_lt})
 end
 
+function apply_player_damage(pl,damage)
+ if pl.shields<=0 then
+  screen_flash+=3
+  screen_shake+=16
+  pl.hp-=damage
+  pl.shields+=120
+  emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
+  sfx(10)
+ end
+end
+
 function check_player_collisions(pl)
  for al in all(aliens) do
   if sprite_collision(pl.sprite,al.sprite) then
