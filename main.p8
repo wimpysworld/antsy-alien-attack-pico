@@ -1226,6 +1226,14 @@ function draw_players()
   hud_line(pl.hud_x,6,pl.hp,pl.col_lt,pl.col_dk)
   hud_line(pl.hud_x,7,pl.generator,12,1)
  end
+ //fake 2-up hud for 1-up play
+ --[[
+ if num_players==1 then
+  print_simple(numtostr(0,7),100,0,8)
+  line(100,6,126,6,2)
+  line(100,7,126,7,1)
+ end
+ --]]
 end
 
 function emit_muzzle_flash(player_num)
