@@ -32,8 +32,9 @@ function _init()
  ignore_input=0
 
  num_players=1
+ screen_flash,screen_shake,sparkle=0,0,4
 
- dt,fc,tick,l_tick,sparkle=0,0,0,0,0
+ dt,fc,tick,l_tick=0,0,0,0
  init_attract()
 end
 
@@ -252,6 +253,24 @@ function any_action_btnp()
 end
 -->8
 -- vfx
+
+// cls with flash and shake
+function cls_fx(col,flash)
+ if screen_flash>0 then
+  screen_flash=max(screen_flash,0)-1
+  cls(flash)
+ else
+  cls(col)
+ end
+ local shakex,shakey=
+  rnd(screen_shake)-(screen_shake/2),rnd(screen_shake)-(screen_shake/2)
+ camera(shakex,shakey)
+end
+
+function update_screen_shake()
+ if (screen_shake>10) screen_shake*=0.95 else screen_shake-=1
+ screen_shake=max(screen_shake,0)
+end
 
 function init_stars()
  stars={}
