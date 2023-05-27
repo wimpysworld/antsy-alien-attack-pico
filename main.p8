@@ -865,8 +865,6 @@ function draw_game()
  draw_stars()
  draw_aliens()
  
- print_bounce("coming june 6th 2023!",nil,60,12,1,1,32,8) 
- 
  //mini-game mission brief
  draw_mission()
 
