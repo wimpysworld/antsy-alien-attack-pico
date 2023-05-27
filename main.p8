@@ -838,6 +838,7 @@ function update_players()
  stars_accy*=.999
 
  for pl in all(players) do
+  if (pl.hp<=0) goto next_player
   local controller=pl.num-1
   local dx,dy,dir=
    get_x_axis(controller),
@@ -878,6 +879,8 @@ function update_players()
 
   // animate jets
   sprite_loop_frame(pl.jet,0.3)
+
+  ::next_player::
  end
 end
 
