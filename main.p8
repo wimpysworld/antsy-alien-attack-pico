@@ -606,6 +606,13 @@ function music_toggle()
  dset(1,music_enabled)
 end
 
+function round(n)
+ return (n%1<0.5) and flr(n) or ceil(n)
+end
+
+function rnd_range(low,high)
+ return flr(rnd(high+1-low)+low)
+end
 function get_x_axis(controller)
  local btn0_mask,btn1_mask=0x0001,0x0002
  if controller==1 then
