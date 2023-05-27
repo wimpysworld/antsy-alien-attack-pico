@@ -710,7 +710,11 @@ function init_missions()
  current_objective=0
  level=0
  objective_complete=false
-	missions={}
+	missions={
+	 "jump,drop",
+	 "wait",
+	 "jump,drop"
+	}
 end
 function wait()
  if (not gamestate.ready) gamestate.ready=true
@@ -742,11 +746,31 @@ function init_game()
  music_play(6)
  init_players()
  init_missions()
+ get_next_mission()
  update_loop,draw_loop=
   update_game,draw_game
 end
 
 function update_game()
+ if objective_complete then
+  if #objectives>current_objective then
+   get_next_objective()
+  elseif current_objective==#objectives then
+   if #missions>current_mission then
+    get_next_mission()
+   elseif current_mission==#missions then
+    init_gamewin()
+   end
+  end
+ end
+ if (gamestate.ready) gamestate.gametime+=1
+ add(debug,gamestate.gametime)
+ add(debug,objective)
+
+ //execute game logic
+ if (objective=="jump") jump()
+ if (objective=="drop") drop()
+ if (objective=="wait") wait()
  update_screen_shake()
  update_stars()
  update_players()
