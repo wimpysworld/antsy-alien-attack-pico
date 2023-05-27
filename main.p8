@@ -706,10 +706,12 @@ end
 -- game logic
 
 function init_game()
+ aliens,
+ rockets,
  debris,
  shockwaves,
  explosions=
-  {},{},{}
+  {},{},{},{},{}
 
  music_play(6)
  init_players()
