@@ -1436,6 +1436,8 @@ end
 
 // http://gamedev.docrobs.co.uk/first-steps-in-pico-8-hitting-things
 function sprite_collision(a,b)
+ //if (is_outside_playarea(b.x,b.y)) return
+ 
  local xd=abs((a.x+a.hb_x+a.hb_hw)-(b.x+b.hb_x+b.hb_hw))
  local xs=a.hb_hw+b.hb_hw
  local yd=abs((a.y+a.hb_y+a.hb_hh)-(b.y+b.hb_y+b.hb_hh))
