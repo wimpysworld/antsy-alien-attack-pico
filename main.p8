@@ -739,11 +739,13 @@ function objective_cleanup()
  screen_flash+=3
  sfx(8)
 end
+
 function shmup()
  local win_target=level*100
  if not gamestate.ready then
-  gamestate.ready=true
   gamestate.aliens_max=10
+  gamestate.title="shmuuuuup!"
+  gamestate.text="destory "..tostr(win_target).." aliens"
  else
   if #aliens<gamestate.aliens_max then
    create_alien(rnd_range(16,112),rnd_range(-16,-8))
@@ -782,7 +784,6 @@ function autopilot(destination)
 end
 
 function wait()
- gamestate.ready=true 
  if gamestate.gametime>120 and #explosions<=0 then
   objective_complete=true
  end
