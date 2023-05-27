@@ -817,6 +817,8 @@ function create_player(player)
 
  pl.sprite=sprite_create({0,2,4,6,8},2,2)
  pl.sprite.frame=3.5
+ sprite_hitbox(pl.sprite,4,3,7,9)
+ pl.sprite.show_hitbox=true
  add(pl.sprite.pal_swaps,{10,pl.col_lt})
  add(pl.sprite.pal_swaps,{9,pl.col_dk})
 end
