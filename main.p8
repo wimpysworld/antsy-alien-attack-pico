@@ -881,6 +881,9 @@ function update_players()
    get_y_axis(controller),
    get_direction(controller)
 
+  //free points
+  score_update(pl,rnd_range(1,3))
+
   // if moving diagonally
   if abs(dx)+abs(dy)==2 then
    // normalize movement vector
@@ -1187,6 +1190,16 @@ function sound_play(sound)
   if sound_channel_available(46,47,48,49) then
    sfx(sound)
   end
+ end
+end
+
+
+// pass in the player object
+function score_update(pl,reward)
+ pl.score+=reward >> 16
+ if pl.score>hi_score then
+  hi_score=pl.score
+  dset(0,hi_score)
  end
 end
 
