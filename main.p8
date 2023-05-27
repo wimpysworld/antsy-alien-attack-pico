@@ -334,6 +334,37 @@ function draw_debris()
  end
 end
 
+function emit_shockwave(x,y,size)
+ add(shockwaves,{
+  x=x,
+  y=y,
+  spd=0.95,
+  radius=0,
+  target_radius=size*10,
+  col=6
+ })
+end
+
+function update_shockwaves()
+ for sw in all(shockwaves) do
+  sw.radius+=sw.spd
+  if (sw.radius>sw.target_radius/2) sw.col=13
+  if (sw.radius>=sw.target_radius) del(shockwaves,sw)
+ end
+end
+
+function draw_shockwaves()
+ for sw in all(shockwaves) do
+  //circ(sw.x,sw.y,sw.radius,sw.col)
+	 oval(
+	  sw.x-sw.radius,
+	  sw.y-sw.radius/4,
+	  sw.x+sw.radius,
+	  sw.y+sw.radius/4,
+	  sw.col
+	 )
+ end
+end
 // cls with flash and shake
 function cls_fx(col,flash)
  if screen_flash>0 then
