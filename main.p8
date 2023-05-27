@@ -672,7 +672,7 @@ function print_bounce(txt,x,y,c,lo,hi,speed,bounce,style)
  x = x or _center(txt)
  for i=1,#txt do
   print_fx(
-   txt[i],
+   tostr(txt[i]),
    x,
    y+cos(tick+i/speed)*bounce,
    c,
