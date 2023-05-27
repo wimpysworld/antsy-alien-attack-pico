@@ -898,6 +898,7 @@ function emit_rocket(player_num)
   local rx=pl.x
   if (i==2) rx=pl.x+8
   add(rockets,create_projectile(pl,rx,pl.y-4))
+  gamestate.player_shots+=1
 
   local rocket=rockets[#rockets]
   rocket.owner=player_num
@@ -914,6 +915,7 @@ function update_rockets()
   sprite_loop_frame(rocket.sprite,0.75)
   rocket.y-=rocket.speed
   if is_outside_playarea(rocket.x,rocket.y) then
+   gamestate.player_misses+=1
    del(rockets,rocket)  
   end
  end
