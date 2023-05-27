@@ -866,6 +866,9 @@ function draw_game()
  
  print_bounce("coming june 6th 2023!",nil,60,12,1,1,32,8) 
  
+ //mini-game mission brief
+ draw_mission()
+
  draw_players()
  draw_shockwaves()
  draw_debris()
@@ -940,6 +943,21 @@ function activate_weapons(status)
  objective_complete=true
 end
 
+function draw_mission()
+ if gamestate.mission_report_time<240 and #gamestate.title>0 then
+  gamestate.mission_report_time+=1
+
+  print_fx(gamestate.title,nil,32,12,1,1,"big")
+	 print_fx(_puny(gamestate.text),nil,48,6,5,5)
+	 local txt,col,out="weapons online",11,3
+	 if not players[#players].shot_enabled then
+	  txt,col,out="weapons offline",8,2
+	 end
+	 print_fx(_puny(txt),nil,58,col,out,out)
+ else
+  gamestate.ready=true
+ end
+end
 -->8
 -- players
 
