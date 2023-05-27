@@ -626,16 +626,21 @@ function _puny(txt)
  return txt_out
 end
 
-function print_fx(txt,x,y,c,lo,hi,style)
- local stxt=_normal(txt)
- if (style=="big")      stxt=_big(txt)
- if (style=="invert")   stxt=_invert(txt)
- if (style=="dotty")    stxt=_dotty(txt)
- if (style=="solid")    stxt=_solid(txt)
+function style_text(txt,style)
+ txt = tostr(txt) or ""
+ if (not style)         return _normal(txt)
+ if (style=="big")      return _big(txt)
+ if (style=="invert")   return _invert(txt)
+ if (style=="dotty")    return _dotty(txt)
+ if (style=="solid")    return _solid(txt)
  //if (style=="stripy_t") return "\^t\^="
  //if (style=="stripy_w") return "\^w\^="
- if (style=="tall")     stxt=_tall(txt)
- if (style=="wide")     stxt=_wide(txt)
+ if (style=="tall")     return _tall(txt)
+ if (style=="wide")     return _wide(txt)
+end
+
+function print_fx(txt,x,y,c,lo,hi,style)
+ local stxt=style_text(txt,style)
  x = x or _center(txt)
 
  --highlight
