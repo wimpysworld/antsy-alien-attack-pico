@@ -1267,7 +1267,7 @@ function create_alien(x,y,breed)
 
  al=aliens[#aliens]
  al.breed=breed
- al.hp=20
+ al.hp=40
  al.debris_size=1
  al.explosion_size=1
  al.sprite=sprite_create({66},1,1)
