@@ -786,7 +786,7 @@ function none_shall_pass()
  else
   gamestate.hud_progress=gamestate.gametime
 	 if #aliens<gamestate.aliens_max then
-	  create_alien(rnd_range(8,120),-16,"orby")
+	  create_alien(rnd_range(20,108),-16,"orby")
 	 end
 
 	 for al in all(aliens) do
