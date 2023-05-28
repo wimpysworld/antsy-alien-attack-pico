@@ -817,7 +817,7 @@ function asteroid_belt()
   end
 
   for pl in all(players) do
-   score_update(pl,flr(gamestate.gametime/2))
+   score_update(pl,10*level)
   end
 
   if gamestate.gametime>=win_target then
