@@ -1078,6 +1078,7 @@ function check_rocket_collision(rocket)
     del(aliens,al)
    else
     emit_debris(al.sprite.emit_x,al.sprite.emit_y,al.debris_size,pl.debris_style)
+    al.y-=2
     al.sprite.pal_whiteflash=2
     sound_play(5)
    end
