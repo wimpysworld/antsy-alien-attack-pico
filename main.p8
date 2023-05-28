@@ -944,13 +944,13 @@ function draw_game()
  draw_shockwaves()
  draw_debris()
  draw_explosions()
- print_fx("hi "..numtostr(hi_score,7),_center("hi 0000000",4),0,7)
+ print_fx("hi "..numtostr(hi_score,8),_center("hi 00000000",4),0,7)
 
  //mini-game hud
  if gamestate.hud_target then
-   line(44,6,82,6,9)
+   line(42,6,84,6,9)
    if gamestate.hud_progress>0 then
-    line(44,6,44+round(38/100*(gamestate.hud_progress/gamestate.hud_target*100)),6,10)
+    line(42,6,44+round(42/100*(gamestate.hud_progress/gamestate.hud_target*100)),6,10)
    end
  end
  //mini-game mission brief
@@ -1130,7 +1130,7 @@ function create_player(player)
   56,11,3,1,6,debris_green,2
  if player==2 then
   x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot=
-   56,8,2,100,5,debis_red,3
+   56,8,2,96,5,debis_red,3
  end
  add(players,create_actor(x,192))
 
@@ -1292,7 +1292,7 @@ function draw_players()
   end
   ::hud_only::
   // hud; score
-  print_fx(numtostr(pl.score,7),pl.hud_x,0,pl.col_lt)
+  print_fx(numtostr(pl.score,8),pl.hud_x,0,pl.col_lt)
 
   // hud; hp & generator
   hud_line(pl.hud_x,6,pl.hp,pl.col_lt,pl.col_dk)
@@ -1626,9 +1626,9 @@ function is_outside_playarea(x,y)
 end
 
 function hud_line(x,y,val,col_lt,col_dk)
- line(x,y,x+26,y,col_dk)
+ line(x,y,x+30,y,col_dk)
  if val>0 then
-  line(x,y,x+round(26/100*(val/100*100)),y,col_lt)
+  line(x,y,x+round(30/100*(val/100*100)),y,col_lt)
  end
 end
 
