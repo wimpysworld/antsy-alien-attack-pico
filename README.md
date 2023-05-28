@@ -174,14 +174,14 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 ## Engine ⚙️
 
 - [x] Text renderer
-- [ ] State system
-- [ ] Actors object
-- [ ] Weapons object
-- [ ] Super simple sprite system with collision detection
-- [ ] Bitwise controller system
-- [ ] uint32 handler
-- [ ] SFX channel allocator
-- [ ] [fake-08](https://github.com/jtothebell/fake-08) compatibility
+- [x] State system
+- [x] Actors object
+- [x] Weapons object
+- [x] Super simple sprite system with collision detection
+- [x] Bitwise controller system
+- [x] uint32 handler
+- [x] SFX channel dispatcher
+- [x] [fake-08](https://github.com/jtothebell/fake-08) compatibility
 
 ## Menus & Game State 🎛️
 
@@ -195,8 +195,8 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Juice 🧃
 
-- [ ] Particle system
-- [ ] Screen shake
+- [x] Particle system
+- [x] Screen shake
 
 ## Build tools 🛠️
 
@@ -208,9 +208,9 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Player 🚀
 
-- [ ] Controls and movement
-- [ ] Collider handling
-- [ ] HUD
+- [x] Controls and movement
+- [x] Collider handling
+- [x] HUD
 - [ ] Pickups
   - [ ] Shields
   - [ ] Weapon upgrade: faster speed, shorter cool down, more damage
@@ -230,9 +230,9 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Levels 🗺️
 
-- [ ] Asteroid belt - Go fast, don't die
+- [x] Asteroid belt - Go fast, don't die
 - [ ] Power spree - A few seconds to grab fast-moving power-ups
-- [ ] None shall pass - don't miss any aliens
+- [x] None shall pass - don't miss any aliens
 - [ ] Cargo escort - protect the cargo ship
 - [ ] Rock on - more rocks than you can avoid, lots of shield boosts
 - [ ] Peekaboo - Aliens appear briefly, fire and leave
