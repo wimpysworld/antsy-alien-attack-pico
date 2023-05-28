@@ -1157,13 +1157,14 @@ function create_player(player)
 	pl.speed=1.35
 	pl.hud_x=hud_x
 	pl.debris_style=debris_style
-	pl.explosion_size=3
-	pl.explosion_style=explosion_style
+	pl.explosion_size,pl.explosion_style=3,explosion_style
 	pl.shot_speed=2.5
 	pl.sfx_shoot=sfx_shoot
-	pl.shields=100
+	pl.shields,pl.score=100,0
 	pl.prev_dir=-1
-
+ pl.generator,pl.shields=0,0
+ pl.lock_to_screen,pl.controls_enabled,pl.bomb_enabled,pl.shot_enabled=false,true,true,true
+ pl.shot_cooldown,pl.shot_cooldown_timer=5,0
  pl.sprite=sprite_create({0,2,4,6,8},2,2)
  pl.sprite.frame=3.5
  sprite_hitbox(pl.sprite,4,3,7,9)
@@ -1468,38 +1469,24 @@ function create_actor(x,y)
  return {
   x=x,
   y=y,
-  breed=nil,
   speed_x=0,
   speed_y=0.5,
-  score=0,
-  bomb_enabled=true,
   debris_size=1,
   debris_style=nil,
   explosion_size=1,
   explosion_quantity=1,
   explosion_screen_flash=0,
-  explosion_screen_shake=0,
+  explosion_screen_shake=1,
   explosion_style=nil,
-  sfx_birth=nil,
-  sfx_death=nil,
-  sfx_shoot=nil,
-  shot_enabled=true,
-  shot_cooldown=5,
-  shot_cooldown_timer=0,
   shot_pattern="",
   shot_damage=10,
   shot_speed_x=0,
   shot_speed_y=4,
-  collision_damage=20,
+  shot_sprite=65,
   col_lt=10,
   col_dk=9,
   sprite={},
-  jet={},
-  hp=100,
-  generator=0,
-  shields=0,
-  lock_to_screen=false,
-  controls_enabled=true,
+  hp=100
  }
 end
 
