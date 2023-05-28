@@ -1392,6 +1392,13 @@ function draw_bullets()
 end
 
 function create_alien(x,y,breed)
+ //do not spawn over existing aliens
+ if breed!="asteroid" then
+  for check in all(aliens) do
+   if ((x>=check.x-12 and x<=check.x+12) and (y>=check.y-12 and y<=check.y+12)) return
+  end
+ end
+ 
  add(aliens,create_actor(x,y))
 
  al=aliens[#aliens]
