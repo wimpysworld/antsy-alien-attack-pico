@@ -726,9 +726,9 @@ function init_missions()
  objective_complete=false
 	missions={
 	 "players_off,jump,flyin,players_on,drop",
-	 "shmup,wait,jump,weapons_off,asteroid_belt,weapons_on",
-	 "players_off,jump,flyout,drop"
- }
+	 "shmup,wait,none_shall_pass,wait,jump,weapons_off,asteroid_belt,weapons_on",
+	 "players_off,jump,flyout,drop",
+	}
 end
 
 function objective_cleanup()
