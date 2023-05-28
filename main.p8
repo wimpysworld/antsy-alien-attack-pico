@@ -1341,36 +1341,29 @@ function create_alien(x,y,breed)
  al.breed=breed
  if breed=="drone" then
   al.hp=20
-  al.debris_size=1
-  al.explosion_size=1
   al.sprite=sprite_create({66},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="asteroid" then
-  al.hp=30
-  al.debris_size=2
-  al.explosion_size=2
+  al.hp=35
   local rocks=split("71,72,73,74")
   if (rnd_range(1,2)==2) rocks=split("87,88,89,90")
   al.sprite=sprite_create(rocks,1,1)
   sprite_hitbox(al.sprite,2,1,3,4)
   al.sprite.frame=rnd_range(1,#rocks)
-  //al.sprite.show_hitbox=true
   al.speed_y=1.25+(rnd(0.5))
   al.speed_x=-0.50+rnd(0.5)+0.25
+  al.explosion_size=rnd_range(1,3)
+  al.debris_size=al.explosion_size
  elseif breed=="orby" then 
   al.hp=40
-  al.debris_size=1
-  al.explosion_size=1
   al.sprite=sprite_create({75,76,77,76},1,1)
   sprite_hitbox(al.sprite,1,1,5,5) 
  else
   al.hp=40
-  al.debris_size=1
-  al.explosion_size=1
   al.sprite=sprite_create({66},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
-  //al.sprite.show_hitbox=true
  end
+ al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
 end
 
 function update_aliens()
@@ -1421,7 +1414,6 @@ function create_actor(x,y)
   speed_x=0,
   speed_y=0.5,
   score=0,
-  reward=123,
   bomb_enabled=true,
   debris_size=1,
   debris_style=nil,
