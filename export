@@ -36,6 +36,8 @@ function pico_export() {
    bin)
      pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}.bin" "${P8}"
      mv "${EXPORT_PATH}/${FILENAME}.bin"/*.zip exports/
+     mkdir -p "${EXPORT_PATH}/${FILENAME}.bin/macos"
+     mv "${EXPORT_PATH}/${FILENAME}.bin/${FILENAME}.app" "${EXPORT_PATH}/${FILENAME}.bin/macos/"
      ;;
    cart)
      pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}.p8.png" "${P8}"
@@ -109,11 +111,10 @@ function pico_deb() {
 function pico_dmg() {
   # https://stackoverflow.com/a/7553878
   if [ -x /usr/local/bin/dmg ]; then
-    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}_uncompressed.dmg" "exports/bin/${FILENAME}.bin/${FILENAME}.app/"
+    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}_uncompressed.dmg" "exports/bin/${FILENAME}.bin/macos/"
     dmg "exports/${FILENAME}_uncompressed.dmg" "exports/${FILENAME}.dmg"
-    rm "exports/${FILENAME}_uncompressed.dmg"
   else
-    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}.dmg" "exports/bin/${FILENAME}.bin/${FILENAME}.app/"
+    genisoimage -V "${REALNAME}" -D -R -apple -no-pad -o "exports/${FILENAME}.dmg" "exports/bin/${FILENAME}.bin/macos/"
   fi
 }
 
