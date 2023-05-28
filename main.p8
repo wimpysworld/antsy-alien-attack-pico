@@ -1415,7 +1415,7 @@ function create_alien(x,y,breed)
  elseif breed=="asteroid" then
   al.hp=35
   local rocks=split("71,72,73,74")
-  if (rnd_range(1,2)==2) rocks=split("87,88,89,90")
+  if (fc%2==0) rocks=split("87,88,89,90")  
   al.sprite=sprite_create(rocks,1,1)
   sprite_hitbox(al.sprite,2,1,3,4)
   al.sprite.frame=rnd_range(1,#rocks)
