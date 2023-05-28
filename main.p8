@@ -1364,7 +1364,7 @@ end
 
 function emit_bullet(al)
  al.shot_cooldown_timer=al.shot_cooldown
- // todo: add a bullet offset property
+ al.sprite.pal_whiteflash=1
  add(bullets,create_projectile(al,al.x+al.x_off,al.y-al.y_off))
  
  local bullet=bullets[#bullets]
