@@ -233,8 +233,18 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 ## Aliens 👾
 
 - [ ] Alien types
-- [ ] Attack patterns
-- [ ] Weapon patterns
+
+| Class           |  Speed  | Trajectory             | Fire Pattern            | Bull. Size |  HP  | Coll. Damage | Exp. Size |
+|:---------------:|:-------:|:----------------------:|:-----------------------:|:------ ---:|:----:|:------------:|:---------:|
+| Drone           | Slow    | Vertical               | Single on line of sight | Small      |  20  | 20           | 1         |
+| Asteroid        | Medium  | Single                 | n/a                     | n/a        |  35  | 20           | Random    |
+| Orby            | Medium  | Narrow wave            | 8-way Pulse             | Small      |  40  | 20           | 1         |
+| Bronze          | Slow    | Single                 | Aimed                   | Medium     |  40  | 20           | 1 or 2    |
+| Silver          | Medium  | Vertical and intercept | 3 shot spread           | Small      |  45  | 20           | 2         |
+| Sapphire        | Medium  | Aimed                  | 3 shot spread           | Small      |  50  | 20           | 2 or 3    |
+| Emerald         | Fast    | Wide wave              | 360° Spiral             | Medium     |  60  | 20           | 3         |
+| Saucer          | Fast    | Swoop and retreat      | Aimed                   | Large      |  75  | 40           | 3         |
+
 - [ ] Boss patterns
 
 ## Levels 🗺️
