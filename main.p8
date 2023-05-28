@@ -1365,7 +1365,7 @@ end
 function emit_bullet(al)
  al.shot_cooldown_timer=al.shot_cooldown
  // todo: add a bullet offset property
- add(bullets,create_projectile(al,al.x+2,al.y-4))
+ add(bullets,create_projectile(al,al.x+al.x_off,al.y-al.y_off))
  
  local bullet=bullets[#bullets]
  bullet.sprite=sprite_create({al.shot_sprite},1,1)
@@ -1406,6 +1406,9 @@ function create_alien(x,y,breed)
  al.breed=breed
  if breed=="drone" then
   al.hp=20
+  al.shot_speed_y,al.shot_speed_x=1.6,0
+  al.x_off,al.y_off=2,-6
+  al.shot_sprite=80
   al.sprite=sprite_create({66},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="asteroid" then
