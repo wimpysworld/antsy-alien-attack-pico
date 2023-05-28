@@ -762,6 +762,45 @@ function shmup()
  end
 end
 
+function draw_none_shall_pass()
+ spr(112,0,125)
+ spr(112,120,125,1,1,true)
+ line(3,126,124,126,sparkle)
+end
+
+function none_shall_pass()
+ local win_target=1200
+ if not gamestate.ready then
+  gamestate.hud_target=win_target
+
+  gamestate.aliens_max=8
+  gamestate.draw=draw_none_shall_pass
+  gamestate.title="none shall pass"
+  gamestate.text="gotta shoot them all!"
+ else
+  gamestate.hud_progress=gamestate.gametime
+	 if #aliens<gamestate.aliens_max then
+	  create_alien(rnd_range(8,120),-16,"drone")
+	 end
+
+	 for al in all(aliens) do
+	  al.speed_y+=0.002
+	  if al.y>=128 then
+	  	gamestate.aliens_escaped+=1
+	   for pl in all(players) do
+	    apply_player_damage(pl,al.collision_damage)
+	   end
+	   del(aliens,al)
+	  end
+	 end
+
+	 if gamestate.gametime>=win_target then
+	  objective_cleanup()
+   objective_complete=true
+  end
+	end
+end
+
 function asteroid_belt()
  local win_target=2000
  hyperspeed=3
@@ -877,6 +916,7 @@ function update_game()
  if (objective=="flyin") autopilot("flyin")
  if (objective=="flyout") autopilot("flyout")
  if (objective=="shmup") shmup()
+ if (objective=="none_shall_pass") none_shall_pass()
  if (objective=="asteroid_belt") asteroid_belt()
 
  update_screen_shake()
