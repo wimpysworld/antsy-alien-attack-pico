@@ -1408,6 +1408,7 @@ function create_alien(x,y,breed)
  if breed=="drone" then
   al.hp=20
   al.shot_speed_y,al.shot_speed_x=1.6,0
+  al.shot_cooldown=120
   al.x_off,al.y_off=2,-6
   al.shot_sprite=80
   al.sprite=sprite_create({66},1,1)
@@ -1428,10 +1429,9 @@ function create_alien(x,y,breed)
   al.sprite=sprite_create({75,76,77,76},1,1)
   sprite_hitbox(al.sprite,1,1,5,5) 
  end
+ al.shot_cooldown_timer=0
  al.collision_damage=20
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
- al.shot_cooldown=60
- al.shot_cooldown_timer=0 
 end
 
 function make_firing_decision(al)
