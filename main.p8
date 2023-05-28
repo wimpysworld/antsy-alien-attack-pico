@@ -1440,7 +1440,7 @@ function make_firing_decision(al)
  if #bullets<=#aliens*2 and al.shot_cooldown_timer<=0 then
 	 if al.breed=="drone" then
 	  for pl in all(players) do
-	   if (pl.y>al.y and pl.x>=al.x and pl.x<=al.x+7 and rnd_range(1,25)==1) emit_bullet(al)
+	   if (pl.y>al.y and pl.x>=al.x and pl.x<=al.x+7 and one_in(25)) emit_bullet(al)
 	  end
 	 end
 	 ::no_fire::
