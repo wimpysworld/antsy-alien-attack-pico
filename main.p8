@@ -1299,7 +1299,13 @@ function create_alien(x,y,breed)
 
  al=aliens[#aliens]
  al.breed=breed
- if breed=="asteroid" then
+ if breed=="drone" then
+  al.hp=20
+  al.debris_size=1
+  al.explosion_size=1
+  al.sprite=sprite_create({66},1,1)
+  sprite_hitbox(al.sprite,1,1,5,5)
+ elseif breed=="asteroid" then
   al.hp=30
   al.debris_size=2
   al.explosion_size=2
