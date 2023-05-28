@@ -8,7 +8,7 @@ pico8 \
  -home ./config \
  -root_path "." \
  -desktop "./screenshots" \
- -screenshot_scale 4 \
- -gif_scale 4 \
+ -screenshot_scale 3 \
+ -gif_scale 3 \
  -gif_len 120 \
  "${P8}" &
