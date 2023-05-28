@@ -738,6 +738,12 @@ function objective_cleanup()
   del(aliens,al)
   screen_shake+=1
  end
+ 
+ for bl in all(bullets) do
+  emit_debris(bl.x+2,bl.y+2,1,debris_fire)
+  del(bullets,bl)
+ end
+ 
  screen_flash+=3
  sfx(8)
 end
@@ -875,11 +881,12 @@ end
 
 function init_game()
  aliens,
+ bullets,
  rockets,
  debris,
  shockwaves,
  explosions=
-  {},{},{},{},{}
+  {},{},{},{},{},{}
 
  music_play(6)
  init_players()
@@ -921,8 +928,13 @@ function update_game()
 
  update_screen_shake()
  update_stars()
+
  update_players()
+ update_rockets()
+
  update_aliens()
+ update_bullets()
+
  update_shockwaves()
  update_debris()
  update_explosions()
@@ -935,12 +947,16 @@ end
 function draw_game()
  cls_fx(0,9)
  draw_stars()
+ draw_bullets()
  draw_aliens()
+
  
  //mini-game specific draws
  if (gamestate.draw) gamestate.draw() 
- 
+
+ draw_rockets() 
  draw_players()
+ 
  draw_shockwaves()
  draw_debris()
  draw_explosions()
@@ -992,7 +1008,7 @@ function get_next_objective()
  objective=objectives[current_objective]
 
  //initialise game state
- aliens={}
+ aliens,bullets={},{}
 
  gamestate=create_gamestate()
 end
@@ -1185,6 +1201,15 @@ function check_player_collisions(pl)
    apply_player_damage(pl,al.collision_damage)
   end
  end
+ 
+ for bl in all(bullets) do
+  if sprite_collision(pl.sprite,bl.sprite) then
+   del(bullets,bl)
+   sound_play(5)
+   // damage the player
+   apply_player_damage(pl,bl.damage)
+  end
+ end 
 end
 
 function init_players()
@@ -1268,11 +1293,9 @@ function update_players()
 
   ::next_player::
  end
- update_rockets()
 end
 
 function draw_players()
- draw_rockets()
  draw_muzzle_flashes()
  for pl in all(players) do
   if (pl.hp<=0) goto hud_only
@@ -1335,6 +1358,35 @@ end
 -->8
 --aliens
 
+function emit_bullet(al)
+ // todo: add a bullet offset property
+ add(bullets,create_projectile(al,al.x+2,al.y-4))
+ 
+ local bullet=bullets[#bullets]
+ bullet.sprite=sprite_create({al.shot_sprite},1,1)
+ 
+ if (al.shot_sprite==64) sprite_hitbox(bullet.sprite,1,1,3,3)
+ if (al.shot_sprite==65) sprite_hitbox(bullet.sprite,1,1,2,2)
+ if (al.shot_sprite==80) sprite_hitbox(bullet.sprite,1,1,1,1)
+ bullet.sprite.show_hitbox=true
+ sfx(4)
+end
+
+function update_bullets()
+ for bullet in all(bullets) do
+  bullet.y+=bullet.speed_y
+  if is_outside_playarea(bullet.x,bullet.y) then
+   del(bullets,bullet)
+  end
+ end
+end
+
+function draw_bullets()
+ for bullet in all(bullets) do
+  sprite_draw(bullet.sprite,bullet.x,bullet.y)
+ end
+end
+
 function create_alien(x,y,breed)
  add(aliens,create_actor(x,y))
 
@@ -1364,17 +1416,22 @@ function create_alien(x,y,breed)
   al.sprite=sprite_create({66},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  end
+ al.collision_damage=20
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
+ al.shot_speed_y=2
+ al.shot_speed_y=2
 end
 
 function update_aliens()
+ //local bullet_fired=false
  for al in all(aliens) do
+  if (rnd_range(1,200)==100) emit_bullet(al)
   al.y+=al.speed_y
   if al.breed=="asteroid" then
-    al.sprite.frame+=0.085
-    al.x+=al.speed_x
+   al.sprite.frame+=0.085
+   al.x+=al.speed_x
   else
-    al.sprite.frame+=0.075
+   al.sprite.frame+=0.075
   end
   if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
 
