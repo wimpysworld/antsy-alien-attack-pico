@@ -674,14 +674,13 @@ function print_bounce(txt,x,y,c,lo,hi,speed,bounce,style)
  x = x or _center(txt)
  for i=1,#txt do
   print_fx(
-   tostr(txt[i]),
-   x,
-   y+cos(tick+i/speed)*bounce,
+   sub(txt,i,i),
+   x+(i*_txt_wide)-_txt_wide,
+   y+sin(tick+i/speed)*bounce,
    c,
    lo,
    hi,
    style)
-  x+=_txt_wide
  end
 end
 
