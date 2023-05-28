@@ -763,8 +763,8 @@ function shmup()
 end
 
 function draw_none_shall_pass()
- spr(112,0,125)
- spr(112,120,125,1,1,true)
+ spr(81,0,125)
+ spr(81,120,125,1,1,true)
  line(3,126,124,126,sparkle)
 end
 
@@ -780,7 +780,7 @@ function none_shall_pass()
  else
   gamestate.hud_progress=gamestate.gametime
 	 if #aliens<gamestate.aliens_max then
-	  create_alien(rnd_range(8,120),-16,"drone")
+	  create_alien(rnd_range(8,120),-16,"orby")
 	 end
 
 	 for al in all(aliens) do
@@ -1357,6 +1357,12 @@ function create_alien(x,y,breed)
   //al.sprite.show_hitbox=true
   al.speed_y=1.25+(rnd(0.5))
   al.speed_x=-0.50+rnd(0.5)+0.25
+ elseif breed=="orby" then 
+  al.hp=40
+  al.debris_size=1
+  al.explosion_size=1
+  al.sprite=sprite_create({75,76,77,76},1,1)
+  sprite_hitbox(al.sprite,1,1,5,5) 
  else
   al.hp=40
   al.debris_size=1
