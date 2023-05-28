@@ -1363,6 +1363,7 @@ end
 --aliens
 
 function emit_bullet(al)
+ al.shot_cooldown_timer=al.shot_cooldown
  // todo: add a bullet offset property
  add(bullets,create_projectile(al,al.x+2,al.y-4))
  
@@ -1427,12 +1428,28 @@ function create_alien(x,y,breed)
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
  al.shot_speed_y=2
  al.shot_speed_y=2
+ al.shot_cooldown=60
+ al.shot_cooldown_timer=0 
+end
+
+function make_firing_decision(al)
+ if (al.breed=="asteroid") return
+ 
+ if #bullets<=#aliens*2 and al.shot_cooldown_timer<=0 then
+	 if al.breed=="drone" then
+	  for pl in all(players) do
+	   if (pl.y>al.y and pl.x>=al.x and pl.x<=al.x+7 and rnd_range(1,25)==1) emit_bullet(al)
+	  end
+	 end
+	 ::no_fire::
+	end
+ al.shot_cooldown_timer=max(0,al.shot_cooldown_timer-1)
 end
 
 function update_aliens()
  //local bullet_fired=false
  for al in all(aliens) do
-  if (rnd_range(1,200)==100) emit_bullet(al)
+  make_firing_decision(al)
   al.y+=al.speed_y
   if al.breed=="asteroid" then
    al.sprite.frame+=0.085
