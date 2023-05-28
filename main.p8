@@ -897,6 +897,9 @@ function draw_game()
  draw_stars()
  draw_aliens()
  
+ //mini-game specific draws
+ if (gamestate.draw) gamestate.draw() 
+ 
  draw_players()
  draw_shockwaves()
  draw_debris()
