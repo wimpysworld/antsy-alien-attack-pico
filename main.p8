@@ -1315,7 +1315,7 @@ function create_alien(x,y,breed)
   sprite_hitbox(al.sprite,2,1,3,4)
   al.sprite.frame=rnd_range(1,#rocks)
   //al.sprite.show_hitbox=true
-  al.speed_y=1+(rnd(0.5))
+  al.speed_y=1.25+(rnd(0.5))
   al.speed_x=-0.50+rnd(0.5)+0.25
  else
   al.hp=40
