@@ -1089,7 +1089,7 @@ end
 function update_rockets()
  for rocket in all(rockets) do
   sprite_loop_frame(rocket.sprite,0.75)
-  rocket.y-=rocket.speed
+  rocket.y-=rocket.speed_y
   if is_outside_playarea(rocket.x,rocket.y) then
    gamestate.player_misses+=1
    del(rockets,rocket)
@@ -1405,7 +1405,8 @@ function create_projectile(actor,x,y)
   x=x,
   y=y,
   damage=actor.shot_damage,
-  speed=actor.shot_speed,
+  speed_x=actor.shot_speed_x,
+  speed_y=actor.shot_speed_y,
   pattern=actor.shot_pattern
  }
 end
@@ -1433,11 +1434,12 @@ function create_actor(x,y)
   sfx_death=nil,
   sfx_shoot=nil,
   shot_enabled=true,
-  shot_cooldown=4,
+  shot_cooldown=5,
   shot_cooldown_timer=0,
   shot_pattern="",
   shot_damage=10,
-  shot_speed=0.2,
+  shot_speed_x=0,
+  shot_speed_y=4,
   collision_damage=20,
   col_lt=10,
   col_dk=9,
