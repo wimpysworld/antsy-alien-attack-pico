@@ -6,6 +6,11 @@ FILENAME="${LOWERNAME// /-}"
 ITCH_USER="wimpress"
 ITCH_GAME="${FILENAME}"
 
+if ! which butler ; then
+  echo "ERROR! butler not found. Please install butler."
+  exit 1
+fi
+
 if [ -e "${HOME}"/.config/itch/butler_creds ]; then
   VER=$(head -n1 exports/version.txt)
   for PLATFORM in cart deb dmg linux raspi wasm_crt windows snap; do
