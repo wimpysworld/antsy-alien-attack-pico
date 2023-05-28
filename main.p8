@@ -1176,10 +1176,13 @@ function create_player(player)
  add(pl.jet.pal_swaps,{10,pl.col_lt})
 end
 
-function apply_player_damage(pl,damage)
+function apply_player_damage(pl,damage,shake)
+ shake = shake or false
  if pl.shields<=0 then
-  screen_flash+=3
-  screen_shake+=16
+  if (shake) then
+   screen_flash+=3
+   screen_shake+=16
+  end
   pl.hp-=damage
   pl.shields+=120
   emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
@@ -1199,7 +1202,7 @@ function check_player_collisions(pl)
    sfx(5+al.explosion_size)
 
    // damage the player
-   apply_player_damage(pl,al.collision_damage)
+   apply_player_damage(pl,al.collision_damage,true)
   end
  end
  
