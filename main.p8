@@ -755,7 +755,7 @@ function shmup()
 
   gamestate.aliens_max=10
   gamestate.title="shmuuuuup!"
-  gamestate.text="destory "..tostr(win_target).." aliens"
+  gamestate.text="destroy "..tostr(win_target).." aliens"
  else
   gamestate.hud_progress=gamestate.aliens_destroyed
   if #aliens<gamestate.aliens_max then
