@@ -7,6 +7,7 @@ __lua__
 // token anxiety
 // 27/may: 2500
 // 28/may: 5448
+// 29/may: 6071
 
 #include build_config.p8
 
