@@ -64,7 +64,6 @@ end
 
 function _draw()
  draw_loop()
- add(debug,stat(5))
  cursor(0,12)
  color(7)
  for d in all(debug) do
@@ -909,8 +908,6 @@ function update_game()
   end
  end
  if (gamestate.ready) gamestate.gametime+=1
- add(debug,gamestate.gametime)
- add(debug,objective)
 
  //execute game logic
  if (objective=="players_off") activate_players(false)
@@ -1373,7 +1370,6 @@ function emit_bullet(al)
  if (al.shot_sprite==64) sprite_hitbox(bullet.sprite,1,1,3,3)
  if (al.shot_sprite==65) sprite_hitbox(bullet.sprite,1,1,2,2)
  if (al.shot_sprite==80) sprite_hitbox(bullet.sprite,1,1,1,1)
- bullet.sprite.show_hitbox=true
  sfx(4)
 end
 
