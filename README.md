@@ -213,7 +213,16 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] HUD
 - [ ] Pickups
   - [ ] Shields
-  - [ ] Weapon upgrade: faster speed, shorter cool down, more damage
+  - [ ] Weapons upgrades
+
+| Level | Speed | Cooldown | Damage |
+|:-----:|:-----:|:--------:|:------:|
+| 1     | 4     | 5        | 10     |
+| 2     | 5     | 5        | 15     |
+| 3     | 6     | 4        | 20     |
+| 4     | 7     | 4        | 20     |
+| 5     | 8     | 3        | 25     |
+
   - [ ] Weapon patterns; more devastation
   - [ ] Weapons block; wipeout alien projectiles and prevent fire for some time
   - [ ] Smartbomb; damage all aliens and wipeout all alien projectiles
