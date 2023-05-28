@@ -1404,10 +1404,12 @@ function create_alien(x,y,breed)
  al.breed=breed
  if breed=="drone" then
   al.hp=20
-  al.shot_speed_y,al.shot_speed_x=1.6,0
+  al.shot_speed_y,al.shot_speed_x=1.2,-0.50+rnd(0.5)+0.25  
   al.shot_cooldown=120
   al.x_off,al.y_off=2,-6
   al.shot_sprite=80
+  al.wave_speed=0.015
+  al.wave_width=0.90  
   al.sprite=sprite_create({66},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="asteroid" then
@@ -1451,14 +1453,18 @@ function make_firing_decision(al)
 end
 
 function update_aliens()
- //local bullet_fired=false
  for al in all(aliens) do
   make_firing_decision(al)
-  al.y+=al.speed_y
   if al.breed=="asteroid" then
    al.sprite.frame+=0.085
    al.x+=al.speed_x
-  else
+   al.y+=al.speed_y   
+  elseif al.breed=="drone" then
+   al.x+=cos(al.speed_x)*al.wave_width
+   al.y+=al.speed_y   
+   al.speed_x+=al.wave_speed
+  elseif al.breed=="orby" then
+   al.y+=al.speed_y
    al.sprite.frame+=0.075
   end
   if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
