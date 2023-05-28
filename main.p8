@@ -1012,7 +1012,7 @@ function emit_rocket(player_num)
   rocket.owner=player_num
   rocket.sprite=sprite_create({10,11,10,12},1,2)
   sprite_hitbox(rocket.sprite,0,1,7,10)
-  rocket.sprite.show_hitbox=true
+  //rocket.sprite.show_hitbox=true
   add(rocket.sprite.pal_swaps,{9,pl.col_dk})
   add(rocket.sprite.pal_swaps,{10,pl.col_lt})
  end
@@ -1107,7 +1107,7 @@ function create_player(player)
  pl.sprite=sprite_create({0,2,4,6,8},2,2)
  pl.sprite.frame=3.5
  sprite_hitbox(pl.sprite,4,3,7,9)
- pl.sprite.show_hitbox=true
+ //pl.sprite.show_hitbox=true
  pl.jet=sprite_create({40,41,56},1,1)
  // recolor the sprite using palette swap
  add(pl.sprite.pal_swaps,{10,pl.col_lt})
@@ -1305,7 +1305,7 @@ function create_alien(x,y,breed)
   al.sprite=sprite_create(rocks,1,1)
   sprite_hitbox(al.sprite,2,1,3,4)
   al.sprite.frame=rnd_range(1,#rocks)
-  al.sprite.show_hitbox=true
+  //al.sprite.show_hitbox=true
   al.speed_y=1+(rnd(0.5))
   al.speed_x=-0.50+rnd(0.5)+0.25
  else
