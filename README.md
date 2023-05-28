@@ -211,9 +211,10 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] Controls and movement
 - [x] Collider handling
 - [x] HUD
-- [ ] Pickups
-  - [ ] Shields
-  - [ ] Weapons upgrades
+
+### Weapons upgrades
+
+Q: How should the current weapons level be reflected in the players HUD?
 
 | Level | Speed | Cooldown | Damage |
 |:-----:|:-----:|:--------:|:------:|
@@ -223,31 +224,41 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 | 4     | 7     | 4        | 20     |
 | 5     | 8     | 3        | 25     |
 
-  - [ ] Weapon patterns; more devastation
-  - [ ] Weapons block; wipeout alien projectiles and prevent fire for some time
-  - [ ] Smartbomb; damage all aliens and wipeout all alien projectiles
-  - [ ] Power; charges the generator.
-    - [ ] A fully charged generator yields player HP
-    - [ ] Hold the second button to release a smart bomb
+## Pickups
+
+- [ ] Shields
+- [ ] Weapon patterns; more devastation
+- [ ] Weapons block; wipeout alien projectiles and prevent fire for some time
+- [ ] Smartbomb; damage all aliens and wipeout all alien projectiles
+- [ ] Power; charges the generator.
+  - A fully charged generator yields player HP
+  - Hold the second button to release a smart bomb
 
 ## Aliens 👾
 
-- [ ] Alien types
+- Shot damage is 10 across the board for all aliens at the moment.
+- Each alien yields points when destroyed that are calculated as `(HP + COLLISION_DAMAGE * 10) + EXPLOSION_SIZE`
 
-| Class           |  Speed  | Trajectory             | Fire Pattern            | Bull. Size |  HP  | Coll. Damage | Exp. Size |
-|:---------------:|:-------:|:----------------------:|:-----------------------:|:------ ---:|:----:|:------------:|:---------:|
-| Drone           | Slow    | Vertical               | Single on line of sight | Small      |  20  | 20           | 1         |
-| Asteroid        | Medium  | Single                 | n/a                     | n/a        |  35  | 20           | Random    |
-| Orby            | Medium  | Narrow wave            | 8-way Pulse             | Small      |  40  | 20           | 1         |
-| Bronze          | Slow    | Single                 | Aimed                   | Medium     |  40  | 20           | 1 or 2    |
-| Silver          | Medium  | Vertical and intercept | 3 shot spread           | Small      |  45  | 20           | 2         |
-| Sapphire        | Medium  | Aimed                  | 3 shot spread           | Small      |  50  | 20           | 2 or 3    |
-| Emerald         | Fast    | Wide wave              | 360° Spiral             | Medium     |  60  | 20           | 3         |
-| Saucer          | Fast    | Swoop and retreat      | Aimed                   | Large      |  75  | 40           | 3         |
+| Class           |  Speed  | Trajectory             | Fire Pattern            | Bull. Size |  HP  | Coll. Damage | Exp. Size | Status |
+|:---------------:|:-------:|:----------------------:|:-----------------------:|:------ ---:|:----:|:------------:|:---------:|:------:|
+| Drone           | Slow    | Vertical               | Single on line of sight | Small      |  20  | 20           | 1         | WIP    |
+| Asteroid        | Medium  | Single                 | n/a                     | n/a        |  35  | 20           | Random    | Done   |
+| Orby            | Medium  | Narrow wave            | 8-way Pulse             | Small      |  40  | 20           | 1         | WIP    |
+| Bronze          | Slow    | Single                 | Aimed                   | Medium     |  40  | 20           | 1 or 2    |        |
+| Silver          | Medium  | Vertical and intercept | 3 shot spread           | Small      |  45  | 20           | 2         |        |
+| Sapphire        | Medium  | Aimed                  | 3 shot spread           | Small      |  50  | 20           | 2 or 3    |        |
+| Emerald         | Fast    | Wide wave              | 360° Spiral             | Medium     |  60  | 20           | 3         |        |
+| Saucer          | Fast    | Swoop and retreat      | Aimed                   | Large      |  75  | 40           | 3         |        |
 
-- [ ] Boss patterns
+### Boss patterns
 
-## Levels 🗺️
+- tbd
+
+## Waves 🌊
+
+- tbd
+
+### Mini-Games 🗺️
 
 - [x] Asteroid belt - Go fast, don't die
 - [ ] Power spree - A few seconds to grab fast-moving power-ups
@@ -273,7 +284,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [ ] Sprite rotation and zooming
 - [ ] Ship velocity/friction
 - [ ] Scene change transitions/wipes
-- [ ] Formation "animations"
+- [x] Player formation "animations"
 - [ ] Player gravity-guided pick-ups
 - [ ] Pick-up animations
 
