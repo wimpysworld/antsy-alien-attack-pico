@@ -1185,9 +1185,9 @@ function apply_player_damage(pl,damage,shake)
   end
   pl.hp-=damage
   pl.shields+=120
-  emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
   sfx(10)
  end
+ if (pl.hp<=0) emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
 end
 
 function check_player_collisions(pl)
