@@ -256,7 +256,7 @@ function init_credits()
  add_credits("music",   "chris donnelly",27,9,4)
  add_credits("sound",   "chris donnelly & martin wimpress",50,10,9)
  add_credits("graphics","alice masters, krystian majewski & martin wimpress",73,11,3)
- add_credits("testing", "alan pope, neil mcphail, stuart langridge & simon butcher",96,12,1)
+ add_credits("testing", "alan pope, neil mcphail, stuart langridge, roger light & simon butcher",96,12,1)
 end
 
 function update_credits()
