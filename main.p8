@@ -1683,6 +1683,11 @@ function rnd_range(low,high)
  return flr(rnd(high+1-low)+low)
 end
 
+function one_in(num)
+ if (rnd_range(1,num)==1) return true
+ return false
+end
+
 function is_outside_playarea(x,y)
  return (((x<-32 or y<-32) or (x>144 or y>144)))
 end
