@@ -1379,7 +1379,8 @@ end
 
 function update_bullets()
  for bullet in all(bullets) do
-  bullet.y+=bullet.speed_y
+  bullet.x+=bullet.speed_x
+  bullet.y+=bullet.speed_y  
   if is_outside_playarea(bullet.x,bullet.y) then
    del(bullets,bullet)
   end
@@ -1429,8 +1430,6 @@ function create_alien(x,y,breed)
  end
  al.collision_damage=20
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
- al.shot_speed_y=2
- al.shot_speed_y=2
  al.shot_cooldown=60
  al.shot_cooldown_timer=0 
 end
