@@ -759,7 +759,7 @@ function shmup()
  else
   gamestate.hud_progress=gamestate.aliens_destroyed
   if #aliens<gamestate.aliens_max then
-   create_alien(rnd_range(16,112),rnd_range(-16,-8))
+   create_alien(rnd_range(16,112),rnd_range(-16,-8),"drone")
   end
   if gamestate.aliens_destroyed>=win_target then
    objective_cleanup()
@@ -1422,10 +1422,6 @@ function create_alien(x,y,breed)
   al.hp=40
   al.sprite=sprite_create({75,76,77,76},1,1)
   sprite_hitbox(al.sprite,1,1,5,5) 
- else
-  al.hp=40
-  al.sprite=sprite_create({66},1,1)
-  sprite_hitbox(al.sprite,1,1,5,5)
  end
  al.collision_damage=20
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
