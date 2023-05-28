@@ -263,7 +263,9 @@ Q: How should the current weapons level be reflected in the players HUD?
 - [x] Asteroid belt - Go fast, don't die
 - [ ] Power spree - A few seconds to grab fast-moving power-ups
 - [x] None shall pass - don't miss any aliens
+- [ ] Some can pass - try to stop them all
 - [ ] Cargo escort - protect the cargo ship
+- [ ] Push 'em back - push the aliens back into the obliterator
 - [ ] Rock on - more rocks than you can avoid, lots of shield boosts
 - [ ] Peekaboo - Aliens appear briefly, fire and leave
 - [ ] Canyon run - narrow canyon with lots of rocks at speed (*stretch goal*)
