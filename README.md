@@ -240,7 +240,7 @@ Q: How should the current weapons level be reflected in the players HUD?
 - Each alien yields points when destroyed that are calculated as `(HP + COLLISION_DAMAGE * 10) + EXPLOSION_SIZE`
 
 | Class           |  Speed  | Trajectory             | Fire Pattern            | Bull. Size |  HP  | Coll. Damage | Exp. Size | Status |
-|:---------------:|:-------:|:----------------------:|:-----------------------:|:------ ---:|:----:|:------------:|:---------:|:------:|
+|:---------------:|:-------:|:----------------------:|:-----------------------:|:----------:|:----:|:------------:|:---------:|:------:|
 | Drone           | Slow    | Wave                   | Single on line of sight | Small      |  20  | 20           | 1         | Done   |
 | Asteroid Grey   | Slow    | Single                 | n/a                     | n/a        |  50  | 30           | Random    |        |
 | Asteroid Brown  | Medium  | Single                 | n/a                     | n/a        |  35  | 20           | Random    | Done   |
