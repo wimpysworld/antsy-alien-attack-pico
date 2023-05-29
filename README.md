@@ -242,11 +242,11 @@ Q: How should the current weapons level be reflected in the players HUD?
 | Class           |  Speed  | Trajectory             | Fire Pattern            | Bull. Size |  HP  | Coll. Damage | Exp. Size | Status |
 |:---------------:|:-------:|:----------------------:|:-----------------------:|:----------:|:----:|:------------:|:---------:|:------:|
 | Drone           | Slow    | Wave                   | Single on line of sight | Small      |  20  | 20           | 1         | Done   |
-| Asteroid Grey   | Slow    | Single                 | n/a                     | n/a        |  50  | 30           | Random    |        |
+| Asteroid Grey   | Slow    | Single                 | n/a                     | n/a        |  50  | 30           | Random    | Done   |
 | Asteroid Brown  | Medium  | Single                 | n/a                     | n/a        |  35  | 20           | Random    | Done   |
 | Orby            | Medium  | Vertical               | 6-way Pulse             | Small      |  40  | 20           | 1         | Done   |
 | Bronze          | Slow    | Single                 | Single angle            | Medium     |  40  | 20           | 1 or 2    | Done   |
-| Silver          | Medium  | Vertical and intercept | Aimed                   | Small      |  45  | 20           | 2         |        |
+| Silver          | Medium  | Vertical and intercept | Aimed                   | Small      |  45  | 20           | 2         | WIP    |
 | Sapphire        | Medium  | Aimed                  | 3 shot spread on sight  | Small      |  50  | 20           | 2 or 3    |        |
 | Emerald         | Fast    | Wide wave              | 360° Spiral             | Medium     |  60  | 20           | 3         |        |
 | Saucer          | Fast    | Swoop and retreat      | Aimed                   | Large      |  75  | 40           | 3         |        |
@@ -264,10 +264,10 @@ Q: How should the current weapons level be reflected in the players HUD?
 - [x] Asteroid belt - Go fast, don't die
 - [ ] Power spree - A few seconds to grab fast-moving power-ups
 - [x] None shall pass - don't miss any aliens
-- [ ] Some can pass - try to stop them all
+- [x] Some can pass - try to stop them all
 - [ ] Cargo escort - protect the cargo ship
 - [ ] Push 'em back - push the aliens back into the obliterator
-- [ ] Rock on - more rocks than you can avoid, lots of shield boosts
+- [x] Rock on - more rocks than you can avoid
 - [ ] Peekaboo - Aliens appear briefly, fire and leave
 - [ ] Canyon run - narrow canyon with lots of rocks at speed (*stretch goal*)
 - [ ] Tunnel through - make a path through the rocks (*stretch goal*)
@@ -290,6 +290,8 @@ Q: How should the current weapons level be reflected in the players HUD?
 - [x] Player formation "animations"
 - [ ] Player gravity-guided pick-ups
 - [ ] Pick-up animations
+- [ ] HUD help animations the first x times the game is played
+- [ ] Player smart bomb is home missiles
 
 # Development tools 🧑‍💻
 
