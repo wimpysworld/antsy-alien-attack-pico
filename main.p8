@@ -1224,7 +1224,15 @@ function apply_player_damage(pl,damage,shake)
    screen_flash+=3
    screen_shake+=16
   end
+  local old_hp=pl.hp
   pl.hp-=damage
+  
+  // did we just cross 50% mark
+  // drop the shot_pattern by 1
+  if old_hp>=50 and pl.hp<50 then
+   pl.shot_pattern-=1
+   if (pl.shot_pattern<1) pl.shot_pattern=1
+  end
   pl.shields+=120
   sfx(10)
  end
