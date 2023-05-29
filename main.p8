@@ -1080,9 +1080,13 @@ end
 function emit_rocket(player_num)
  emit_muzzle_flash(player_num)
  local pl=players[player_num]
- for i=1,2 do
-  local rx=pl.x
-  if (i==2) rx=pl.x+8
+
+ for i=0,pl.shot_pattern do
+  local rx=pl.x+4
+  if pl.shot_pattern==1 then
+   rx=pl.x
+   if (i==1) rx=pl.x+8
+  end
   add(rockets,create_projectile(pl,rx,pl.y-4))
   gamestate.player_shots+=1
 
@@ -1093,6 +1097,23 @@ function emit_rocket(player_num)
   //rocket.sprite.show_hitbox=true
   add(rocket.sprite.pal_swaps,{9,pl.col_dk})
   add(rocket.sprite.pal_swaps,{10,pl.col_lt})
+
+  if pl.shot_pattern==2 then
+   // 3-way
+   local ang=0.215+((0.04+fc)*i)  
+   rocket.speed_x=cos(ang)*2.5
+   rocket.speed_y=sin(ang)*2.5
+  elseif pl.shot_pattern==3 then
+   // 4-way
+   local ang=0.175+((0.05+fc)*i)
+   rocket.speed_x=cos(ang)*2
+   rocket.speed_y=sin(ang)*2
+  elseif pl.shot_pattern==4 then
+   // 5-way
+   local ang=0.175+((0.04+fc)*i)
+   rocket.speed_x=cos(ang)*1.75
+   rocket.speed_y=sin(ang)*1.75    
+  end
  end
 end
 
@@ -1309,6 +1330,8 @@ function update_players()
   sprite_loop_frame(pl.jet,0.3)
 
   pl.shields=mid(0,pl.shields-1,pl.shields)
+
+  pl.shot_cooldown=4+pl.shot_pattern
 
   pl.shot_cooldown_timer-=1
   pl.shot_cooldown_timer=max(pl.shot_cooldown_timer,0)
@@ -1581,8 +1604,7 @@ function create_projectile(actor,x,y)
   y=y,
   damage=actor.shot_damage,
   speed_x=actor.shot_speed_x,
-  speed_y=actor.shot_speed_y,
-  pattern=actor.shot_pattern
+  speed_y=actor.shot_speed_y
  }
 end
 
@@ -1601,7 +1623,7 @@ function create_actor(x,y)
   explosion_screen_flash=0,
   explosion_screen_shake=1,
   explosion_style=nil,
-  shot_pattern="",
+  shot_pattern=1,
   shot_damage=10,
   shot_speed_x=0,
   shot_speed_y=-4,
