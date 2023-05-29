@@ -1516,6 +1516,21 @@ function create_alien(x,y,breed)
   al.shot_sprite=80
   al.explosion_size=2
   al.debris_size=al.explosion_size  
+ elseif breed=="sapphire" then
+  al.hp=50
+  al.sprite=sprite_create({101},1,1)
+  sprite_hitbox(al.sprite,1,1,5,5)
+  al.x_off,al.y_off=2,-6  
+  al.shot_speed_y=1.75
+  al.shot_speed_x=1.75  
+  al.shot_cooldown=120
+  al.shot_sprite=80
+  al.explosion_size=rnd_range(2,3)
+  al.debris_size=al.explosion_size
+  
+  local angle=atan2(63-al.x+al.x_off,63-al.y+al.y_off)
+  al.speed_x=cos(angle)*1.45
+  al.speed_y=sin(angle)*1.45
  end
  al.shot_cooldown_timer=0
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
@@ -1562,6 +1577,12 @@ function make_firing_decision(al)
     local angle=atan2(pl.x+8-al.x+al.x_off,pl.y+8-al.y+al.y_off)
     bullet.speed_x=cos(angle)*al.shot_speed_x
     bullet.speed_y=sin(angle)*al.shot_speed_y
+	 if al.breed=="sapphire" and one_in(500) then
+	  //aimed shots, with estimated predictive compensation
+	  for pl in all(players) do
+    emit_bullet(al)
+    bullet=bullets[#bullets]
+    aim_shot(bullet,pl,al,true)
    end
   end
 
@@ -1592,6 +1613,9 @@ function update_aliens()
    al.sprite.frame+=0.1
    al.x+=al.speed_x
    al.y+=al.speed_y   
+  elseif al.breed=="sapphire" then
+   al.x+=al.speed_x
+   al.y+=al.speed_y
   end
   if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
 
