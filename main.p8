@@ -1531,6 +1531,18 @@ function create_alien(x,y,breed)
   local angle=atan2(63-al.x+al.x_off,63-al.y+al.y_off)
   al.speed_x=cos(angle)*1.45
   al.speed_y=sin(angle)*1.45
+ elseif breed=="emerald" then
+  al.hp=60
+  al.speed_y=0.4
+  al.shot_cooldown=120
+  al.x_off,al.y_off=2,-6
+  al.shot_sprite=65
+  al.wave_speed=0.007
+  al.wave_width=1.5  
+  al.sprite=sprite_create({117},1,1)
+  sprite_hitbox(al.sprite,1,1,5,5)
+  al.explosion_size=3
+  al.debris_size=al.explosion_size
  end
  al.shot_cooldown_timer=0
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
@@ -1587,7 +1599,14 @@ function make_firing_decision(al)
    end
   end
 
-	 ::no_fire::
+	 if al.breed=="emerald" and one_in(750) then
+   for i=0,3 do
+    local ang=0.695+((0.04+fc)*i)    
+   	al.shot_speed_x=cos(ang)*1.5
+   	al.shot_speed_y=sin(ang)*1.5
+	   emit_bullet(al)
+	  end
+  end
 	end
  al.shot_cooldown_timer=max(0,al.shot_cooldown_timer-1)
 end
@@ -1599,10 +1618,16 @@ function update_aliens()
    al.sprite.frame+=0.085
    al.x+=al.speed_x
    al.y+=al.speed_y   
-  elseif al.breed=="drone" then
-   al.x+=cos(al.speed_x)*al.wave_width
-   al.y+=al.speed_y   
+  elseif al.breed=="drone" or al.breed=="emerald" then
+   local cos_wave=cos(al.speed_x)*al.wave_width
+   al.x+=cos_wave
+   al.y+=al.speed_y
    al.speed_x+=al.wave_speed
+   if al.breed=="emerald" then
+    al.sprite.frames={117}
+    if (cos_wave<0.1) al.sprite.frames={116}
+    if (cos_wave>0.9) al.sprite.frames={118}
+   end   
   elseif al.breed=="orby" then
    al.y+=al.speed_y
    al.sprite.frame+=0.075
