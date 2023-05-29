@@ -759,7 +759,7 @@ function shmup()
  else
   gamestate.hud_progress=gamestate.aliens_destroyed
   if #aliens<gamestate.aliens_max then
-   local spawn=split("drone,orby,bronze,silver")
+   local spawn=split("drone,orby,bronze,silver,sapphire")
    create_alien(rnd_range(16,112),rnd_range(-16,-8),spawn[rnd_range(1,#spawn)])
   end
   if gamestate.aliens_destroyed>=win_target then
