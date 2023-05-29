@@ -1431,6 +1431,19 @@ function create_alien(x,y,breed)
   al.shot_cooldown=240
   al.x_off,al.y_off=2,-6
   al.shot_sprite=80
+ elseif breed=="bronze" then
+  al.hp=40
+  al.speed_y=rnd_float_range(0.5,0.75)
+  al.speed_x=rnd_float_range(-0.2,0.2)
+  al.sprite=sprite_create({68,69,70,69},1,1)
+  sprite_hitbox(al.sprite,1,1,5,5)
+  al.x_off,al.y_off=2,-6  
+  al.shot_speed_y=al.speed_y+0.5
+  al.shot_speed_x=al.speed_x*1.5  
+  al.shot_cooldown=120
+  al.shot_sprite=65
+  al.explosion_size=rnd_range(1,2)
+  al.debris_size=al.explosion_size  
  end
  al.shot_cooldown_timer=0
  al.collision_damage=20
@@ -1454,6 +1467,8 @@ function make_firing_decision(al)
 	   emit_bullet(al)
 	  end
   end
+	 if (al.breed=="bronze" and one_in(500)) emit_bullet(al)
+
 	 ::no_fire::
 	end
  al.shot_cooldown_timer=max(0,al.shot_cooldown_timer-1)
@@ -1473,6 +1488,10 @@ function update_aliens()
   elseif al.breed=="orby" then
    al.y+=al.speed_y
    al.sprite.frame+=0.075
+  elseif al.breed=="bronze" then
+   al.sprite.frame+=0.1
+   al.x+=al.speed_x
+   al.y+=al.speed_y      
   end
   if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
 
