@@ -1483,7 +1483,7 @@ function create_alien(x,y,breed)
   al.hp=40
   al.speed_x=0
   al.speed_y=0.5
-  al.sprite=sprite_create({75,76,77,76},1,1)
+  al.sprite=sprite_create({91,75,76,77,93,77,76,75},1,1)
   sprite_hitbox(al.sprite,1,1,5,5) 
   al.shot_cooldown=240
   al.x_off,al.y_off=2,-6
