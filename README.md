@@ -241,10 +241,10 @@ Q: How should the current weapons level be reflected in the players HUD?
 
 | Class           |  Speed  | Trajectory             | Fire Pattern            | Bull. Size |  HP  | Coll. Damage | Exp. Size | Status |
 |:---------------:|:-------:|:----------------------:|:-----------------------:|:------ ---:|:----:|:------------:|:---------:|:------:|
-| Drone           | Slow    | Vertical               | Single on line of sight | Small      |  20  | 20           | 1         | Done   |
+| Drone           | Slow    | Wave                   | Single on line of sight | Small      |  20  | 20           | 1         | Done   |
 | Asteroid        | Medium  | Single                 | n/a                     | n/a        |  35  | 20           | Random    | Done   |
-| Orby            | Medium  | Narrow wave            | 8-way Pulse             | Small      |  40  | 20           | 1         | WIP    |
-| Bronze          | Slow    | Single                 | Single angle            | Medium     |  40  | 20           | 1 or 2    |        |
+| Orby            | Medium  | Vertical               | 6-way Pulse             | Small      |  40  | 20           | 1         | Done   |
+| Bronze          | Slow    | Single                 | Single angle            | Medium     |  40  | 20           | 1 or 2    | Done   |
 | Silver          | Medium  | Vertical and intercept | Aimed                   | Small      |  45  | 20           | 2         |        |
 | Sapphire        | Medium  | Aimed                  | 3 shot spread on sight  | Small      |  50  | 20           | 2 or 3    |        |
 | Emerald         | Fast    | Wide wave              | 360° Spiral             | Medium     |  60  | 20           | 3         |        |
