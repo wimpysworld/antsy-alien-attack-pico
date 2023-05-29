@@ -1521,6 +1521,17 @@ function create_alien(x,y,breed)
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
 end
 
+function aim_shot(bl,pl,al,predict)
+ local vel_x,vel_y=0,0
+ if predict then
+  vel_x,vel_y=pl.vel_x,pl.vel_y
+ end
+
+ local angle=atan2(pl.x+8+vel_x-al.x+al.x_off,pl.y+8+vel_y-al.y+al.y_off)
+ bl.speed_x=cos(angle)*al.shot_speed_x
+ bl.speed_y=sin(angle)*al.shot_speed_y
+end
+
 function make_firing_decision(al)
  if (al.breed=="asteroid") return
  
