@@ -1574,9 +1574,10 @@ function make_firing_decision(al)
 	  for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
-    local angle=atan2(pl.x+8-al.x+al.x_off,pl.y+8-al.y+al.y_off)
-    bullet.speed_x=cos(angle)*al.shot_speed_x
-    bullet.speed_y=sin(angle)*al.shot_speed_y
+    aim_shot(bullet,pl,al)
+   end
+  end
+
 	 if al.breed=="sapphire" and one_in(500) then
 	  //aimed shots, with estimated predictive compensation
 	  for pl in all(players) do
