@@ -1426,12 +1426,13 @@ function create_alien(x,y,breed)
   al.debris_size=al.explosion_size
  elseif breed=="orby" then 
   al.hp=40
+  al.speed_x=0
+  al.speed_y=0.5
   al.sprite=sprite_create({75,76,77,76},1,1)
   sprite_hitbox(al.sprite,1,1,5,5) 
-  al.shot_speed_y,al.shot_speed_x=1.6,-0.50+rnd(0.5)+0.25
   al.shot_cooldown=240
   al.x_off,al.y_off=2,-6
-  al.shot_sprite=80  
+  al.shot_sprite=80
  end
  al.shot_cooldown_timer=0
  al.collision_damage=20
@@ -1441,13 +1442,20 @@ end
 function make_firing_decision(al)
  if (al.breed=="asteroid") return
  
- if #bullets<=#aliens*2 and al.shot_cooldown_timer<=0 then
+ if al.shot_cooldown_timer<=0 then
 	 if al.breed=="drone" then
 	  for pl in all(players) do
 	   if (pl.y>al.y and pl.x>=al.x and pl.x<=al.x+7 and one_in(25)) emit_bullet(al)
 	  end
 	 end
-	 if (al.breed=="orby" and one_in(300)) emit_bullet(al) 
+	 if al.breed=="orby" and one_in(850) then
+   for i=1,7 do
+    local ang=0.375+((0.25+tick)*i)
+   	al.shot_speed_x=sin(ang)
+   	al.shot_speed_y=cos(ang)   	
+	   emit_bullet(al)
+	  end
+  end
 	 ::no_fire::
 	end
  al.shot_cooldown_timer=max(0,al.shot_cooldown_timer-1)
