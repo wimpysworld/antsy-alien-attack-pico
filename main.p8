@@ -785,7 +785,7 @@ function none_shall_pass(mode)
   gamestate.title="none shall pass"
   gamestate.text="gotta stop them all!"
   if mode=="some" then
-   gamestate.aliens_max=8
+   gamestate.aliens_max=6
    gamestate.title="some can pass"
    gamestate.text="try and stop them all!"
   end
