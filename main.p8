@@ -1478,6 +1478,19 @@ function create_alien(x,y,breed)
   al.shot_sprite=65
   al.explosion_size=rnd_range(1,2)
   al.debris_size=al.explosion_size  
+ elseif breed=="silver" then
+  al.hp=45
+  al.speed_y=rnd_float_range(0.5,0.75)
+  al.speed_x=rnd_float_range(-0.2,0.2)
+  al.sprite=sprite_create({84,85,86,85},1,1)
+  sprite_hitbox(al.sprite,1,1,5,5)
+  al.x_off,al.y_off=2,-6  
+  al.shot_speed_y=1.75
+  al.shot_speed_x=1.75  
+  al.shot_cooldown=120
+  al.shot_sprite=80
+  al.explosion_size=2
+  al.debris_size=al.explosion_size  
  end
  al.shot_cooldown_timer=0
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
@@ -1500,7 +1513,19 @@ function make_firing_decision(al)
 	   emit_bullet(al)
 	  end
   end
+  
 	 if (al.breed=="bronze" and one_in(500)) emit_bullet(al)
+
+	 if al.breed=="silver" and one_in(500) then
+	  //aimed shots
+	  for pl in all(players) do
+    emit_bullet(al)
+    bullet=bullets[#bullets]
+    local angle=atan2(pl.x+8-al.x+al.x_off,pl.y+8-al.y+al.y_off)
+    bullet.speed_x=cos(angle)*al.shot_speed_x
+    bullet.speed_y=sin(angle)*al.shot_speed_y
+   end
+  end
 
 	 ::no_fire::
 	end
@@ -1525,6 +1550,10 @@ function update_aliens()
    al.sprite.frame+=0.1
    al.x+=al.speed_x
    al.y+=al.speed_y      
+  elseif al.breed=="silver" then
+   al.sprite.frame+=0.1
+   al.x+=al.speed_x
+   al.y+=al.speed_y   
   end
   if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
 
