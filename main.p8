@@ -1520,7 +1520,7 @@ function create_alien(x,y,breed)
   al.x_off,al.y_off=2,-6  
   al.shot_speed_y=1.75
   al.shot_speed_x=1.75  
-  al.shot_cooldown=120
+  al.shot_cooldown=180
   al.shot_sprite=80
   al.explosion_size=2
   al.debris_size=al.explosion_size  
@@ -1531,7 +1531,7 @@ function create_alien(x,y,breed)
   al.x_off,al.y_off=2,-6  
   al.shot_speed_y=1.75
   al.shot_speed_x=1.75  
-  al.shot_cooldown=120
+  al.shot_cooldown=180
   al.shot_sprite=80
   al.explosion_size=rnd_range(2,3)
   al.debris_size=al.explosion_size
@@ -1542,7 +1542,7 @@ function create_alien(x,y,breed)
  elseif breed=="emerald" then
   al.hp=60
   al.speed_y=0.4
-  al.shot_cooldown=120
+  al.shot_cooldown=240
   al.x_off,al.y_off=2,-6
   al.shot_sprite=65
   al.wave_speed=0.007
@@ -1694,7 +1694,7 @@ function create_actor(x,y)
   explosion_screen_flash=0,
   explosion_screen_shake=1,
   explosion_style=nil,
-  shot_pattern=1,
+  shot_pattern=2,
   shot_damage=10,
   shot_speed_x=0,
   shot_speed_y=-4,
