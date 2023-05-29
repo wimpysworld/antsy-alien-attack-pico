@@ -726,7 +726,7 @@ function init_missions()
  objective_complete=false
 	missions={
 	 "players_off,jump,flyin,players_on,drop",
-	 "shmup,wait,none_shall_pass,wait,jump,weapons_off,asteroid_belt,weapons_on",
+	 "shmup,wait,some_can_pass,wait,jump,weapons_off,asteroid_belt,weapons_on",
 	 "players_off,jump,flyout,drop",
 	}
 end
@@ -776,19 +776,28 @@ function draw_none_shall_pass()
  line(3,126,124,126,sparkle)
 end
 
-function none_shall_pass()
+function none_shall_pass(mode)
  local win_target=1200
  if not gamestate.ready then
   gamestate.hud_target=win_target
 
-  gamestate.aliens_max=8
+  gamestate.aliens_max=4
   gamestate.draw=draw_none_shall_pass
   gamestate.title="none shall pass"
-  gamestate.text="gotta shoot them all!"
+  gamestate.text="gotta stop them all!"
+  if mode=="some" then
+   gamestate.aliens_max=8
+   gamestate.title="some can pass"
+   gamestate.text="try and stop them all!"
+  end
  else
   gamestate.hud_progress=gamestate.gametime
 	 if #aliens<gamestate.aliens_max then
-	  create_alien(rnd_range(20,108),-16,"orby")
+	  // narrow the x range for
+	  // none shall pass
+	  local spawn_x=rnd_range(28,100)
+	  if (mode=="some") spawn_x=rnd_range(20,108)
+	  create_alien(spawn_x,-16,"orby")
 	 end
 
 	 for al in all(aliens) do
@@ -796,7 +805,12 @@ function none_shall_pass()
 	  if al.y>=128 then
 	  	gamestate.aliens_escaped+=1
 	   for pl in all(players) do
-	    apply_player_damage(pl,al.collision_damage)
+	    if mode=="some" then
+ 	    apply_player_damage(pl,al.collision_damage)
+ 	   else
+ 	    // none shall pass insta-death
+ 	    apply_player_damage(pl,pl.hp+10)
+ 	   end
 	   end
 	   del(aliens,al)
 	  end
@@ -923,6 +937,7 @@ function update_game()
  if (objective=="flyin") autopilot("flyin")
  if (objective=="flyout") autopilot("flyout")
  if (objective=="shmup") shmup()
+ if (objective=="some_can_pass") none_shall_pass("some") 
  if (objective=="none_shall_pass") none_shall_pass()
  if (objective=="asteroid_belt") asteroid_belt()
 
