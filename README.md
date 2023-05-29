@@ -245,10 +245,10 @@ Q: How should the current weapons level be reflected in the players HUD?
 | Asteroid Grey   | Slow    | Single                 | n/a                     | n/a        |  50  | 30           | Random    | Done   |
 | Asteroid Brown  | Medium  | Single                 | n/a                     | n/a        |  35  | 20           | Random    | Done   |
 | Orby            | Medium  | Vertical               | 8-way Pulse             | Small      |  40  | 20           | 1         | Done   |
-| Bronze          | Slow    | Single                 | Specualtive             | Medium     |  40  | 20           | 1 or 2    | Done   |
+| Bronze          | Slow    | Single                 | Speculative             | Medium     |  40  | 20           | 1 or 2    | Done   |
 | Silver          | Medium  | Vertical               | Aimed                   | Small      |  45  | 20           | 2         | Done   |
-| Sapphire        | Medium  | Diagonal               | Predictive              | Small      |  50  | 20           | 2 or 3    | Done    |
-| Emerald         | Fast    | Wide wave              | 3-way Spread            | Medium     |  60  | 20           | 3         |        |
+| Sapphire        | Medium  | Diagonal               | Predictive              | Small      |  50  | 20           | 2 or 3    | Done   |
+| Emerald         | Fast    | Wide wave              | 4-way Spread            | Medium     |  60  | 20           | 3         | Done   |
 | Saucer          | Fast    | Swoop and retreat      | 360° Spiral             | Large      |  75  | 40           | 3         |        |
 
 ### Boss patterns
