@@ -1698,6 +1698,10 @@ function rnd_range(low,high)
  return flr(rnd(high+1-low)+low)
 end
 
+function rnd_float_range(low,high)
+ return rnd(high-low)+low
+end
+
 function one_in(num)
  if (rnd_range(1,num)==1) return true
  return false
