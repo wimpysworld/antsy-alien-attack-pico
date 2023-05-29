@@ -1417,6 +1417,7 @@ function create_alien(x,y,breed)
 
  al=aliens[#aliens]
  al.breed=breed
+ al.collision_damage=20 
  if breed=="drone" then
   al.hp=20
   al.speed_y=0.4
@@ -1429,14 +1430,29 @@ function create_alien(x,y,breed)
   al.sprite=sprite_create({66},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="asteroid" then
-  al.hp=35
-  local rocks=split("71,72,73,74")
-  if (fc%2==0) rocks=split("87,88,89,90")  
+  local rocks={}
+  if one_in(3) then
+   //silver
+   al.hp=50
+   al.collision_damage=30
+   rocks=split("71,72,73,74")   
+   al.speed_y=rnd_float_range(0.5,0.75)
+   //0.5+(rnd(0.25))
+   al.speed_x=rnd_float_range(-0.55,0.55)
+   //-0.25+rnd(0.25)+0.15  
+  else
+   //brown
+   al.hp=35
+   //al.collision_damage=20
+   rocks=split("87,88,89,90")
+   al.speed_y=rnd_float_range(0.95,1.25)
+   //1.25+(rnd(0.5))
+   al.speed_x=rnd_float_range(-0.95,0.95)
+   //-0.5+rnd(0.5)+0.25
+  end
   al.sprite=sprite_create(rocks,1,1)
   sprite_hitbox(al.sprite,2,1,3,4)
   al.sprite.frame=rnd_range(1,#rocks)
-  al.speed_y=1.25+(rnd(0.5))
-  al.speed_x=-0.50+rnd(0.5)+0.25
   al.explosion_size=rnd_range(1,3)
   al.debris_size=al.explosion_size
  elseif breed=="orby" then 
@@ -1463,7 +1479,6 @@ function create_alien(x,y,breed)
   al.debris_size=al.explosion_size  
  end
  al.shot_cooldown_timer=0
- al.collision_damage=20
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
 end
 
