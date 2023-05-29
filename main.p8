@@ -726,7 +726,7 @@ function init_missions()
  objective_complete=false
 	missions={
 	 "players_off,jump,flyin,players_on,drop",
-	 "shmup,wait,some_can_pass,wait,jump,weapons_off,asteroid_belt,weapons_on",
+	 "shmup,wait,some_can_pass,wait,jump,weapons_off,asteroid_fast,weapons_on",
 	 "players_off,jump,flyout,drop",
 	}
 end
@@ -823,19 +823,23 @@ function none_shall_pass(mode)
 	end
 end
 
-function asteroid_belt()
+function asteroid_belt(hyper)
  local win_target=2000
- hyperspeed=3
+ if (hyper) hyperspeed=3
  if not gamestate.ready then
   gamestate.hud_target=win_target
 
-  gamestate.aliens_max=16
+  gamestate.aliens_max=24
   gamestate.title="asteroid belt"
   gamestate.text="fly to survive"
+  if not hyper then
+   gamestate.aliens_max=52
+   gamestate.text="shoot to survive"   
+  end
  else
   gamestate.hud_progress=gamestate.gametime
   if #aliens<gamestate.aliens_max then
-   if (rnd_range(1,5)==3) create_alien(rnd_range(8,120),-16,"asteroid")
+   if (one_in(3)) create_alien(rnd_range(2,126),-8,"asteroid")
   end
 
   for pl in all(players) do
@@ -939,7 +943,8 @@ function update_game()
  if (objective=="shmup") shmup()
  if (objective=="some_can_pass") none_shall_pass("some") 
  if (objective=="none_shall_pass") none_shall_pass()
- if (objective=="asteroid_belt") asteroid_belt()
+ if (objective=="asteroid_slow") asteroid_belt(false) 
+ if (objective=="asteroid_fast") asteroid_belt(true)
 
  update_screen_shake()
  update_stars()
