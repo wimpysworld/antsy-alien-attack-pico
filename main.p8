@@ -1531,10 +1531,10 @@ function make_firing_decision(al)
 	 end
 	 
 	 if al.breed=="orby" and one_in(850) then
-   for i=1,7 do
-    local ang=0.375+((0.25+tick)*i)
-   	al.shot_speed_x=sin(ang)
-   	al.shot_speed_y=cos(ang)   	
+   for i=0,7 do
+    local ang=0.375+((0.125+fc)*i)
+   	al.shot_speed_x=cos(ang)
+   	al.shot_speed_y=sin(ang)*1.2
 	   emit_bullet(al)
 	  end
   end
