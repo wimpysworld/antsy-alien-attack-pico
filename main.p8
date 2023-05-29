@@ -1499,11 +1499,13 @@ function make_firing_decision(al)
  if (al.breed=="asteroid") return
  
  if al.shot_cooldown_timer<=0 then
+ 
 	 if al.breed=="drone" then
 	  for pl in all(players) do
 	   if (pl.y>al.y and pl.x>=al.x and pl.x<=al.x+7 and one_in(25)) emit_bullet(al)
 	  end
 	 end
+	 
 	 if al.breed=="orby" and one_in(850) then
    for i=1,7 do
     local ang=0.375+((0.25+tick)*i)
@@ -1759,7 +1761,6 @@ function sound_play(sound)
   end
  end
 end
-
 
 // pass in the player object
 function score_update(pl,reward)
