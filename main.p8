@@ -1296,8 +1296,10 @@ function update_players()
 	  apply_stars_accel(dx,dy)
 
 	  // finally, apply the input direction to the player
-	  pl.x+=dx*pl.speed
-	  pl.y+=dy*pl.speed
+	  pl.vel_x=dx*pl.speed
+	  pl.vel_y=dy*pl.speed
+	  pl.x+=pl.vel_x
+	  pl.y+=pl.vel_y
   end
 
   // animate banking
