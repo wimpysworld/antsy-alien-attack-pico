@@ -630,7 +630,6 @@ function _puny(txt)
 end
 
 function style_text(txt,style)
- txt = tostr(txt) or ""
  if (not style)         return _normal(txt)
  if (style=="big")      return _big(txt)
  if (style=="invert")   return _invert(txt)
@@ -736,14 +735,10 @@ function objective_cleanup()
  // visual indication the objective is complete
  for al in all(aliens) do
   emit_explosion(al.sprite.emit_x,al.sprite.emit_y,3,3,debris_fire)
-  del(aliens,al)
   screen_shake+=1
  end
  
- for bl in all(bullets) do
-  emit_debris(bl.x+2,bl.y+2,1,debris_fire)
-  del(bullets,bl)
- end
+ aliens,bullets={},{}
  
  screen_flash+=3
  sfx(8)
@@ -790,7 +785,7 @@ function draw_none_shall_pass()
  line(3,126,124,126,sparkle)
 end
 
-function none_shall_pass(mode)
+function none_shall_pass(can_pass)
  local win_target=1200
  if not gamestate.ready then
   gamestate.hud_target=win_target
@@ -798,8 +793,8 @@ function none_shall_pass(mode)
   gamestate.aliens_max=4
   gamestate.draw=draw_none_shall_pass
   gamestate.title="none shall pass"
-  gamestate.text="gotta stop them all!"
-  if mode=="some" then
+  gamestate.text="you must stop them all!"
+  if can_pass then
    gamestate.aliens_max=6
    gamestate.title="some can pass"
    gamestate.text="try and stop them all!"
@@ -810,8 +805,8 @@ function none_shall_pass(mode)
 	  // narrow the x range for
 	  // none shall pass
 	  local spawn_x=rnd_range(28,100)
-	  if (mode=="some") spawn_x=rnd_range(20,108)
-	  create_alien(spawn_x,-16,"orby")
+	  if (can_pass) spawn_x=rnd_range(20,108)
+	  create_alien(spawn_x,-8,"orby")
 	 end
 
 	 for al in all(aliens) do
@@ -819,7 +814,7 @@ function none_shall_pass(mode)
 	  if al.y>=128 then
 	  	gamestate.aliens_escaped+=1
 	   for pl in all(players) do
-	    if mode=="some" then
+	    if can_pass then
  	    apply_player_damage(pl,al.collision_damage)
  	   else
  	    // none shall pass insta-death
@@ -852,8 +847,8 @@ function asteroid_belt(hyper)
   end
  else
   gamestate.hud_progress=gamestate.gametime
-  if #aliens<gamestate.aliens_max then
-   if (one_in(3)) create_alien(rnd_range(2,126),-8,"asteroid")
+  if #aliens<gamestate.aliens_max and one_in(3) then
+   create_alien(rnd_range(2,126),-8,"asteroid")
   end
 
   for pl in all(players) do
@@ -956,8 +951,8 @@ function update_game()
  if (objective=="flyout") autopilot("flyout")
  if (objective=="shmup") shmup(false)
  if (objective=="evade") shmup(true) 
- if (objective=="some_can_pass") none_shall_pass("some") 
- if (objective=="none_shall_pass") none_shall_pass()
+ if (objective=="some_can_pass") none_shall_pass(true) 
+ if (objective=="none_shall_pass") none_shall_pass(false)
  if (objective=="asteroid_slow") asteroid_belt(false) 
  if (objective=="asteroid_fast") asteroid_belt(true)
 
@@ -1114,21 +1109,22 @@ function emit_rocket(player_num)
   add(rocket.sprite.pal_swaps,{9,pl.col_dk})
   add(rocket.sprite.pal_swaps,{10,pl.col_lt})
 
+		local ang,spd=0
   if pl.shot_pattern==2 then
    // 3-way
-   local ang=0.215+((0.04+fc)*i)  
-   rocket.speed_x=cos(ang)*2.5
-   rocket.speed_y=sin(ang)*2.5
+   ang,spd=0.215+((0.04+fc)*i),2.5
   elseif pl.shot_pattern==3 then
    // 4-way
-   local ang=0.175+((0.05+fc)*i)
-   rocket.speed_x=cos(ang)*2
-   rocket.speed_y=sin(ang)*2
+   ang,spd=0.175+((0.05+fc)*i),2
   elseif pl.shot_pattern==4 then
    // 5-way
-   local ang=0.175+((0.04+fc)*i)
-   rocket.speed_x=cos(ang)*1.75
-   rocket.speed_y=sin(ang)*1.75    
+   ang,spd=0.175+((0.04+fc)*i),1.75
+  end
+  
+  // apply pattern
+  if pl.shot_pattern>1 then
+   rocket.speed_x=cos(ang)*spd
+   rocket.speed_y=sin(ang)*spd  
   end
  end
 end
@@ -1320,8 +1316,8 @@ function update_players()
 	  apply_stars_accel(dx,dy)
 
 	  // finally, apply the input direction to the player
-	  pl.vel_x=dx*pl.speed
-	  pl.vel_y=dy*pl.speed
+	  pl.vel_x,pl.vel_y=
+	   dx*pl.speed,dy*pl.speed
 	  pl.x+=pl.vel_x
 	  pl.y+=pl.vel_y
   end
@@ -1408,7 +1404,7 @@ function draw_players()
 end
 
 function emit_muzzle_flash(player_num)
- if #flashes<active_players() then
+ if #flashes<3 then
   add(flashes,{
    player=player_num,
    sprite=sprite_create({32,34,36,38},2,2)
@@ -1472,107 +1468,161 @@ function create_alien(x,y,breed)
  add(aliens,create_actor(x,y))
 
  al=aliens[#aliens]
- al.breed=breed
- al.collision_damage=20 
+ al.breed,
+ al.collision_damage,
+ al.shot_cooldown_timer,
+ al.x_off,
+ al.y_off,
+ al.framerate=
+  breed,
+  20,
+  0,
+  2,
+  -6,
+  0
+
  if breed=="drone" then
-  al.hp=20
-  al.speed_y=0.4
-  al.shot_speed_y,al.shot_speed_x=1.2,-0.50+rnd(0.5)+0.25
-  al.shot_cooldown=120
-  al.x_off,al.y_off=2,-6
-  al.shot_sprite=80
-  al.wave_speed=0.010
-  al.wave_width=0.90  
+  al.hp,
+  al.wave_speed,
+  al.wave_width,
+  al.shot_speed_x,
+  al.shot_speed_y,
+  al.shot_sprite,
+  al.shot_cooldown=
+   20,
+   0.010,
+   0.90,
+   rnd_float_range(-0.5,0.5),
+   1.2,
+   80,
+   240   
   al.sprite=sprite_create({66},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
- elseif breed=="asteroid" then
-  local rocks={}
+ elseif breed=="asteroid" then 
+  // brown asteroid
+  al.hp,
+  al.framerate,
+  al.speed_x,
+  al.speed_y=
+   35,
+   0.055,
+   rnd_float_range(-0.95,0.95),
+   rnd_float_range(0.95,1.25)
+  local rocks=split("87,88,89,90")
   if one_in(3) then
-   //grey
-   al.hp=50
-   al.collision_damage=30
-   rocks=split("71,72,73,74")   
-   al.speed_y=rnd_float_range(0.5,0.75)
-   al.speed_x=rnd_float_range(-0.55,0.55)
-   al.explosion_size=2   
-  else
-   //brown
-   al.hp=35
-   //al.collision_damage=20
-   rocks=split("87,88,89,90")
-   al.speed_y=rnd_float_range(0.95,1.25)
-   al.speed_x=rnd_float_range(-0.95,0.95)
-   al.explosion_size=1
+   // grey asteroid
+   al.hp,
+   al.framerate,
+   al.collision_damage,
+   al.speed_x,
+   al.speed_y,
+   al.explosion_size=
+    50,
+    0.085,
+    30,
+    rnd_float_range(-0.55,0.55),
+    rnd_float_range(0.5,0.75),
+    2
+   rocks=split("71,72,73,74")
   end
   al.sprite=sprite_create(rocks,1,1)
   sprite_hitbox(al.sprite,2,1,3,4)
   al.sprite.frame=rnd_range(1,#rocks)
-  al.debris_size=al.explosion_size
  elseif breed=="orby" then 
-  al.hp=40
-  al.speed_x=0
-  al.speed_y=0.5
+  al.hp,
+  al.framerate,
+  al.speed_x,
+  al.speed_y,
+  al.shot_sprite,
+  al.shot_cooldown=
+   40,
+   0.075,
+   0,
+   0.5,
+   80,
+   240
   al.sprite=sprite_create({91,75,76,77,93,77,76,75},1,1)
-  sprite_hitbox(al.sprite,1,1,5,5) 
-  al.shot_cooldown=240
-  al.x_off,al.y_off=2,-6
-  al.shot_sprite=80
+  sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="bronze" then
-  al.hp=40
+  local angle=atan2(rnd_range(48,80)-al.x+al.x_off,128)
+  al.hp,
+  al.framerate,
+  al.speed_x,
+  al.speed_y,
+  al.shot_speed_x,
+  al.shot_speed_y,
+  al.shot_sprite,
+  al.shot_cooldown,
+  al.explosion_size=
+   40,
+   0.1,
+   cos(angle)*1.1,
+   sin(angle)*1.1,
+   1.5,
+   1.5,
+   65,
+   100,
+   rnd_range(1,2)
   al.sprite=sprite_create({68,69,70,69},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
-  al.x_off,al.y_off=2,-6  
-  al.shot_speed_y=1.5
-  al.shot_speed_x=1.5  
-  al.shot_cooldown=100
-  al.shot_sprite=65
-  al.explosion_size=rnd_range(1,2)
-  al.debris_size=al.explosion_size
-  local angle=atan2(rnd_range(48,80)-al.x+al.x_off,128)
-  al.speed_x=cos(angle)*1.1
-  al.speed_y=sin(angle)*1.1  
  elseif breed=="silver" then
-  al.hp=45
-  al.speed_y=rnd_float_range(0.5,0.75)
-  al.speed_x=rnd_float_range(-0.2,0.2)
+  al.hp,
+  al.framerate,
+  al.speed_x,
+  al.speed_y,
+  al.shot_speed_x,
+  al.shot_speed_y,
+  al.shot_sprite,
+  al.shot_cooldown,
+  al.explosion_size=
+   45,
+   0.15,
+   rnd_float_range(-0.2,0.2),
+   rnd_float_range(0.5,0.75),
+   1.75,
+   1.75,
+   80,
+   180,
+   2
   al.sprite=sprite_create({84,85,86,85},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
-  al.x_off,al.y_off=2,-6  
-  al.shot_speed_y=1.75
-  al.shot_speed_x=1.75  
-  al.shot_cooldown=180
-  al.shot_sprite=80
-  al.explosion_size=2
-  al.debris_size=al.explosion_size  
  elseif breed=="sapphire" then
-  al.hp=50
+  local angle=atan2(63-al.x+al.x_off,63-al.y+al.y_off)
+  al.hp,
+  al.speed_x,
+  al.speed_y,
+  al.shot_speed_x,
+  al.shot_speed_y,
+  al.shot_sprite,
+  al.shot_cooldown,
+  al.explosion_size=
+   50,
+   cos(angle)*1.45,
+   sin(angle)*1.45,
+   1.75,
+   1.75,
+   80,
+   180,
+   rnd_range(2,3)
   al.sprite=sprite_create({101},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
-  al.x_off,al.y_off=2,-6  
-  al.shot_speed_y=1.75
-  al.shot_speed_x=1.75  
-  al.shot_cooldown=180
-  al.shot_sprite=80
-  al.explosion_size=rnd_range(2,3)
-  al.debris_size=al.explosion_size
-  
-  local angle=atan2(63-al.x+al.x_off,63-al.y+al.y_off)
-  al.speed_x=cos(angle)*1.45
-  al.speed_y=sin(angle)*1.45
  elseif breed=="emerald" then
-  al.hp=60
-  al.speed_y=0.4
-  al.shot_cooldown=240
-  al.x_off,al.y_off=2,-6
-  al.shot_sprite=65
-  al.wave_speed=0.007
-  al.wave_width=1.5  
+  al.hp,
+  al.wave_speed,
+  al.wave_width,
+  al.shot_sprite,
+  al.shot_cooldown,
+  al.explosion_size=
+   60,
+   0.007,
+   1.5,
+   65,
+   150,
+   3
   al.sprite=sprite_create({117},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
-  al.explosion_size=3
-  al.debris_size=al.explosion_size
  end
- al.shot_cooldown_timer=0
+ al.debris_size=al.explosion_size
  al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
 end
 
@@ -1591,55 +1641,54 @@ function make_firing_decision(al)
  if (al.breed=="asteroid") return
  
  if al.shot_cooldown_timer<=0 then
- 
 	 if al.breed=="drone" then
 	  for pl in all(players) do
-	   if (pl.y>al.y and pl.x>=al.x and pl.x<=al.x+7 and one_in(25)) emit_bullet(al)
+	   if pl.y>al.y and 
+	      pl.x>=al.x and
+	      pl.x<=al.x+7 and 
+	      one_in(25) then
+	    emit_bullet(al)
+	   end
 	  end
-	 end
-	 
-	 if al.breed=="orby" and one_in(850) then
+	 elseif al.breed=="orby" and one_in(850) then
    for i=0,7 do
     local ang=0.375+((0.125+fc)*i)
-   	al.shot_speed_x=cos(ang)
-   	al.shot_speed_y=sin(ang)*1.2
+   	al.shot_speed_x,al.shot_speed_y=
+   	 cos(ang),
+   	 sin(ang)*1.2
 	   emit_bullet(al)
 	  end
-  end
-  
-	 if al.breed=="bronze" and one_in(200) then	 
+	 elseif al.breed=="bronze" and one_in(200) then	 
 	  emit_bullet(al)
    bullet=bullets[#bullets]
+
    local x_target=rnd_range(88,112)
    if (al.x>=64) x_target=rnd_range(16,40)
+   
    local angle=atan2(x_target-al.x+al.x_off,128-al.y+al.y_off)
-   bullet.speed_x=cos(angle)*al.shot_speed_x
-   bullet.speed_y=sin(angle)*al.shot_speed_y
-  end
-  
-	 if al.breed=="silver" and one_in(500) then
+   bullet.speed_x,bullet.speed_y=
+    cos(angle)*al.shot_speed_x,
+    sin(angle)*al.shot_speed_y
+	 elseif al.breed=="silver" and one_in(500) then
 	  //aimed shots
 	  for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
     aim_shot(bullet,pl,al)
    end
-  end
-
-	 if al.breed=="sapphire" and one_in(500) then
+  elseif al.breed=="sapphire" and one_in(500) then
 	  //aimed shots, with estimated predictive compensation
 	  for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
     aim_shot(bullet,pl,al,true)
    end
-  end
-
-	 if al.breed=="emerald" and one_in(750) then
+	 elseif al.breed=="emerald" and one_in(750) then
    for i=0,3 do
     local ang=0.695+((0.04+fc)*i)    
-   	al.shot_speed_x=cos(ang)*1.5
-   	al.shot_speed_y=sin(ang)*1.5
+   	al.shot_speed_x,al.shot_speed_y=
+   	 cos(ang)*1.5,
+   	 sin(ang)*1.5
 	   emit_bullet(al)
 	  end
   end
@@ -1650,11 +1699,7 @@ end
 function update_aliens()
  for al in all(aliens) do
   make_firing_decision(al)
-  if al.breed=="asteroid" then
-   al.sprite.frame+=0.085
-   al.x+=al.speed_x
-   al.y+=al.speed_y   
-  elseif al.breed=="drone" or al.breed=="emerald" then
+  if al.breed=="drone" or al.breed=="emerald" then
    local cos_wave=cos(al.speed_x)*al.wave_width
    al.x+=cos_wave
    al.y+=al.speed_y
@@ -1663,22 +1708,13 @@ function update_aliens()
     al.sprite.frames={117}
     if (cos_wave<0.1) al.sprite.frames={116}
     if (cos_wave>0.9) al.sprite.frames={118}
-   end   
-  elseif al.breed=="orby" then
-   al.y+=al.speed_y
-   al.sprite.frame+=0.075
-  elseif al.breed=="bronze" then
-   al.sprite.frame+=0.1
+   end
+  else
    al.x+=al.speed_x
-   al.y+=al.speed_y      
-  elseif al.breed=="silver" then
-   al.sprite.frame+=0.1
-   al.x+=al.speed_x
-   al.y+=al.speed_y   
-  elseif al.breed=="sapphire" then
-   al.x+=al.speed_x
-   al.y+=al.speed_y
-  end
+   al.y+=al.speed_y  
+  end   
+  
+  al.sprite.frame+=al.framerate
   if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
 
   if is_outside_playarea(al.x,al.y) then
