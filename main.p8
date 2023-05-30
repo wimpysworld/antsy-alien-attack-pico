@@ -760,18 +760,19 @@ function shmup(evade)
    gamestate.text="evasive manoeuvres only!"
   end
  else
-  gamestate.hud_progress=gamestate.aliens_destroyed
   if #aliens<gamestate.aliens_max then
    local spawn=split("drone,drone,drone,drone,orby,bronze,bronze,bronze,bronze,silver,silver,silver,silver,sapphire,sapphire,emerald")
    create_alien(rnd_range(16,112),rnd_range(-16,-8),spawn[rnd_range(1,#spawn)])
   end
 
   if (evade) then
+   gamestate.hud_progress=gamestate.gametime
    if gamestate.gametime>=win_target then
     objective_cleanup()
     objective_complete=true
-   end  
-  else  
+   end
+  else
+   gamestate.hud_progress=gamestate.aliens_destroyed  
 	  if gamestate.aliens_destroyed>=win_target then
 	   objective_cleanup()
 	   objective_complete=true
