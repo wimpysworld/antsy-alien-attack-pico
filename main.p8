@@ -1530,6 +1530,7 @@ function create_alien(x,y,breed)
 
  if breed=="drone" then
   al.hp,
+  al.framerate,
   al.wave_speed,
   al.wave_width,
   al.shot_speed_x,
@@ -1537,13 +1538,14 @@ function create_alien(x,y,breed)
   al.shot_sprite,
   al.shot_cooldown=
    20,
+   0.1,
    0.010,
    0.90,
    rnd_float_range(-0.5,0.5),
    1.2,
    80,
    240   
-  al.sprite=sprite_create({66},1,1)
+  al.sprite=sprite_create(split("107,108,109,123,124,125"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="asteroid" then 
   // brown asteroid
