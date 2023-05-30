@@ -589,7 +589,7 @@ end
 //https://pico-8.fandom.com/wiki/p8scii_control_codes
 function _normal(txt)
  _txt_wide,_txt_high=4,5
- return "\^-w\^-t\^-=\^-p\^-i\^-b\^-#"..txt
+ return "\^-w\^-t\^-=\^-p\^-i\^-b\^-#"..tostr(txt)
 end
 
 function _wide(txt)
