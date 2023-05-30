@@ -749,24 +749,38 @@ function objective_cleanup()
  sfx(8)
 end
 
-function shmup()
+function shmup(evade)
  local win_target=level*100
+ if (evade) win_target=level*750
+ 
  if not gamestate.ready then
   gamestate.hud_target=win_target
 
   gamestate.aliens_max=8
   gamestate.title="shmuuuuup!"
   gamestate.text="destroy "..tostr(win_target).." aliens"
+  if (evade) then
+   gamestate.title="evade them!"
+   gamestate.text="evasive manoeuvres only!" 
+  end
  else
   gamestate.hud_progress=gamestate.aliens_destroyed
   if #aliens<gamestate.aliens_max then
    local spawn=split("drone,drone,drone,drone,orby,bronze,bronze,bronze,bronze,silver,silver,silver,silver,sapphire,sapphire,emerald")
    create_alien(rnd_range(16,112),rnd_range(-16,-8),spawn[rnd_range(1,#spawn)])
   end
-  if gamestate.aliens_destroyed>=win_target then
-   objective_cleanup()
-   objective_complete=true
-  end
+
+  if (evade) then
+   if gamestate.gametime>=win_target then
+    objective_cleanup()
+    objective_complete=true
+   end  
+  else  
+	  if gamestate.aliens_destroyed>=win_target then
+	   objective_cleanup()
+	   objective_complete=true
+	  end
+	 end
  end
 end
 
@@ -940,7 +954,8 @@ function update_game()
  if (objective=="wait") wait()
  if (objective=="flyin") autopilot("flyin")
  if (objective=="flyout") autopilot("flyout")
- if (objective=="shmup") shmup()
+ if (objective=="shmup") shmup(false)
+ if (objective=="evade") shmup(true) 
  if (objective=="some_can_pass") none_shall_pass("some") 
  if (objective=="none_shall_pass") none_shall_pass()
  if (objective=="asteroid_slow") asteroid_belt(false) 
