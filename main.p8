@@ -1494,6 +1494,7 @@ function create_alien(x,y,breed)
    rocks=split("71,72,73,74")   
    al.speed_y=rnd_float_range(0.5,0.75)
    al.speed_x=rnd_float_range(-0.55,0.55)
+   al.explosion_size=2   
   else
    //brown
    al.hp=35
@@ -1501,11 +1502,11 @@ function create_alien(x,y,breed)
    rocks=split("87,88,89,90")
    al.speed_y=rnd_float_range(0.95,1.25)
    al.speed_x=rnd_float_range(-0.95,0.95)
+   al.explosion_size=1
   end
   al.sprite=sprite_create(rocks,1,1)
   sprite_hitbox(al.sprite,2,1,3,4)
   al.sprite.frame=rnd_range(1,#rocks)
-  al.explosion_size=rnd_range(1,3)
   al.debris_size=al.explosion_size
  elseif breed=="orby" then 
   al.hp=40
