@@ -1590,7 +1590,7 @@ function create_alien(x,y,breed)
    0.5,
    80,
    240
-  al.sprite=sprite_create({91,75,76,77,93,77,76,75},1,1)
+  al.sprite=sprite_create(split("91,75,76,77,93,77,76,75"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="bronze" then
   local angle=atan2(rnd_range(48,80)-al.x+al.x_off,128)
@@ -1612,7 +1612,7 @@ function create_alien(x,y,breed)
    65,
    100,
    rnd_range(1,2)
-  al.sprite=sprite_create({68,69,70,69},1,1)
+  al.sprite=sprite_create(split("68,69,70,69"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="silver" then
   al.hp,
@@ -1633,7 +1633,7 @@ function create_alien(x,y,breed)
    80,
    180,
    2
-  al.sprite=sprite_create({84,85,86,85},1,1)
+  al.sprite=sprite_create(split("84,85,86,85"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="sapphire" then
   local angle=atan2(63-al.x+al.x_off,63-al.y+al.y_off)
