@@ -889,7 +889,7 @@ function autopilot(destination)
 end
 
 function wait()
- if gamestate.gametime>120 and #explosions<=0 then
+ if gamestate.gametime>180 and #explosions<=0 then
   objective_complete=true
  end
 end
@@ -1245,7 +1245,7 @@ function apply_player_damage(pl,damage,shake)
    pl.shot_pattern-=1
    if (pl.shot_pattern<1) pl.shot_pattern=1
   end
-  pl.shields+=120
+  pl.shields+=180
   sfx(10)
  end
  if (pl.hp<=0) emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
@@ -1379,7 +1379,7 @@ function draw_players()
     circ(pl.x+8,pl.y+10,14,pl.col_lt)
    elseif pl.shields%2 then
     local col=pl.col_dk
-    if (pl.shields<=50) col=5
+    if (pl.shields<=60) col=5
     fillp(░)
     circfill(pl.x+8,pl.y+10,14,col)
     fillp()
