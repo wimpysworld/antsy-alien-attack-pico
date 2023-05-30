@@ -95,7 +95,7 @@ function init_attract()
  else
   sfx(1)
  end
- ignore_input=60
+ ignore_input=15
  music_play(0)
  init_stars()
  update_loop,draw_loop=
@@ -208,7 +208,7 @@ function draw_gamewin()
 end
 
 function init_help()
- ignore_input=60
+ ignore_input=15
  update_loop,draw_loop=
   update_help,draw_help
 end
@@ -250,7 +250,7 @@ function add_credits(name,humans,y,lt,dk)
 end
 
 function init_credits()
- ignore_input=60
+ ignore_input=15
  update_loop,draw_loop=
   update_credits,draw_credits
  credits={}
