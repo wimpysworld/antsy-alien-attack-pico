@@ -756,7 +756,7 @@ function shmup(evade)
   gamestate.text="destroy "..tostr(win_target).." aliens"
   if (evade) then
    gamestate.title="evade them!"
-   gamestate.text="evasive manoeuvres only!" 
+   gamestate.text="evasive manoeuvres only!"
   end
  else
   gamestate.hud_progress=gamestate.aliens_destroyed
@@ -843,7 +843,7 @@ function asteroid_belt(hyper)
   gamestate.text="fly to survive"
   if not hyper then
    gamestate.aliens_max=50
-   gamestate.text="shoot to survive"   
+   gamestate.text="shoot to survive"
   end
  else
   gamestate.hud_progress=gamestate.gametime
@@ -979,7 +979,6 @@ function draw_game()
  draw_stars()
  draw_bullets()
  draw_aliens()
-
  
  //mini-game specific draws
  if (gamestate.draw) gamestate.draw() 
@@ -1358,7 +1357,6 @@ function update_players()
 
   pl.shot_cooldown_timer-=1
   pl.shot_cooldown_timer=max(pl.shot_cooldown_timer,0)
-
 
   check_player_collisions(pl)
 
