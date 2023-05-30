@@ -1349,7 +1349,8 @@ function update_players()
 
 	  // finally, apply the input direction to the player
 	  pl.vel_x,pl.vel_y=
-	   dx*pl.speed,dy*pl.speed
+	   dx*(pl.speed-pl.speedbrake),
+	   dy*(pl.speed-pl.speedbrake)
 	  pl.x+=pl.vel_x
 	  pl.y+=pl.vel_y
   end
@@ -1375,9 +1376,12 @@ function update_players()
    if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
     pl.shot_cooldown_timer=pl.shot_cooldown
     emit_rocket(pl.num)
+    pl.speedbrake=0.5
    elseif not pl.shot_enabled then
     sound_play(13)
    end
+  else
+   pl.speedbrake=0
   end
 
   // animate jets
