@@ -1231,7 +1231,7 @@ function create_player(player)
   player,
   col_lt,
   col_dk,
-  1.35
+  1.35,
   0,
 	 hud_x,
  	debris_style,
