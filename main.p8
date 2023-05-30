@@ -221,21 +221,24 @@ end
 function draw_help()
  cls(0)
  draw_stars()
- print_fx("                    ",nil,4+8,6,13,13,"invert")
- print_bounce("help",nil,9,10,9,9,16,3)
+ print_bounce("h e l p",nil,5,11,3,3,32,4)
 
  local help_text={
-  " antsy alien attack pico ",
-  "                         ",
-  " if it moves shoot first ",
-  " and ask questions later ",
-  "                         ",
-  "  some explosions yield  ",
-  " power ups, collect them ",
-  "        good luck!       ",
+  "the year is 2139.plant earth is",
+  "under attack by aliens!        ",
+  "",
+  "one ship. one life. one mission",
+  "",
+  "shoot or collide with aliens   ",
+  "ships slow down when firing    ",
+  "weapons offline at hyperspeed  ",
+  "power ups enhance your ship    ",
+  "full generator boosts shields  ",
+  "smart bombs use generator power",
  }
 
- print_wave(help_text,nil,24,12,1,1,32,4)
+ print_wave(help_text,nil,17,12,1,1,0,0)
+ spr(110,56,99,2,2)
  menu_footer()
 end
 
