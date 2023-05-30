@@ -1206,19 +1206,50 @@ function create_player(player)
  add(players,create_actor(x,192))
 
  local pl=players[#players]
- pl.num=player
-	pl.col_lt,pl.col_dk=col_lt,col_dk
-	pl.speed=1.35
-	pl.hud_x=hud_x
-	pl.debris_style=debris_style
-	pl.explosion_size,pl.explosion_style=3,explosion_style
-	pl.shot_speed=2.5
-	pl.sfx_shoot=sfx_shoot
-	pl.shields,pl.score=100,0
-	pl.prev_dir=-1
- pl.generator,pl.shields=0,0
- pl.lock_to_screen,pl.controls_enabled,pl.bomb_enabled,pl.shot_enabled=false,true,true,true
- pl.shot_cooldown,pl.shot_cooldown_timer=5,0
+ pl.num,
+	pl.col_lt,
+	pl.col_dk,
+	pl.speed,
+	pl.speedbrake,
+	pl.hud_x,
+ pl.debris_style,
+ pl.explosion_size,
+ pl.explosion_style,
+ pl.shot_speed,
+ pl.sfx_shoot,
+ pl.shields,
+ pl.score,
+ pl.prev_dir,
+ pl.generator,
+ pl.shields,
+ pl.lock_to_screen,
+ pl.controls_enabled,
+ pl.bomb_enabled,
+ pl.shot_enabled,
+ pl.shot_cooldown,
+ pl.shot_cooldown_timer=
+  player,
+  col_lt,
+  col_dk,
+  1.35
+  0,
+	 hud_x,
+ 	debris_style,
+ 	3,
+ 	explosion_style,
+  2.5,
+ 	sfx_shoot,
+  100,
+  0,
+	 -1,
+  0,
+  0,
+  false,
+  true,
+  true,
+  true,
+  5,
+  0
  pl.sprite=sprite_create({0,2,4,6,8},2,2)
  pl.sprite.frame=3.5
  sprite_hitbox(pl.sprite,4,3,7,9)
