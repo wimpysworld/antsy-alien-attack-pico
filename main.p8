@@ -1519,17 +1519,18 @@ function create_alien(x,y,breed)
   al.shot_sprite=80
  elseif breed=="bronze" then
   al.hp=40
-  al.speed_y=rnd_float_range(0.5,0.75)
-  al.speed_x=rnd_float_range(-0.2,0.2)
   al.sprite=sprite_create({68,69,70,69},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.x_off,al.y_off=2,-6  
-  al.shot_speed_y=al.speed_y+0.5
-  al.shot_speed_x=al.speed_x*1.5  
-  al.shot_cooldown=120
+  al.shot_speed_y=1.5
+  al.shot_speed_x=1.5  
+  al.shot_cooldown=100
   al.shot_sprite=65
   al.explosion_size=rnd_range(1,2)
-  al.debris_size=al.explosion_size  
+  al.debris_size=al.explosion_size
+  local angle=atan2(rnd_range(48,80)-al.x+al.x_off,128)
+  al.speed_x=cos(angle)*1.1
+  al.speed_y=sin(angle)*1.1  
  elseif breed=="silver" then
   al.hp=45
   al.speed_y=rnd_float_range(0.5,0.75)
@@ -1606,8 +1607,16 @@ function make_firing_decision(al)
 	  end
   end
   
-	 if (al.breed=="bronze" and one_in(500)) emit_bullet(al)
-
+	 if al.breed=="bronze" and one_in(200) then	 
+	  emit_bullet(al)
+   bullet=bullets[#bullets]
+   local x_target=rnd_range(88,112)
+   if (al.x>=64) x_target=rnd_range(16,40)
+   local angle=atan2(x_target-al.x+al.x_off,128-al.y+al.y_off)
+   bullet.speed_x=cos(angle)*al.shot_speed_x
+   bullet.speed_y=sin(angle)*al.shot_speed_y
+  end
+  
 	 if al.breed=="silver" and one_in(500) then
 	  //aimed shots
 	  for pl in all(players) do
