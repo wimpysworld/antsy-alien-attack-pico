@@ -702,7 +702,7 @@ function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
    lo,
    hi,
    style)
-  y+=_txt_high+1
+  y+=_txt_high+2
  end
 end
 
