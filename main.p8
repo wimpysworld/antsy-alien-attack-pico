@@ -755,6 +755,7 @@ function shmup(evade)
   gamestate.title="shmuuuuup!"
   gamestate.text="destroy "..tostr(win_target).." aliens"
   if (evade) then
+   gamestate.aliens_max=12
    gamestate.title="evade them!"
    gamestate.text="evasive manoeuvres only!"
   end
