@@ -278,8 +278,8 @@ function draw_credits()
 end
 
 function menu_footer()
- print_fx("press ❎ or 🅾️",nil,120,6)
- print_fx("      ❎    🅾️",nil,120,sparkle)
+ print_fx("press ❎ or 🅾️   ",nil,120,6)
+ print_fx("      ❎    🅾️   ",nil,120,sparkle)
 end
 
 -- menus respond to multiple controllers
