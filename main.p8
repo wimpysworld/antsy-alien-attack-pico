@@ -829,11 +829,11 @@ function asteroid_belt(hyper)
  if not gamestate.ready then
   gamestate.hud_target=win_target
 
-  gamestate.aliens_max=22
+  gamestate.aliens_max=20
   gamestate.title="asteroid belt"
   gamestate.text="fly to survive"
   if not hyper then
-   gamestate.aliens_max=52
+   gamestate.aliens_max=50
    gamestate.text="shoot to survive"   
   end
  else
