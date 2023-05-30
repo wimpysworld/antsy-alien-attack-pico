@@ -1795,7 +1795,7 @@ function create_actor(x,y)
   explosion_screen_flash=0,
   explosion_screen_shake=1,
   explosion_style=nil,
-  shot_pattern=2,
+  shot_pattern=1,
   shot_damage=10,
   shot_speed_x=0,
   shot_speed_y=-4,
