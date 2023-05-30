@@ -1294,11 +1294,10 @@ function check_player_collisions(pl)
    gamestate.player_collisions+=1
    score_update(pl,al.reward)
    emit_explosion(al.x+8,al.y,al.explosion_size)
-   del(aliens,al)
    sfx(5+al.explosion_size)
-
    // damage the player
    apply_player_damage(pl,al.collision_damage,true)
+   del(aliens,al)   
   end
  end
  
