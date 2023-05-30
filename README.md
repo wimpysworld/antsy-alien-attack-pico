@@ -188,7 +188,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 - [x] Main screen with Tux
 - [x] Credits
-- [ ] Help
+- [x] Help
 - [ ] Game Over
 - [ ] Game Win
 - [x] Toggle music
@@ -227,11 +227,13 @@ Q: How should the current weapons level be reflected in the players HUD?
 
 ## Pickups
 
-- [ ] Shields
-- [ ] Weapon patterns; more devastation
+- [x] Shields
+- [ ] Speed
+- [x] Weapon patterns; more devastation
 - [ ] Weapons block; wipeout alien projectiles and prevent fire for some time
 - [ ] Smartbomb; damage all aliens and wipeout all alien projectiles
-- [ ] Power; charges the generator.
+- [x] Power; charges the generator.
+- [x] HP; adds to ship HP
   - A fully charged generator yields player HP
   - Hold the second button to release a smart bomb
 
@@ -243,8 +245,8 @@ Q: How should the current weapons level be reflected in the players HUD?
 | Class           |  Speed  | Trajectory             | Fire Pattern            | Bull. Size |  HP  | Coll. Damage | Exp. Size | Status |
 |:---------------:|:-------:|:----------------------:|:-----------------------:|:----------:|:----:|:------------:|:---------:|:------:|
 | Drone           | Slow    | Wave                   | Single on line of sight | Small      |  20  | 20           | 1         | Done   |
-| Asteroid Grey   | Slow    | Single                 | n/a                     | n/a        |  50  | 30           | 2         | Done   |
-| Asteroid Brown  | Medium  | Single                 | n/a                     | n/a        |  35  | 20           | 1         | Done   |
+| Asteroid Grey   | Slow    | Single path            | n/a                     | n/a        |  50  | 30           | 2         | Done   |
+| Asteroid Brown  | Medium  | Single path            | n/a                     | n/a        |  35  | 20           | 1         | Done   |
 | Orby            | Medium  | Vertical               | 8-way Pulse             | Small      |  40  | 20           | 1         | Done   |
 | Bronze          | Slow    | Converge center        | Opposite corner         | Medium     |  40  | 20           | 1 or 2    | Done   |
 | Silver          | Medium  | Vertical               | Aimed                   | Small      |  45  | 20           | 2         | Done   |
@@ -282,15 +284,16 @@ Q: How should the current weapons level be reflected in the players HUD?
 
 ## Stretch Goals 💪
 
+- [ ] Training missions; first missions teach you how to play
 - [ ] Player performance/skill tracking with post-wave report
 - [ ] Publish in Flathub page
 - [ ] Predictable wave patterns/timings
-- [ ] Sprite rotation and zooming
-- [ ] Ship velocity/friction
+- [ ] ~~Sprite rotation and zooming~~
+- [ ] ~~Ship velocity/friction~~
 - [ ] Scene change transitions/wipes
 - [x] Player formation "animations"
 - [ ] Player gravity-guided pick-ups
-- [ ] Pick-up animations
+- [x] Pick-up animations
 - [ ] HUD help animations the first x times the game is played
 - [ ] Player smart bomb is homing missiles
 
