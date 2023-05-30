@@ -225,7 +225,7 @@ function draw_help()
 
  local help_text={
   "the year is 2139.plant earth is",
-  "under attack by aliens!        ",
+  "under attack by antsy aliens   ",
   "",
   "one ship. one life. one mission",
   "",
