@@ -1506,8 +1506,7 @@ function update_players()
   pl.shot_cooldown=4+pl.shot_pattern
   if (#rockets<10) pl.shot_cooldown=0
 
-  pl.shot_cooldown_timer-=1
-  pl.shot_cooldown_timer=max(pl.shot_cooldown_timer,0)
+  pl.shot_cooldown_timer=max(pl.shot_cooldown_timer-1,0)
 
   check_player_collisions(pl)
 
