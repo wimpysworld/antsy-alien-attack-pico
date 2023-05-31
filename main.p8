@@ -912,11 +912,15 @@ end
 function init_game()
  aliens,
  bullets,
+ pickups,
  rockets,
  debris,
  shockwaves,
  explosions=
-  {},{},{},{},{},{}
+  {},{},{},{},{},{},{}
+
+ pickup_droprate=50
+ pickup_payloads=split("96,97,98,112,113,114")
 
  music_play(6)
  init_players()
@@ -963,6 +967,7 @@ function update_game()
  update_players()
  update_rockets()
 
+ update_pickups()
  update_aliens()
  update_bullets()
 
@@ -979,6 +984,7 @@ function draw_game()
  cls_fx(0,9)
  draw_stars()
  draw_bullets()
+ draw_pickups()
  draw_aliens()
  
  //mini-game specific draws
@@ -1142,6 +1148,7 @@ function check_rocket_collision(rocket)
     emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,nil,pl.debris_style)
     screen_flash+=al.explosion_screen_flash
     screen_shake+=al.explosion_screen_shake
+    create_pickup(al.sprite.emit_x,al.sprite.emit_y)
     sfx(5+al.explosion_size)
     del(aliens,al)
    else
@@ -1283,6 +1290,49 @@ function apply_player_damage(pl,damage,shake)
 end
 
 function check_player_collisions(pl)
+ for pu in all(pickups) do
+  if sprite_collision(pl.sprite,pu.sprite) then
+   gamestate.player_pickups+=1
+   score_update(pl,10000+pu.payload)
+   sfx(9)
+   
+   //generator
+   if pu.payload==98 then
+    local new_gen=pl.generator+15
+    if new_gen>100 then
+     pl.generator=new_gen-100
+     pl.hp=min(100,pl.hp+50)
+    else
+     pl.generator=new_gen
+    end
+   end
+   
+   //weapons
+   if pu.payload==112 then
+    if pl.shot_pattern<3 then
+     pl.shot_pattern+=1
+    else
+     pl.generator=min(100,pl.generator+5)
+    end
+   end
+   
+   //shields
+   if (pu.payload==113) pl.shields+=360
+   
+   //hp
+   if pu.payload==114 then
+    local new_hp=pl.hp+15
+    if new_hp>100 then
+     pl.generator+=new_hp-100
+     pl.hp=100
+    else
+     pl.hp=new_hp
+    end
+   end
+   
+   del(pickups,pu)
+  end
+ end
  for al in all(aliens) do
   if sprite_collision(pl.sprite,al.sprite) then
    // destroy the alien
@@ -1777,6 +1827,43 @@ end
 
 -->8
 -- helpers
+
+function create_pickup(x,y,payload)
+ payload=payload or rnd_range(1,#pickup_payloads)
+ if one_in(pickup_droprate) then
+	 add(pickups,{
+	  x=x,
+	  y=y,
+	  origin_x=x,
+	  origin_y=y,
+	  angle=rnd_range(0,359),
+	  radius=8,	  
+	  payload=pickup_payloads[payload]
+	 })
+	 pu=pickups[#pickups]
+  pu.sprite=sprite_create({pu.payload},1,1)
+  sprite_hitbox(pu.sprite,1,1,5,5)
+	end
+end
+
+function update_pickups()
+ for pu in all(pickups) do
+  pu.angle+=2.5
+  if (pu.angle>360) pu.angle=0
+  pu.origin_y+=0.25+(hyperspeed/4)
+  pu.x=pu.origin_x+pu.radius*cos(pu.angle/360)
+  pu.y=pu.origin_y+pu.radius*sin(pu.angle/360)
+  if is_outside_playarea(pu.origin_x,pu.origin_y) then
+   del(pickups,pu)
+  end
+ end
+end
+
+function draw_pickups()
+ for pu in all(pickups) do
+  sprite_draw(pu.sprite,pu.x,pu.y)		
+ end
+end
 
 function create_projectile(actor,x,y)
  return {
