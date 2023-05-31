@@ -1485,6 +1485,16 @@ function update_players()
     mid(0,pl.y,112)
   end
 
+  //fire smartbomb
+  if btnp(3,controller) then
+   if pl.bomb_enabled and pl.generator>=20 then
+    emit_smartbomb(pl)
+    pl.generator-=20
+   else
+    sound_play(13)
+   end
+  end
+
   //fire lazer
   if btn(4,controller) then
    if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
