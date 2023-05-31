@@ -740,7 +740,7 @@ function objective_cleanup()
   emit_explosion(al.sprite.emit_x,al.sprite.emit_y,3,3,debris_fire)
   screen_shake+=1
  end
- 
+ objective_complete=true
  aliens,bullets={},{}
  
  screen_flash+=3
@@ -772,13 +772,11 @@ function shmup(evade)
    gamestate.hud_progress=gamestate.gametime
    if gamestate.gametime>=win_target then
     objective_cleanup()
-    objective_complete=true
    end
   else
    gamestate.hud_progress=gamestate.aliens_destroyed  
 	  if gamestate.aliens_destroyed>=win_target then
 	   objective_cleanup()
-	   objective_complete=true
 	  end
 	 end
  end
@@ -832,7 +830,6 @@ function none_shall_pass(can_pass)
 
 	 if gamestate.gametime>=win_target then
 	  objective_cleanup()
-   objective_complete=true
   end
 	end
 end
@@ -862,7 +859,6 @@ function asteroid_belt(hyper)
 
   if gamestate.gametime>=win_target then
    objective_cleanup()
-   objective_complete=true
   end
  end
 end
