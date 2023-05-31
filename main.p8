@@ -800,7 +800,7 @@ function shmup(evade)
    8,
    "shmuuuuup!",
    "destroy "..tostr(win_target).." aliens"
-  if (evade) then
+  if evade then
    gamestate.aliens_max,
    gamestate.title,
    gamestate.text=  
