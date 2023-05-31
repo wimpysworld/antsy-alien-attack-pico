@@ -738,8 +738,9 @@ function init_missions()
  level=0
  objective_complete=false
 	missions={
-	 "players_off,jump,flyin,players_on,drop",
-	 "shmup,wait,some_can_pass,wait,jump,weapons_off,evade,wait,asteroid_fast,wait,drop,weapons_on,shmup,wait,asteroid_slow,wait",
+	 "players_off,jump",
+	 "flyin,players_on,drop,training_drone,wait,training_bronze,wait,training_silver,wait,training_sapphire,wait,training_emerald,wait,players_off,jump,flyout",
+	 "flyin,players_on,drop,shmup,wait,some_can_pass,wait,jump,weapons_off,evade,wait,asteroid_fast,wait,drop,weapons_on,shmup,wait,asteroid_slow,wait",
 	 "players_off,jump,flyout,drop",
 	}
 end
