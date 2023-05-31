@@ -1316,16 +1316,14 @@ function apply_player_damage(pl,damage,shake)
   if (shake) then
    screen_flash+=3
    screen_shake+=16
-  end
-  local old_hp=pl.hp
-  pl.hp-=damage
-  
+  end 
   // did we just cross 50% mark
-  // drop the shot_pattern by 1
-  if old_hp>=50 and pl.hp<50 then
+  // drop the power ups by 1 level
+  if pl.hp>=50 and pl.hp-damage<50 then
    if (pl.shot_pattern>1) pl.shot_pattern-=1
    pl.speedboost=max(0,pl.speedboost-0.25)
   end
+  pl.hp-=damage  
   pl.shields+=180
   sfx(10)
   
@@ -1334,8 +1332,10 @@ function apply_player_damage(pl,damage,shake)
   // transfer generator power
   // to hp
   if pl.hp<=0 and pl.generator>0 then
-   pl.hp=pl.generator
-   pl.generator=0
+   pl.hp,
+   pl.generator=
+    pl.generator,
+    0
   end
   
   if (pl.hp<=0) emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
