@@ -733,10 +733,16 @@ end
 -- game logic
 
 function init_missions()
- current_mission=0
- current_objective=0
- level=0
- objective_complete=false
+ current_mission,
+ current_objective,
+ level,
+ difficulty,
+ objective_complete=
+  0,
+  0,
+  0,
+  1,
+  false
   missions={
    "players_off,jump",
    "flyin,players_on,drop,training_drone,wait,training_bronze,wait,training_silver,wait,training_sapphire,wait,training_emerald,wait,players_off,jump,flyout",
