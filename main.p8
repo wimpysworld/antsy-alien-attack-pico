@@ -21,7 +21,7 @@ function _init()
  ignore_input,
  num_players,
  screen_flash,
- screen_shake, 
+ screen_shake,
  sparkle,
  version_data=
   "14,14,8,8,2,2",
@@ -68,7 +68,7 @@ function _update60()
  if (screen_shake>10) screen_shake*=0.95 else screen_shake-=1
  screen_shake=max(screen_shake,0)
 
- update_stars() 
+ update_stars()
  update_loop()
 end
 
@@ -83,7 +83,7 @@ function _draw()
  local shakex,shakey=
   rnd(screen_shake)-(screen_shake/2),rnd(screen_shake)-(screen_shake/2)
  camera(shakex,shakey)
- 
+
  draw_stars()
  draw_loop()
  --[[
@@ -176,7 +176,7 @@ function draw_attract()
    print_fx("➡️",88,m.pos,sparkle,1,1)
   end
  end
- 
+
  print_fx(_puny("(c) 2023 wimpysworld.com"),nil,120,7,5,5)
 
  local tux=sprite_create({140},4,4)
@@ -298,7 +298,7 @@ function draw_credits()
  for c in all(credits) do
   print_fx("                    ",nil,c.y+6,c.lt,c.dk,c.dk,"invert")
   print_bounce(c.name,nil,c.y+3,6,5,5,8,3)
-  print_scroll(c.humans,0,c.y+14,127,c.lt)  
+  print_scroll(c.humans,0,c.y+14,127,c.lt)
  end
  menu_footer()
 end
@@ -333,7 +333,7 @@ function emit_debris(x,y,size,style)
    col=col,
    decay=13
   })
-	end
+  end
 end
 
 function update_debris()
@@ -373,129 +373,129 @@ end
 
 function draw_shockwaves()
  for sw in all(shockwaves) do
-	 oval(
-	  sw.x-sw.radius,
-	  sw.y-sw.radius/4,
-	  sw.x+sw.radius,
-	  sw.y+sw.radius/4,
-	  sw.col
-	 )
+   oval(
+    sw.x-sw.radius,
+    sw.y-sw.radius/4,
+    sw.x+sw.radius,
+    sw.y+sw.radius/4,
+    sw.col
+   )
  end
 end
 
 function emit_plume(x,y,wait,maxage,max_radius,spread,style)
  for i=1,rnd_range(1,5) do
   local dist=rnd(spread)+i
-		style = style or rnd_range(1,3)
+    style = style or rnd_range(1,3)
 
-	 add(explosions,{
-			x=x+sin(dist)*dist/2,
-			y=y+cos(dist)*dist/2,
-			r=3,
-			tor=max_radius*0.75+rnd(max_radius*0.25),
-			tox=x+sin(dist)*dist,
-			toy=y+cos(dist)*dist,
-			wait=wait,
-			maxage=maxage,
-			at_end="collapse",
-			spd=2,
-			age=0,
-			style=style
-		})
-	end
+   add(explosions,{
+      x=x+sin(dist)*dist/2,
+      y=y+cos(dist)*dist/2,
+      r=3,
+      tor=max_radius*0.75+rnd(max_radius*0.25),
+      tox=x+sin(dist)*dist,
+      toy=y+cos(dist)*dist,
+      wait=wait,
+      maxage=maxage,
+      at_end="collapse",
+      spd=2,
+      age=0,
+      style=style
+    })
+  end
 end
 
 function emit_explosion(x,y,size,explosion_style,debris_style)
  local wait=size+size*2+(3/size)
  local max_radius=size*3+(3/size)+size
  local spread=size*6+(4/size)
-	local maxage=rnd(wait)+wait/2+size
+  local maxage=rnd(wait)+wait/2+size
 
  emit_debris(x,y,size,debris_style)
  emit_shockwave(x,y,size)
 
-	--x,y,wait,maxage,max_radius,spread
-	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
-	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
-	if (size>=2)	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
-	if (size>=3) emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+  --x,y,wait,maxage,max_radius,spread
+  emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+  emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+  if (size>=2)	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+  if (size>=3) emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
 end
 
 function update_explosions()
-	for ex in all(explosions) do
-		if ex.wait then
-			ex.wait-=0.95
-			if (ex.wait<=0)	ex.wait=nil
-		else
-			ex.age+=0.85
+  for ex in all(explosions) do
+    if ex.wait then
+      ex.wait-=0.95
+      if (ex.wait<=0)	ex.wait=nil
+    else
+      ex.age+=0.85
 
-			if ex.sx then
-				ex.x+=ex.sx
-				ex.y+=ex.sy
-				if ex.tox	then
-				 ex.tox+=ex.sx
-				 ex.toy+=ex.sy
-				end
-			end
+      if ex.sx then
+        ex.x+=ex.sx
+        ex.y+=ex.sy
+        if ex.tox	then
+         ex.tox+=ex.sx
+         ex.toy+=ex.sy
+        end
+      end
 
-		 --cloud rate of collapse
-		 if (ex.tor) ex.r+=ex.tor-ex.r*ex.spd/1.25
+     --cloud rate of collapse
+     if (ex.tor) ex.r+=ex.tor-ex.r*ex.spd/1.25
 
-			if ex.tox then
-				ex.x+=(ex.tox-ex.x)/ex.spd/250
-				ex.y+=(ex.toy-ex.y)/ex.spd/500
-			end
+      if ex.tox then
+        ex.x+=(ex.tox-ex.x)/ex.spd/250
+        ex.y+=(ex.toy-ex.y)/ex.spd/500
+      end
 
    //clouds drift upwards
-			ex.y-=0.75
+      ex.y-=0.75
 
-		 --max age
-	 	if ex.age>=ex.maxage or ex.r<1 then
-			 if ex.at_end=="collapse" then
-				 ex.at_end=nil
-				 ex.maxage+=300
-				 ex.tor=0
-				 ex.spd=0.2
-				 ex.wait=0
-			 else
-	 		 del(explosions,ex)
-			 end
-		 end
-	 end
-	end
+     --max age
+     if ex.age>=ex.maxage or ex.r<1 then
+       if ex.at_end=="collapse" then
+         ex.at_end=nil
+         ex.maxage+=300
+         ex.tor=0
+         ex.spd=0.2
+         ex.wait=0
+       else
+        del(explosions,ex)
+       end
+     end
+   end
+  end
 end
 
 function draw_explosions()
-	for ex in all(explosions) do
-		if (not ex.wait) then
-		 local r=ex.r
-			local layer={
-		  0,
-		  r*0.05,
-			 r*0.17,
-			 r*0.35,
-			 r*0.60
-			}
-			local style={
-			 "1,4,9,10,7",  --yellow
-			 "5,4,9,10,15", --orange
-			 "1,4,8,9,10",  --fire
-		  "1,5,13,6,7",  --smoke
-			 "1,2,8,14,7",  --red
-			 "1,3,11,10,7", --green
-			 "1,13,12,6,7"  --blue
-			}
+  for ex in all(explosions) do
+    if (not ex.wait) then
+     local r=ex.r
+      local layer={
+      0,
+      r*0.05,
+       r*0.17,
+       r*0.35,
+       r*0.60
+      }
+      local style={
+       "1,4,9,10,7",  --yellow
+       "5,4,9,10,15", --orange
+       "1,4,8,9,10",  --fire
+      "1,5,13,6,7",  --smoke
+       "1,2,8,14,7",  --red
+       "1,3,11,10,7", --green
+       "1,13,12,6,7"  --blue
+      }
 
-			for i=1,#layer do
-			 circfill(
-			  ex.x,
-			  ex.y-layer[i],
-			  ex.r-layer[i],
-			  split(style[ex.style])[i]
-			 )
-			end
-		end
-	end
+      for i=1,#layer do
+       circfill(
+        ex.x,
+        ex.y-layer[i],
+        ex.r-layer[i],
+        split(style[ex.style])[i]
+       )
+      end
+    end
+  end
 end
 
 function init_stars()
@@ -699,7 +699,7 @@ end
 --[[
 function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
  //this just gets the font
- //dimensions 
+ //dimensions
  style_text(txt,style)
 
  speed=speed or 0
@@ -737,12 +737,12 @@ function init_missions()
  current_objective=0
  level=0
  objective_complete=false
-	missions={
-	 "players_off,jump",
-	 "flyin,players_on,drop,training_drone,wait,training_bronze,wait,training_silver,wait,training_sapphire,wait,training_emerald,wait,players_off,jump,flyout",
-	 "flyin,players_on,drop,shmup,wait,some_can_pass,wait,jump,weapons_off,evade,wait,asteroid_fast,wait,drop,weapons_on,shmup,wait,asteroid_slow,wait",
-	 "players_off,jump,flyout,drop",
-	}
+  missions={
+   "players_off,jump",
+   "flyin,players_on,drop,training_drone,wait,training_bronze,wait,training_silver,wait,training_sapphire,wait,training_emerald,wait,players_off,jump,flyout",
+   "flyin,players_on,drop,shmup,wait,some_can_pass,wait,jump,weapons_off,evade,wait,asteroid_fast,wait,drop,weapons_on,shmup,wait,asteroid_slow,wait",
+   "players_off,jump,flyout,drop",
+  }
 end
 
 function objective_cleanup()
@@ -754,20 +754,20 @@ end
 function draw_training()
  if gamestate.gametime<600 then
   for pl in all(players) do
- 	 print_fx(_puny("health"),pl.hud_x+4,8,pl.col_lt)
- 	 print_fx(_puny("dynamo"),pl.hud_x+4,13,12)
-	 end
- 	print_fx(_puny("progress"),nil,8,10)
+    print_fx(_puny("health"),pl.hud_x+4,8,pl.col_lt)
+    print_fx(_puny("dynamo"),pl.hud_x+4,13,12)
+   end
+   print_fx(_puny("progress"),nil,8,10)
  end
 end
 
 function training(alien)
  local win_target=25
  pickup_droprate=30000
- 
+
  if not gamestate.ready then
   gamestate.hud_target,
-  gamestate.draw,  
+  gamestate.draw,
   gamestate.aliens_max,
   gamestate.title,
   gamestate.text=
@@ -792,7 +792,7 @@ function shmup(evade)
  local spawn=split("drone,drone,drone,bronze,bronze,bronze,bronze,silver,silver,silver,silver,sapphire,sapphire,emerald")
  local win_target=level*100
  if (evade) win_target=level*750
- 
+
  if not gamestate.ready then
   gamestate.hud_target,
   gamestate.aliens_max,
@@ -805,7 +805,7 @@ function shmup(evade)
   if evade then
    gamestate.aliens_max,
    gamestate.title,
-   gamestate.text=  
+   gamestate.text=
    12,
    "evade them!",
    "evasive manoeuvres only!"
@@ -822,16 +822,16 @@ function shmup(evade)
    end
   else
    gamestate.hud_progress=gamestate.aliens_destroyed
-	  if gamestate.aliens_destroyed>=win_target then
-	   objective_cleanup()
-	  end
-	 end
+    if gamestate.aliens_destroyed>=win_target then
+     objective_cleanup()
+    end
+   end
  end
 end
 
 function draw_none_shall_pass()
  spr(81,0,125)
- spr(82,120,125) 
+ spr(82,120,125)
  line(3,126,124,126,sparkle)
 end
 
@@ -844,7 +844,7 @@ function none_shall_pass(can_pass)
   gamestate.title,
   gamestate.text=
    win_target,
-   draw_none_shall_pass,   
+   draw_none_shall_pass,
    4,
    "none shall pass",
    "you must stop them all!"
@@ -858,34 +858,34 @@ function none_shall_pass(can_pass)
   end
  else
   gamestate.hud_progress=gamestate.gametime
-	 if #aliens<gamestate.aliens_max then
-	  // narrow the x range for
-	  // none shall pass
-	  local spawn_x=rnd_range(28,100)
-	  if (can_pass) spawn_x=rnd_range(20,108)
-	  create_alien(spawn_x,-8,"orby")
-	 end
+   if #aliens<gamestate.aliens_max then
+    // narrow the x range for
+    // none shall pass
+    local spawn_x=rnd_range(28,100)
+    if (can_pass) spawn_x=rnd_range(20,108)
+    create_alien(spawn_x,-8,"orby")
+   end
 
-	 for al in all(aliens) do
-	  al.speed_y+=0.002
-	  if al.y>=128 then
-	  	gamestate.aliens_escaped+=1
-	   for pl in all(players) do
-	    if can_pass then
- 	    apply_player_damage(pl,al.collision_damage)
- 	   else
- 	    // none shall pass insta-death
- 	    apply_player_damage(pl,pl.hp+10)
- 	   end
-	   end
-	   del(aliens,al)
-	  end
-	 end
+   for al in all(aliens) do
+    al.speed_y+=0.002
+    if al.y>=128 then
+      gamestate.aliens_escaped+=1
+     for pl in all(players) do
+      if can_pass then
+       apply_player_damage(pl,al.collision_damage)
+      else
+       // none shall pass insta-death
+       apply_player_damage(pl,pl.hp+10)
+      end
+     end
+     del(aliens,al)
+    end
+   end
 
-	 if gamestate.gametime>=win_target then
-	  objective_cleanup()
+   if gamestate.gametime>=win_target then
+    objective_cleanup()
   end
-	end
+  end
 end
 
 function asteroid_belt(hyper)
@@ -925,11 +925,11 @@ end
 function autopilot(destination)
  //init
  if destination=="flyin" and not gamestate.ready then
-	 for pl in all(players) do
-	  pl.x,pl.y=pl.startx,192
-	 end
-	 gamestate.ready=true
-	end
+   for pl in all(players) do
+    pl.x,pl.y=pl.startx,192
+   end
+   gamestate.ready=true
+  end
 
  //autopilot
  for pl in all(players) do
@@ -964,7 +964,7 @@ end
 function drop()
  hyperspeed_target=0
  if hyperspeed<=hyperspeed_target then
-		objective_complete=true
+    objective_complete=true
  end
 end
 
@@ -1002,7 +1002,7 @@ function update_game()
    end
   end
  end
- 
+
  if gamestate.ready then
   gamestate.gametime+=1
   gamestate.aliens_jammed=max(0,gamestate.aliens_jammed-1)
@@ -1051,13 +1051,13 @@ function draw_game()
  draw_bullets()
  draw_pickups()
  draw_aliens()
- 
- //mini-game specific draws
- if (gamestate.draw) gamestate.draw() 
 
- draw_rockets() 
+ //mini-game specific draws
+ if (gamestate.draw) gamestate.draw()
+
+ draw_rockets()
  draw_players()
- 
+
  draw_shockwaves()
  draw_debris()
  draw_explosions()
@@ -1146,12 +1146,12 @@ function draw_mission()
   gamestate.mission_report_time+=1
 
   print_fx(gamestate.title,nil,32,12,1,1,"big")
-	 print_fx(_puny(gamestate.text),nil,48,6,5,5)
-	 local txt,col,out="weapons online",11,3
-	 if not players[#players].shot_enabled then
-	  txt,col,out="weapons offline",8,2
-	 end
-	 print_fx(_puny(txt),nil,58,col,out,out)
+   print_fx(_puny(gamestate.text),nil,48,6,5,5)
+   local txt,col,out="weapons online",11,3
+   if not players[#players].shot_enabled then
+    txt,col,out="weapons offline",8,2
+   end
+   print_fx(_puny(txt),nil,58,col,out,out)
  else
   gamestate.ready=true
  end
@@ -1167,7 +1167,7 @@ function emit_rocket(player_num)
   // rx is used for weapons emit
   // point. this is for spread shots
   local rx=pl.x+4
-  
+
   // this is for the basic weapon
   if pl.shot_pattern==1 then
    rx=pl.x
@@ -1184,7 +1184,7 @@ function emit_rocket(player_num)
   add(rocket.sprite.pal_swaps,{9,pl.col_dk})
   add(rocket.sprite.pal_swaps,{10,pl.col_lt})
 
-		local ang,spd,dir,spread=0
+    local ang,spd,dir,spread=0
   if pl.shot_pattern>3 then
    // 5-way
    dir,spread,spd=
@@ -1195,15 +1195,15 @@ function emit_rocket(player_num)
     0.175,0.05,2
   elseif pl.shot_pattern>1 then
    // 3-way
-   dir,spread,spd=   
+   dir,spread,spd=
     0.215,0.04,2.5
   end
-  
+
   // apply pattern
   if pl.shot_pattern>1 then
-   ang=dir+((spread+fc)*i)  
+   ang=dir+((spread+fc)*i)
    rocket.speed_x=cos(ang)*spd
-   rocket.speed_y=sin(ang)*spd  
+   rocket.speed_y=sin(ang)*spd
   end
  end
 end
@@ -1285,12 +1285,12 @@ function create_player(player)
 
  local pl=players[#players]
  pl.num,
-	pl.col_lt,
-	pl.col_dk,
-	pl.speed,
-	pl.speedboost,
-	pl.speedbrake,
-	pl.hud_x,
+  pl.col_lt,
+  pl.col_dk,
+  pl.speed,
+  pl.speedboost,
+  pl.speedbrake,
+  pl.hud_x,
  pl.debris_style,
  pl.explosion_size,
  pl.explosion_style,
@@ -1312,14 +1312,14 @@ function create_player(player)
   1.5,
   0,
   0,
-	 hud_x,
- 	debris_style,
- 	3,
- 	explosion_style,
- 	sfx_shoot,
+   hud_x,
+   debris_style,
+   3,
+   explosion_style,
+   sfx_shoot,
   100,
   0,
-	 -1,
+   -1,
   0,
   0,
   false,
@@ -1345,17 +1345,17 @@ function apply_player_damage(pl,damage,shake)
   if (shake) then
    screen_flash+=3
    screen_shake+=16
-  end 
+  end
   // did we just cross 50% mark
   // drop the power ups by 1 level
   if pl.hp>=50 and pl.hp-damage<50 then
    if (pl.shot_pattern>1) pl.shot_pattern-=1
    pl.speedboost=max(0,pl.speedboost-0.25)
   end
-  pl.hp-=damage  
+  pl.hp-=damage
   pl.shields+=180
   sfx(10)
-  
+
   // if the player has no hp
   // but has generator power
   // transfer generator power
@@ -1366,7 +1366,7 @@ function apply_player_damage(pl,damage,shake)
     pl.generator,
     0
   end
-  
+
   if (pl.hp<=0) emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
  end
 end
@@ -1394,10 +1394,10 @@ function check_player_collisions(pl)
     gamestate.aliens_jammed+=360
     bullets={}
    end
-   
+
    //smartbomb
    if (pu.payload==97) emit_smartbomb(pl)
-   
+
    //generator
    if pu.payload==98 then
     local new_gen=pl.generator+15
@@ -1411,7 +1411,7 @@ function check_player_collisions(pl)
 
    //speed
    if (pu.payload==99) pl.speedboost=min(2.25,pl.speedboost+0.25)
-   
+
    //weapons
    if pu.payload==112 then
     if pl.shot_pattern<3 then
@@ -1420,10 +1420,10 @@ function check_player_collisions(pl)
      pl.generator=min(100,pl.generator+5)
     end
    end
-   
+
    //shields
    if (pu.payload==113) pl.shields+=360
-   
+
    //hp
    if pu.payload==114 then
     local new_hp=pl.hp+15
@@ -1434,7 +1434,7 @@ function check_player_collisions(pl)
      pl.hp=new_hp
     end
    end
-   
+
    del(pickups,pu)
   end
  end
@@ -1448,10 +1448,10 @@ function check_player_collisions(pl)
    sfx(5+al.explosion_size)
    // damage the player
    apply_player_damage(pl,al.collision_damage,true)
-   del(aliens,al)   
+   del(aliens,al)
   end
  end
- 
+
  for bl in all(bullets) do
   if sprite_collision(pl.sprite,bl.sprite) then
    del(bullets,bl)
@@ -1459,7 +1459,7 @@ function check_player_collisions(pl)
    // damage the player
    apply_player_damage(pl,bl.damage)
   end
- end 
+ end
 end
 
 function init_players()
@@ -1482,31 +1482,31 @@ function update_players()
    get_direction(controller)
 
   if pl.controls_enabled then
-	  // if moving diagonally
-	  if abs(dx)+abs(dy)==2 then
-	   // normalize movement vector
-	   // 1.41 is the sqrt(2)
-	   dx/=1.41
-	   dy/=1.41
-	   // prevent staircasing
-	   // clamp to whole pixel x,y
-	   // reference as origin
-	   if dir!=pl.prev_dir then
-	    pl.x,pl.y=flr(pl.x),flr(pl.y)
-	   end
-	  end
-	  pl.prev_dir=dir
+    // if moving diagonally
+    if abs(dx)+abs(dy)==2 then
+     // normalize movement vector
+     // 1.41 is the sqrt(2)
+     dx/=1.41
+     dy/=1.41
+     // prevent staircasing
+     // clamp to whole pixel x,y
+     // reference as origin
+     if dir!=pl.prev_dir then
+      pl.x,pl.y=flr(pl.x),flr(pl.y)
+     end
+    end
+    pl.prev_dir=dir
 
-	  // integrate starfield accel
-	  apply_stars_accel(dx,dy)
+    // integrate starfield accel
+    apply_stars_accel(dx,dy)
 
-	  // finally, apply the input direction to the player
-	  local speed=pl.speed+pl.speedboost-pl.speedbrake
-	  pl.vel_x,pl.vel_y=
-	   dx*(speed),
-	   dy*(speed)
-	  pl.x+=pl.vel_x
-	  pl.y+=pl.vel_y
+    // finally, apply the input direction to the player
+    local speed=pl.speed+pl.speedboost-pl.speedbrake
+    pl.vel_x,pl.vel_y=
+     dx*(speed),
+     dy*(speed)
+    pl.x+=pl.vel_x
+    pl.y+=pl.vel_y
   end
 
   // animate banking
@@ -1632,17 +1632,17 @@ function emit_bullet(al)
  al.sprite.pal_whiteflash=1
  add(bullets,create_projectile(al,al.x+al.x_off,al.y-al.y_off))
  local bullet=bullets[#bullets]
-	bullet.sprite=sprite_create({al.shot_sprite},1,1)
-	sprite_hitbox(bullet.sprite,1,1,3,3)
-	if (al.shot_sprite==65) sprite_hitbox(bullet.sprite,1,1,2,2)
-	if (al.shot_sprite==80) sprite_hitbox(bullet.sprite,1,1,1,1)
+  bullet.sprite=sprite_create({al.shot_sprite},1,1)
+  sprite_hitbox(bullet.sprite,1,1,3,3)
+  if (al.shot_sprite==65) sprite_hitbox(bullet.sprite,1,1,2,2)
+  if (al.shot_sprite==80) sprite_hitbox(bullet.sprite,1,1,1,1)
  sfx(4)
 end
 
 function update_bullets()
  for bullet in all(bullets) do
   bullet.x+=bullet.speed_x
-  bullet.y+=bullet.speed_y  
+  bullet.y+=bullet.speed_y
   if is_outside_playarea(bullet.x,bullet.y) then
    del(bullets,bullet)
   end
@@ -1662,7 +1662,7 @@ function create_alien(x,y,breed)
    if ((x>=check.x-12 and x<=check.x+12) and (y>=check.y-12 and y<=check.y+12)) return
   end
  end
- 
+
  add(aliens,create_actor(x,y))
 
  al=aliens[#aliens]
@@ -1695,11 +1695,11 @@ function create_alien(x,y,breed)
    rnd_range(-0.5,0.5,true),
    1.2,
    80,
-   240   
+   240
   al.sprite=sprite_create(split("107,108,109,123,124,125"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
-  al.sprite.frame=rnd_range(1,#al.sprite.frames)  
- elseif breed=="asteroid" then 
+  al.sprite.frame=rnd_range(1,#al.sprite.frames)
+ elseif breed=="asteroid" then
   // brown asteroid
   al.hp,
   al.framerate,
@@ -1729,7 +1729,7 @@ function create_alien(x,y,breed)
   al.sprite=sprite_create(rocks,1,1)
   sprite_hitbox(al.sprite,2,1,3,4)
   al.sprite.frame=rnd_range(1,#rocks)
- elseif breed=="orby" then 
+ elseif breed=="orby" then
   al.hp,
   al.framerate,
   al.speed_x,
@@ -1788,7 +1788,7 @@ function create_alien(x,y,breed)
    2
   al.sprite=sprite_create(split("103,104,105,106,119,120,121,122"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
-  al.sprite.frame=rnd_range(1,#al.sprite.frames)  
+  al.sprite.frame=rnd_range(1,#al.sprite.frames)
  elseif breed=="sapphire" then
   local angle=atan2(63-al.x+al.x_off,63-al.y+al.y_off)
   al.hp,
@@ -1842,60 +1842,60 @@ end
 
 function make_firing_decision(al)
  if (al.breed=="asteroid" or gamestate.aliens_jammed>0) return
- 
+
  if al.shot_cooldown_timer<=0 then
-	 if al.breed=="drone" then
-	  for pl in all(players) do
-	   if pl.y>al.y and 
-	      pl.x>=al.x and
-	      pl.x<=al.x+7 and 
-	      one_in(25) then
-	    emit_bullet(al)
-	   end
-	  end
-	 elseif al.breed=="orby" and one_in(850) then
+   if al.breed=="drone" then
+    for pl in all(players) do
+     if pl.y>al.y and
+        pl.x>=al.x and
+        pl.x<=al.x+7 and
+        one_in(25) then
+      emit_bullet(al)
+     end
+    end
+   elseif al.breed=="orby" and one_in(850) then
    for i=0,7 do
     local ang=0.375+((0.125+fc)*i)
-   	al.shot_speed_x,al.shot_speed_y=
-   	 cos(ang),
-   	 sin(ang)*1.2
-	   emit_bullet(al)
-	  end
-	 elseif al.breed=="bronze" and one_in(200) then	 
-	  emit_bullet(al)
+     al.shot_speed_x,al.shot_speed_y=
+      cos(ang),
+      sin(ang)*1.2
+     emit_bullet(al)
+    end
+   elseif al.breed=="bronze" and one_in(200) then
+    emit_bullet(al)
    bullet=bullets[#bullets]
 
    local x_target=rnd_range(88,112)
    if (al.x>=64) x_target=rnd_range(16,40)
-   
+
    local angle=atan2(x_target-al.x+al.x_off,128-al.y+al.y_off)
    bullet.speed_x,bullet.speed_y=
     cos(angle)*al.shot_speed_x,
     sin(angle)*al.shot_speed_y
-	 elseif al.breed=="silver" and one_in(500) then
-	  //aimed shots
-	  for pl in all(players) do
+   elseif al.breed=="silver" and one_in(500) then
+    //aimed shots
+    for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
     aim_shot(bullet,pl,al)
    end
   elseif al.breed=="sapphire" and one_in(500) then
-	  //aimed shots, with estimated predictive compensation
-	  for pl in all(players) do
+    //aimed shots, with estimated predictive compensation
+    for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
     aim_shot(bullet,pl,al,true)
    end
-	 elseif al.breed=="emerald" and one_in(750) then
+   elseif al.breed=="emerald" and one_in(750) then
    for i=0,3 do
-    local ang=0.695+((0.04+fc)*i)    
-   	al.shot_speed_x,al.shot_speed_y=
-   	 cos(ang)*1.5,
-   	 sin(ang)*1.5
-	   emit_bullet(al)
-	  end
+    local ang=0.695+((0.04+fc)*i)
+     al.shot_speed_x,al.shot_speed_y=
+      cos(ang)*1.5,
+      sin(ang)*1.5
+     emit_bullet(al)
+    end
   end
-	end
+  end
  al.shot_cooldown_timer=max(0,al.shot_cooldown_timer-1)
 end
 
@@ -1914,11 +1914,11 @@ function update_aliens()
    end
   else
    al.x+=al.speed_x
-   al.y+=al.speed_y  
-  end   
+   al.y+=al.speed_y
+  end
 
   sprite_loop_frame(al.sprite,al.framerate)
-  
+
   if is_outside_playarea(al.x,al.y) then
    gamestate.aliens_escaped+=1
    del(aliens,al)
@@ -1938,18 +1938,18 @@ end
 function create_pickup(x,y,payload)
  payload=payload or rnd_range(1,#pickup_payloads)
  if one_in(pickup_droprate) then
-	 add(pickups,{
-	  x=x,
-	  y=y,
-	  origin_x=x,
-	  origin_y=y,
-	  angle=rnd_range(0,359),
-	  payload=pickup_payloads[payload]
-	 })
-	 pu=pickups[#pickups]
+   add(pickups,{
+    x=x,
+    y=y,
+    origin_x=x,
+    origin_y=y,
+    angle=rnd_range(0,359),
+    payload=pickup_payloads[payload]
+   })
+   pu=pickups[#pickups]
   pu.sprite=sprite_create({pu.payload},1,1)
   sprite_hitbox(pu.sprite,1,1,5,5)
-	end
+  end
 end
 
 function update_pickups()
@@ -2057,9 +2057,9 @@ end
 
 function sprite_draw(s,x,y)
  // update x,y for collision detection
- s.x,s.y=x,y  
+ s.x,s.y=x,y
 
- // calc where damage/bullet 
+ // calc where damage/bullet
  // emits from
  s.emit_x,
  s.emit_y=
@@ -2089,12 +2089,12 @@ function sprite_draw(s,x,y)
  // useful fordebugging
  --[[
  if s.show_hitbox then
-	 rect(
-	  x+s.hb_x,
-	  y+s.hb_y,
-	  x+s.hb_x+s.hb_width,
-	  y+s.hb_y+s.hb_height,
-	  sparkle)
+   rect(
+    x+s.hb_x,
+    y+s.hb_y,
+    x+s.hb_x+s.hb_width,
+    y+s.hb_y+s.hb_height,
+    sparkle)
  end
  --]]
 end
@@ -2107,7 +2107,7 @@ end
 // http://gamedev.docrobs.co.uk/first-steps-in-pico-8-hitting-things
 function sprite_collision(a,b)
  if (is_outside_playarea(b.x,b.y)) return
- 
+
  local xd=abs((a.x+a.hb_x+a.hb_hw)-(b.x+b.hb_x+b.hb_hw))
  local xs=a.hb_hw+b.hb_hw
  local yd=abs((a.y+a.hb_y+a.hb_hh)-(b.y+b.hb_y+b.hb_hh))
@@ -2150,18 +2150,18 @@ end
 // sfx() as it will drop currently
 // playing sfx
 function sound_play(sound)
- //pico-8 >= 0.2.4 
+ //pico-8 >= 0.2.4
  local channels=split("46,47,48,49")
 
  if stat(5) < 36 then
   // use deprecated audio sys
   // calls on pico-8 < 0.2.4
-  channels=split("16,17,18,19")  
+  channels=split("16,17,18,19")
  end
 
  if sound_channel_available(channels) then
-  sfx(sound)  
- end 
+  sfx(sound)
+ end
 end
 
 // pass in the player object
