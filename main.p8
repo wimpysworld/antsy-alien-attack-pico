@@ -964,7 +964,11 @@ function update_game()
    end
   end
  end
- if (gamestate.ready) gamestate.gametime+=1
+ 
+ if gamestate.ready then
+  gamestate.gametime+=1
+  gamestate.aliens_jammed=max(0,gamestate.aliens_jammed-1)
+ end
 
  //execute game logic
  if (objective=="players_off") activate_players(false)
@@ -1035,6 +1039,7 @@ function create_gamestate()
   aliens_destroyed=0,
   aliens_escaped=0,
   aliens_hit=0,
+  aliens_jammed=0,
   aliens_max=0,
   player_collisions=0,
   player_bombs=0,
@@ -1338,6 +1343,12 @@ function check_player_collisions(pl)
    gamestate.player_pickups+=1
    score_update(pl,10000+pu.payload)
    sfx(9)
+
+   // alien weapons jammer
+   if (pu.payload==96) then
+    gamestate.aliens_jammed+=360
+    bullets={}
+   end
    
    //smartbomb
    if (pu.payload==97) emit_smartbomb(pl)
@@ -1782,7 +1793,7 @@ function aim_shot(bl,pl,al,predict)
 end
 
 function make_firing_decision(al)
- if (al.breed=="asteroid") return
+ if (al.breed=="asteroid" or gamestate.aliens_jammed>0) return
  
  if al.shot_cooldown_timer<=0 then
 	 if al.breed=="drone" then
