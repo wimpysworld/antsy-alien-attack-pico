@@ -9,7 +9,7 @@ __lua__
 // 28/may: 5448
 // 29/may: 6071
 // 30/may: 6968
-// 31/may: 7204, 6999, 6912
+// 31/may: 7204
 
 #include build_config.p8
 
