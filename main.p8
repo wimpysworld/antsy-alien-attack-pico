@@ -788,6 +788,7 @@ function training(alien)
 end
 
 function shmup(evade)
+ local spawn=split("drone,drone,drone,bronze,bronze,bronze,bronze,silver,silver,silver,silver,sapphire,sapphire,emerald")
  local win_target=level*100
  if (evade) win_target=level*750
  
@@ -810,7 +811,6 @@ function shmup(evade)
   end
  else
   if #aliens<gamestate.aliens_max then
-   local spawn=split("drone,drone,drone,drone,orby,bronze,bronze,bronze,bronze,silver,silver,silver,silver,sapphire,sapphire,emerald")
    create_alien(rnd_range(16,112),rnd_range(-16,-8),spawn[rnd_range(1,#spawn)])
   end
 
