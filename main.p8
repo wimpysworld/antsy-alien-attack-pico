@@ -64,12 +64,26 @@ function _update60()
  sparkle=rnd_range(6,15)
  ignore_input=max(0,ignore_input-1)
 
+ //update screen shake
+ if (screen_shake>10) screen_shake*=0.95 else screen_shake-=1
+ screen_shake=max(screen_shake,0)
+
  update_stars() 
  update_loop()
 end
 
 function _draw()
- cls_fx(0,9)
+ //clear and shake the screen
+ if screen_flash>0 then
+  screen_flash=max(0,screen_flash-1)
+  cls(9)
+ else
+  cls()
+ end
+ local shakex,shakey=
+  rnd(screen_shake)-(screen_shake/2),rnd(screen_shake)-(screen_shake/2)
+ camera(shakex,shakey)
+ 
  draw_stars()
  draw_loop()
  --[[
@@ -482,24 +496,6 @@ function draw_explosions()
 			end
 		end
 	end
-end
-
-// cls with flash and shake
-function cls_fx(col,flash)
- if screen_flash>0 then
-  screen_flash=max(screen_flash,0)-1
-  cls(flash)
- else
-  cls(col)
- end
- local shakex,shakey=
-  rnd(screen_shake)-(screen_shake/2),rnd(screen_shake)-(screen_shake/2)
- camera(shakex,shakey)
-end
-
-function update_screen_shake()
- if (screen_shake>10) screen_shake*=0.95 else screen_shake-=1
- screen_shake=max(screen_shake,0)
 end
 
 function init_stars()
@@ -987,8 +983,6 @@ function update_game()
  if (objective=="asteroid_slow") asteroid_belt(false) 
  if (objective=="asteroid_fast") asteroid_belt(true)
 
- update_screen_shake()
-
  update_players()
  update_rockets()
 
@@ -1175,8 +1169,7 @@ function check_rocket_collision(rocket)
     gamestate.aliens_destroyed+=1
     score_update(pl,al.reward)
     emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,nil,pl.debris_style)
-    screen_flash+=al.explosion_screen_flash
-    screen_shake+=al.explosion_screen_shake
+    screen_shake+=al.explosion_size+1
     create_pickup(al.sprite.emit_x,al.sprite.emit_y)
     sfx(5+al.explosion_size)
     del(aliens,al)
@@ -1332,7 +1325,7 @@ function emit_smartbomb(pl)
  for al in all(aliens) do
   if (pl) score_update(pl,al.reward)
   emit_explosion(al.sprite.emit_x,al.sprite.emit_y,3,3,debris_fire)
-  screen_shake+=1
+  screen_shake+=al.explosion_size
  end
  aliens,bullets={},{}
  screen_flash+=3
@@ -1941,8 +1934,6 @@ function create_actor(x,y)
   debris_size=1,
   debris_style=nil,
   explosion_size=1,
-  explosion_screen_flash=0,
-  explosion_screen_shake=1,
   explosion_style=nil,
   shot_pattern=1,
   shot_damage=10,
