@@ -957,7 +957,7 @@ function init_game()
  pickup_payloads=
   {},{},{},{},{},{},{},
   50,
-  split("96,97,98,112,113,114")
+  split("96,97,98,99,112,113,114")
 
  music_play(6)
  init_players()
@@ -1259,6 +1259,7 @@ function create_player(player)
 	pl.col_lt,
 	pl.col_dk,
 	pl.speed,
+	pl.speedboost,
 	pl.speedbrake,
 	pl.hud_x,
  pl.debris_style,
@@ -1280,7 +1281,8 @@ function create_player(player)
   player,
   col_lt,
   col_dk,
-  1.35,
+  1.5,
+  0,
   0,
 	 hud_x,
  	debris_style,
@@ -1324,6 +1326,7 @@ function apply_player_damage(pl,damage,shake)
   // drop the shot_pattern by 1
   if old_hp>=50 and pl.hp<50 then
    if (pl.shot_pattern>1) pl.shot_pattern-=1
+   pl.speedboost=max(0,pl.speedboost-0.5)
   end
   pl.shields+=180
   sfx(10)
@@ -1372,6 +1375,9 @@ function check_player_collisions(pl)
      pl.generator=new_gen
     end
    end
+
+   //speed
+   if (pu.payload==99) pl.speedboost=min(2.5,pl.speedboost+0.5)
    
    //weapons
    if pu.payload==112 then
@@ -1462,9 +1468,10 @@ function update_players()
 	  apply_stars_accel(dx,dy)
 
 	  // finally, apply the input direction to the player
+	  local speed=pl.speed+pl.speedboost-pl.speedbrake
 	  pl.vel_x,pl.vel_y=
-	   dx*(pl.speed-pl.speedbrake),
-	   dy*(pl.speed-pl.speedbrake)
+	   dx*(speed),
+	   dy*(speed)
 	  pl.x+=pl.vel_x
 	  pl.y+=pl.vel_y
   end
