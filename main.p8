@@ -1107,7 +1107,8 @@ function get_next_objective()
  objective=objectives[current_objective]
 
  //initialise game state
- aliens,bullets={},{}
+ aliens,bullets,pickup_droprate=
+  {},{},50
 
  gamestate=create_gamestate()
 end
