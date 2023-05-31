@@ -761,16 +761,8 @@ end
 
 function objective_cleanup()
  // visual indication the objective is complete
- for al in all(aliens) do
-  emit_explosion(al.sprite.emit_x,al.sprite.emit_y,3,3,debris_fire)
-  screen_shake+=1
- end
- 
- aliens,bullets,objective_complete=
-  {},{},true
- 
- screen_flash+=3
- sfx(8)
+ emit_smartbomb()
+ objective_complete=true
 end
 
 function shmup(evade)
@@ -1349,12 +1341,26 @@ function apply_player_damage(pl,damage,shake)
  end
 end
 
+function emit_smartbomb(pl)
+ for al in all(aliens) do
+  if (pl) score_update(pl,al.reward)
+  emit_explosion(al.sprite.emit_x,al.sprite.emit_y,3,3,debris_fire)
+  screen_shake+=1
+ end
+ aliens,bullets={},{}
+ screen_flash+=3
+ sfx(8)
+end
+
 function check_player_collisions(pl)
  for pu in all(pickups) do
   if sprite_collision(pl.sprite,pu.sprite) then
    gamestate.player_pickups+=1
    score_update(pl,10000+pu.payload)
    sfx(9)
+   
+   //smartbomb
+   if (pu.payload==97) emit_smartbomb(pl)
    
    //generator
    if pu.payload==98 then
