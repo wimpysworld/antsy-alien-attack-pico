@@ -272,8 +272,8 @@ Q: How should the current weapons level be reflected in the players HUD?
 - [ ] Push 'em back - push the aliens back into the obliterator
 - [x] Rock on - more rocks than you can avoid
 - [ ] Peekaboo - Aliens appear briefly, fire and leave
-- [ ] Canyon run - narrow canyon with lots of rocks at speed (*stretch goal*)
-- [ ] Tunnel through - make a path through the rocks (*stretch goal*)
+- [ ] ~~Canyon run - narrow canyon with lots of rocks at speed (*stretch goal*)~~
+- [ ] ~~Tunnel through - make a path through the rocks (*stretch goal*)~~
 
 ## Publishing 🕹️
 
