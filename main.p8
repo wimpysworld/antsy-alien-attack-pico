@@ -2065,18 +2065,15 @@ function music_toggle()
  dset(1,music_enabled)
 end
 
-function sound_channel_available(ch1,ch2,ch3,ch4)
+//function sound_channel_available(ch1,ch2,ch3,ch4)
+function sound_channel_available(channels)
  //if music is playing only check
  //channels 3 and 4 which are
  //reserved for sfx by music_play()
- if music_enabled>0 then
-  if stat(ch3)==-1 or stat(ch4)==-1 then
-   return true
-  end
- else
-  if stat(ch1)==-1 or stat(ch2)==-1 or stat(ch3)==-1 or stat(ch4)==-1 then
-   return true
-  end 
+ local ch_start=1
+ if (music_enabled>0) ch_start=3
+ for ch=ch_start,4 do
+  if (stat(channels[ch])==-1) return true
  end
  return false
 end
@@ -2088,18 +2085,18 @@ end
 // sfx() as it will drop currently
 // playing sfx
 function sound_play(sound)
- // use deprecated audio sys
- // calls on pico-8 < 0.2.4
+ //pico-8 >= 0.2.4 
+ local channels=split("46,47,48,49")
+
  if stat(5) < 36 then
-  if sound_channel_available(16,17,18,19) then
-   sfx(sound)  
-  end
- else
-  //pico-8 >= 0.2.4
-  if sound_channel_available(46,47,48,49) then
-   sfx(sound)
-  end
+  // use deprecated audio sys
+  // calls on pico-8 < 0.2.4
+  channels=split("16,17,18,19")  
  end
+
+ if sound_channel_available(channels) then
+  sfx(sound)  
+ end 
 end
 
 // pass in the player object
