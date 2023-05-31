@@ -1698,7 +1698,7 @@ function create_alien(x,y,breed)
   al.shot_speed_y,
   al.shot_sprite,
   al.shot_cooldown=
-   20,
+   30,
    0.1,
    0.010,
    0.90,
@@ -1715,7 +1715,7 @@ function create_alien(x,y,breed)
   al.framerate,
   al.speed_x,
   al.speed_y=
-   35,
+   40,
    0.055,
    rnd_range(-0.35,0.35,true),
    rnd_range(0.5,0.7,true)
@@ -1728,7 +1728,7 @@ function create_alien(x,y,breed)
    al.speed_x,
    al.speed_y,
    al.explosion_size=
-    50,
+    60,
     0.085,
     30,
     rnd_range(-0.15,0.15,true),
@@ -1766,7 +1766,7 @@ function create_alien(x,y,breed)
   al.shot_sprite,
   al.shot_cooldown,
   al.explosion_size=
-   40,
+   60,
    0.1,
    cos(angle)*1.1,
    sin(angle)*1.1,
@@ -1787,10 +1787,10 @@ function create_alien(x,y,breed)
   al.shot_sprite,
   al.shot_cooldown,
   al.explosion_size=
-   45,
+   70,
    0.15,
    rnd_range(-0.2,0.2,true),
-   rnd_range(0.5,0.75,true),
+   rnd_range(0.5,0.5,true),
    1.75,
    1.75,
    80,
@@ -1809,7 +1809,7 @@ function create_alien(x,y,breed)
   al.shot_sprite,
   al.shot_cooldown,
   al.explosion_size=
-   50,
+   75,
    cos(angle)*1.45,
    sin(angle)*1.45,
    1.75,
@@ -1826,7 +1826,7 @@ function create_alien(x,y,breed)
   al.shot_sprite,
   al.shot_cooldown,
   al.explosion_size=
-   60,
+   80,
    0.007,
    1.5,
    65,
