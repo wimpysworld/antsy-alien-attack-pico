@@ -1324,7 +1324,7 @@ function apply_player_damage(pl,damage,shake)
   // drop the shot_pattern by 1
   if old_hp>=50 and pl.hp<50 then
    if (pl.shot_pattern>1) pl.shot_pattern-=1
-   pl.speedboost=max(0,pl.speedboost-0.5)
+   pl.speedboost=max(0,pl.speedboost-0.25)
   end
   pl.shields+=180
   sfx(10)
@@ -1375,7 +1375,7 @@ function check_player_collisions(pl)
    end
 
    //speed
-   if (pu.payload==99) pl.speedboost=min(2.5,pl.speedboost+0.5)
+   if (pu.payload==99) pl.speedboost=min(2.25,pl.speedboost+0.25)
    
    //weapons
    if pu.payload==112 then
