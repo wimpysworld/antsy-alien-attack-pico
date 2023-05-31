@@ -250,7 +250,7 @@ function draw_help()
 --]]
 
  local help_text=split(
- "the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,your ship slows down when firing,weapons go offline at hyperspeed,power ups enhance your ship,a full generator boosts shields,smart bombs use generator power"
+ "the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,your ship slows down when firing,weapons go offline at hyperspeed,power ups enhance your ship,a full dynamo boosts ship health,smart bombs use the dynamo power"
  )
 
  local y=17
