@@ -215,27 +215,24 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ### Weapons upgrades
 
-Q: How should the current weapons level be reflected in the players HUD?
-
-| Level | Speed | Cooldown | Damage |
-|:-----:|:-----:|:--------:|:------:|
-| 1     | 4     | 5        | 10     |
-| 2     | 5     | 5        | 15     |
-| 3     | 6     | 4        | 20     |
-| 4     | 7     | 4        | 20     |
-| 5     | 8     | 3        | 25     |
+| Level | Speed | Cooldown | Damage | Pattern |
+|:-----:|:-----:|:--------:|:------:|:--------|
+| 1     | 4     | 5        | 10     | Dual    |
+| 2     | 2.75  | 6        | 10     | 3-way   |
+| 3     | 2     | 7        | 10     | 4-way   |
+| 4     | 1.75  | 8        | 10     | 5-way   |
 
 ## Pickups
 
 - [x] Shields
-- [ ] Speed
+- [x] Speed
 - [x] Weapon patterns; more devastation
 - [ ] Weapons block; wipeout alien projectiles and prevent fire for some time
-- [ ] Smartbomb; damage all aliens and wipeout all alien projectiles
+- [x] Smartbomb; damage all aliens and wipeout all alien projectiles
 - [x] Power; charges the generator.
 - [x] HP; adds to ship HP
   - A fully charged generator yields player HP
-  - Hold the second button to release a smart bomb
+  - Press the second button to release a smart bomb
 
 ## Aliens 👾
 
