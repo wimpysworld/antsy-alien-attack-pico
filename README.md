@@ -227,7 +227,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] Shields
 - [x] Speed
 - [x] Weapon patterns; more devastation
-- [ ] Weapons block; wipeout alien projectiles and prevent fire for some time
+- [x] Weapons block; wipeout alien projectiles and prevent fire for some time
 - [x] Smartbomb; damage all aliens and wipeout all alien projectiles
 - [x] Power; charges the generator.
 - [x] HP; adds to ship HP
