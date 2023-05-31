@@ -1026,8 +1026,6 @@ function create_gamestate()
   player_shots=0,
   hud_progress=0,
   hud_target=nil,
-  boss_hp=0,
-  ally_hp=0,
   gametime=0,
   mission_report_time=0,
   ready=false,
