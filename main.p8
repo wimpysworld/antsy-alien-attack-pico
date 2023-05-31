@@ -1676,7 +1676,7 @@ function create_alien(x,y,breed)
    80,
    180,
    2
-  al.sprite=sprite_create(split("84,85,86,85"),1,1)
+  al.sprite=sprite_create(split("103,104,105,106,119,120,121,122"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="sapphire" then
   local angle=atan2(63-al.x+al.x_off,63-al.y+al.y_off)
