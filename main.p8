@@ -801,7 +801,7 @@ function none_shall_pass(can_pass)
  local win_target=1200
  if not gamestate.ready then
   gamestate.hud_target,
-  gamestate.draw,  
+  gamestate.draw,
   gamestate.aliens_max,
   gamestate.title,
   gamestate.text=
@@ -981,10 +981,10 @@ function update_game()
  if (objective=="flyin") autopilot("flyin")
  if (objective=="flyout") autopilot("flyout")
  if (objective=="shmup") shmup(false)
- if (objective=="evade") shmup(true) 
- if (objective=="some_can_pass") none_shall_pass(true) 
+ if (objective=="evade") shmup(true)
+ if (objective=="some_can_pass") none_shall_pass(true)
  if (objective=="none_shall_pass") none_shall_pass(false)
- if (objective=="asteroid_slow") asteroid_belt(false) 
+ if (objective=="asteroid_slow") asteroid_belt(false)
  if (objective=="asteroid_fast") asteroid_belt(true)
 
  update_players()
