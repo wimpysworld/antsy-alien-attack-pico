@@ -9,11 +9,32 @@ __lua__
 // 28/may: 5448
 // 29/may: 6071
 // 30/may: 6968
+// 31/may: 7204, 6999
 
 #include build_config.p8
 
 function _init()
- version_data,version_game="1","1"
+ debris_red,
+ debris_green,
+ debris_fire,
+ fc,
+ ignore_input,
+ num_players,
+ screen_flash,
+ screen_shake, 
+ sparkle,
+ version_data=
+  "14,14,8,8,2,2",
+  "10,11,11,11,3,3",
+  "10,9,9,8,8,2",
+  0,
+  1,
+  1,
+  0,
+  0,
+  4,
+  "1"
+
  cartdata("wimpy_antsy-alien-attack-pico_"..version_data)
  extcmd("set_title","antsy alien attack pico")
 
@@ -35,42 +56,25 @@ function _init()
   dset(1,music_enabled)
  end
 
- ignore_input=0
-
- num_players=1
- screen_flash,screen_shake,sparkle=0,0,4
-
- //TODO: find a better way to
- //store this data
- debris_red="14,14,8,8,2,2"
- debris_green="10,11,11,11,3,3"
- debris_fire="10,9,9,8,8,2"
-
- dt,fc,tick,l_tick=0,0,0,0
  init_attract()
 end
 
 function _update60()
- debug={}
- l_tick=tick
- tick=time()
- dt=tick-l_tick
  fc+=1
+ sparkle+=1 
  ignore_input=max(0,ignore_input-1)
-
- sparkle+=1
- if (sparkle<=1 or sparkle>15) sparkle=2
-
  update_loop()
 end
 
 function _draw()
  draw_loop()
+ --[[
  cursor(0,12)
  color(7)
  for d in all(debug) do
   print(d)
  end
+ --]]
 end
 -->8
 -- game state & menus
@@ -223,21 +227,37 @@ function draw_help()
  draw_stars()
  print_bounce("h e l p",nil,5,11,3,3,32,4)
 
+--[[
  local help_text={
-  "the year is 2139.plant earth is",
-  "under attack by antsy aliens   ",
+  "the year is 2139.planet earth is",
+  "under attack by antsy aliens!---",
   "",
-  "one ship. one life. one mission",
+  "one ship. one life. one mission.",
   "",
-  "shoot or collide with aliens   ",
-  "ships slow down when firing    ",
-  "weapons offline at hyperspeed  ",
-  "power ups enhance your ship    ",
-  "full generator boosts shields  ",
-  "smart bombs use generator power",
+  "shoot or collide with aliens    ",
+  "your ship slows down when firing",
+  "weapons go offline at hyperspeed",
+  "power ups enhance your ship     ",
+  "a full generator boosts shields ",
+  "smart bombs use generator power ",
  }
+--]]
 
- print_wave(help_text,nil,17,12,1,1,0,0)
+ local help_text=split(
+ "the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,your ship slows down when firing,weapons go offline at hyperspeed,power ups enhance your ship,a full generator boosts shields,smart bombs use generator power"
+ )
+
+ local y=17
+ for i=1,#help_text do
+  print_fx(
+   _puny(help_text[i]),
+   0,
+   y,
+   12,
+   1,
+   1)
+  y+=7
+ end
  spr(110,56,99,2,2)
  menu_footer()
 end
@@ -261,7 +281,7 @@ function init_credits()
  add_credits("music",   "chris donnelly",27,9,4)
  add_credits("sound",   "chris donnelly & martin wimpress",50,10,9)
  add_credits("graphics","alice masters, krystian majewski & martin wimpress",73,11,3)
- add_credits("testing & design", "alan pope, neil mcphail, stuart langridge, roger light simon butcher & martin wimpress",96,12,1)
+ add_credits("testing & design", "alan pope, neil mcphail, stuart langridge, roger light, simon butcher & martin wimpress",96,12,1)
 end
 
 function update_credits()
@@ -275,7 +295,7 @@ function draw_credits()
  for c in all(credits) do
   print_fx("                    ",nil,c.y+6,c.lt,c.dk,c.dk,"invert")
   print_bounce(c.name,nil,c.y+3,6,5,5,8,3)
-  print_scroll(c.humans,22,c.y+14,83,c.lt)
+  print_scroll(c.humans,0,c.y+14,127,c.lt)  
  end
  menu_footer()
 end
@@ -350,7 +370,6 @@ end
 
 function draw_shockwaves()
  for sw in all(shockwaves) do
-  //circ(sw.x,sw.y,sw.radius,sw.col)
 	 oval(
 	  sw.x-sw.radius,
 	  sw.y-sw.radius/4,
@@ -595,6 +614,7 @@ function _normal(txt)
  return "\^-w\^-t\^-=\^-p\^-i\^-b\^-#"..tostr(txt)
 end
 
+--[[
 function _wide(txt)
  _txt_wide=8
  return "\^w"..txt
@@ -604,15 +624,18 @@ function _tall(txt)
  _txt_high=10
  return "\^t"..txt
 end
+--]]
 
 function _big(txt)
  _txt_wide,_txt_high=8,10
  return "\^t\^w"..txt
 end
 
+--[[
 function _solid(txt)
  return "^\#"..txt
 end
+--]]
 
 function _invert(txt)
  return "\^i"..txt
@@ -637,11 +660,11 @@ function style_text(txt,style)
  if (style=="big")      return _big(txt)
  if (style=="invert")   return _invert(txt)
  if (style=="dotty")    return _dotty(txt)
- if (style=="solid")    return _solid(txt)
+ //if (style=="solid")    return _solid(txt)
  //if (style=="stripy_t") return "\^t\^="
  //if (style=="stripy_w") return "\^w\^="
- if (style=="tall")     return _tall(txt)
- if (style=="wide")     return _wide(txt)
+ //if (style=="tall")     return _tall(txt)
+ //if (style=="wide")     return _wide(txt)
 end
 
 function print_fx(txt,x,y,c,lo,hi,style)
@@ -665,7 +688,7 @@ end
 
 function print_scroll(txt,x,y,w,c)
  local len=#txt*4+w
- local ox=(tick/0.03)%len
+ local ox=(time()/0.03)%len
  clip(x,y,w,5)
  print(txt,x+w-ox,y,c)
  clip()
@@ -680,7 +703,7 @@ function print_bounce(txt,x,y,c,lo,hi,speed,bounce,style)
   print_fx(
    sub(txt,i,i),
    x+(i*_txt_wide)-_txt_wide,
-   y+sin(tick+i/speed)*bounce,
+   y+sin(time()+i/speed)*bounce,
    c,
    lo,
    hi,
@@ -688,6 +711,7 @@ function print_bounce(txt,x,y,c,lo,hi,speed,bounce,style)
  end
 end
 
+--[[
 function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
  //this just gets the font
  //dimensions 
@@ -699,7 +723,7 @@ function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
   if (not x) x=_center(txt[i],_txt_wide)
   print_fx(
    _puny(txt[i]),
-   x+sin(tick+i/speed)*wave,
+   x+sin(time()+i/speed)*wave,
    y,
    c,
    lo,
@@ -708,6 +732,7 @@ function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
   y+=_txt_high+2
  end
 end
+--]]
 
 function zero_pad(txt,len)
  if (#txt<len) return "0"..zero_pad(txt,len-1)
@@ -740,8 +765,9 @@ function objective_cleanup()
   emit_explosion(al.sprite.emit_x,al.sprite.emit_y,3,3,debris_fire)
   screen_shake+=1
  end
- objective_complete=true
- aliens,bullets={},{}
+ 
+ aliens,bullets,objective_complete=
+  {},{},true
  
  screen_flash+=3
  sfx(8)
@@ -752,15 +778,21 @@ function shmup(evade)
  if (evade) win_target=level*750
  
  if not gamestate.ready then
-  gamestate.hud_target=win_target
-
-  gamestate.aliens_max=8
-  gamestate.title="shmuuuuup!"
-  gamestate.text="destroy "..tostr(win_target).." aliens"
+  gamestate.hud_target,
+  gamestate.aliens_max,
+  gamestate.title,
+  gamestate.text=
+   win_target,
+   8,
+   "shmuuuuup!",
+   "destroy "..tostr(win_target).." aliens"
   if (evade) then
-   gamestate.aliens_max=12
-   gamestate.title="evade them!"
-   gamestate.text="evasive manoeuvres only!"
+   gamestate.aliens_max,
+   gamestate.title,
+   gamestate.text=  
+   12,
+   "evade them!",
+   "evasive manoeuvres only!"
   end
  else
   if #aliens<gamestate.aliens_max then
@@ -774,7 +806,7 @@ function shmup(evade)
     objective_cleanup()
    end
   else
-   gamestate.hud_progress=gamestate.aliens_destroyed  
+   gamestate.hud_progress=gamestate.aliens_destroyed
 	  if gamestate.aliens_destroyed>=win_target then
 	   objective_cleanup()
 	  end
@@ -784,23 +816,30 @@ end
 
 function draw_none_shall_pass()
  spr(81,0,125)
- spr(81,120,125,1,1,true)
+ spr(82,120,125) 
  line(3,126,124,126,sparkle)
 end
 
 function none_shall_pass(can_pass)
  local win_target=1200
  if not gamestate.ready then
-  gamestate.hud_target=win_target
-
-  gamestate.aliens_max=4
-  gamestate.draw=draw_none_shall_pass
-  gamestate.title="none shall pass"
-  gamestate.text="you must stop them all!"
+  gamestate.hud_target,
+  gamestate.draw,  
+  gamestate.aliens_max,
+  gamestate.title,
+  gamestate.text=
+   win_target,
+   draw_none_shall_pass,   
+   4,
+   "none shall pass",
+   "you must stop them all!"
   if can_pass then
-   gamestate.aliens_max=6
-   gamestate.title="some can pass"
-   gamestate.text="try and stop them all!"
+   gamestate.aliens_max,
+   gamestate.title,
+   gamestate.text=
+    6,
+    "some can pass",
+    "try and stop them all!"
   end
  else
   gamestate.hud_progress=gamestate.gametime
@@ -838,14 +877,19 @@ function asteroid_belt(hyper)
  local win_target=2000
  if (hyper) hyperspeed=3
  if not gamestate.ready then
-  gamestate.hud_target=win_target
-
-  gamestate.aliens_max=20
-  gamestate.title="asteroid belt"
-  gamestate.text="fly to survive"
+  gamestate.hud_target,
+  gamestate.aliens_max,
+  gamestate.title,
+  gamestate.text=
+   win_target,
+   20,
+   "asteroid belt",
+   "fly to survive"
   if not hyper then
-   gamestate.aliens_max=50
-   gamestate.text="shoot to survive"
+   gamestate.aliens_max,
+   gamestate.text=
+    50,
+    "shoot to survive"
   end
  else
   gamestate.hud_progress=gamestate.gametime
@@ -916,11 +960,12 @@ function init_game()
  rockets,
  debris,
  shockwaves,
- explosions=
-  {},{},{},{},{},{},{}
-
- pickup_droprate=50
- pickup_payloads=split("96,97,98,112,113,114")
+ explosions,
+ pickup_droprate,
+ pickup_payloads=
+  {},{},{},{},{},{},{},
+  50,
+  split("96,97,98,112,113,114")
 
  music_play(6)
  init_players()
@@ -975,7 +1020,7 @@ function update_game()
  update_debris()
  update_explosions()
 
- if active_players()<1 and #explosions<=0 then
+ if active_players()<1 and #explosions<1 then
   init_gameover()
  end
 end
@@ -1048,9 +1093,9 @@ function get_next_objective()
 end
 
 function get_next_mission()
- current_objective=0
  current_mission+=1
- level=current_mission-1
+ current_objective,level=
+  0,current_mission-1
  mission=missions[current_mission]
  get_next_objective()
 end
@@ -1097,10 +1142,14 @@ function emit_rocket(player_num)
  local pl=players[player_num]
 
  for i=0,pl.shot_pattern do
+  // rx is used for weapons emit
+  // point. this is for spread shots
   local rx=pl.x+4
+  
+  // this is for the basic weapon
   if pl.shot_pattern==1 then
    rx=pl.x
-   if (i==1) rx=pl.x+8
+   if (i>0) rx=pl.x+8
   end
   add(rockets,create_projectile(pl,rx,pl.y-4))
   gamestate.player_shots+=1
@@ -1113,20 +1162,24 @@ function emit_rocket(player_num)
   add(rocket.sprite.pal_swaps,{9,pl.col_dk})
   add(rocket.sprite.pal_swaps,{10,pl.col_lt})
 
-		local ang,spd=0
-  if pl.shot_pattern==2 then
-   // 3-way
-   ang,spd=0.215+((0.04+fc)*i),2.5
-  elseif pl.shot_pattern==3 then
-   // 4-way
-   ang,spd=0.175+((0.05+fc)*i),2
-  elseif pl.shot_pattern==4 then
+		local ang,spd,dir,spread=0
+  if pl.shot_pattern>3 then
    // 5-way
-   ang,spd=0.175+((0.04+fc)*i),1.75
+   dir,spread,spd=
+    0.175,0.04,1.75
+  elseif pl.shot_pattern>2 then
+   // 4-way
+   dir,spread,spd=
+    0.175,0.05,2
+  elseif pl.shot_pattern>1 then
+   // 3-way
+   dir,spread,spd=   
+    0.215,0.04,2.5
   end
   
   // apply pattern
   if pl.shot_pattern>1 then
+   ang=dir+((spread+fc)*i)  
    rocket.speed_x=cos(ang)*spd
    rocket.speed_y=sin(ang)*spd  
   end
@@ -1584,7 +1637,7 @@ function create_alien(x,y,breed)
    0.1,
    0.010,
    0.90,
-   rnd_float_range(-0.5,0.5),
+   rnd_range(-0.5,0.5,true),
    1.2,
    80,
    240   
@@ -1598,8 +1651,8 @@ function create_alien(x,y,breed)
   al.speed_y=
    35,
    0.055,
-   rnd_float_range(-0.95,0.95),
-   rnd_float_range(0.95,1.25)
+   rnd_range(-0.95,0.95,true),
+   rnd_range(0.95,1.25,true)
   local rocks=split("87,88,89,90")
   if one_in(3) then
    // grey asteroid
@@ -1612,8 +1665,8 @@ function create_alien(x,y,breed)
     50,
     0.085,
     30,
-    rnd_float_range(-0.55,0.55),
-    rnd_float_range(0.5,0.75),
+    rnd_range(-0.55,0.55,true),
+    rnd_range(0.5,0.75,true),
     2
    rocks=split("71,72,73,74")
   end
@@ -1669,8 +1722,8 @@ function create_alien(x,y,breed)
   al.explosion_size=
    45,
    0.15,
-   rnd_float_range(-0.2,0.2),
-   rnd_float_range(0.5,0.75),
+   rnd_range(-0.2,0.2,true),
+   rnd_range(0.5,0.75,true),
    1.75,
    1.75,
    80,
@@ -2062,12 +2115,10 @@ function round(n)
  return (n%1<0.5) and flr(n) or ceil(n)
 end
 
-function rnd_range(low,high)
- return flr(rnd(high+1-low)+low)
-end
-
-function rnd_float_range(low,high)
- return rnd(high-low)+low
+function rnd_range(low,high,float)
+ local range=rnd(high+1-low)+low
+ if (float) return range
+ return flr(range)
 end
 
 function one_in(num)
