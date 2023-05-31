@@ -750,6 +750,43 @@ function objective_cleanup()
  objective_complete=true
 end
 
+function draw_training()
+ if gamestate.gametime<600 then
+  for pl in all(players) do
+ 	 print_fx(_puny("health"),pl.hud_x+4,8,pl.col_lt)
+ 	 print_fx(_puny("dynamo"),pl.hud_x+4,13,12)
+	 end
+ 	print_fx(_puny("progress"),nil,8,10)
+ end
+end
+
+function training(alien)
+ local win_target=25
+ pickup_droprate=30000
+ 
+ if not gamestate.ready then
+  gamestate.hud_target,
+  gamestate.draw,  
+  gamestate.aliens_max,
+  gamestate.title,
+  gamestate.text=
+   win_target,
+   draw_training,
+   4,
+   "training",
+   "learn "..alien.." class. shoot "..tostr(win_target)
+ else
+  if #aliens<gamestate.aliens_max then
+   create_alien(rnd_range(16,112),rnd_range(-16,-8),alien)
+  end
+
+  gamestate.hud_progress=gamestate.aliens_destroyed
+  if gamestate.aliens_destroyed>=win_target then
+   objective_cleanup()
+  end
+ end
+end
+
 function shmup(evade)
  local win_target=level*100
  if (evade) win_target=level*750
@@ -973,6 +1010,12 @@ function update_game()
  //execute game logic
  if (objective=="players_off") activate_players(false)
  if (objective=="players_on") activate_players(true)
+ if (objective=="training_drone") training("drone")
+ if (objective=="training_orby") training("orby")
+ if (objective=="training_bronze") training("bronze")
+ if (objective=="training_silver") training("silver")
+ if (objective=="training_sapphire") training("sapphire")
+ if (objective=="training_emerald") training("emerald")
  if (objective=="weapons_off") activate_weapons(false)
  if (objective=="weapons_on") activate_weapons(true)
  if (objective=="jump") jump()
