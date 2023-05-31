@@ -768,8 +768,7 @@ function draw_training()
 end
 
 function training(alien)
- local win_target=25
- pickup_droprate=30000
+ local win_target=difficulty*25
 
  if not gamestate.ready then
   gamestate.hud_target,
@@ -779,7 +778,7 @@ function training(alien)
   gamestate.text=
    win_target,
    draw_training,
-   4,
+   difficulty+3,
    "training",
    "learn "..alien.." class. shoot "..tostr(win_target)
  else
@@ -796,8 +795,8 @@ end
 
 function shmup(evade)
  local spawn=split("drone,drone,drone,bronze,bronze,bronze,bronze,silver,silver,silver,silver,sapphire,sapphire,emerald")
- local win_target=level*100
- if (evade) win_target=level*750
+ local win_target=difficulty*100
+ if (evade) win_target=difficulty*500
 
  if not gamestate.ready then
   gamestate.hud_target,
@@ -805,14 +804,14 @@ function shmup(evade)
   gamestate.title,
   gamestate.text=
    win_target,
-   8,
+   difficulty*3,
    "shmuuuuup!",
    "destroy "..tostr(win_target).." aliens"
   if evade then
    gamestate.aliens_max,
    gamestate.title,
    gamestate.text=
-   12,
+   difficulty*2*3,
    "evade them!",
    "evasive manoeuvres only!"
   end
@@ -826,6 +825,7 @@ function shmup(evade)
    if gamestate.gametime>=win_target then
     objective_cleanup()
    end
+   if (one_in(175)) create_pickup(rnd_range(52,76),-8,nil,true)
   else
    gamestate.hud_progress=gamestate.aliens_destroyed
     if gamestate.aliens_destroyed>=win_target then
@@ -851,14 +851,14 @@ function none_shall_pass(can_pass)
   gamestate.text=
    win_target,
    draw_none_shall_pass,
-   4,
+   difficulty*2,
    "none shall pass",
    "you must stop them all!"
   if can_pass then
    gamestate.aliens_max,
    gamestate.title,
    gamestate.text=
-    6,
+   difficulty*3,
     "some can pass",
     "try and stop them all!"
   end
@@ -985,7 +985,7 @@ function init_game()
  pickup_droprate,
  pickup_payloads=
   {},{},{},{},{},{},{},
-  50,
+  20,
   split("96,97,98,99,112,113,114")
 
  music_play(6)
@@ -1122,8 +1122,12 @@ end
 
 function get_next_mission()
  current_mission+=1
- current_objective,level=
-  0,current_mission-1
+ current_objective,
+ level,
+ difficulty=
+  0,
+  current_mission-1,
+  max(1,current_mission-2)
  mission=missions[current_mission]
  get_next_objective()
 end
@@ -1941,9 +1945,9 @@ end
 -->8
 -- helpers
 
-function create_pickup(x,y,payload)
+function create_pickup(x,y,payload,force)
  payload=payload or rnd_range(1,#pickup_payloads)
- if one_in(pickup_droprate) then
+ if one_in(pickup_droprate) or force then
    add(pickups,{
     x=x,
     y=y,
