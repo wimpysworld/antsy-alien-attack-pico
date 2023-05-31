@@ -1650,8 +1650,8 @@ function create_alien(x,y,breed)
   al.speed_y=
    35,
    0.055,
-   rnd_range(-0.95,0.95,true),
-   rnd_range(0.95,1.25,true)
+   rnd_range(-0.35,0.35,true),
+   rnd_range(0.5,0.7,true)
   local rocks=split("87,88,89,90")
   if one_in(3) then
    // grey asteroid
@@ -1664,8 +1664,8 @@ function create_alien(x,y,breed)
     50,
     0.085,
     30,
-    rnd_range(-0.55,0.55,true),
-    rnd_range(0.5,0.75,true),
+    rnd_range(-0.15,0.15,true),
+    rnd_range(0.2,0.4,true),
     2
    rocks=split("71,72,73,74")
   end
