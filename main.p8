@@ -9,7 +9,7 @@ __lua__
 // 28/may: 5448
 // 29/may: 6071
 // 30/may: 6968
-// 31/may: 7204, 6999
+// 31/may: 7204, 6999, 6912
 
 #include build_config.p8
 
@@ -1858,10 +1858,9 @@ function update_aliens()
    al.x+=al.speed_x
    al.y+=al.speed_y  
   end   
-  
-  al.sprite.frame+=al.framerate
-  if (flr(al.sprite.frame)>#al.sprite.frames) al.sprite.frame=1
 
+  sprite_loop_frame(al.sprite,al.framerate)
+  
   if is_outside_playarea(al.x,al.y) then
    gamestate.aliens_escaped+=1
    del(aliens,al)
@@ -1887,7 +1886,6 @@ function create_pickup(x,y,payload)
 	  origin_x=x,
 	  origin_y=y,
 	  angle=rnd_range(0,359),
-	  radius=8,	  
 	  payload=pickup_payloads[payload]
 	 })
 	 pu=pickups[#pickups]
@@ -1901,8 +1899,9 @@ function update_pickups()
   pu.angle+=2.5
   if (pu.angle>360) pu.angle=0
   pu.origin_y+=0.25+(hyperspeed/4)
-  pu.x=pu.origin_x+pu.radius*cos(pu.angle/360)
-  pu.y=pu.origin_y+pu.radius*sin(pu.angle/360)
+  // 8 is the radius
+  pu.x=pu.origin_x+8*cos(pu.angle/360)
+  pu.y=pu.origin_y+8*sin(pu.angle/360)
   if is_outside_playarea(pu.origin_x,pu.origin_y) then
    del(pickups,pu)
   end
@@ -1911,7 +1910,7 @@ end
 
 function draw_pickups()
  for pu in all(pickups) do
-  sprite_draw(pu.sprite,pu.x,pu.y)		
+  sprite_draw(pu.sprite,pu.x,pu.y)
  end
 end
 
@@ -1936,7 +1935,6 @@ function create_actor(x,y)
   debris_size=1,
   debris_style=nil,
   explosion_size=1,
-  explosion_quantity=1,
   explosion_screen_flash=0,
   explosion_screen_shake=1,
   explosion_style=nil,
@@ -1944,7 +1942,6 @@ function create_actor(x,y)
   shot_damage=10,
   shot_speed_x=0,
   shot_speed_y=-4,
-  shot_sprite=65,
   col_lt=10,
   col_dk=9,
   sprite={},
@@ -1955,14 +1952,23 @@ end
 // hitboxes have to be
 // created using this function!
 function sprite_hitbox(s,hbx,hby,hbw,hbh,show)
- s.hb_x,s.hb_y,s.hb_width,s.hb_height=
-  hbx,hby,hbw,hbh
- s.show_hitbox=show
+ s.hb_x,
+ s.hb_y,
+ s.hb_width,
+ s.hb_height,
+ s.show_hitbox=
+  hbx,
+  hby,
+  hbw,
+  hbh,
+  show
 
  // calculate half widths/heights
  // used for collision detection
- s.hb_hw=s.hb_width/2
- s.hb_hh=s.hb_height/2
+ s.hb_hw,
+ s.hb_hh=
+  s.hb_width/2,
+  s.hb_height/2
 end
 
 function sprite_create(sprites,w,h)
@@ -1995,10 +2001,12 @@ end
 
 function sprite_draw(s,x,y)
  // update x,y for collision detection
- s.x,s.y=x,y
+ s.x,s.y=x,y  
 
- // calc where damage emits from
- s.emit_x,s.emit_y=
+ // calc where damage/bullet 
+ // emits from
+ s.emit_x,
+ s.emit_y=
   s.x+s.hb_hw,
   s.y+s.hb_hh
 
@@ -2023,6 +2031,7 @@ function sprite_draw(s,x,y)
  if (#s.pal_swaps or s.pal_trans!=0 or s.pal_whiteflash) pal()
 
  // useful fordebugging
+ --[[
  if s.show_hitbox then
 	 rect(
 	  x+s.hb_x,
@@ -2031,6 +2040,7 @@ function sprite_draw(s,x,y)
 	  y+s.hb_y+s.hb_height,
 	  sparkle)
  end
+ --]]
 end
 
 function sprite_loop_frame(s,val)
@@ -2047,8 +2057,7 @@ function sprite_collision(a,b)
  local yd=abs((a.y+a.hb_y+a.hb_hh)-(b.y+b.hb_y+b.hb_hh))
  local ys=a.hb_hh+b.hb_hh
 
- if (xd<xs and yd<ys) return true
- return false
+ return (xd<xs and yd<ys)
 end
 
 function music_play(pat)
@@ -2119,8 +2128,7 @@ function rnd_range(low,high,float)
 end
 
 function one_in(num)
- if (rnd_range(1,num)==1) return true
- return false
+ return rnd_range(1,num)==1
 end
 
 function is_outside_playarea(x,y)
