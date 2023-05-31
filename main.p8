@@ -1284,8 +1284,18 @@ function apply_player_damage(pl,damage,shake)
   end
   pl.shields+=180
   sfx(10)
+  
+  // if the player has no hp
+  // but has generator power
+  // transfer generator power
+  // to hp
+  if pl.hp<=0 and pl.generator>0 then
+   pl.hp=pl.generator
+   pl.generator=0
+  end
+  
+  if (pl.hp<=0) emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
  end
- if (pl.hp<=0) emit_explosion(pl.x,pl.y,pl.explosion_size,pl.explosion_style)
 end
 
 function check_player_collisions(pl)
@@ -1368,16 +1378,6 @@ function update_players()
  stars_accy*=.999
 
  for pl in all(players) do
- 
-  // if the player has no hp
-  // but has generator power
-  // transfer generator power
-  // to hp
-  if pl.hp<=0 and pl.generator>0 then
-   pl.hp=pl.generator
-   pl.generator=0
-  end
-  
   if (pl.hp<=0) goto next_player
   local controller=pl.num-1
   local dx,dy,dir=
