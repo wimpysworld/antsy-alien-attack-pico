@@ -61,7 +61,7 @@ end
 
 function _update60()
  fc+=1
- sparkle+=1 
+ sparkle=rnd_range(6,15)
  ignore_input=max(0,ignore_input-1)
  update_loop()
 end
