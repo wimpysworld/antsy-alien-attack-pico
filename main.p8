@@ -1280,8 +1280,7 @@ function apply_player_damage(pl,damage,shake)
   // did we just cross 50% mark
   // drop the shot_pattern by 1
   if old_hp>=50 and pl.hp<50 then
-   pl.shot_pattern-=1
-   if (pl.shot_pattern<1) pl.shot_pattern=1
+   if (pl.shot_pattern>1) pl.shot_pattern-=1
   end
   pl.shields+=180
   sfx(10)
