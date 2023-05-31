@@ -512,7 +512,7 @@ function init_stars()
   0,stars_min_accy
 
  for i=1,64 do
-  local s=rnd(1)+0.25
+  local s=rnd_range(0.25,1,true)
   local c=1
   if (s>1) c=13
 
