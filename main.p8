@@ -1653,6 +1653,7 @@ function create_alien(x,y,breed)
    240   
   al.sprite=sprite_create(split("107,108,109,123,124,125"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
+  al.sprite.frame=rnd_range(1,#al.sprite.frames)  
  elseif breed=="asteroid" then 
   // brown asteroid
   al.hp,
@@ -1698,6 +1699,7 @@ function create_alien(x,y,breed)
    240
   al.sprite=sprite_create(split("91,75,76,77,93,77,76,75"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
+  al.sprite.frame=rnd_range(1,#al.sprite.frames)
  elseif breed=="bronze" then
   local angle=atan2(rnd_range(48,80)-al.x+al.x_off,128)
   al.hp,
@@ -1741,6 +1743,7 @@ function create_alien(x,y,breed)
    2
   al.sprite=sprite_create(split("103,104,105,106,119,120,121,122"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
+  al.sprite.frame=rnd_range(1,#al.sprite.frames)  
  elseif breed=="sapphire" then
   local angle=atan2(63-al.x+al.x_off,63-al.y+al.y_off)
   al.hp,
