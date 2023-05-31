@@ -63,10 +63,14 @@ function _update60()
  fc+=1
  sparkle=rnd_range(6,15)
  ignore_input=max(0,ignore_input-1)
+
+ update_stars() 
  update_loop()
 end
 
 function _draw()
+ cls_fx(0,9)
+ draw_stars()
  draw_loop()
  --[[
  cursor(0,12)
@@ -115,7 +119,6 @@ function init_attract()
 end
 
 function update_attract()
- update_stars()
  if any_action_btnp() then
   if (menu_pos!=1) sfx(1)
   menu_items[menu_pos].init()
@@ -140,8 +143,6 @@ end
 
 function draw_attract()
  local c=nil
- cls(0)
- draw_stars()
  print_fx("antsy alien",nil,2,11,3,3,"big")
  print_fx("attack!",nil,16,8,2,2,"big")
  print_fx(_puny("pico"),nil,28,7)
@@ -181,13 +182,10 @@ function init_gameover()
 end
 
 function update_gameover()
- update_stars()
  if (any_action_btnp()) init_attract()
 end
 
 function draw_gameover()
- cls(0)
- draw_stars()
  print_bounce("game over",nil,48,8,nil,nil,32,8,"dotty")
  menu_footer()
 end
@@ -200,13 +198,10 @@ function init_gamewin()
 end
 
 function update_gamewin()
- update_stars()
  if (any_action_btnp()) init_attract()
 end
 
 function draw_gamewin()
- cls(0)
- draw_stars()
  print_bounce("game win!",nil,48,11,nil,nil,32,8,"dotty")
  menu_footer()
 end
@@ -218,13 +213,10 @@ function init_help()
 end
 
 function update_help()
- update_stars()
  if (any_action_btnp()) init_attract()
 end
 
 function draw_help()
- cls(0)
- draw_stars()
  print_bounce("h e l p",nil,5,11,3,3,32,4)
 
 --[[
@@ -285,13 +277,10 @@ function init_credits()
 end
 
 function update_credits()
- update_stars()
  if (any_action_btnp()) init_attract()
 end
 
 function draw_credits()
- cls(0)
- draw_stars()
  for c in all(credits) do
   print_fx("                    ",nil,c.y+6,c.lt,c.dk,c.dk,"invert")
   print_bounce(c.name,nil,c.y+3,6,5,5,8,3)
@@ -999,7 +988,6 @@ function update_game()
  if (objective=="asteroid_fast") asteroid_belt(true)
 
  update_screen_shake()
- update_stars()
 
  update_players()
  update_rockets()
@@ -1018,8 +1006,6 @@ function update_game()
 end
 
 function draw_game()
- cls_fx(0,9)
- draw_stars()
  draw_bullets()
  draw_pickups()
  draw_aliens()
