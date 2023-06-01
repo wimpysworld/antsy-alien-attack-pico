@@ -874,7 +874,7 @@ function pass(can_pass)
   gamestate.title,
   gamestate.text=
    win_target,
-   draw_none_shall_pass,
+   draw_pass,
    level*2,
    "none shall pass",
    "you must stop them all!"
@@ -1064,8 +1064,8 @@ function update_game()
  if (objective=="fly_out") autopilot()
  if (objective=="level_in") level_status(true)
  if (objective=="level_out") level_status()
- if (objective=="some_pass") pass(true)
- if (objective=="none_pass") pass()
+ if (objective=="pass_some") pass(true)
+ if (objective=="pass_none") pass()
  if (objective=="asteroid_belt") asteroid_belt()
 
  if objective=="drone" or
