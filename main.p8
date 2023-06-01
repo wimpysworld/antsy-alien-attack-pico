@@ -940,14 +940,13 @@ function asteroid_belt()
  end
 end
 
-function autopilot(destination)
- //init
- if destination=="flyin" and not gamestate.ready then
-   for pl in all(players) do
-    pl.x,pl.y=pl.startx,192
-   end
-   gamestate.ready=true
+function autopilot(flyin)
+ if flyin and not gamestate.ready then
+  for pl in all(players) do
+   pl.x,pl.y=pl.startx,192
   end
+  gamestate.ready=true
+ end
 
  //autopilot
  for pl in all(players) do
