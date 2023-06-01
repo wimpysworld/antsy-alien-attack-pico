@@ -841,10 +841,10 @@ function shmup(fleet,evade)
    if (one_in(175)) create_pickup(rnd_range(52,76),-8,nil,true)
   else
    gamestate.hud_progress=gamestate.aliens_destroyed
-    if gamestate.aliens_destroyed>=win_target then
-     objective_cleanup()
-    end
+   if gamestate.aliens_destroyed>=win_target then
+    objective_cleanup()
    end
+  end
  end
 end
 
@@ -877,56 +877,56 @@ function pass(can_pass)
   end
  else
   gamestate.hud_progress=gamestate.gametime
-   if #aliens<gamestate.aliens_max then
-    // narrow the x range for
-    // none shall pass
-    local spawn_x=rnd_range(28,100)
-    if (can_pass) spawn_x=rnd_range(20,108)
-    create_alien(spawn_x,-8,"orby")
-   end
+  if #aliens<gamestate.aliens_max then
+   // narrow the x range for
+   // none shall pass
+   local spawn_x=rnd_range(28,100)
+   if (can_pass) spawn_x=rnd_range(20,108)
+   create_alien(spawn_x,-8,"orby")
+  end
 
-   for al in all(aliens) do
-    al.speed_y+=0.002
-    if al.y>=128 then
-      gamestate.aliens_escaped+=1
-     for pl in all(players) do
-      if can_pass then
-       apply_player_damage(pl,al.collision_damage)
-      else
-       // none shall pass insta-death
-       apply_player_damage(pl,pl.hp+10)
-      end
+  for al in all(aliens) do
+   al.speed_y+=0.002
+   if al.y>=128 then
+    gamestate.aliens_escaped+=1
+    for pl in all(players) do
+     if can_pass then
+      apply_player_damage(pl,al.collision_damage)
+     else
+      // none shall pass insta-death
+      apply_player_damage(pl,pl.hp+10)
      end
-     del(aliens,al)
     end
+    del(aliens,al)
    end
-
-   if gamestate.gametime>=win_target then
-    objective_cleanup()
   end
+  if gamestate.gametime>=win_target then
+   objective_cleanup()
   end
+ end
 end
 
-function asteroid_belt(hyper)
- local win_target=2000
- if (hyper) hyperspeed=3
+function asteroid_belt()
+ local win_target=1000+(level*250)
  if not gamestate.ready then
+  local max_rocks,text=level+44,"shoot to survive"
+  if (evade) then max_rocks,text=level+14,"fly to survive"
   gamestate.hud_target,
   gamestate.aliens_max,
   gamestate.title,
   gamestate.text=
    win_target,
-   20,
+   max_rocks,
    "asteroid belt",
-   "fly to survive"
-  if not hyper then
-   gamestate.aliens_max,
-   gamestate.text=
-    50,
-    "shoot to survive"
+   text
   end
  else
   gamestate.hud_progress=gamestate.gametime
+
+  local range=rnd_range(0,48)
+  if (fc%2==0) range=rnd_range(79,127)
+  if (one_in(175)) create_pickup(range,-8,nil,true)
+
   if #aliens<gamestate.aliens_max and one_in(3) then
    create_alien(rnd_range(2,126),-8,"asteroid")
   end
