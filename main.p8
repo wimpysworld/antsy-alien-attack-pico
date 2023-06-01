@@ -1111,6 +1111,7 @@ function create_gamestate()
   ready=false,
   title="",
   text="",
+  show_weapons=true,
   draw=nil,
  }
 end
@@ -1162,12 +1163,12 @@ function draw_mission()
   gamestate.mission_report_time+=1
 
   print_fx(gamestate.title,nil,32,12,1,1,"big")
-   print_fx(_puny(gamestate.text),nil,48,6,5,5)
-   local txt,col,out="weapons online",11,3
-   if not players[#players].shot_enabled then
-    txt,col,out="weapons offline",8,2
-   end
-   print_fx(_puny(txt),nil,58,col,out,out)
+  print_fx(_puny(gamestate.text),nil,48,6,5,5)
+  local txt,col,out="weapons online",11,3
+  if not players[#players].shot_enabled then
+   txt,col,out="weapons offline",8,2
+  end
+  if (gamestate.show_weapons) print_fx(_puny(txt),nil,58,col,out,out)
  else
   gamestate.ready=true
  end
