@@ -742,12 +742,23 @@ function init_missions()
   0,
   0,
   false
-  missions={
-   "players_off,jump",
-   "flyin,players_on,drop,training_drone,wait,training_bronze,wait,training_silver,wait,training_sapphire,wait,training_emerald,wait,players_off,jump,flyout",
-   "flyin,players_on,drop,shmup,wait,some_can_pass,wait,jump,weapons_off,evade,wait,asteroid_fast,wait,drop,weapons_on,shmup,wait,asteroid_slow,wait",
-   "players_off,jump,flyout,drop",
-  }
+
+ missions={
+  "players_off,jump",
+  //test
+  //"level_in,fly_in,players_on,drop,armada,wait,players_off,level_out,jump,fly_out",
+  //1
+  "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,silver,wait,sapphire,wait,emerald,wait,players_off,level_out,jump,fly_out",
+  //2
+  "level_in,fly_in,players_on,drop,bronze,wait,silver,wait,jump,weapons_off,asteroid_belt,wait,drop,weapons_on,silver,wait,spheres,wait,metal,wait,pass_some,players_off,level_out,jump,fly_out",
+  //3
+  "level_in,fly_in,players_on,drop,sapphire,wait,emerald,wait,evade_on,spheres,evade_off,gem,asteroid_belt,players_off,level_out,jump,fly_out",
+  //4
+  "level_in,fly_in,players_on,bronze,wait,silver,wait,sapphire,wait,emerald,wait,pass_none,wait,metal,wait,gem,wait,metal,wait,gem,wait,jump,weapons_off,asteroid_belt,wait,drop,weapons_on,players_off,level_out,jump,fly_out",
+  //5
+  "level_in,fly_in,players_on,armada,wait,pass_some,amada,wait,asteroid_belt,pass_none,armada,players_off,level_out,jump,fly_out",       
+  "drop",
+ }
 end
 
 function objective_cleanup()
