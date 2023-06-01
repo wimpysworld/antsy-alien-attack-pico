@@ -989,6 +989,7 @@ function level_status(arrive)
   objective_complete=true
  end
 end
+
 function wait()
  if gamestate.gametime>180 and #explosions<=0 then
   objective_complete=true
