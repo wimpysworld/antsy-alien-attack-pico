@@ -1382,10 +1382,12 @@ function apply_player_damage(pl,damage,shake)
 end
 
 function emit_smartbomb(pl)
+ local max_exp=0
  for al in all(aliens) do
   if (pl) score_update(pl,al.reward)
-  emit_explosion(al.sprite.emit_x,al.sprite.emit_y,3,3,debris_fire)
+  if (max_exp<10) emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,al.debris_size,debris_fire)
   screen_shake+=al.explosion_size
+  max_exp+=1  
  end
  aliens,bullets={},{}
  screen_flash+=3
