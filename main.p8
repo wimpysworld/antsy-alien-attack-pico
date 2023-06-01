@@ -1195,14 +1195,14 @@ function draw_mission()
   if gamestate.text=="" then
     print_fx(gamestate.title,nil,56,9,4,10,"big")  
   else
-    print_fx(gamestate.title,nil,32,12,1,6,"big")
-    print_fx(_puny(gamestate.text),nil,48,6,5,5)
+    print_fx(gamestate.title,nil,50,12,1,6,"big")
+    print_fx(_puny(gamestate.text),nil,62,6,5,5)
   end
   local txt,col,out="weapons online",11,3
   if not players[#players].shot_enabled then
    txt,col,out="weapons offline",8,2
   end
-  if (gamestate.show_weapons) print_fx(_puny(txt),nil,58,col,out,out)
+  if (gamestate.show_weapons) print_fx(_puny(txt),nil,69,col,out,out)
  else
   gamestate.ready=true
  end
