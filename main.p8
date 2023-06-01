@@ -1302,50 +1302,50 @@ function create_player(player)
  add(players,create_actor(x,192))
 
  local pl=players[#players]
- pl.num,
+  pl.num,
   pl.col_lt,
   pl.col_dk,
   pl.speed,
   pl.speedboost,
   pl.speedbrake,
   pl.hud_x,
- pl.debris_style,
- pl.explosion_size,
- pl.explosion_style,
- pl.sfx_shoot,
- pl.shields,
- pl.score,
- pl.prev_dir,
- pl.generator,
- pl.shields,
- pl.lock_to_screen,
- pl.controls_enabled,
- pl.bomb_enabled,
- pl.shot_enabled,
- pl.shot_cooldown,
- pl.shot_cooldown_timer=
-  player,
-  col_lt,
-  col_dk,
-  1.5,
-  0,
-  0,
+  pl.debris_style,
+  pl.explosion_size,
+  pl.explosion_style,
+  pl.sfx_shoot,
+  pl.shields,
+  pl.score,
+  pl.prev_dir,
+  pl.generator,
+  pl.shields,
+  pl.lock_to_screen,
+  pl.controls_enabled,
+  pl.bomb_enabled,
+  pl.shot_enabled,
+  pl.shot_cooldown,
+  pl.shot_cooldown_timer=
+   player,
+   col_lt,
+   col_dk,
+   1.5,
+   0,
+   0,
    hud_x,
    debris_style,
    3,
    explosion_style,
    sfx_shoot,
-  100,
-  0,
+   100,
+   0,
    -1,
-  0,
-  0,
-  false,
-  true,
-  true,
-  true,
-  5,
-  0
+   0,
+   0,
+   false,
+   true,
+   true,
+   true,
+   5,
+   0
  pl.sprite=sprite_create({0,2,4,6,8},2,2)
  pl.sprite.frame=3.5
  sprite_hitbox(pl.sprite,4,3,7,9)
@@ -1454,7 +1454,6 @@ function check_player_collisions(pl)
      pl.hp=new_hp
     end
    end
-
    del(pickups,pu)
   end
  end
