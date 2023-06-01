@@ -820,14 +820,14 @@ function shmup(fleet,evade)
   gamestate.text,
   gamestate.draw=
    win_target,
-   level*3,
+   level+5,
    title,
    "destroy "..tostr(win_target).." aliens",
    draw_shmup
   if evade then
    gamestate.aliens_max,
    gamestate.text=
-    level*2*3,
+    level+6
     "evasive manoeuvres only!"
   end
  else
