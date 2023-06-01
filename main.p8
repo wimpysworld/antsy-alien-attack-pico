@@ -779,8 +779,8 @@ function training(alien)
    win_target,
    draw_training,
    difficulty+3,
-   "training",
-   "learn "..alien.." class. shoot "..tostr(win_target)
+   alien.." lesson",
+   "learn the patterns. shoot "..tostr(win_target)
  else
   if #aliens<gamestate.aliens_max then
    create_alien(rnd_range(16,112),rnd_range(-16,-8),alien)
