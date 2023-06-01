@@ -1072,9 +1072,10 @@ end
 
 function draw_game()
  draw_bullets()
- draw_pickups()
  draw_aliens()
+ draw_pickups()
 
+ draw_hud()
  //mini-game specific draws
  if (gamestate.draw) gamestate.draw()
 
@@ -1084,15 +1085,7 @@ function draw_game()
  draw_shockwaves()
  draw_debris()
  draw_explosions()
- print_fx("hi "..numtostr(hi_score,8),_center("hi 00000000",4),0,7)
 
- //mini-game hud
- if gamestate.hud_target then
-   line(42,6,84,6,9)
-   if gamestate.hud_progress>0 then
-    line(42,6,44+round(42/100*(gamestate.hud_progress/gamestate.hud_target*100)),6,10)
-   end
- end
  //mini-game mission brief
  draw_mission()
 end
@@ -1591,10 +1584,29 @@ function update_players()
  end
 end
 
+function draw_hud()
+ for pl in all(players) do
+  // hud; score
+  print_fx(numtostr(pl.score,8),pl.hud_x,0,pl.col_lt)
+  // hud; hp & generator
+  hud_line(pl.hud_x,6,pl.hp,pl.col_lt,pl.col_dk)
+  hud_line(pl.hud_x,7,pl.generator,12,1)
+ end
+ 
+ print_fx("hi "..numtostr(hi_score,8),_center("hi 00000000",4),0,7)
+ //mini-game hud
+ if gamestate.hud_target then
+   line(42,6,84,6,9)
+   if gamestate.hud_progress>0 then
+    line(42,6,44+round(42/100*(gamestate.hud_progress/gamestate.hud_target*100)),6,10)
+   end
+ end 
+end
+
 function draw_players()
  draw_muzzle_flashes()
  for pl in all(players) do
-  if (pl.hp<=0) goto hud_only
+  if (pl.hp<=0) goto dead
   sprite_draw(pl.sprite,pl.x,pl.y)
   sprite_draw(pl.jet,pl.x+3,pl.y+15)
   sprite_draw(pl.jet,pl.x+6,pl.y+15)
@@ -1610,22 +1622,8 @@ function draw_players()
     fillp()
    end
   end
-  ::hud_only::
-  // hud; score
-  print_fx(numtostr(pl.score,8),pl.hud_x,0,pl.col_lt)
-
-  // hud; hp & generator
-  hud_line(pl.hud_x,6,pl.hp,pl.col_lt,pl.col_dk)
-  hud_line(pl.hud_x,7,pl.generator,12,1)
+  ::dead::
  end
- //fake 2-up hud for 1-up play
- --[[
- if num_players==1 then
-  print_simple(numtostr(0,7),100,0,8)
-  line(100,6,126,6,2)
-  line(100,7,126,7,1)
- end
- --]]
 end
 
 function emit_muzzle_flash(player_num)
