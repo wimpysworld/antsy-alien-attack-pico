@@ -1960,6 +1960,8 @@ function create_pickup(x,y,payload,force)
    })
    pu=pickups[#pickups]
   pu.sprite=sprite_create({pu.payload},1,1)
+  add(pu.sprite.pal_swaps,{6,-1})
+  add(pu.sprite.pal_swaps,{13,-1})
   sprite_hitbox(pu.sprite,1,1,5,5)
   end
 end
@@ -2089,7 +2091,9 @@ function sprite_draw(s,x,y)
  else
   // color replacements
   for pal_swap in all(s.pal_swaps) do
-   pal(pal_swap[1],pal_swap[2])
+   local alt=pal_swap[2]
+   if (alt==-1) alt=sparkle
+   pal(pal_swap[1],alt)
   end
  end
 
