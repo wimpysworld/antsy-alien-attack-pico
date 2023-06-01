@@ -737,12 +737,10 @@ function init_missions()
  current_mission,
  current_objective,
  level,
- difficulty,
  objective_complete=
   0,
   0,
   0,
-  1,
   false
   missions={
    "players_off,jump",
