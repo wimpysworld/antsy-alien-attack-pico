@@ -1006,10 +1006,12 @@ function init_game()
  shockwaves,
  explosions,
  pickup_droprate,
- pickup_payloads=
+ pickup_payloads,
+ evade=
   {},{},{},{},{},{},{},
   30,
-  split("96,97,98,99,112,113,114")
+  split("96,97,98,99,112,113,114"),
+  false
 
  music_play(6)
  init_players()
@@ -1164,7 +1166,8 @@ function activate_weapons(status)
   pl.bomb_enabled,
   pl.shot_enabled=status,status
  end
- objective_complete=true
+ evade=not status
+ objective_complete=true 
 end
 
 function draw_mission()
