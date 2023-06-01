@@ -746,17 +746,17 @@ function init_missions()
  missions={
   "players_off,jump",
   //test
-  //"level_in,fly_in,players_on,drop,armada,wait,players_off,level_out,jump,fly_out",
+  //"level_in,fly_in,players_on,drop,pass_some,wait,pass_none,wait,players_off,level_out,jump,fly_out",
   //1
-  "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,silver,wait,sapphire,wait,emerald,wait,players_off,level_out,jump,fly_out",
+  "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,silver,wait,asteroid_belt,wait,sapphire,wait,emerald,wait,players_off,level_out,jump,fly_out",
   //2
-  "level_in,fly_in,players_on,drop,bronze,wait,silver,wait,jump,weapons_off,asteroid_belt,wait,drop,weapons_on,silver,wait,spheres,wait,metal,wait,pass_some,players_off,level_out,jump,fly_out",
+  "level_in,fly_in,players_on,drop,bronze,wait,silver,wait,pass_some,wait,silver,wait,spheres,wait,metal,wait,jump,weapons_off,asteroid_belt,wait,drop,weapons_on,players_off,level_out,jump,fly_out",
   //3
-  "level_in,fly_in,players_on,drop,sapphire,wait,emerald,wait,evade_on,spheres,evade_off,gem,asteroid_belt,players_off,level_out,jump,fly_out",
+  "level_in,fly_in,players_on,drop,sapphire,wait,emerald,wait,jump,weapons_off,spheres,wait,drop,weapons_on,gem,wait,asteroid_belt,wait,players_off,level_out,jump,fly_out",
   //4
-  "level_in,fly_in,players_on,bronze,wait,silver,wait,sapphire,wait,emerald,wait,pass_none,wait,metal,wait,gem,wait,metal,wait,gem,wait,jump,weapons_off,asteroid_belt,wait,drop,weapons_on,players_off,level_out,jump,fly_out",
+  "level_in,fly_in,players_on,drop,bronze,wait,silver,wait,sapphire,wait,emerald,wait,pass_none,wait,metal,wait,gem,wait,jump,weapons_off,asteroid_belt,wait,players_off,level_out,jump,fly_out",
   //5
-  "level_in,fly_in,players_on,armada,wait,pass_some,amada,wait,asteroid_belt,pass_none,armada,players_off,level_out,jump,fly_out",       
+  "level_in,fly_in,players_on,drop,armada,wait,pass_some,wait,armada,wait,asteroid_belt,wait,pass_none,wait,armada,wait,players_off,level_out,jump,fly_out",
   "drop",
  }
 end
@@ -787,6 +787,7 @@ function shmup(fleet)
  //armada is the default.
  local spawn=split("drone,bronze,silver,sapphire,emerald")
  local title="armada!"
+ local rate=15
  if fleet=="drone" or
     fleet=="bronze" or
     fleet=="silver" or    
@@ -820,7 +821,7 @@ function shmup(fleet)
  end
  
  local win_target=level*35
- if (evade) win_target*=10
+ if (evade) win_target=750+(level*250)
 
  if not gamestate.ready then
   gamestate.hud_target,
@@ -829,22 +830,23 @@ function shmup(fleet)
   gamestate.text,
   gamestate.draw=
    win_target,
-   level+4,
+   level+5,
    title,
    "destroy "..tostr(win_target).." aliens",
    draw_shmup
   if evade then
+   rate=30
    gamestate.aliens_max,
    gamestate.text=
-    level+6,
+    2+level*3,
     "evasive manoeuvres only!"
   end
  else
-  if #aliens<gamestate.aliens_max then
+  if #aliens<gamestate.aliens_max and one_in(rate) then
    create_alien(rnd_range(16,112),rnd_range(-16,-8),spawn[rnd_range(1,#spawn)])
   end
 
-  if (evade) then
+  if evade then
    gamestate.hud_progress=gamestate.gametime
    if gamestate.gametime>=win_target then
     objective_cleanup()
@@ -866,7 +868,7 @@ function draw_pass()
 end
 
 function pass(can_pass)
- local win_target=1200
+ local win_target=1000+(level*100)
  if not gamestate.ready then
   gamestate.hud_target,
   gamestate.draw,
@@ -888,7 +890,10 @@ function pass(can_pass)
   end
  else
   gamestate.hud_progress=gamestate.gametime
-  if #aliens<gamestate.aliens_max then
+  if gamestate.gametime>=win_target then
+   objective_cleanup()
+  end  
+  if #aliens<gamestate.aliens_max and one_in(15) then
    // narrow the x range for
    // none shall pass
    local spawn_x=rnd_range(28,100)
@@ -911,9 +916,6 @@ function pass(can_pass)
     del(aliens,al)
    end
   end
-  if gamestate.gametime>=win_target then
-   objective_cleanup()
-  end
  end
 end
 
@@ -921,7 +923,7 @@ function asteroid_belt()
  local win_target=1000+(level*250)
  if not gamestate.ready then
   local max_rocks,text=level+44,"shoot to survive"
-  if (evade) then max_rocks,text=level+14,"fly to survive"
+  if (evade) max_rocks,text=level+14,"fly to survive"
   gamestate.hud_target,
   gamestate.aliens_max,
   gamestate.title,
@@ -930,14 +932,15 @@ function asteroid_belt()
    max_rocks,
    "asteroid belt",
    text
-  end
  else
   gamestate.hud_progress=gamestate.gametime
 
-  local range=rnd_range(0,48)
-  if (fc%2==0) range=rnd_range(79,127)
-  if (one_in(175)) create_pickup(range,-8,nil,true)
-
+  if evade then
+   local range=rnd_range(8,16)
+   if (fc%2==0) range=rnd_range(108,124)
+   if (one_in(250)) create_pickup(range,-8,nil,true)
+  end
+  
   if #aliens<gamestate.aliens_max and one_in(3) then
    create_alien(rnd_range(2,126),-8,"asteroid")
   end
@@ -1189,9 +1192,12 @@ end
 function draw_mission()
  if gamestate.mission_report_time<240 and #gamestate.title>0 then
   gamestate.mission_report_time+=1
-
-  print_fx(gamestate.title,nil,32,12,1,1,"big")
-  print_fx(_puny(gamestate.text),nil,48,6,5,5)
+  if gamestate.text=="" then
+    print_fx(gamestate.title,nil,56,9,4,10,"big")  
+  else
+    print_fx(gamestate.title,nil,32,12,1,6,"big")
+    print_fx(_puny(gamestate.text),nil,48,6,5,5)
+  end
   local txt,col,out="weapons online",11,3
   if not players[#players].shot_enabled then
    txt,col,out="weapons offline",8,2
@@ -2169,7 +2175,7 @@ end
 
 // http://gamedev.docrobs.co.uk/first-steps-in-pico-8-hitting-things
 function sprite_collision(a,b)
- if (is_outside_playarea(b.x,b.y)) return
+ if (b.y<4) return
 
  local xd=abs((a.x+a.hb_x+a.hb_hw)-(b.x+b.hb_x+b.hb_hw))
  local xs=a.hb_hw+b.hb_hw
