@@ -966,6 +966,18 @@ function autopilot(destination)
  end
 end
 
+function level_status(arrive)
+ if (not gamestate.ready) then
+  gamestate.ready,
+  gamestate.show_weapons=
+   true,false
+
+  gamestate.title="zone "..tostr(level)
+  if (not arrive) gamestate.title="zone "..tostr(level).." cleared"
+ elseif gamestate.gametime>150 then
+  objective_complete=true
+ end
+end
 function wait()
  if gamestate.gametime>180 and #explosions<=0 then
   objective_complete=true
@@ -1036,8 +1048,8 @@ function update_game()
  if (objective=="wait") wait()
  if (objective=="flyin") autopilot("flyin")
  if (objective=="flyout") autopilot("flyout")
- if (objective=="shmup") shmup()
- if (objective=="evade") shmup(true)
+ if (objective=="level_in") level_status(true)
+ if (objective=="level_out") level_status()
  if (objective=="some_pass") pass(true)
  if (objective=="none_pass") pass(false)
  if (objective=="asteroid_slow") asteroid_belt(false)
