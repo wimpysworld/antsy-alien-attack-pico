@@ -810,7 +810,7 @@ function shmup(fleet,evade)
   title=fleet.." hunters"
  end
  
- local win_target=level*50
+ local win_target=level*35
  if (evade) win_target*=10
 
  if not gamestate.ready then
