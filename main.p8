@@ -985,7 +985,7 @@ function init_game()
  pickup_droprate,
  pickup_payloads=
   {},{},{},{},{},{},{},
-  20,
+  30,
   split("96,97,98,99,112,113,114")
 
  music_play(6)
@@ -1115,7 +1115,7 @@ function get_next_objective()
 
  //initialise game state
  aliens,bullets,pickup_droprate=
-  {},{},50
+  {},{},30
 
  gamestate=create_gamestate()
 end
