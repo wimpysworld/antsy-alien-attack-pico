@@ -1790,9 +1790,9 @@ function create_alien(x,y,breed)
   al.shot_cooldown,
   al.explosion_size=
    70,
-   0.15,
-   rnd_range(-0.2,0.2,true),
-   rnd_range(0.5,0.5,true),
+   0.2,
+   rnd_range(-0.5,0.5,true),
+   rnd_range(0.5,0.6,true),
    1.75,
    1.75,
    80,
