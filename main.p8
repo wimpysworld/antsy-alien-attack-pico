@@ -1084,12 +1084,12 @@ function draw_game()
  draw_bullets()
  draw_aliens()
  draw_pickups()
+ draw_rockets()
 
  draw_hud()
  //mini-game specific draws
  if (gamestate.draw) gamestate.draw()
 
- draw_rockets()
  draw_players()
 
  draw_shockwaves()
