@@ -2247,9 +2247,8 @@ function round(n)
 end
 
 function rnd_range(low,high,float)
- local range=rnd(high+1-low)+low
- if (float) return range
- return flr(range)
+ if (float) return rnd(high-low)+low
+ return flr(rnd(high+1-low)+low)
 end
 
 function one_in(num)
