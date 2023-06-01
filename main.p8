@@ -772,7 +772,8 @@ function draw_shmup()
  end
 end
 
-function shmup(fleet,evade)
+function shmup(fleet)
+ //armada is the default.
  local spawn=split("drone,bronze,silver,sapphire,emerald")
  local title="armada!"
  if fleet=="drone" or
@@ -817,14 +818,14 @@ function shmup(fleet,evade)
   gamestate.text,
   gamestate.draw=
    win_target,
-   level+5,
+   level+4,
    title,
    "destroy "..tostr(win_target).." aliens",
    draw_shmup
   if evade then
    gamestate.aliens_max,
    gamestate.text=
-    level+6
+    level+6,
     "evasive manoeuvres only!"
   end
  else
@@ -1052,15 +1053,18 @@ function update_game()
  if (objective=="level_in") level_status(true)
  if (objective=="level_out") level_status()
  if (objective=="some_pass") pass(true)
- if (objective=="none_pass") pass(false)
- if (objective=="asteroid_slow") asteroid_belt(false)
- if (objective=="asteroid_fast") asteroid_belt(true)
+ if (objective=="none_pass") pass()
+ if (objective=="asteroid_belt") asteroid_belt()
 
  if objective=="drone" or
     objective=="bronze" or
-    objective=="silver" or 
+    objective=="silver" or
     objective=="sapphire" or
-    objective=="emerald" then
+    objective=="emerald" or
+    objective=="spheres" or
+    objective=="metal" or
+    objective=="gem" or    
+    objective=="armada" then
   shmup(objective)
  end
 
