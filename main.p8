@@ -751,7 +751,6 @@ function init_missions()
 end
 
 function objective_cleanup()
- // visual indication the objective is complete
  emit_smartbomb()
  objective_complete=true
 end
@@ -983,7 +982,7 @@ end
 function drop()
  hyperspeed_target=0
  if hyperspeed<=hyperspeed_target then
-    objective_complete=true
+  objective_complete=true
  end
 end
 
@@ -1131,10 +1130,9 @@ end
 
 function get_next_mission()
  current_mission+=1
- current_objective,
- level=
-  0,
-  current_mission-1
+ current_objective,level=
+  0,current_mission-1
+
  mission=missions[current_mission]
  get_next_objective()
 end
