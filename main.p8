@@ -1725,12 +1725,14 @@ function create_alien(x,y,breed)
  al=aliens[#aliens]
  al.breed,
  al.collision_damage,
+ al.shot_cooldown,
  al.shot_cooldown_timer,
  al.x_off,
  al.y_off,
  al.framerate=
   breed,
   20,
+  180,
   0,
   2,
   -6,
@@ -1743,16 +1745,14 @@ function create_alien(x,y,breed)
   al.wave_width,
   al.shot_speed_x,
   al.shot_speed_y,
-  al.shot_sprite,
-  al.shot_cooldown=
+  al.shot_sprite=
    30,
    0.1,
    0.010,
    0.90,
-   rnd_range(-0.5,0.5,true),
-   1.2,
-   80,
-   240
+   rnd_range(-0.25,0.25,true),
+   1.25,
+   80
   al.sprite=sprite_create(split("107,108,109,123,124,125"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
@@ -1764,8 +1764,8 @@ function create_alien(x,y,breed)
   al.speed_y=
    40,
    0.055,
-   rnd_range(-0.35,0.35,true),
-   rnd_range(0.5,0.7,true)
+   rnd_range(-0.55,0.55,true),
+   rnd_range(0.85,0.95,true)
   local rocks=split("87,88,89,90")
   if one_in(3) then
    // grey asteroid
@@ -1778,8 +1778,8 @@ function create_alien(x,y,breed)
     60,
     0.085,
     30,
-    rnd_range(-0.15,0.15,true),
-    rnd_range(0.2,0.4,true),
+    rnd_range(-0.25,0.25,true),
+    rnd_range(0.5,0.65,true),
     2
    rocks=split("71,72,73,74")
   end
@@ -1791,14 +1791,12 @@ function create_alien(x,y,breed)
   al.framerate,
   al.speed_x,
   al.speed_y,
-  al.shot_sprite,
-  al.shot_cooldown=
+  al.shot_sprite=
    40,
    0.075,
    0,
    0.5,
-   80,
-   240
+   80
   al.sprite=sprite_create(split("91,75,76,77,93,77,76,75"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
@@ -1811,7 +1809,6 @@ function create_alien(x,y,breed)
   al.shot_speed_x,
   al.shot_speed_y,
   al.shot_sprite,
-  al.shot_cooldown,
   al.explosion_size=
    60,
    0.1,
@@ -1820,7 +1817,6 @@ function create_alien(x,y,breed)
    1.5,
    1.5,
    65,
-   100,
    rnd_range(1,2)
   al.sprite=sprite_create(split("68,69,70,69"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
@@ -1834,7 +1830,6 @@ function create_alien(x,y,breed)
   al.shot_speed_x,
   al.shot_speed_y,
   al.shot_sprite,
-  al.shot_cooldown,
   al.explosion_size=
    70,
    0.2,
@@ -1843,7 +1838,6 @@ function create_alien(x,y,breed)
    1.75,
    1.75,
    80,
-   180,
    2
   al.sprite=sprite_create(split("103,104,105,106,119,120,121,122"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
@@ -1862,7 +1856,6 @@ function create_alien(x,y,breed)
   al.shot_speed_x,
   al.shot_speed_y,
   al.shot_sprite,
-  al.shot_cooldown,
   al.explosion_size=
    75,
    cos(angle)*1.45,
@@ -1870,7 +1863,6 @@ function create_alien(x,y,breed)
    1.75,
    1.75,
    80,
-   180,
    rnd_range(2,3)
   al.sprite=sprite_create({101},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
@@ -1879,13 +1871,11 @@ function create_alien(x,y,breed)
   al.wave_speed,
   al.wave_width,
   al.shot_sprite,
-  al.shot_cooldown,
   al.explosion_size=
    80,
    0.007,
    1.5,
    65,
-   150,
    3
   al.sprite=sprite_create({117},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
@@ -1914,11 +1904,11 @@ function make_firing_decision(al)
     if pl.y>al.y and
        pl.x>=al.x and
        pl.x<=al.x+7 and
-       one_in(25) then
+       one_in(15) then
      emit_bullet(al)
     end
    end
-  elseif al.breed=="orby" and one_in(850) then
+  elseif al.breed=="orby" and one_in(400) then
    for i=0,7 do
     local ang=0.375+((0.125+fc)*i)
     al.shot_speed_x,
@@ -1927,7 +1917,7 @@ function make_firing_decision(al)
      sin(ang)*1.2
     emit_bullet(al)
    end
-  elseif al.breed=="bronze" and one_in(200) then
+  elseif al.breed=="bronze" and one_in(250) then
    emit_bullet(al)
    bullet=bullets[#bullets]
    local x_target=rnd_range(88,112)
@@ -1937,27 +1927,27 @@ function make_firing_decision(al)
    bullet.speed_x,bullet.speed_y=
     cos(angle)*al.shot_speed_x,
     sin(angle)*al.shot_speed_y
-  elseif al.breed=="silver" and one_in(500) then
+  elseif al.breed=="silver" and one_in(300) then
    //aimed shots
    for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
     aim_shot(bullet,pl,al)
    end
-  elseif al.breed=="sapphire" and one_in(500) then
+  elseif al.breed=="sapphire" and one_in(300) then
    //aimed shots, with estimated predictive compensation
    for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
     aim_shot(bullet,pl,al,true)
    end
-  elseif al.breed=="emerald" and one_in(750) then
+  elseif al.breed=="emerald" and one_in(500) then
    for i=0,3 do
     local ang=0.695+((0.04+fc)*i)
     al.shot_speed_x,al.shot_speed_y=
-    cos(ang)*1.5,
-    sin(ang)*1.5
-     emit_bullet(al)
+     cos(ang)*1.5,
+     sin(ang)*1.5
+    emit_bullet(al)
    end
   end
  end
