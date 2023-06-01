@@ -1041,10 +1041,10 @@ function update_game()
  end
 
  //execute game logic
- if (objective=="players_off") activate_players(false)
  if (objective=="players_on") activate_players(true)
- if (objective=="weapons_off") activate_weapons(false)
+ if (objective=="players_off") activate_players()
  if (objective=="weapons_on") activate_weapons(true)
+ if (objective=="weapons_off") activate_weapons()
  if (objective=="jump") jump()
  if (objective=="drop") drop()
  if (objective=="wait") wait()
