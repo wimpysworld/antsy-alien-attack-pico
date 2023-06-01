@@ -2085,7 +2085,7 @@ function sprite_draw(s,x,y)
  // make sprite
  if s.pal_whiteflash>0 then
   s.pal_whiteflash-=1
-  for i=1,15 do pal(i,7) end
+  for i=6,15 do pal(i,7) end
  else
   // color replacements
   for pal_swap in all(s.pal_swaps) do
