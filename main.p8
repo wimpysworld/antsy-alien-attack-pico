@@ -813,7 +813,7 @@ function shmup(fleet)
   add(spawn,"drone")
   title=fleet.." scouts"
  elseif level==3 then
-  add(spawn,"drone","orby")
+  add(spawn,"drone,orby")
   title=fleet.." raiders"
  elseif level>3 then
   add(spawn,"drone,orby,asteroid")
