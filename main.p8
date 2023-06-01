@@ -1876,27 +1876,27 @@ function make_firing_decision(al)
  if (al.breed=="asteroid" or gamestate.aliens_jammed>0) return
 
  if al.shot_cooldown_timer<=0 then
-   if al.breed=="drone" then
-    for pl in all(players) do
-     if pl.y>al.y and
-        pl.x>=al.x and
-        pl.x<=al.x+7 and
-        one_in(25) then
-      emit_bullet(al)
-     end
-    end
-   elseif al.breed=="orby" and one_in(850) then
-   for i=0,7 do
-    local ang=0.375+((0.125+fc)*i)
-     al.shot_speed_x,al.shot_speed_y=
-      cos(ang),
-      sin(ang)*1.2
+  if al.breed=="drone" then
+   for pl in all(players) do
+    if pl.y>al.y and
+       pl.x>=al.x and
+       pl.x<=al.x+7 and
+       one_in(25) then
      emit_bullet(al)
     end
-   elseif al.breed=="bronze" and one_in(200) then
+   end
+  elseif al.breed=="orby" and one_in(850) then
+   for i=0,7 do
+    local ang=0.375+((0.125+fc)*i)
+    al.shot_speed_x,
+    al.shot_speed_y=
+     cos(ang),
+     sin(ang)*1.2
     emit_bullet(al)
+   end
+  elseif al.breed=="bronze" and one_in(200) then
+   emit_bullet(al)
    bullet=bullets[#bullets]
-
    local x_target=rnd_range(88,112)
    if (al.x>=64) x_target=rnd_range(16,40)
 
@@ -1904,30 +1904,30 @@ function make_firing_decision(al)
    bullet.speed_x,bullet.speed_y=
     cos(angle)*al.shot_speed_x,
     sin(angle)*al.shot_speed_y
-   elseif al.breed=="silver" and one_in(500) then
-    //aimed shots
-    for pl in all(players) do
+  elseif al.breed=="silver" and one_in(500) then
+   //aimed shots
+   for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
     aim_shot(bullet,pl,al)
    end
   elseif al.breed=="sapphire" and one_in(500) then
-    //aimed shots, with estimated predictive compensation
-    for pl in all(players) do
+   //aimed shots, with estimated predictive compensation
+   for pl in all(players) do
     emit_bullet(al)
     bullet=bullets[#bullets]
     aim_shot(bullet,pl,al,true)
    end
-   elseif al.breed=="emerald" and one_in(750) then
+  elseif al.breed=="emerald" and one_in(750) then
    for i=0,3 do
     local ang=0.695+((0.04+fc)*i)
-     al.shot_speed_x,al.shot_speed_y=
-      cos(ang)*1.5,
-      sin(ang)*1.5
+    al.shot_speed_x,al.shot_speed_y=
+    cos(ang)*1.5,
+    sin(ang)*1.5
      emit_bullet(al)
-    end
+   end
   end
-  end
+ end
  al.shot_cooldown_timer=max(0,al.shot_cooldown_timer-1)
 end
 
