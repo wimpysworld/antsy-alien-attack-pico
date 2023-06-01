@@ -955,12 +955,12 @@ function autopilot(destination)
  end
 
  //arrived at destination?
- if destination=="flyout" then
-  if players[#players].y<-32 then
+ if flyin then
+  if flr(players[#players].x)==players[#players].startx and flr(players[#players].y)==96 then
    objective_complete=true
   end
- elseif destination=="flyin" then
-  if flr(players[#players].x)==players[#players].startx and flr(players[#players].y)==96 then
+ else
+  if players[#players].y<-32 then
    objective_complete=true
   end
  end
@@ -1046,8 +1046,8 @@ function update_game()
  if (objective=="jump") jump()
  if (objective=="drop") drop()
  if (objective=="wait") wait()
- if (objective=="flyin") autopilot("flyin")
- if (objective=="flyout") autopilot("flyout")
+ if (objective=="fly_in") autopilot(true)
+ if (objective=="fly_out") autopilot()
  if (objective=="level_in") level_status(true)
  if (objective=="level_out") level_status()
  if (objective=="some_pass") pass(true)
