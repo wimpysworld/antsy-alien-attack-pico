@@ -757,63 +757,77 @@ function objective_cleanup()
  objective_complete=true
 end
 
-function draw_training()
+function draw_shmup()
+ if (level>1) return
+
  if gamestate.gametime<600 then
+  local x_off,spr_num,spr_off,flip_h=8,192,0,false
   for pl in all(players) do
-    print_fx(_puny("health"),pl.hud_x+4,8,pl.col_lt)
-    print_fx(_puny("dynamo"),pl.hud_x+4,13,12)
-   end
-   print_fx(_puny("progress"),nil,8,10)
+   if (pl.num==2) x_off,spr_num,spr_off,flip_h=0,193,23,true
+   print_fx(_puny("health"),pl.hud_x+x_off,8,pl.col_lt)
+   print_fx(_puny("dynamo"),pl.hud_x+x_off,13,12)    
+   spr(spr_num,pl.hud_x+spr_off,6,1,2,flip_h)
+  end
+  print_fx(_puny("progress"),nil,8,10)
+  spr(194,41,6,1,1)
+  spr(194,78,6,1,1,true)   
  end
 end
 
-function training(alien)
- local win_target=difficulty*25
-
- if not gamestate.ready then
-  gamestate.hud_target,
-  gamestate.draw,
-  gamestate.aliens_max,
-  gamestate.title,
-  gamestate.text=
-   win_target,
-   draw_training,
-   difficulty+3,
-   alien.." lesson",
-   "learn the patterns. shoot "..tostr(win_target)
- else
-  if #aliens<gamestate.aliens_max then
-   create_alien(rnd_range(16,112),rnd_range(-16,-8),alien)
+function shmup(fleet,evade)
+ local spawn=split("drone,bronze,silver,sapphire,emerald")
+ local title="armada!"
+ if fleet=="drone" or
+    fleet=="bronze" or
+    fleet=="silver" or    
+    fleet=="sapphire" or
+    fleet=="emerald" then
+  spawn={}
+  for i=1,level do
+   add(spawn,fleet)
   end
-
-  gamestate.hud_progress=gamestate.aliens_destroyed
-  if gamestate.aliens_destroyed>=win_target then
-   objective_cleanup()
-  end
+  title=fleet.." party"
+ elseif fleet=="spheres" then
+  spawn=split("drone,orby")
+  title="sphere attack"
+ elseif fleet=="metal" then
+  spawn=split("bronze,silver")
+  title="metal squad"
+ elseif fleet=="gem" then
+  spawn=split("sapphire,emerald")
+  title="gem squad"
  end
-end
-
-function shmup(evade)
- local spawn=split("drone,drone,drone,bronze,bronze,bronze,bronze,silver,silver,silver,silver,sapphire,sapphire,emerald")
- local win_target=difficulty*100
- if (evade) win_target=difficulty*500
+ 
+ if level==2 then
+  add(spawn,"drone")
+  title=fleet.." scouts"
+ elseif level==3 then
+  add(spawn,"drone","orby")
+  title=fleet.." raiders"
+ elseif level>3 then
+  add(spawn,"drone,orby,asteroid")
+  title=fleet.." hunters"
+ end
+ 
+ local win_target=level*50
+ if (evade) win_target*=10
 
  if not gamestate.ready then
   gamestate.hud_target,
   gamestate.aliens_max,
   gamestate.title,
-  gamestate.text=
+  gamestate.text,
+  gamestate.draw=
    win_target,
-   difficulty*3,
-   "shmuuuuup!",
-   "destroy "..tostr(win_target).." aliens"
+   level*3,
+   title,
+   "destroy "..tostr(win_target).." aliens",
+   draw_shmup
   if evade then
    gamestate.aliens_max,
-   gamestate.title,
    gamestate.text=
-   difficulty*2*3,
-   "evade them!",
-   "evasive manoeuvres only!"
+    level*2*3,
+    "evasive manoeuvres only!"
   end
  else
   if #aliens<gamestate.aliens_max then
@@ -835,13 +849,13 @@ function shmup(evade)
  end
 end
 
-function draw_none_shall_pass()
+function draw_pass()
  spr(81,0,125)
  spr(82,120,125)
  line(3,126,124,126,sparkle)
 end
 
-function none_shall_pass(can_pass)
+function pass(can_pass)
  local win_target=1200
  if not gamestate.ready then
   gamestate.hud_target,
@@ -851,14 +865,14 @@ function none_shall_pass(can_pass)
   gamestate.text=
    win_target,
    draw_none_shall_pass,
-   difficulty*2,
+   level*2,
    "none shall pass",
    "you must stop them all!"
   if can_pass then
    gamestate.aliens_max,
    gamestate.title,
    gamestate.text=
-   difficulty*3,
+   level*3,
     "some can pass",
     "try and stop them all!"
   end
@@ -1017,12 +1031,6 @@ function update_game()
  //execute game logic
  if (objective=="players_off") activate_players(false)
  if (objective=="players_on") activate_players(true)
- if (objective=="training_drone") training("drone")
- if (objective=="training_orby") training("orby")
- if (objective=="training_bronze") training("bronze")
- if (objective=="training_silver") training("silver")
- if (objective=="training_sapphire") training("sapphire")
- if (objective=="training_emerald") training("emerald")
  if (objective=="weapons_off") activate_weapons(false)
  if (objective=="weapons_on") activate_weapons(true)
  if (objective=="jump") jump()
@@ -1030,12 +1038,20 @@ function update_game()
  if (objective=="wait") wait()
  if (objective=="flyin") autopilot("flyin")
  if (objective=="flyout") autopilot("flyout")
- if (objective=="shmup") shmup(false)
+ if (objective=="shmup") shmup()
  if (objective=="evade") shmup(true)
- if (objective=="some_can_pass") none_shall_pass(true)
- if (objective=="none_shall_pass") none_shall_pass(false)
+ if (objective=="some_pass") pass(true)
+ if (objective=="none_pass") pass(false)
  if (objective=="asteroid_slow") asteroid_belt(false)
  if (objective=="asteroid_fast") asteroid_belt(true)
+
+ if objective=="drone" or
+    objective=="bronze" or
+    objective=="silver" or 
+    objective=="sapphire" or
+    objective=="emerald" then
+  shmup(objective)
+ end
 
  update_players()
  update_rockets()
@@ -1123,11 +1139,9 @@ end
 function get_next_mission()
  current_mission+=1
  current_objective,
- level,
- difficulty=
+ level=
   0,
-  current_mission-1,
-  max(1,current_mission-2)
+  current_mission-1
  mission=missions[current_mission]
  get_next_objective()
 end
