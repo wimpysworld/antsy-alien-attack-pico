@@ -1792,6 +1792,8 @@ function create_alien(x,y,breed)
   al.sprite=sprite_create(split("68,69,70,69"),1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="silver" then
+  al.x=rnd_range(24,104)
+  local angle=atan2(rnd_range(al.x-20,al.x+20)+al.x_off-al.x,127-al.y+al.y_off)
   al.hp,
   al.framerate,
   al.speed_x,
@@ -1803,8 +1805,8 @@ function create_alien(x,y,breed)
   al.explosion_size=
    70,
    0.2,
-   rnd_range(-0.5,0.5,true),
-   rnd_range(0.5,0.6,true),
+   cos(angle)*1.75,
+   sin(angle)*1.25,
    1.75,
    1.75,
    80,
