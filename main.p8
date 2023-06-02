@@ -1245,15 +1245,15 @@ function emit_rocket(player_num)
   //rocket.sprite.show_hitbox=true
 
   local ang,spd,dir,spread=0,0,0,0
-  if pl.shot_pattern>3 then
+  if pl.shot_pattern==4 then
    // 5-way
    dir,spread,spd=
     0.175,0.04,1.75
-  elseif pl.shot_pattern>2 then
+  elseif pl.shot_pattern==3 then
    // 4-way
    dir,spread,spd=
     0.175,0.05,2
-  elseif pl.shot_pattern>1 then
+  elseif pl.shot_pattern==2 then
    // 3-way
    dir,spread,spd=
     0.215,0.04,2.5
@@ -1462,9 +1462,7 @@ function check_player_collisions(pl)
     charge=30
    elseif pu.payload==112 then
     //weapons   
-    if pl.shot_pattern<3 then
-     pl.shot_pattern+=1
-    end
+    if (pl.shot_pattern<5) pl.shot_pattern+=1
    elseif pu.payload==113 then
     //shields
     pl.shields+=360
