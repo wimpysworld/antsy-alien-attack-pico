@@ -22,6 +22,7 @@ function _init()
  fc,
  ignore_input,
  num_players,
+ pickup_base,
  screen_flash,
  screen_shake,
  sparkle,
@@ -32,6 +33,7 @@ function _init()
   0,
   1,
   1,
+  666,
   0,
   0,
   4,
@@ -1029,11 +1031,17 @@ function init_game()
  debris,
  shockwaves,
  explosions,
- pickup_droprate,
+ pickup_timer,
  pickup_payloads,
  evade=
-  {},{},{},{},{},{},{},
-  30,
+  {}, //aliens
+  {}, //bullets
+  {}, //pickups
+  {}, //rockets
+  {}, //debris
+  {}, //shockwaves
+  {}, //explosions
+  pickup_base,
   split("96,97,98,112,113,114"),
   false
 
@@ -1158,17 +1166,17 @@ function get_next_objective()
  objective=objectives[current_objective]
 
  //initialise game state
- aliens,bullets,pickup_droprate=
-  {},{},30
+ aliens,bullets={},{}
 
  gamestate=create_gamestate()
+ reset_pickup_timer()
 end
 
 function get_next_mission()
  current_mission+=1
  current_objective,level=
   0,current_mission-1
-
+ 
  mission=missions[current_mission]
  get_next_objective()
 end
@@ -1982,9 +1990,18 @@ end
 -->8
 -- helpers
 
+function reset_pickup_timer()
+ local low=rnd_range(pickup_base,pickup_base+pickup_base/2)
+ local high=rnd_range(level*low,level*low+pickup_base)
+ pickup_timer=rnd_range(low,high)
+end
+
 function create_pickup(x,y,payload,force)
  payload=payload or rnd_range(1,#pickup_payloads)
- if one_in(pickup_droprate) or force then
+ if pickup_timer<=0 or force then
+  // do not reset the pickup
+  // timer if a drop was forced
+  if (not force) reset_pickup_timer()
   add(pickups,{
    x=x,
    y=y,
@@ -2013,6 +2030,7 @@ function update_pickups()
    del(pickups,pu)
   end
  end
+ pickup_timer=max(0,pickup_timer-1)
 end
 
 function draw_pickups()
