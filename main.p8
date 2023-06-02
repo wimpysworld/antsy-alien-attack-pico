@@ -2156,6 +2156,9 @@ function sprite_draw(s,x,y)
 end
 
 function sprite_loop_frame(s,val)
+ if (s.frame==nil) s.frame=1
+ if (not #s.frames) return
+ 
  s.frame+=val
  if (flr(s.frame)>#s.frames) s.frame=1
 end
