@@ -1425,8 +1425,8 @@ end
 function emit_smartbomb(pl)
  local max_exp=0
  for al in all(aliens) do
-  if (pl) score_update(pl,al.reward)
-  if (max_exp<10) emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,al.debris_size,debris_fire)
+  if (pl) score_update(pl,al.reward*max_exp)
+  if (max_exp<=8) emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,al.debris_size,debris_fire)
   screen_shake+=al.explosion_size
   max_exp+=1  
  end
