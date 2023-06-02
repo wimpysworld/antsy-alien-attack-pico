@@ -858,7 +858,7 @@ function shmup(fleet)
    if gamestate.gametime>=win_target then
     objective_cleanup()
    end
-   if (one_in(175)) create_pickup(rnd_range(52,76),-8,nil,true)
+   if (one_in(175)) create_pickup(rnd_range(52,76),-8,true)
   else
    gamestate.hud_progress=gamestate.aliens_destroyed
    if gamestate.aliens_destroyed>=win_target then
@@ -945,7 +945,7 @@ function asteroid_belt()
   if evade then
    local range=rnd_range(8,16)
    if (fc%2==0) range=rnd_range(108,124)
-   if (one_in(250)) create_pickup(range,-8,nil,true)
+   if (one_in(250)) create_pickup(range,-8,true)
   end
   
   if #aliens<gamestate.aliens_max and one_in(3) then
@@ -1999,9 +1999,9 @@ function reset_pickup_timer()
  pickup_timer=rnd_range(low,high)
 end
 
-function create_pickup(x,y,payload,force)
- payload=payload or rnd_range(1,#pickup_payloads)
+function create_pickup(x,y,force)
  if pickup_timer<=0 or force then
+  local payload=rnd_range(1,#pickup_payloads)
   // do not reset the pickup
   // timer if a drop was forced
   if (not force) reset_pickup_timer()
