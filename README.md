@@ -225,7 +225,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 ## Pickups
 
 - [x] Shields
-- [x] Speed
+- [x] ~~Speed~~
 - [x] Weapon patterns; more devastation
 - [x] Weapons block; wipeout alien projectiles and prevent fire for some time
 - [x] Smartbomb; damage all aliens and wipeout all alien projectiles
