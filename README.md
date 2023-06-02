@@ -267,7 +267,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - Bronze Scouts
 - Silver Scouts
 - Some Can Pass
-- Silver Scouts
+- Bronze Scouts
 - Spheres
 - Metal Squad
 - Asteroid Belt Fast Weapons Off
