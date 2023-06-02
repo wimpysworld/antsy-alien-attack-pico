@@ -1135,14 +1135,10 @@ function create_gamestate()
  return {
   aliens_destroyed=0,
   aliens_escaped=0,
-  aliens_hit=0,
   aliens_jammed=0,
   aliens_max=0,
-  player_collisions=0,
   player_bombs=0,
-  player_misses=0,
   player_pickups=0,
-  player_shots=0,
   hud_progress=0,
   hud_target=nil,
   gametime=0,
@@ -1233,7 +1229,6 @@ function emit_rocket(player_num)
    if (i>0) rx=pl.x+8
   end
   add(rockets,create_projectile(pl,rx,pl.y-4))
-  gamestate.player_shots+=1
 
   local rocket=rockets[#rockets]
   rocket.owner=player_num
@@ -1269,7 +1264,6 @@ function check_rocket_collision(rocket)
  local pl=players[rocket.owner]
  for al in all(aliens) do
   if sprite_collision(rocket.sprite,al.sprite) then
-   gamestate.aliens_hit+=1
    al.hp-=rocket.damage
    if al.hp<=0 then
     //sfx
@@ -1297,7 +1291,6 @@ function update_rockets()
   rocket.x+=rocket.speed_x
   rocket.y+=rocket.speed_y
   if is_outside_playarea(rocket.x,rocket.y) then
-   gamestate.player_misses+=1
    del(rockets,rocket)
   else
    check_rocket_collision(rocket)
@@ -1495,7 +1488,6 @@ function check_player_collisions(pl)
   if sprite_collision(pl.sprite,al.sprite) then
    // destroy the alien
    gamestate.aliens_destroyed+=1
-   gamestate.player_collisions+=1
    score_update(pl,al.reward)
    emit_explosion(al.x+8,al.y,al.explosion_size)
    sfx(5+al.explosion_size)
