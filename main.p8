@@ -1234,13 +1234,11 @@ function emit_rocket(player_num)
 
   local rocket=rockets[#rockets]
   rocket.owner=player_num
-  rocket.sprite=sprite_create({10,11,10,12},1,2)
+  rocket.sprite=sprite_create(pl.rocket_sprites,1,2)
   sprite_hitbox(rocket.sprite,0,1,7,10)
   //rocket.sprite.show_hitbox=true
-  add(rocket.sprite.pal_swaps,{9,pl.col_dk})
-  add(rocket.sprite.pal_swaps,{10,pl.col_lt})
 
-    local ang,spd,dir,spread=0
+  local ang,spd,dir,spread=0
   if pl.shot_pattern>3 then
    // 5-way
    dir,spread,spd=
@@ -1331,11 +1329,11 @@ function players_startx()
 end
 
 function create_player(player)
- local x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot=
-  56,11,3,1,6,debris_green,2
+ local x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot,rocket_sprites=
+  56,11,3,1,6,debris_green,2,split("194,193,192,193")
  if player==2 then
-  x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot=
-   56,8,2,96,5,debis_red,3
+  x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot,rocket_sprites=
+   56,8,2,96,5,debis_red,3,split("226,225,224,225")
  end
  add(players,create_actor(x,192))
 
@@ -1359,7 +1357,8 @@ function create_player(player)
   pl.bomb_enabled,
   pl.shot_enabled,
   pl.shot_cooldown,
-  pl.shot_cooldown_timer=
+  pl.shot_cooldown_timer,
+  pl.rocket_sprites=
    player,
    col_lt,
    col_dk,
@@ -1379,7 +1378,8 @@ function create_player(player)
    true,
    true,
    5,
-   0
+   0,
+   rocket_sprites
  pl.sprite=sprite_create({0,2,4,6,8},2,2)
  pl.sprite.frame=3.5
  sprite_hitbox(pl.sprite,4,3,7,9)
