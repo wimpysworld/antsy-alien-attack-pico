@@ -1441,6 +1441,18 @@ function emit_smartbomb(pl)
  sfx(8)
 end
 
+function apply_generator_charge(pl,charge)
+ local new_gen=pl.generator+charge
+ if new_gen>100 then
+  // if generator reaches 100
+  // boost hp by 50
+  pl.generator=new_gen-100
+  pl.hp=min(100,pl.hp+50)
+ else
+  pl.generator=new_gen
+ end   
+end
+
 function check_player_collisions(pl)
  for pu in all(pickups) do
   if sprite_collision(pl.sprite,pu.sprite) then
