@@ -1455,7 +1455,7 @@ function check_player_collisions(pl)
     gamestate.aliens_jammed+=360
     bullets={}
    elseif pu.payload==97 then
-    //smartbomb   
+    //smartbomb
     emit_smartbomb(pl)
    elseif pu.payload==98 then
     // battery
@@ -1492,6 +1492,7 @@ function check_player_collisions(pl)
    del(pickups,pu)
   end
  end
+
  for al in all(aliens) do
   if sprite_collision(pl.sprite,al.sprite) then
    // destroy the alien
