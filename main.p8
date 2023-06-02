@@ -1244,7 +1244,7 @@ function emit_rocket(player_num)
   sprite_hitbox(rocket.sprite,0,1,7,10)
   //rocket.sprite.show_hitbox=true
 
-  local ang,spd,dir,spread=0
+  local ang,spd,dir,spread=0,0,0,0
   if pl.shot_pattern>3 then
    // 5-way
    dir,spread,spd=
