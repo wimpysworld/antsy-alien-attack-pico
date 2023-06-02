@@ -1490,16 +1490,8 @@ function check_player_collisions(pl)
     end
    end
    
-   local new_gen=pl.generator+charge
-   if new_gen>100 then
-    // if generator reaches 100
-    // boost hp by 50
-    pl.generator=new_gen-100
-    pl.hp=min(100,pl.hp+50)
-   else
-    pl.generator=new_gen
-   end   
-   
+		 apply_generator_charge(pl,charge)
+		    
    del(pickups,pu)
   end
  end
