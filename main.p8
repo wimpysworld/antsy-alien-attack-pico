@@ -1382,7 +1382,6 @@ function create_player(player)
    false,
    true,
    true,
-   true,
    5,
    0,
    rocket_sprites
