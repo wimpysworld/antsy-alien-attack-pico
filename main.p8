@@ -1445,42 +1445,30 @@ function check_player_collisions(pl)
    score_update(pl,10000+pu.payload)
    sfx(9)
 
-   // alien weapons jammer
-   if (pu.payload==96) then
+   //every power-up charges the generator
+   
+   local charge=15
+
+   if pu.payload==96 then
+    // alien weapons jammer   
     gamestate.aliens_jammed+=360
     bullets={}
-   end
-
-   //smartbomb
-   if (pu.payload==97) emit_smartbomb(pl)
-
-   //generator
-   if pu.payload==98 then
-    local new_gen=pl.generator+15
-    if new_gen>100 then
-     // if generator reaches 100
-     // boost hp by 50
-     pl.generator=new_gen-100
-     pl.hp=min(100,pl.hp+50)
-    else
-     pl.generator=new_gen
-    end
-   end
-
-   //weapons
-   if pu.payload==112 then
+   elseif pu.payload==97 then
+    //smartbomb   
+    emit_smartbomb(pl)
+   elseif pu.payload==98 then
+    // battery
+    charge=30
+   elseif pu.payload==112 then
+    //weapons   
     if pl.shot_pattern<3 then
      pl.shot_pattern+=1
-    else
-     pl.generator=min(100,pl.generator+15)
     end
-   end
-
-   //shields
-   if (pu.payload==113) pl.shields+=360
-
-   //hp
-   if pu.payload==114 then
+   elseif pu.payload==113 then
+    //shields
+    pl.shields+=360
+   elseif pu.payload==114 then
+    //hp
     local new_hp=pl.hp+15
     if new_hp>100 then
      pl.generator+=new_hp-100
@@ -1489,6 +1477,17 @@ function check_player_collisions(pl)
      pl.hp=new_hp
     end
    end
+   
+   local new_gen=pl.generator+charge
+   if new_gen>100 then
+    // if generator reaches 100
+    // boost hp by 50
+    pl.generator=new_gen-100
+    pl.hp=min(100,pl.hp+50)
+   else
+    pl.generator=new_gen
+   end   
+   
    del(pickups,pu)
   end
  end
