@@ -1466,7 +1466,7 @@ function check_player_collisions(pl)
 
    if pu.payload==96 then
     // alien weapons jammer   
-    gamestate.aliens_jammed+=360
+    gamestate.aliens_jammed+=pickup_base
     bullets={}
    elseif pu.payload==97 then
     //smartbomb
@@ -1479,7 +1479,7 @@ function check_player_collisions(pl)
     if (pl.shot_pattern<5) pl.shot_pattern+=1
    elseif pu.payload==113 then
     //shields
-    pl.shields+=360
+    pl.shields+=pickup_base
    elseif pu.payload==114 then
     //hp
     local new_hp=pl.hp+15
