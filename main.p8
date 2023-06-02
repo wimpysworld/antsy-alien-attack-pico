@@ -1442,7 +1442,7 @@ function check_player_collisions(pl)
  for pu in all(pickups) do
   if sprite_collision(pl.sprite,pu.sprite) then
    gamestate.player_pickups+=1
-   score_update(pl,10000+pu.payload)
+   score_update(pl,10000)
    sfx(9)
 
    //every power-up charges the generator
