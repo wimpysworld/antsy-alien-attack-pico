@@ -965,6 +965,68 @@ function asteroid_belt()
  end
 end
 
+function draw_cargo()
+ sprite_draw(gamestate.sprite,55,gamestate.y)
+end
+
+function cargo(mode)
+ local win_target=1000+(level*250)
+ if not gamestate.ready then
+  gamestate.draw,
+  gamestate.sprite=
+   draw_cargo,
+   sprite_create({13},2,4)
+
+  if mode=="in" then
+   gamestate.y=129
+  elseif mode=="out" then
+   gamestate.y=82
+  else
+   gamestate.hud_target,
+   gamestate.aliens_max,
+   gamestate.title,
+   gamestate.text,
+   gamestate.y=
+    win_target,
+    level+10,
+    "cargo run",
+    "protect the cargo ship",  
+    82
+  end
+
+  sprite_hitbox(gamestate.sprite,2,6,11,22)
+ else
+  if mode=="game" then
+	  gamestate.hud_progress=gamestate.gametime
+	  if #aliens<gamestate.aliens_max and one_in(3) then
+	   create_alien(rnd_range(2,126),-8,"asteroid")
+	  end
+	
+	  for pl in all(players) do
+	   score_update(pl,20*level)
+	  end
+	
+	  for al in all(aliens) do
+	   if sprite_collision(gamestate.sprite,al.sprite) then
+	    for pl in all(players) do
+	     apply_player_damage(pl,al.collision_damage\2,4)
+	     emit_explosion(63,92,3,nil,1)
+	    end
+	    del(aliens,al)
+	   end
+	  end
+	
+	  if gamestate.gametime>=win_target then
+	   objective_cleanup()
+	  end
+	 else
+	  gamestate.y-=1
+   if (mode=="in" and gamestate.y<=82) objective_complete=true
+   if (mode=="out" and gamestate.y<=-32) objective_complete=true
+	 end
+ end
+end
+
 function autopilot(flyin)
  if flyin and not gamestate.ready then
   for pl in all(players) do
@@ -1090,6 +1152,9 @@ function update_game()
  if (objective=="level_out") level_status()
  if (objective=="pass_some") pass(true)
  if (objective=="pass_none") pass()
+ if (objective=="cargo") cargo("game")
+ if (objective=="cargo_in") cargo("in")
+ if (objective=="cargo_out") cargo("out") 
  if (objective=="asteroid_belt") asteroid_belt()
 
  if objective=="drone" or
