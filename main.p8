@@ -1988,20 +1988,20 @@ end
 function create_pickup(x,y,payload,force)
  payload=payload or rnd_range(1,#pickup_payloads)
  if one_in(pickup_droprate) or force then
-   add(pickups,{
-    x=x,
-    y=y,
-    origin_x=x,
-    origin_y=y,
-    angle=rnd_range(0,359),
-    payload=pickup_payloads[payload]
-   })
-   pu=pickups[#pickups]
+  add(pickups,{
+   x=x,
+   y=y,
+   origin_x=x,
+   origin_y=y,
+   angle=rnd_range(0,359),
+   payload=pickup_payloads[payload]
+  })
+  pu=pickups[#pickups]
   pu.sprite=sprite_create({pu.payload},1,1)
   add(pu.sprite.pal_swaps,{6,-1})
   add(pu.sprite.pal_swaps,{13,-1})
   sprite_hitbox(pu.sprite,1,1,5,5)
-  end
+ end
 end
 
 function update_pickups()
