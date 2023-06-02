@@ -1798,7 +1798,9 @@ function create_alien(x,y,breed)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
  elseif breed=="bronze" then
-  local angle=atan2(rnd_range(48,80)-al.x+al.x_off,128)
+  al.x=rnd_range(43,83)
+  local angle=atan2(rnd_range(8,24)+al.x_off-al.x,127-al.y+al.y_off)
+  if (x>63) angle=atan2(rnd_range(104,120)+al.x_off-al.x,127-al.y+al.y_off)
   al.hp,
   al.framerate,
   al.speed_x,
