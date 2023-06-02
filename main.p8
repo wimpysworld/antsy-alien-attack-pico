@@ -180,10 +180,10 @@ function draw_attract()
  end
 
  print_fx(_puny("(c) 2023 wimpysworld.com"),nil,120,7,5,5)
+ palt(12)
+ spr(140,89,90,4,4)
+ pal()
 
- local tux=sprite_create({140},4,4)
- tux.pal_trans=12
- sprite_draw(tux,89,90)
  print_fx(_puny("made with ♥ for"),nil,100,7)
  print_fx(_puny("          ♥    "),nil,100,8,2,14)
  print_fx(_puny("linux game jam"),nil,105,7)
