@@ -11,7 +11,7 @@ __lua__
 // 30/may: 6968
 // 31/may: 7204
 // 01/jun: 7199
-// 02/jun: 7514
+// 02/jun: 7514 7476
 
 #include build_config.p8
 
@@ -243,7 +243,6 @@ function draw_help()
   "one ship. one life. one mission.",
   "",
   "shoot or collide with aliens    ",
-  "your ship slows down when firing",
   "weapons go offline at hyperspeed",
   "power ups enhance your ship     ",
   "a full generator boosts shields ",
@@ -252,7 +251,7 @@ function draw_help()
 --]]
 
  local help_text=split(
- "the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,your ship slows down when firing,weapons go offline at hyperspeed,power ups enhance your ship,a full dynamo boosts ship health,smart bombs use the dynamo power"
+ "the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,weapons go offline at hyperspeed,power ups enhance your ship,a full dynamo boosts ship health,smart bombs use the dynamo power"
  )
 
  local y=17
@@ -1027,7 +1026,7 @@ function init_game()
  evade=
   {},{},{},{},{},{},{},
   30,
-  split("96,97,98,99,112,113,114"),
+  split("96,97,98,112,113,114"),
   false
 
  music_play(6)
@@ -1340,8 +1339,6 @@ function create_player(player)
   pl.col_lt,
   pl.col_dk,
   pl.speed,
-  pl.speedboost,
-  pl.speedbrake,
   pl.hud_x,
   pl.debris_style,
   pl.explosion_size,
@@ -1361,8 +1358,7 @@ function create_player(player)
    player,
    col_lt,
    col_dk,
-   1.5,
-   0,
+   1.35,
    0,
    hud_x,
    debris_style,
@@ -1402,7 +1398,6 @@ function apply_player_damage(pl,damage,shake)
   // drop the power ups by 1 level
   if pl.hp>=50 and pl.hp-damage<50 then
    if (pl.shot_pattern>1) pl.shot_pattern-=1
-   pl.speedboost=max(0,pl.speedboost-0.25)
   end
   pl.hp-=damage
   pl.shields+=180
@@ -1456,6 +1451,8 @@ function check_player_collisions(pl)
    if pu.payload==98 then
     local new_gen=pl.generator+15
     if new_gen>100 then
+     // if generator reaches 100
+     // boost hp by 50
      pl.generator=new_gen-100
      pl.hp=min(100,pl.hp+50)
     else
@@ -1463,15 +1460,12 @@ function check_player_collisions(pl)
     end
    end
 
-   //speed
-   if (pu.payload==99) pl.speedboost=min(2.25,pl.speedboost+0.25)
-
    //weapons
    if pu.payload==112 then
     if pl.shot_pattern<3 then
      pl.shot_pattern+=1
     else
-     pl.generator=min(100,pl.generator+5)
+     pl.generator=min(100,pl.generator+15)
     end
    end
 
@@ -1554,10 +1548,9 @@ function update_players()
     apply_stars_accel(dx,dy)
 
     // finally, apply the input direction to the player
-    local speed=pl.speed+pl.speedboost-pl.speedbrake
     pl.vel_x,pl.vel_y=
-     dx*(speed),
-     dy*(speed)
+     dx*(pl.speed),
+     dy*(pl.speed)
     pl.x+=pl.vel_x
     pl.y+=pl.vel_y
   end
@@ -1593,12 +1586,9 @@ function update_players()
    if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
     pl.shot_cooldown_timer=pl.shot_cooldown
     emit_rocket(pl.num)
-    pl.speedbrake=0.5
-   elseif not pl.shot_enabled then
+   elseif not pl.shot_enabled and pl.controls_enabled then
     sound_play(13)
    end
-  else
-   pl.speedbrake=0
   end
 
   // animate jets
