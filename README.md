@@ -24,7 +24,6 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 
 💥 Destroy aliens by **shooting, colliding with them or using smart weapons**  
 🛸️ **Avoid the aliens** if you can't destroy them  
-🐢 Ships **fly slower when firing weapons**  
 🔋 Collect power-ups to **charge the ship generator** and enhance your weapons  
 🛡️ A fully charged **generator replenishes your shields**  
 💣️ You can also **use generator power to unleash smart weapons**  
@@ -90,8 +89,8 @@ Antsy Alien Attack Pico is a *"sequel"* to [Antsy Alien Attack](https://github.c
 
 - Vertical shooter
 - 1-UP or 2-UP
-- 5 waves each with a boss
-- Post-wave status report
+- 5 waves each with distinct mini-games
+- ~~Post-wave status report~~
 - 5 (or more) distinct alien enemies
 - 1 life governed by HP meter
 - Mini-games between waves
@@ -117,8 +116,8 @@ Antsy Alien Attack Pico is a *"sequel"* to [Antsy Alien Attack](https://github.c
 - Smartbomb
   - Damage all aliens and wipeout all alien projectiles
 - Power
-  - Charges the generator
-  - A fully charged generator yields player HP
+  - Charges the dynamo
+  - A fully charged dynamo yields player HP
   - Hold the second button to release a smart bomb
 
 ## Technical considerations 🧠
@@ -137,13 +136,13 @@ Antsy Alien Attack Pico is a *"sequel"* to [Antsy Alien Attack](https://github.c
 ## Risks 🚨
 
 - Time
-- pico-8 token limit
-- pico-8 performance budget
+- pico-8 token limit; *the struggle is real*
+- pico-8 performance budget; *turns out this is not such a big concern*
 - Flatpak and publishing in Flathub
 - Level "design"
 - Time
 - Juicy enough
-- pico-8 sprite bank size
+- pico-8 sprite bank size; *is plenty if your games doesn't use tiles*
 - Finding suitable sfx and gfx
 - pico-8 optimisations create ugly code 🍝
 - Time
@@ -225,19 +224,19 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 ## Pickups
 
 - [x] Shields
-- [x] ~~Speed~~
+- [x] ~~Speed~~; playtesting feedback was this was "Meh" and didn't add anything to the game
 - [x] Weapon patterns; more devastation
 - [x] Weapons block; wipeout alien projectiles and prevent fire for some time
 - [x] Smartbomb; damage all aliens and wipeout all alien projectiles
 - [x] Power; charges the generator.
 - [x] HP; adds to ship HP
-  - A fully charged generator yields player HP
+  - A fully charged dynamo yields player HP
   - Press the second button to release a smart bomb
 
 ## Aliens 👾
 
 - Shot damage is 10 across the board for all aliens at the moment.
-- Each alien yields points when destroyed that are calculated as `(HP + COLLISION_DAMAGE * 10) + EXPLOSION_SIZE`
+- Each alien yields points when destroyed that is calculated as `(HP + COLLISION_DAMAGE * 100) + EXPLOSION_SIZE`
 
 | Class           |  Speed  | Trajectory             | Fire Pattern            | Bull. Size |  HP  | Coll. Damage | Exp. Size | Status |
 |:---------------:|:-------:|:----------------------:|:-----------------------:|:----------:|:----:|:------------:|:---------:|:------:|
@@ -328,7 +327,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Stretch Goals 💪
 
-- [ ] Training missions; first missions teach you how to play
+- [x] Training missions; first missions teach you how to play
 - [ ] Player performance/skill tracking with post-wave report
 - [ ] Publish in Flathub page
 - [ ] Predictable wave patterns/timings
@@ -338,7 +337,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] Player formation "animations"
 - [ ] Player gravity-guided pick-ups
 - [x] Pick-up animations
-- [ ] HUD help animations the first x times the game is played
+- [x] HUD orientation
 - [ ] Player smart bomb is homing missiles
 
 # Development tools 🧑‍💻
