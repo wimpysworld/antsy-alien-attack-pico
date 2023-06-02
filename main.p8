@@ -1876,7 +1876,7 @@ function create_alien(x,y,breed)
   sprite_hitbox(al.sprite,1,1,5,5)
  end
  al.debris_size=al.explosion_size
- al.reward=(al.hp+al.collision_damage*10)+al.explosion_size
+ al.reward=(al.hp+al.collision_damage*100)+al.explosion_size
 end
 
 function aim_shot(bl,pl,al,predict)
