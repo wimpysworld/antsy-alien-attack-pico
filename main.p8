@@ -1459,7 +1459,7 @@ function check_player_collisions(pl)
     emit_smartbomb(pl)
    elseif pu.payload==98 then
     // battery
-    charge=30
+    charge*=2
    elseif pu.payload==112 then
     //weapons   
     if (pl.shot_pattern<5) pl.shot_pattern+=1
