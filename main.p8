@@ -766,6 +766,9 @@ end
 
 function objective_cleanup()
  emit_smartbomb()
+ for pl in all(players) do
+	 apply_generator_charge(pl,15)
+ end
  objective_complete=true
 end
 
