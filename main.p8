@@ -1198,7 +1198,7 @@ function draw_mission()
  if gamestate.mission_report_time<240 and #gamestate.title>0 then
   gamestate.mission_report_time+=1
   if gamestate.text=="" then
-    print_fx(gamestate.title,nil,56,9,4,10,"big")  
+    print_fx(gamestate.title,nil,56,9,4,10,"big")
   else
     print_fx(gamestate.title,nil,50,12,1,6,"big")
     print_fx(_puny(gamestate.text),nil,62,6,5,5)
