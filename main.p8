@@ -1981,8 +1981,10 @@ function update_aliens()
 end
 
 function draw_aliens()
+ local ghostly=false
+ if (gamestate.aliens_jammed>0) ghostly=true
  for al in all(aliens) do
-  sprite_draw(al.sprite,al.x,al.y)
+  sprite_draw(al.sprite,al.x,al.y,ghostly)
  end
 end
 
@@ -2121,7 +2123,7 @@ function sprite_create(sprites,w,h)
  }
 end
 
-function sprite_draw(s,x,y)
+function sprite_draw(s,x,y,ghostly)
  // update x,y for collision detection
  s.x,s.y=x,y
 
@@ -2137,7 +2139,10 @@ function sprite_draw(s,x,y)
  if (s.pal_trans!=0) palt(s.pal_trans)
 
  // make sprite
- if s.pal_whiteflash>0 then
+ if ghostly then
+  //make palette grey scale
+  pal(split("1,1,5,5,5,6,7,13,6,7,7,6,13,6,7"))
+ elseif s.pal_whiteflash>0 then
   s.pal_whiteflash-=1
   for i=6,15 do pal(i,7) end
  else
@@ -2152,8 +2157,7 @@ function sprite_draw(s,x,y)
  spr(s.frames[flr(s.frame)],x,y,s.w,s.h,s.flip_x,s.flip_y)
 
  // reset palette
- if (#s.pal_swaps or s.pal_trans!=0 or s.pal_whiteflash) pal()
-
+ if (#s.pal_swaps or s.pal_trans!=0 or s.pal_whiteflash or ghostly) pal()
  // useful fordebugging
  --[[
  if s.show_hitbox then
