@@ -770,16 +770,16 @@ function draw_shmup()
  if (level>1) return
 
  if gamestate.gametime<600 then
-  local x_off,spr_num,spr_off,flip_h=8,192,0,false
+  local x_off,spr_num,spr_off,flip_h=8,42,0,false
   for pl in all(players) do
-   if (pl.num==2) x_off,spr_num,spr_off,flip_h=0,193,23,true
+   if (pl.num==2) x_off,spr_num,spr_off,flip_h=0,43,23,true
    print_fx(_puny("health"),pl.hud_x+x_off,8,pl.col_lt)
    print_fx(_puny("dynamo"),pl.hud_x+x_off,13,12)    
    spr(spr_num,pl.hud_x+spr_off,6,1,2,flip_h)
   end
   print_fx(_puny("progress"),nil,8,10)
-  spr(194,41,6,1,1)
-  spr(194,78,6,1,1,true)   
+  spr(57,41,6,1,1)
+  spr(57,78,6,1,1,true)   
  end
 end
 
