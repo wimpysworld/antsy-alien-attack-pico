@@ -987,7 +987,12 @@ function level_status(arrive)
    true,false
 
   gamestate.title="zone "..tostr(level)
-  if (not arrive) gamestate.title="zone "..tostr(level).." cleared"
+  if not arrive then
+   gamestate.title="zone "..tostr(level).." cleared"
+   for pl in all(players) do
+    score_update(pl,level*5000)
+   end   
+  end
  elseif gamestate.gametime>150 then
   objective_complete=true
  end
