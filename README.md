@@ -257,7 +257,54 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Waves 🌊
 
-- tbd
+### Level 1
+
+- Drone
+- Bronze
+- Silver
+- Asteroid Belt Slow Weapons On
+- Sapphire
+- Emerald
+
+### Level 2
+
+- Bronze Scouts
+- Silver Scouts
+- Some Can Pass
+- Silver Scouts
+- Spheres
+- Metal Squad
+- Asteroid Belt Fast Weapons Off
+
+### Level 3
+
+- Sapphire Scouts
+- Emerald Scouts
+- Evade Spheres Fast Weapons Off
+- Metal Squad
+- Spheres
+- Gem Squad
+- Asteroid Belt Slow Weapons On
+
+### Level 4
+
+- Bronze Scouts
+- Silver Scouts
+- Sapphire Scouts
+- Emerald Scouts
+- None Shall Pass
+- Metal Squad
+- Gem Squad
+- Asteroid Belt Fast Weapons Off
+
+### Level 5
+
+- Armada
+- Some Can Pass
+- Armada
+- Asteroid Belt Slow Weapons On
+- None Shall Pass
+- Armada
 
 ### Mini-Games 🗺️
 
