@@ -24,9 +24,8 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 
 💥 Destroy aliens by **shooting, colliding with them or using smart weapons**  
 🛸️ **Avoid the aliens** if you can't destroy them  
-🔋 Collect power-ups to **charge the ship generator** and enhance your weapons  
-🛡️ A fully charged **generator replenishes your shields**  
-💣️ You can also **use generator power to unleash smart weapons**  
+🔋 Collect power-ups to **charge the ship dynamo** and enhance your weapons  
+🛡️ A fully charged **dynamo boosts ship health by 50%**  
 🛑 **Weapons go offline** when travelling at hyperspeed  
 🌌 When your shields are depleted, **you're lost to the vacuum of space**  
 

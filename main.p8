@@ -247,14 +247,14 @@ function draw_help()
   "",
   "shoot or collide with aliens    ",
   "weapons go offline at hyperspeed",
-  "power ups enhance your ship     ",
-  "a full generator boosts shields ",
-  "smart bombs use generator power ",
+  "power-ups enhance your ship     ",
+  "power-ups charge the dynamo     ",  
+  "a full dynamo boosts shields 50%",
  }
 --]]
 
  local help_text=split(
- "the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,weapons go offline at hyperspeed,power ups enhance your ship,a full dynamo boosts ship health,smart bombs use the dynamo power"
+ "the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,weapons go offline at hyperspeed,power-ups enhance your ship,power-ups charge the dynamo,full dynamo adds 50% ship health"
  )
 
  local y=17
@@ -1147,7 +1147,6 @@ function create_gamestate()
   aliens_escaped=0,
   aliens_jammed=0,
   aliens_max=0,
-  player_bombs=0,
   player_pickups=0,
   hud_progress=0,
   hud_target=nil,
@@ -1196,8 +1195,7 @@ end
 
 function activate_weapons(status)
  for pl in all(players) do
-  pl.bomb_enabled,
-  pl.shot_enabled=status,status
+  pl.shot_enabled=status
  end
  evade=not status
  objective_complete=true 
@@ -1360,7 +1358,6 @@ function create_player(player)
   pl.shields,
   pl.lock_to_screen,
   pl.controls_enabled,
-  pl.bomb_enabled,
   pl.shot_enabled,
   pl.shot_cooldown,
   pl.shot_cooldown_timer,
@@ -1576,16 +1573,6 @@ function update_players()
    pl.x,pl.y=
     mid(-4,pl.x,116),
     mid(0,pl.y,112)
-  end
-
-  //fire smartbomb
-  if btnp(3,controller) then
-   if pl.bomb_enabled and pl.generator>=20 then
-    emit_smartbomb(pl)
-    pl.generator-=20
-   else
-    sound_play(13)
-   end
   end
 
   //fire lazer
