@@ -813,14 +813,16 @@ function shmup(fleet)
  end
 
  if fleet!="spheres" then 
-	 if level==2 then
+	 if level>=2 then
 	  add(spawn,"drone")
 	  title=fleet.." scouts"
-	 elseif level==3 then
-	  add(spawn,"drone,orby")
+	 end
+	 if level>=3 then
+	  add(spawn,"orby")
 	  title=fleet.." raiders"
-	 elseif level>3 then
-	  add(spawn,"drone,orby,asteroid")
+	 end
+	 if level>=4 then
+	  add(spawn,"asteroid")
 	  title=fleet.." hunters"
 	 end
 	end
@@ -2172,9 +2174,6 @@ function sprite_draw(s,x,y,ghostly)
 end
 
 function sprite_loop_frame(s,val)
- if (s.frame==nil) s.frame=1
- if (not #s.frames) return
- 
  s.frame+=val
  if (flr(s.frame)>#s.frames) s.frame=1
 end
