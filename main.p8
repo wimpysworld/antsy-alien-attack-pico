@@ -809,17 +809,19 @@ function shmup(fleet)
   spawn=split("sapphire,emerald")
   title="gem squad"
  end
- 
- if level==2 then
-  add(spawn,"drone")
-  title=fleet.." scouts"
- elseif level==3 then
-  add(spawn,"drone,orby")
-  title=fleet.." raiders"
- elseif level>3 then
-  add(spawn,"drone,orby,asteroid")
-  title=fleet.." hunters"
- end
+
+ if fleet!="spheres" then 
+	 if level==2 then
+	  add(spawn,"drone")
+	  title=fleet.." scouts"
+	 elseif level==3 then
+	  add(spawn,"drone,orby")
+	  title=fleet.." raiders"
+	 elseif level>3 then
+	  add(spawn,"drone,orby,asteroid")
+	  title=fleet.." hunters"
+	 end
+	end
  
  local win_target=level*35
  if (evade) win_target=750+(level*250)
