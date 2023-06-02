@@ -1299,6 +1299,7 @@ end
 function update_rockets()
  for rocket in all(rockets) do
   sprite_loop_frame(rocket.sprite,0.5)
+  rocket.speed_y=-4+(level*0.2)
   rocket.x+=rocket.speed_x
   rocket.y+=rocket.speed_y
   if is_outside_playarea(rocket.x,rocket.y) then
@@ -1596,7 +1597,7 @@ function update_players()
 
   pl.shields=mid(0,pl.shields-1,pl.shields)
 
-  pl.shot_damage=6+pl.shot_pattern
+  pl.shot_damage=11-pl.shot_pattern
   if (#rockets<10) pl.shot_cooldown/=2
   pl.shot_cooldown=3.5+pl.shot_pattern
 
