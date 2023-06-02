@@ -2242,7 +2242,7 @@ function one_in(num)
 end
 
 function is_outside_playarea(x,y)
- return (((x<-32 or y<-32) or (x>144 or y>144)))
+ return (((x<-16 or y<-16) or (x>144 or y>144)))
 end
 
 function hud_line(x,y,val,col_lt,col_dk)
