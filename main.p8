@@ -1293,7 +1293,7 @@ end
 
 function update_rockets()
  for rocket in all(rockets) do
-  sprite_loop_frame(rocket.sprite,0.75)
+  sprite_loop_frame(rocket.sprite,0.5)
   rocket.x+=rocket.speed_x
   rocket.y+=rocket.speed_y
   if is_outside_playarea(rocket.x,rocket.y) then
