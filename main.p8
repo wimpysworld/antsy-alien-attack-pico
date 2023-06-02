@@ -1591,8 +1591,8 @@ function update_players()
   pl.shields=mid(0,pl.shields-1,pl.shields)
 
   pl.shot_damage=6+pl.shot_pattern
-  if (#rockets<5) pl.shot_cooldown=0
-  pl.shot_cooldown=3+pl.shot_pattern/2
+  if (#rockets<10) pl.shot_cooldown/=2
+  pl.shot_cooldown=3.5+pl.shot_pattern
 
   pl.shot_cooldown_timer=max(pl.shot_cooldown_timer-1,0)
 

@@ -117,7 +117,7 @@ Antsy Alien Attack Pico is a *"sequel"* to [Antsy Alien Attack](https://github.c
 - Power
   - Charges the dynamo
   - A fully charged dynamo yields player HP
-  - Hold the second button to release a smart bomb
+  - ~~Hold the second button to release a smart bomb~~; playtesters didn't think this added anything of value
 
 ## Technical considerations 🧠
 
@@ -215,10 +215,10 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 | Level | Speed | Cooldown | Damage | Pattern |
 |:-----:|:-----:|:--------:|:------:|:--------|
-| 1     | 4     | 5        | 10     | Dual    |
-| 2     | 2.75  | 6        | 10     | 3-way   |
-| 3     | 2     | 7        | 10     | 4-way   |
-| 4     | 1.75  | 8        | 10     | 5-way   |
+| 1     | 4     | 4.5      | 7      | Dual    |
+| 2     | 2.75  | 5.5      | 8      | 3-way   |
+| 3     | 2     | 6.5      | 9      | 4-way   |
+| 4     | 1.75  | 7.5      | 10     | 5-way   |
 
 ## Pickups
 
@@ -229,8 +229,6 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] Smartbomb; damage all aliens and wipeout all alien projectiles
 - [x] Power; charges the generator.
 - [x] HP; adds to ship HP
-  - A fully charged dynamo yields player HP
-  - Press the second button to release a smart bomb
 
 ## Aliens 👾
 
