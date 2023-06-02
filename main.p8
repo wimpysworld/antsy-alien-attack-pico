@@ -2156,7 +2156,8 @@ end
 
 // http://gamedev.docrobs.co.uk/first-steps-in-pico-8-hitting-things
 function sprite_collision(a,b)
- if (b.y and b.y<4) return
+ if (not a.x or not b.x) return
+ if (b.y<4) return
 
  local xd=abs((a.x+a.hb_x+a.hb_hw)-(b.x+b.hb_x+b.hb_hw))
  local xs=a.hb_hw+b.hb_hw
