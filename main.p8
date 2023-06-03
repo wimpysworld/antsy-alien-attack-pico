@@ -1304,41 +1304,38 @@ function emit_rocket(player_num)
  local pl=players[player_num]
 
  for i=0,pl.shot_pattern do
-  // rx is used for weapons emit
-  // point. this is for spread shots
-  local rx=pl.x+4
-
+  // x_offset is used to adjust
+  // the emit point
   // this is for the basic weapon
-  if pl.shot_pattern==1 then
-   rx=pl.x
-   if (i>0) rx=pl.x+8
-  end
-  add(rockets,create_projectile(pl,rx,pl.y-4))
+  local x_offset=0
+  if (i>0) x_offset=8
+  // spread shot x offset  
+  if (pl.shot_pattern>1) x_offset=4
 
+  add(rockets,create_projectile(pl,pl.x+x_offset,pl.y-4))
   local rocket=rockets[#rockets]
   rocket.owner=player_num
   rocket.sprite=sprite_create(pl.rocket_sprites,1,2)
   sprite_hitbox(rocket.sprite,0,1,7,10)
   //rocket.sprite.show_hitbox=true
 
-  local ang,spd,dir,spread=0,0,0,0
-  if pl.shot_pattern==4 then
-   // 5-way
-   dir,spread,spd=
-    0.175,0.04,1.75
-  elseif pl.shot_pattern==3 then
-   // 4-way
-   dir,spread,spd=
-    0.175,0.05,2
-  elseif pl.shot_pattern==2 then
-   // 3-way
-   dir,spread,spd=
-    0.215,0.04,2.5
-  end
-
   // apply pattern
-  if pl.shot_pattern>1 then
-   ang=dir+((spread+fc)*i)
+  if pl.shot_pattern>1 then  
+   // 3-way  
+   local dir,spread,spd=
+    0.215,0.04,2.5
+
+   if pl.shot_pattern==3 then
+    // 4-way
+    dir,spread,spd=
+     0.175,0.05,2
+   elseif pl.shot_pattern==4 then
+    // 5-way
+    dir,spread,spd=
+     0.175,0.04,1.75
+   end
+  
+   local ang=dir+((spread+fc)*i)
    rocket.speed_x=cos(ang)*spd
    rocket.speed_y=sin(ang)*spd
   end
@@ -1373,7 +1370,6 @@ end
 function update_rockets()
  for rocket in all(rockets) do
   sprite_loop_frame(rocket.sprite,0.5)
-  rocket.speed_y=-4+(level*0.2)
   rocket.x+=rocket.speed_x
   rocket.y+=rocket.speed_y
   if is_outside_playarea(rocket.x,rocket.y) then
