@@ -940,8 +940,9 @@ end
 function asteroid_belt()
  local win_target=1000+level*250
  if not gamestate.ready then
-  local max_rocks,text=level+44,"shoot to survive"
-  if (evade) max_rocks,text=level+14,"fly to survive"
+  local max_rocks,text=48,"shoot to survive"
+  if (evade) max_rocks,text=24,"fly to survive"
+  
   gamestate.hud_target,
   gamestate.aliens_max,
   gamestate.title,
