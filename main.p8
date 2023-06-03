@@ -1023,6 +1023,42 @@ function power_spree()
  end
 end
 
+function draw_quick_draw()
+ print_fx(tostr(gamestate.aliens_destroyed),nil,10,10,9,9)
+end
+
+function quick_draw()
+ if not gamestate.ready then  
+  gamestate.hud_target,
+  gamestate.title,
+  gamestate.text,
+  gamestate.draw=
+   600,
+   "quick draw",
+   "shoot 20 aliens quickly",
+   draw_quick_draw
+ else
+  gamestate.hud_progress=gamestate.gametime
+  
+  if #aliens<3 and one_in(3) then
+   create_alien(rnd_range(32,112),-8,"silver")
+   al=aliens[#aliens]
+   al.speed_y+=0.5
+   al.hp/=3
+  end
+
+  if gamestate.aliens_destroyed>=20 then
+   objective_cleanup()
+  end
+  
+  if gamestate.gametime>600 then
+   for pl in all(players) do
+    pl.hp=0
+   end
+  end
+ end
+end
+
 function draw_cargo()
  sprite_draw(gamestate.sprite,55,gamestate.y)
 end
@@ -1218,6 +1254,7 @@ function update_game()
  if (objective=="cargo_out") cargo("out") 
  if (objective=="asteroid_belt") asteroid_belt()
  if (objective=="power_spree") power_spree() 
+ if (objective=="quick_draw") quick_draw()  
 
  if objective=="drone" or
     objective=="bronze" or
