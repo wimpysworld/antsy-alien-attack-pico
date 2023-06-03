@@ -988,6 +988,38 @@ function asteroid_belt()
  end
 end
 
+function power_spree()
+ local win_target=600
+ if not gamestate.ready then  
+  gamestate.hud_target,
+  gamestate.aliens_max,
+  gamestate.title,
+  gamestate.text=
+   win_target,
+   5,
+   "power spree",
+   "grab what you can"
+ else
+  gamestate.hud_progress=gamestate.gametime
+
+  if (one_in(15)) create_pickup(rnd_range(4,120),-8,true)
+  
+  if #aliens<gamestate.aliens_max and one_in(5) then
+   create_alien(rnd_range(2,126),-8,"asteroid")
+   al=aliens[#aliens]
+   al.speed_y+=1.9
+  end
+
+  for pu in all(pickups) do
+   pu.origin_y+=0.25+(hyperspeed/4)
+  end
+
+  if gamestate.gametime>=win_target then
+   objective_cleanup()
+  end
+ end
+end
+
 function draw_cargo()
  sprite_draw(gamestate.sprite,55,gamestate.y)
 end
@@ -1182,6 +1214,7 @@ function update_game()
  if (objective=="cargo_in") cargo("in")
  if (objective=="cargo_out") cargo("out") 
  if (objective=="asteroid_belt") asteroid_belt()
+ if (objective=="power_spree") power_spree() 
 
  if objective=="drone" or
     objective=="bronze" or
