@@ -1147,18 +1147,16 @@ function autopilot(mode)
  end
 end
 
-function level_status(arrive)
- if (not gamestate.ready) then
+function level_status(mode)
+ if not gamestate.ready then
   gamestate.ready,
   gamestate.show_weapons=
    true,false
 
   gamestate.title="zone "..tostr(level)
-  if not arrive then
+  if mode=="level_out" then
    gamestate.title="zone "..tostr(level).." cleared"
-   for pl in all(players) do
-    score_update(pl,level*5000)
-   end   
+   score_update_all(level*5000)
   end
  elseif gamestate.gametime>150 then
   objective_complete=true
@@ -1246,13 +1244,16 @@ function update_game()
  if (objective=="jump") jump()
  if (objective=="drop") drop()
  if (objective=="wait") wait()
- if (objective=="level_in") level_status(true)
- if (objective=="level_out") level_status()
  if (objective=="pass_some") pass(true)
  if (objective=="pass_none") pass()
  if (objective=="asteroid_belt") asteroid_belt()
  if (objective=="power_spree") power_spree() 
  if (objective=="quick_draw") quick_draw()  
+
+ if objective=="level_in" or
+    objective=="level_out" then
+    level_status(objective)
+ end
 
  if objective=="fly_in" or
     objective=="fly_out" then
