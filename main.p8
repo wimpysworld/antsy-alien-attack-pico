@@ -380,36 +380,36 @@ end
 
 function draw_shockwaves()
  for sw in all(shockwaves) do
-   oval(
-    sw.x-sw.radius,
-    sw.y-sw.radius/4,
-    sw.x+sw.radius,
-    sw.y+sw.radius/4,
-    sw.col
-   )
+  oval(
+   sw.x-sw.radius,
+   sw.y-sw.radius/4,
+   sw.x+sw.radius,
+   sw.y+sw.radius/4,
+   sw.col
+  )
  end
 end
 
 function emit_plume(x,y,wait,maxage,max_radius,spread,style)
  for i=1,rnd_range(1,5) do
   local dist=rnd(spread)+i
-    style = style or rnd_range(1,3)
+  style = style or rnd_range(1,3)
 
-   add(explosions,{
-      x=x+sin(dist)*dist/2,
-      y=y+cos(dist)*dist/2,
-      r=3,
-      tor=max_radius*0.75+rnd(max_radius*0.25),
-      tox=x+sin(dist)*dist,
-      toy=y+cos(dist)*dist,
-      wait=wait,
-      maxage=maxage,
-      at_end="collapse",
-      spd=2,
-      age=0,
-      style=style
-    })
-  end
+  add(explosions,{
+   x=x+sin(dist)*dist/2,
+   y=y+cos(dist)*dist/2,
+   r=3,
+   tor=max_radius*0.75+rnd(max_radius*0.25),
+   tox=x+sin(dist)*dist,
+   toy=y+cos(dist)*dist,
+   wait=wait,
+   maxage=maxage,
+   at_end="collapse",
+   spd=2,
+   age=0,
+   style=style
+  })
+ end
 end
 
 function emit_explosion(x,y,size,explosion_style,debris_style)
