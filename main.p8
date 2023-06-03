@@ -1001,7 +1001,7 @@ function power_spree()
   gamestate.aliens_max,
   gamestate.title,
   gamestate.text=
-   win_target,
+   600,
    5,
    "power spree",
    "grab what you can"
@@ -1054,7 +1054,7 @@ function quick_draw()
    objective_cleanup()
   end
   
-  if gamestate.gametime>600 then
+  if gamestate.gametime>=600 then
    for pl in all(players) do
     // insta-death
     apply_player_damage(pl,pl.hp+10)
