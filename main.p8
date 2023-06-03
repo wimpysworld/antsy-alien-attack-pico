@@ -756,7 +756,7 @@ function init_missions()
   //1
   "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,silver,wait,asteroid_belt,wait,sapphire,wait,emerald,wait,level_out,players_off,jump,fly_out",
   //2
-  "level_in,fly_in,players_on,drop,bronze,wait,silver,wait,pass_some,wait,bronze,wait,spheres,wait,metal,wait,jump,weapons_off,asteroid_belt,wait,drop,weapons_on,level_out,players_off,jump,fly_out",
+  "level_in,fly_in,players_on,drop,bronze,wait,silver,wait,pass_some,wait,bronze,wait,spheres,wait,metal,wait,jump,weapons_off,asteroid_belt,wait,weapons_on,level_out,players_off,jump,fly_out",
   //3
   "level_in,fly_in,players_on,drop,sapphire,wait,emerald,wait,jump,weapons_off,spheres,wait,drop,weapons_on,gem,wait,asteroid_belt,wait,level_out,players_off,jump,fly_out",
   //4
