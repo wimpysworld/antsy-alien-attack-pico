@@ -1745,8 +1745,8 @@ function update_players()
     pl.x+=pl.vel_x
     pl.y+=pl.vel_y
     
-	  //fire lazer
-	  if btn(4,controller) then
+	  //fire rockets
+	  if btn(4,controller) or btn(5,controller) then
 	   if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
 	    pl.shot_cooldown_timer=pl.shot_cooldown
 	    emit_rocket(pl.num)
