@@ -305,10 +305,10 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 ### Mini-Games 🗺️
 
 - [x] Asteroid belt - Go fast, don't die
-- [ ] Power spree - A few seconds to grab fast-moving power-ups
+- [x] Power spree - A few seconds to grab fast-moving power-ups
 - [x] None shall pass - don't miss any aliens
 - [x] Some can pass - try to stop them all
-- [ ] Cargo escort - protect the cargo ship
+- [x] Cargo escort - protect the cargo ship
 - [ ] Push 'em back - push the aliens back into the obliterator
 - [x] Rock on - more rocks than you can avoid
 - [ ] Peekaboo - Aliens appear briefly, fire and leave
@@ -335,7 +335,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [ ] Player gravity-guided pick-ups
 - [x] Pick-up animations
 - [x] HUD orientation
-- [ ] Player smart bomb is homing missiles
+- [ ] ~~Player smart bomb is homing missiles~~
 
 # Development tools 🧑‍💻
 
