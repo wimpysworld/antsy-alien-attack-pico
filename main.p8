@@ -455,7 +455,7 @@ function update_explosions()
       end
 
    //clouds drift upwards
-      ex.y-=0.75
+   ex.y-=0.85
 
      --max age
      if ex.age>=ex.maxage or ex.r<1 then
