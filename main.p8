@@ -980,9 +980,7 @@ function asteroid_belt()
    create_alien(rnd_range(2,126),-8,"asteroid")
   end
 
-  for pl in all(players) do
-   score_update(pl,10*level)
-  end
+  score_update_all(10*level)
 
   if gamestate.gametime>=win_target then
    objective_cleanup()
@@ -995,7 +993,7 @@ function draw_cargo()
 end
 
 function cargo(mode)
- local win_target=1000+(level*250)
+ local win_target=1000+level*250
  if not gamestate.ready then
   gamestate.draw,
   gamestate.sprite=
@@ -1003,9 +1001,15 @@ function cargo(mode)
    sprite_create({13},2,4)
 
   if mode=="in" then
-   gamestate.y=129
+   gamestate.y,
+   gamestate.y_target=
+    129,
+    82
   elseif mode=="out" then
-   gamestate.y=82
+   gamestate.y,
+   gamestate.y_target=
+    82,
+    -32
   else
    gamestate.hud_target,
    gamestate.aliens_max,
@@ -1027,10 +1031,8 @@ function cargo(mode)
 	   create_alien(rnd_range(2,126),-8,"asteroid")
 	  end
 	
-	  for pl in all(players) do
-	   score_update(pl,20*level)
-	  end
-	
+   score_update_all(20*level)
+  	
 	  for al in all(aliens) do
 	   if sprite_collision(gamestate.sprite,al.sprite) then
 	    for pl in all(players) do
@@ -1046,8 +1048,7 @@ function cargo(mode)
 	  end
 	 else
 	  gamestate.y-=1
-   if (mode=="in" and gamestate.y<=82) objective_complete=true
-   if (mode=="out" and gamestate.y<=-32) objective_complete=true
+   if (gamestate.y<=gamestate.y_target) objective_complete=true
 	 end
  end
 end
@@ -2325,6 +2326,13 @@ function score_update(pl,reward)
   dset(0,hi_score)
  end
 end
+
+function score_update_all(val)
+ for pl in all(players) do
+  score_update(pl,val)
+ end
+end
+
 
 function round(n)
  return (n%1<0.5) and flr(n) or ceil(n)
