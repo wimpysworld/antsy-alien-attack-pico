@@ -413,19 +413,20 @@ function emit_plume(x,y,wait,maxage,max_radius,spread,style)
 end
 
 function emit_explosion(x,y,size,explosion_style,debris_style)
- local wait=size+size*2+(3/size)
- local max_radius=size*3+(3/size)+size
- local spread=size*6+(4/size)
-  local maxage=rnd(wait)+wait/2+size
+ local wait=size*3+(3/size)
+ local max_radius,spread,maxage=
+  wait+size,
+  rnd_range(size,size*7.5,true),
+  rnd_range(wait,wait*2,true)
 
  emit_debris(x,y,size,debris_style)
  emit_shockwave(x,y,size)
 
-  --x,y,wait,maxage,max_radius,spread
-  emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
-  emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
-  if (size>=2)	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
-  if (size>=3) emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+ --x,y,wait,maxage,max_radius,spread
+ emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+ emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+ if (size>=2)	emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
+ if (size>=3) emit_plume(x,y,wait,maxage,max_radius,spread,explosion_style)
 end
 
 function update_explosions()
