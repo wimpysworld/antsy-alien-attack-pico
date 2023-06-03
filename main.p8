@@ -1634,6 +1634,16 @@ function update_players()
      dy*(pl.speed)
     pl.x+=pl.vel_x
     pl.y+=pl.vel_y
+    
+	  //fire lazer
+	  if btn(4,controller) then
+	   if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
+	    pl.shot_cooldown_timer=pl.shot_cooldown
+	    emit_rocket(pl.num)
+	   elseif not pl.shot_enabled then
+	    sound_play(13)
+	   end
+	  end    
   end
 
   // animate banking
@@ -1645,6 +1655,8 @@ function update_players()
    spr_frame+=dx*0.2
   end
   pl.sprite.frame=mid(1.1,spr_frame,5.9)
+  // animate jets
+  sprite_loop_frame(pl.jet,0.3)
 
   if pl.lock_to_screen then
    pl.x,pl.y=
@@ -1652,25 +1664,12 @@ function update_players()
     mid(0,pl.y,112)
   end
 
-  //fire lazer
-  if btn(4,controller) then
-   if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
-    pl.shot_cooldown_timer=pl.shot_cooldown
-    emit_rocket(pl.num)
-   elseif not pl.shot_enabled and pl.controls_enabled then
-    sound_play(13)
-   end
-  end
-
-  // animate jets
-  sprite_loop_frame(pl.jet,0.3)
-
   pl.shields=mid(0,pl.shields-1,pl.shields)
 
   pl.shot_damage=11-pl.shot_pattern
+
   if (#rockets<10) pl.shot_cooldown/=2
   pl.shot_cooldown=3.5+pl.shot_pattern
-
   pl.shot_cooldown_timer=max(pl.shot_cooldown_timer-1,0)
 
   check_player_collisions(pl)
@@ -1706,14 +1705,16 @@ function draw_players()
   sprite_draw(pl.jet,pl.x+3,pl.y+15)
   sprite_draw(pl.jet,pl.x+6,pl.y+15)
   if pl.shields>0 then
+   x_center,y_center=
+    pl.x+8,pl.y+10
    //ship has shields up
    if fc%6<3 then
-    circ(pl.x+8,pl.y+10,14,pl.col_lt)
+    circ(x_center,y_center,14,pl.col_lt)
    elseif pl.shields%2 then
     local col=pl.col_dk
     if (pl.shields<=60) col=5
     fillp(░)
-    circfill(pl.x+8,pl.y+10,14,col)
+    circfill(x_center,y_center,14,col)
     fillp()
    end
   end
@@ -1725,7 +1726,7 @@ function emit_muzzle_flash(player_num)
  if #flashes<3 then
   add(flashes,{
    player=player_num,
-   sprite=sprite_create({32,34,36,38},2,2)
+   sprite=sprite_create(split("32,34,36,38"),2,2)
   })
   sound_play(players[player_num].sfx_shoot)
  end
