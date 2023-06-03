@@ -2135,9 +2135,9 @@ function create_actor(x,y)
   shot_damage=10,
   shot_speed_x=0,
   shot_speed_y=-4,
-  col_lt=10,
-  col_dk=9,
-  sprite={},
+  //col_lt=10,
+  //col_dk=9,
+  //sprite={},
   hp=100
  }
 end
@@ -2187,8 +2187,8 @@ function sprite_create(sprites,w,h)
   frame=1,
   pal_swaps={},
   pal_trans=0,
-  pal_whiteflash=0,
-  show_hitbox=false
+  pal_whiteflash=0
+  //show_hitbox=false
  }
 end
 
@@ -2205,15 +2205,15 @@ function sprite_draw(s,x,y,ghostly)
 
  // do palette swaps
  // change the transparent col
- if (s.pal_trans!=0) palt(s.pal_trans)
+ if (s.pal_trans>0) palt(s.pal_trans)
 
- // make sprite
+ // make sprite ghostly
  if ghostly then
   //make palette grey scale
-  pal(split("1,1,5,5,5,6,7,13,6,7,7,6,13,6,7"))
+  pal(split("5,5,5,5,13,6,7,6,6,7,7,7,6,6,7"))
  elseif s.pal_whiteflash>0 then
   s.pal_whiteflash-=1
-  for i=6,15 do pal(i,7) end
+  pal(split("13,13,13,13,13,7,7,7,6,7,7,7,6,6,7"))
  else
   // color replacements
   for pal_swap in all(s.pal_swaps) do
