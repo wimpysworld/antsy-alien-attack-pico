@@ -2061,9 +2061,8 @@ end
 -- helpers
 
 function reset_pickup_timer()
- local low=rnd_range(pickup_base,pickup_base+pickup_base/2)
- local high=rnd_range(level*low,level*low+pickup_base)
- pickup_timer=rnd_range(low,high)
+ local low=rnd_range(pickup_base,pickup_base*1.5)
+ pickup_timer=rnd_range(low,low*1.5)
 end
 
 function create_pickup(x,y,force)
@@ -2096,9 +2095,7 @@ function update_pickups()
   // 8 is the radius
   pu.x=pu.origin_x+8*cos(pu.angle/360)
   pu.y=pu.origin_y+8*sin(pu.angle/360)
-  if is_outside_playarea(pu.origin_x,pu.origin_y) then
-   del(pickups,pu)
-  end
+  if (pu.origin_y<-12) del(pickups,pu)
  end
  pickup_timer=max(0,pickup_timer-1)
 end
