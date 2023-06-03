@@ -1495,11 +1495,11 @@ end
 
 function players_startx()
  for p in all(players) do
-  p.startx,p.starty=56,160
+  p.x,p.y=56,160
  end
  if active_players()==2 then
-  players[1].startx,
-  players[2].startx=
+  players[1].x,
+  players[2].x=
    24,
    88
  end
@@ -2252,9 +2252,6 @@ function create_actor(x,y)
   shot_damage=10,
   shot_speed_x=0,
   shot_speed_y=-4,
-  //col_lt=10,
-  //col_dk=9,
-  //sprite={},
   hp=100
  }
 end
