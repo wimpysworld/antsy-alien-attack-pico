@@ -187,8 +187,8 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] Main screen with Tux
 - [x] Credits
 - [x] Help
-- [ ] Game Over
-- [ ] Game Win
+- [x] Game Over
+- [x] Game Win
 - [x] Toggle music
 - [x] Persist Hiscore
 
@@ -311,6 +311,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] Cargo escort - protect the cargo ship
 - [ ] Push 'em back - push the aliens back into the obliterator
 - [x] Rock on - more rocks than you can avoid
+- [x] Quick draw - Shoot fast moving aliens within a tight time limit
 - [ ] Peekaboo - Aliens appear briefly, fire and leave
 - [ ] ~~Canyon run - narrow canyon with lots of rocks at speed (*stretch goal*)~~
 - [ ] ~~Tunnel through - make a path through the rocks (*stretch goal*)~~
@@ -325,9 +326,9 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 ## Stretch Goals 💪
 
 - [x] Training missions; first missions teach you how to play
-- [ ] Player performance/skill tracking with post-wave report
+- [ ] ~~Player performance/skill tracking with post-wave report~~
 - [ ] Publish in Flathub page
-- [ ] Predictable wave patterns/timings
+- [ ] ~~Predictable wave patterns/timings~~
 - [ ] ~~Sprite rotation and zooming~~
 - [ ] ~~Ship velocity/friction~~
 - [ ] Scene change transitions/wipes
