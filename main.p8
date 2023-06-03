@@ -2430,10 +2430,10 @@ function is_outside_playarea(x,y)
  return (((x<-16 or y<-16) or (x>144 or y>144)))
 end
 
-function hud_line(x,y,val,col_lt,col_dk)
- line(x,y,x+30,y,col_dk)
+function hud_line(x,y,x_width,val,col_lt,col_dk)
+ line(x,y,x+x_width,y,col_dk)
  if val>0 then
-  line(x,y,x+round(30/100*(val/100*100)),y,col_lt)
+  line(x,y,x+round(x_width/100*(val/100*100)),y,col_lt)
  end
 end
 
@@ -2447,20 +2447,17 @@ function draw_hud()
 
   // hud; hp & generator
   if (pl.flash_hp>0) col_hp=sparkle
-  hud_line(pl.hud_x,6,pl.hp,col_hp,pl.col_dk)
+  hud_line(pl.hud_x,6,30,pl.hp,col_hp,pl.col_dk)
 
   if (pl.flash_dynamo>0) col_dynamo=sparkle
-  hud_line(pl.hud_x,7,pl.generator,col_dynamo,1)
+  hud_line(pl.hud_x,7,30,pl.generator,col_dynamo,1)
  end
  
  print_fx("hi "..numtostr(hi_score,8),_center("hi 00000000",4),0,7)
 
  //mini-game hud
  if gamestate.hud_target then
-  line(42,6,84,6,9)
-  if gamestate.hud_progress>0 then
-   line(42,6,44+round(42/100*(gamestate.hud_progress/gamestate.hud_target*100)),6,10)
-  end
+  hud_line(42,6,42,gamestate.hud_progress/gamestate.hud_target*100,10,9)
  end 
 end
 
