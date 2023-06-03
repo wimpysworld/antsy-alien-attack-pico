@@ -1015,7 +1015,7 @@ function power_spree()
   end
 
   for pu in all(pickups) do
-   pu.origin_y+=0.25+(hyperspeed/4)
+   pu.origin_y+=0.25+hyperspeed/4
   end
 
   if gamestate.gametime>=win_target then
@@ -2145,10 +2145,12 @@ function update_pickups()
  for pu in all(pickups) do
   pu.angle+=2.5
   if (pu.angle>360) pu.angle=0
-  pu.origin_y+=0.25+(hyperspeed/4)
+  pu.origin_y+=0.25+hyperspeed/4
   // 8 is the radius
-  pu.x=pu.origin_x+8*cos(pu.angle/360)
-  pu.y=pu.origin_y+8*sin(pu.angle/360)
+  pu.x,pu.y=
+   pu.origin_x+8*cos(pu.angle/360),
+   pu.origin_y+8*sin(pu.angle/360)
+
   if (pu.origin_y<-12) del(pickups,pu)
  end
  pickup_timer=max(0,pickup_timer-1)
