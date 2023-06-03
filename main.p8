@@ -430,98 +430,110 @@ function emit_explosion(x,y,size,explosion_style,debris_style)
 end
 
 function update_explosions()
-  for ex in all(explosions) do
-    if ex.wait then
-      ex.wait-=0.95
-      if (ex.wait<=0)	ex.wait=nil
-    else
-      ex.age+=0.85
+ for ex in all(explosions) do
+  if ex.wait then
+   ex.wait-=0.95
+   if (ex.wait<=0)	ex.wait=nil
+  else
+   ex.age+=0.85
 
-      if ex.sx then
-        ex.x+=ex.sx
-        ex.y+=ex.sy
-        if ex.tox	then
-         ex.tox+=ex.sx
-         ex.toy+=ex.sy
-        end
-      end
+   if ex.sx then
+    ex.x+=ex.sx
+    ex.y+=ex.sy
+    if ex.tox	then
+     ex.tox+=ex.sx
+     ex.toy+=ex.sy
+    end
+   end
 
-     --cloud rate of collapse
-     if (ex.tor) ex.r+=ex.tor-ex.r*ex.spd/1.25
+   --cloud rate of collapse
+   if (ex.tor) ex.r+=ex.tor-ex.r*ex.spd/1.25
 
-      if ex.tox then
-        ex.x+=(ex.tox-ex.x)/ex.spd/250
-        ex.y+=(ex.toy-ex.y)/ex.spd/500
-      end
+   if ex.tox then
+    ex.x+=(ex.tox-ex.x)/ex.spd/250
+    ex.y+=(ex.toy-ex.y)/ex.spd/500
+   end
 
    //clouds drift upwards
    ex.y-=0.85
 
-     --max age
-     if ex.age>=ex.maxage or ex.r<1 then
-       if ex.at_end=="collapse" then
-         ex.at_end=nil
-         ex.maxage+=300
-         ex.tor=0
-         ex.spd=0.2
-         ex.wait=0
-       else
-        del(explosions,ex)
-       end
-     end
+   --max age
+   if ex.age>=ex.maxage or ex.r<1 then
+    if ex.at_end=="collapse" then
+     ex.maxage+=300
+     ex.at_end,
+     ex.tor,
+     ex.spd,
+     ex.wait=
+      nil,
+      0,
+      0.2,
+      0
+    else
+     del(explosions,ex)
+    end
    end
   end
+ end
 end
 
 function draw_explosions()
-  for ex in all(explosions) do
-    if (not ex.wait) then
-     local r=ex.r
-      local layer={
-      0,
-      r*0.05,
-       r*0.17,
-       r*0.35,
-       r*0.60
-      }
-      local style={
-       "1,4,9,10,7",  --yellow
-       "5,4,9,10,15", --orange
-       "1,4,8,9,10",  --fire
-      "1,5,13,6,7",  --smoke
-       "1,2,8,14,7",  --red
-       "1,3,11,10,7", --green
-       "1,13,12,6,7"  --blue
-      }
+ for ex in all(explosions) do
+  if (not ex.wait) then
+   local r=ex.r
+   local layer,style={
+    0,
+    r*0.05,
+    r*0.17,
+    r*0.35,
+    r*0.60
+   },
+   {
+    "1,4,9,10,7",  --yellow
+    "5,4,9,10,15", --orange
+    "1,4,8,9,10",  --fire
+    "1,5,13,6,7",  --smoke
+    "1,2,8,14,7",  --red
+    "1,3,11,10,7", --green
+    "1,13,12,6,7"  --blue
+   }
 
-      for i=1,#layer do
-       circfill(
-        ex.x,
-        ex.y-layer[i],
-        ex.r-layer[i],
-        split(style[ex.style])[i]
-       )
-      end
-    end
+   for i=1,#layer do
+    //3 is the radius
+    circfill(
+     ex.x,
+     ex.y-layer[i],
+     r-layer[i],
+     split(style[ex.style])[i]
+    )
+   end
   end
+ end
 end
 
 function init_stars()
- stars={}
- hyperspeed,hyperspeed_target=0,0
-
+ stars,
+ hyperspeed,
+ hyperspeed_target,
  -- starfield acceleration
- -- can react to player input
+ -- can react to player input 
  stars_max_accy,
+ stars_min_accy,
+ stars_accx,
+ stars_accy,
  stars_min_accy=
-  3,1
-
- stars_accx,stars_accy=
-  0,stars_min_accy
+  {},
+  0,
+  0,
+  3,
+  1,
+  0,
+  1
 
  for i=1,64 do
-  local s=rnd_range(0.25,1,true)
-  local c=1
+  local s,c=
+   rnd_range(0.25,1.25,true),
+   1
   if (s>1) c=13
 
   add(stars,{
