@@ -335,10 +335,10 @@ function emit_debris(x,y,size,style)
   add(debris,{
    x=x,
    y=y,
-   sx=(rnd()-0.5)*6.5,
-   sy=(rnd()-0.5)*2,
+   sx=rnd_range(-2.5,2.5,true),
+   sy=rnd_range(-0.8,0.8,true),
    col=col,
-   decay=13
+   decay=10
   })
   end
 end
@@ -348,7 +348,7 @@ function update_debris()
   d.sy-=0.2
   d.x+=d.sx
   d.y+=d.sy
-  d.decay-=0.6
+  d.decay-=0.5
   if (d.decay<=0) del(debris,d)
  end
 end
