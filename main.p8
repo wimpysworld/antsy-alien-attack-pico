@@ -200,6 +200,7 @@ function init_game_end(status)
  hyperspeed_target=0
  ignore_input=60
  victory=status
+ gamestate={}
  
  if (victory) music_play(18) else music_play(0)
  update_loop,draw_loop=
@@ -211,9 +212,19 @@ function update_game_end()
 end
 
 function draw_game_end()
- local outcome,col="game over",8
- if (victory) outcome,col="well done",11
- print_bounce(outcome,nil,48,col,nil,nil,32,8,"dotty")
+ local outcome,message,col,dark,spr_num="game over","valiant effort",8,2,78
+ if (victory) outcome,message,col,dark,spr_num="well done","planet earth is saved",11,3,110
+
+ draw_hud() 
+ print_fx(message,nil,24,col,dark,dark)
+ print_bounce(outcome,nil,60,col,nil,nil,34,8,"dotty")
+ spr(spr_num,63-8,34,2,2) 
+
+ if hi_player>0 then
+  print_fx(tostr(hi_player).."-up new hi-score!",nil,89,7,5,5)
+  print_fx(numtostr(hi_score,8),nil,97,sparkle,1,1)
+ end
+ 
  menu_footer()
 end
 
@@ -1188,7 +1199,8 @@ function init_game()
  explosions,
  pickup_timer,
  pickup_payloads,
- evade=
+ evade,
+ hi_player=
   {}, //aliens
   {}, //bullets
   {}, //pickups
@@ -1198,7 +1210,8 @@ function init_game()
   {}, //explosions
   pickup_base,
   split("96,97,98,112,113,114"),
-  false
+  false,
+  0
 
  music_play(6)
  init_players()
@@ -2413,7 +2426,8 @@ end
 function score_update(pl,reward)
  pl.score+=reward >> 16
  if pl.score>hi_score then
-  hi_score=pl.score
+  hi_score,hi_player=
+   pl.score,pl.num
   dset(0,hi_score)
  end
 end
