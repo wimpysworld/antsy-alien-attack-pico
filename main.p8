@@ -767,8 +767,12 @@ function init_missions()
 
  missions={
   "players_off,jump",
-  //test
+  //test: cargo run
   //"level_in,fly_in,players_on,drop,cargo_in,cargo,cargo_out,level_out,players_off,jump,fly_out",
+ 
+  //test: power spree
+  //"level_in,fly_in,players_on,weapons_off,power_spree,wait,weapons_on,level_out,players_off,jump,fly_out",
+ 
   //1
   "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,silver,wait,asteroid_belt,wait,sapphire,wait,emerald,wait,level_out,players_off,jump,fly_out",
   //2
