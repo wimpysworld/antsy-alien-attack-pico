@@ -768,7 +768,7 @@ function init_missions()
  missions={
   "players_off,jump",
   //test: cargo run
-  //"level_in,fly_in,players_on,drop,cargo_in,cargo,cargo_out,level_out,players_off,jump,fly_out",
+  //"level_in,fly_in,players_on,drop,cargo_in,cargo_game,cargo_out,level_out,players_off,jump,fly_out",
  
   //test: power spree
   //"level_in,fly_in,players_on,weapons_off,power_spree,wait,weapons_on,level_out,players_off,jump,fly_out",
@@ -1074,12 +1074,12 @@ function cargo(mode)
    draw_cargo,
    sprite_create({13},2,4)
 
-  if mode=="in" then
+  if mode=="cargo_in" then
    gamestate.y,
    gamestate.y_target=
     129,
     82
-  elseif mode=="out" then
+  elseif mode=="cargo_out" then
    gamestate.y,
    gamestate.y_target=
     82,
@@ -1099,7 +1099,7 @@ function cargo(mode)
 
   sprite_hitbox(gamestate.sprite,2,6,11,22)
  else
-  if mode=="game" then
+  if mode=="cargo_game" then
 	  gamestate.hud_progress=gamestate.gametime
 	  if #aliens<gamestate.aliens_max and one_in(3) then
 	   create_alien(rnd_range(2,126),-8,"asteroid")
@@ -1250,9 +1250,6 @@ function update_game()
  if (objective=="level_out") level_status()
  if (objective=="pass_some") pass(true)
  if (objective=="pass_none") pass()
- if (objective=="cargo") cargo("game")
- if (objective=="cargo_in") cargo("in")
- if (objective=="cargo_out") cargo("out") 
  if (objective=="asteroid_belt") asteroid_belt()
  if (objective=="power_spree") power_spree() 
  if (objective=="quick_draw") quick_draw()  
@@ -1260,6 +1257,12 @@ function update_game()
  if objective=="fly_in" or
     objective=="fly_out" then
     autopilot(objective)
+ end
+
+ if objective=="cargo_game" or
+    objective=="cargo_in" or
+    objective=="cargo_out" then
+    cargo(objective)
  end
 
  if objective=="drone" or
