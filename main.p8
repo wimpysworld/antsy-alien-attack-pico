@@ -839,7 +839,7 @@ function shmup(fleet)
 	end
  
  local win_target=level*25
- if (evade) win_target=750+(level*250)
+ if (evade) win_target=750+level*250
 
  if not gamestate.ready then
   gamestate.hud_target,
@@ -886,7 +886,7 @@ function draw_pass()
 end
 
 function pass(can_pass)
- local win_target=1000+(level*100)
+ local win_target=1000+level*100
  if not gamestate.ready then
   gamestate.hud_target,
   gamestate.draw,
@@ -938,7 +938,7 @@ function pass(can_pass)
 end
 
 function asteroid_belt()
- local win_target=1000+(level*250)
+ local win_target=1000+level*250
  if not gamestate.ready then
   local max_rocks,text=level+44,"shoot to survive"
   if (evade) max_rocks,text=level+14,"fly to survive"
@@ -954,9 +954,9 @@ function asteroid_belt()
   gamestate.hud_progress=gamestate.gametime
 
   if evade then
-   local range=rnd_range(8,16)
-   if (fc%2==0) range=rnd_range(108,124)
-   if (one_in(250)) create_pickup(range,-8,true)
+   local startx=8
+   if (fc%2==0) startx=108
+   if (one_in(250)) create_pickup(rnd_range(startx,startx+16),-8,true)
   end
   
   if #aliens<gamestate.aliens_max and one_in(3) then
