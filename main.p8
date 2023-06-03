@@ -165,8 +165,8 @@ end
 
 function draw_attract()
  local c=nil
- print_fx("antsy alien",nil,2,11,3,3,"big")
- print_fx("attack!",nil,16,8,2,2,"big")
+ print_fx("antsy alien",nil,2,11,3,10,"big")
+ print_fx("attack!",nil,16,8,2,14,"big")
  print_fx(_puny("pico"),nil,28,7)
 
  local music_state="off"
