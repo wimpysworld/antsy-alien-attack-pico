@@ -2292,11 +2292,9 @@ function sound_play(sound)
  //pico-8 >= 0.2.4
  local channels=split("46,47,48,49")
 
- if stat(5) < 36 then
-  // use deprecated audio sys
-  // calls on pico-8 < 0.2.4
-  channels=split("16,17,18,19")
- end
+ // use deprecated audio sys
+ // calls on pico-8 < 0.2.4
+ if (stat(5)<36) channels=split("16,17,18,19")
 
  if sound_channel_available(channels) then
   sfx(sound)
