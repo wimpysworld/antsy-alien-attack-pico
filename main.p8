@@ -838,7 +838,7 @@ function shmup(fleet)
 	 end
 	end
  
- local win_target=level*35
+ local win_target=level*25
  if (evade) win_target=750+(level*250)
 
  if not gamestate.ready then
