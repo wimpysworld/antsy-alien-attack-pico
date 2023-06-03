@@ -204,11 +204,7 @@ function init_game_end(status)
  
  if (victory) music_play(18) else music_play(0)
  update_loop,draw_loop=
-  update_game_end,draw_game_end
-end
-
-function update_game_end()
- if (any_action_btnp()) init_attract()
+  update_any_action_btnp,draw_game_end
 end
 
 function draw_game_end()
@@ -231,11 +227,7 @@ end
 function init_help()
  ignore_input=15
  update_loop,draw_loop=
-  update_help,draw_help
-end
-
-function update_help()
- if (any_action_btnp()) init_attract()
+  update_any_action_btnp,draw_help
 end
 
 function draw_help()
@@ -288,17 +280,13 @@ end
 function init_credits()
  ignore_input=15
  update_loop,draw_loop=
-  update_credits,draw_credits
+  update_any_action_btnp,draw_credits
  credits={}
  add_credits("code",    "martin wimpress",3,8,2)
  add_credits("music",   "chris donnelly",27,9,4)
  add_credits("sound",   "chris donnelly & martin wimpress",50,10,9)
  add_credits("graphics","alice masters, krystian majewski & martin wimpress",73,11,3)
  add_credits("testing & design", "alan pope, neil mcphail, stuart langridge, roger light, simon butcher & martin wimpress",96,12,1)
-end
-
-function update_credits()
- if (any_action_btnp()) init_attract()
 end
 
 function draw_credits()
@@ -308,6 +296,10 @@ function draw_credits()
   print_scroll(c.humans,0,c.y+14,127,c.lt)
  end
  menu_footer()
+end
+
+function update_any_action_btnp()
+ if (any_action_btnp()) init_attract()
 end
 
 function menu_footer()
