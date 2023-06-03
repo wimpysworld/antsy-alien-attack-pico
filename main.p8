@@ -190,9 +190,9 @@ function draw_attract()
  spr(140,89,90,4,4)
  pal()
 
- print_fx(_puny("made with ♥ for"),nil,100,7)
- print_fx(_puny("          ♥    "),nil,100,8,2,14)
- print_fx(_puny("linux game jam"),nil,105,7)
+ print_fx(_puny("made with   for"),nil,100,7)
+ spr(15,72,100,1,1)
+ print_fx(_puny("linux game jam"),nil,106,7)
 end
 
 function init_gameover()
