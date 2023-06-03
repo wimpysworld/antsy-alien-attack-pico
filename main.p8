@@ -1127,26 +1127,21 @@ function cargo(mode)
  end
 end
 
-function autopilot(flyin)
- if flyin and not gamestate.ready then
-  for pl in all(players) do
-   pl.x,pl.y=pl.startx,192
-  end
+function autopilot(mode)
+ local target_y=-32
+ if (mode=="fly_in") target_y=96
+
+ if mode=="fly_in" and not gamestate.ready then
+  players_startx()
   gamestate.ready=true
- end
-
- //autopilot
- for pl in all(players) do
-  pl.y-=1
- end
-
- //arrived at destination?
- if flyin then
-  if flr(players[#players].x)==players[#players].startx and flr(players[#players].y)==96 then
-   objective_complete=true
-  end
  else
-  if players[#players].y<-32 then
+  //autopilot
+  for pl in all(players) do
+   pl.y-=1
+  end
+
+  //arrived at destination?
+  if players[#players].y<=target_y then
    objective_complete=true
   end
  end
@@ -1251,8 +1246,6 @@ function update_game()
  if (objective=="jump") jump()
  if (objective=="drop") drop()
  if (objective=="wait") wait()
- if (objective=="fly_in") autopilot(true)
- if (objective=="fly_out") autopilot()
  if (objective=="level_in") level_status(true)
  if (objective=="level_out") level_status()
  if (objective=="pass_some") pass(true)
@@ -1263,6 +1256,11 @@ function update_game()
  if (objective=="asteroid_belt") asteroid_belt()
  if (objective=="power_spree") power_spree() 
  if (objective=="quick_draw") quick_draw()  
+
+ if objective=="fly_in" or
+    objective=="fly_out" then
+    autopilot(objective)
+ end
 
  if objective=="drone" or
     objective=="bronze" or
@@ -1493,14 +1491,14 @@ function active_players()
 end
 
 function players_startx()
+ for p in all(players) do
+  p.startx,p.starty=56,160
+ end
  if active_players()==2 then
-  players[1].startx,players[2].startx=24,88
- else
-  // works for 1-up or 2-up
-  // even if 1-up dies
-  for p in all(players) do
-   p.startx=56
-  end
+  players[1].startx,
+  players[2].startx=
+   24,
+   88
  end
 end
 
