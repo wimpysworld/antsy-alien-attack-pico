@@ -423,3 +423,5 @@ Here are the SFX slot numbers and what the corresponding SFX is used for. Any th
 - 11: Generator Power  : From 51
 - 12: Smartbomb        : From 45
 - 13: Weapons Disabled : From 40
+- 14: HP Power-Up      : From 4
+- 15: Battery Power-Up : From 6
