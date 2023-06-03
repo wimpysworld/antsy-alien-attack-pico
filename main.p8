@@ -548,7 +548,7 @@ end
 function apply_stars_accel(dx,dy)
  local players=active_players()
 
- stars_accx-=(dx*0.5)/players
+ stars_accx-=dx*0.5/players
 
  if dy==-1 then
   stars_accy-=dy*0.05/players
@@ -580,11 +580,13 @@ function update_stars()
   if hyperspeed<=0 then
    star.x+=star.s*stars_accx
    if star.x<0 then
-    star.x=127
-    star_y=star_flip_y(star.y)
+    star.x,star.y=
+     127,
+     star_flip_y(star.y)
    elseif star.x>127 then
-    star.x=0
-    star_y=star_flip_y(star.y)
+    star.x,star.y=
+     0,
+     star_flip_y(star.y)
    end
   end
 
