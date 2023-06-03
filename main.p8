@@ -1170,7 +1170,12 @@ function level_status(arrive)
  end
 end
 
+function draw_wait()
+ print_fx("objective complete",nil,60,6,5,5)
+end
+
 function wait()
+ gamestate.draw=draw_wait
  if gamestate.gametime>180 and #explosions<=0 then
   objective_complete=true
  end
