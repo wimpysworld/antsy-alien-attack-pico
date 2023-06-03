@@ -1056,7 +1056,8 @@ function quick_draw()
   
   if gamestate.gametime>600 then
    for pl in all(players) do
-    pl.hp=0
+    // insta-death
+    apply_player_damage(pl,pl.hp+10)
    end
   end
  end
