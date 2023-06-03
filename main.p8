@@ -774,7 +774,7 @@ function init_missions()
   //"level_in,fly_in,players_on,weapons_off,power_spree,wait,weapons_on,level_out,players_off,jump,fly_out",
 
   //test: quick draw
-  //"level_in,fly_in,players_on,drop,quick_draw,wait,bronze,wait,silver,wait,asteroid_belt,wait,sapphire,wait,emerald,wait,level_out,players_off,jump,fly_out",  
+  //"level_in,fly_in,players_on,drop,quick_draw,wait,level_out,players_off,jump,fly_out",
  
   //1
   "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,silver,wait,asteroid_belt,wait,sapphire,wait,emerald,wait,level_out,players_off,jump,fly_out",
