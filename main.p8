@@ -1753,10 +1753,11 @@ function emit_bullet(al)
  al.sprite.pal_whiteflash=1
  add(bullets,create_projectile(al,al.x+al.x_off,al.y-al.y_off))
  local bullet=bullets[#bullets]
-  bullet.sprite=sprite_create({al.shot_sprite},1,1)
-  sprite_hitbox(bullet.sprite,1,1,3,3)
-  if (al.shot_sprite==65) sprite_hitbox(bullet.sprite,1,1,2,2)
-  if (al.shot_sprite==80) sprite_hitbox(bullet.sprite,1,1,1,1)
+ bullet.sprite=sprite_create({al.shot_sprite},1,1)
+ local size=3 
+ if (al.shot_sprite==65) size=2
+ if (al.shot_sprite==80) size=1
+ sprite_hitbox(bullet.sprite,1,1,size,size)
  sfx(4)
 end
 
@@ -2029,9 +2030,10 @@ function update_aliens()
    al.y+=al.speed_y
    al.speed_x+=al.wave_speed
    if al.breed=="emerald" then
-    al.sprite.frames={117}
-    if (cos_wave<0.1) al.sprite.frames={116}
-    if (cos_wave>0.9) al.sprite.frames={118}
+    local emerald_spr=117
+    if (cos_wave<0.1) emerald_spr=116
+    if (cos_wave>0.9) emerald_spr=118
+    al.sprite.frames={emerald_spr}
    end
   else
    al.x+=al.speed_x
