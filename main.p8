@@ -1793,32 +1793,6 @@ function update_players()
  end
 end
 
-function draw_hud()
- for pl in all(players) do
-  local col_hp,col_dynamo=
-   pl.col_lt,12
-
-  // hud; score
-  print_fx(numtostr(pl.score,8),pl.hud_x,0,pl.col_lt)
-
-  // hud; hp & generator
-  if (pl.flash_hp>0) col_hp=sparkle
-  hud_line(pl.hud_x,6,pl.hp,col_hp,pl.col_dk)
-
-  if (pl.flash_dynamo>0) col_dynamo=sparkle
-  hud_line(pl.hud_x,7,pl.generator,col_dynamo,1)
- end
- 
- print_fx("hi "..numtostr(hi_score,8),_center("hi 00000000",4),0,7)
- //mini-game hud
- if gamestate.hud_target then
-   line(42,6,84,6,9)
-   if gamestate.hud_progress>0 then
-    line(42,6,44+round(42/100*(gamestate.hud_progress/gamestate.hud_target*100)),6,10)
-   end
- end 
-end
-
 function draw_players()
  draw_muzzle_flashes()
  for pl in all(players) do
@@ -2461,6 +2435,33 @@ function hud_line(x,y,val,col_lt,col_dk)
  if val>0 then
   line(x,y,x+round(30/100*(val/100*100)),y,col_lt)
  end
+end
+
+function draw_hud()
+ for pl in all(players) do
+  local col_hp,col_dynamo=
+   pl.col_lt,12
+
+  // hud; score
+  print_fx(numtostr(pl.score,8),pl.hud_x,0,pl.col_lt)
+
+  // hud; hp & generator
+  if (pl.flash_hp>0) col_hp=sparkle
+  hud_line(pl.hud_x,6,pl.hp,col_hp,pl.col_dk)
+
+  if (pl.flash_dynamo>0) col_dynamo=sparkle
+  hud_line(pl.hud_x,7,pl.generator,col_dynamo,1)
+ end
+ 
+ print_fx("hi "..numtostr(hi_score,8),_center("hi 00000000",4),0,7)
+
+ //mini-game hud
+ if gamestate.hud_target then
+  line(42,6,84,6,9)
+  if gamestate.hud_progress>0 then
+   line(42,6,44+round(42/100*(gamestate.hud_progress/gamestate.hud_target*100)),6,10)
+  end
+ end 
 end
 
 function get_x_axis(controller)
