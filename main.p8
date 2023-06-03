@@ -2146,19 +2146,18 @@ function sprite_hitbox(s,hbx,hby,hbw,hbh,show)
  s.hb_y,
  s.hb_width,
  s.hb_height,
+ s.hb_hw,
+ s.hb_hh,
  s.show_hitbox=
   hbx,
   hby,
   hbw,
   hbh,
+  // calculate half widths/heights
+  // used for collision detection
+  hbw/2,
+  hbh/2,  
   show
-
- // calculate half widths/heights
- // used for collision detection
- s.hb_hw,
- s.hb_hh=
-  s.hb_width/2,
-  s.hb_height/2
 end
 
 function sprite_create(sprites,w,h)
@@ -2244,7 +2243,8 @@ end
 
 // http://gamedev.docrobs.co.uk/first-steps-in-pico-8-hitting-things
 function sprite_collision(a,b)
- if (not a.x or not b.x) return
+ //ignore aliens spawning at the
+ //top of the screen
  if (b.y<4) return
 
  local xd=abs((a.x+a.hb_x+a.hb_hw)-(b.x+b.hb_x+b.hb_hw))
