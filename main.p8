@@ -993,7 +993,6 @@ function asteroid_belt()
 end
 
 function power_spree()
- local win_target=600
  if not gamestate.ready then  
   gamestate.hud_target,
   gamestate.aliens_max,
@@ -1018,7 +1017,7 @@ function power_spree()
    pu.origin_y+=0.25+hyperspeed/4
   end
 
-  if gamestate.gametime>=win_target then
+  if gamestate.gametime>=600 then
    objective_cleanup()
   end
  end
