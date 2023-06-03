@@ -649,7 +649,8 @@ function _invert(txt)
 end
 
 function _dotty(txt)
- _txt_wide,_txt_high=8,10
+ //_txt_wide,_txt_high=8,10
+ _big(txt)
  return "\^t\^w\^p"..txt
 end
 
