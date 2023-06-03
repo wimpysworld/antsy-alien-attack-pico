@@ -788,34 +788,39 @@ function draw_shmup()
   end
   print_fx(_puny("progress"),nil,8,10)
   spr(57,41,6,1,1)
-  spr(57,78,6,1,1,true)   
+  spr(57,78,6,1,1,true)
  end
 end
 
 function shmup(fleet)
  //armada is the default.
- local spawn=split("drone,bronze,silver,sapphire,emerald")
- local title="armada!"
- local rate=15
+ local spawn,title,rate=
+  split("drone,bronze,silver,sapphire,emerald"),
+  "armada!",
+  15
  if fleet=="drone" or
     fleet=="bronze" or
     fleet=="silver" or    
     fleet=="sapphire" or
     fleet=="emerald" then
-  spawn={}
+  spawn,title=
+   {},
+   fleet.." party"
   for i=1,level do
    add(spawn,fleet)
   end
-  title=fleet.." party"
  elseif fleet=="spheres" then
-  spawn=split("drone,orby")
-  title="sphere attack"
+  spawn,title=
+   split("drone,orby"),
+   "sphere attack"
  elseif fleet=="metal" then
-  spawn=split("bronze,silver")
-  title="metal squad"
+  spawn,title=
+   split("bronze,silver"),
+   "metal squad"
  elseif fleet=="gem" then
-  spawn=split("sapphire,emerald")
-  title="gem squad"
+  spawn,title=
+   split("sapphire,emerald"),
+   "gem squad"
  end
 
  if fleet!="spheres" then 
