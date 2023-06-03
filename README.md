@@ -16,18 +16,18 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 
 ## Objective
 
-🚀 **You're a mercenary** with a state-of-the-art space fighter and a gun for hire  
-👾 The United Federation of Planet Earth has hired you to **dispatch the aliens and restore calm**  
-💰️ **Complete every mission** to fulfil your contract and earn your pay  
+🚀 **You're a mercenary** with a state-of-the-art space fighter and a gun for hire
+👾 The United Federation of Planet Earth has hired you to **dispatch the aliens and restore calm**
+💰️ **Complete every mission** to fulfil your contract and earn your pay
 
 ### One ship. One life. One mission.
 
-💥 Destroy aliens by **shooting, colliding with them or using smart weapons**  
-🛸️ **Avoid the aliens** if you can't destroy them  
-🔋 Collect power-ups to **charge the ship dynamo** and enhance your weapons  
-🛡️ A fully charged **dynamo boosts ship health by 50%**  
-🛑 **Weapons go offline** when travelling at hyperspeed  
-🌌 When your shields are depleted, **you're lost to the vacuum of space**  
+💥 Destroy aliens by **shooting, colliding with them or using smart weapons**
+🛸️ **Avoid the aliens** if you can't destroy them
+🔋 Collect power-ups to **charge the ship dynamo** and enhance your weapons
+🛡️ A fully charged **dynamo boosts ship health by 50%**
+🛑 **Weapons go offline** when travelling at hyperspeed
+🌌 When your shields are depleted, **you're lost to the vacuum of space**
 
 ## Controls 🕹️
 
