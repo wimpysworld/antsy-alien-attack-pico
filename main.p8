@@ -126,6 +126,7 @@ function init_attract()
   sfx(1)
  end
  ignore_input=15
+ victory=false
  music_play(0)
  init_stars()
  update_loop,draw_loop=
@@ -195,36 +196,24 @@ function draw_attract()
  print_fx(_puny("linux game jam"),nil,106,7)
 end
 
-function init_gameover()
+function init_game_end(status)
  hyperspeed_target=0
  ignore_input=60
- music_play(0)
+ victory=status
+ 
+ if (victory) music_play(18) else music_play(0)
  update_loop,draw_loop=
-  update_gameover,draw_gameover
+  update_game_end,draw_game_end
 end
 
-function update_gameover()
+function update_game_end()
  if (any_action_btnp()) init_attract()
 end
 
-function draw_gameover()
- print_bounce("game over",nil,48,8,nil,nil,32,8,"dotty")
- menu_footer()
-end
-
-function init_gamewin()
- ignore_input=60
- music_play(18)
- update_loop,draw_loop=
-  update_gamewin,draw_gamewin
-end
-
-function update_gamewin()
- if (any_action_btnp()) init_attract()
-end
-
-function draw_gamewin()
- print_bounce("game win!",nil,48,11,nil,nil,32,8,"dotty")
+function draw_game_end()
+ local outcome,col="game over",8
+ if (victory) outcome,col="well done",11
+ print_bounce(outcome,nil,48,col,nil,nil,32,8,"dotty")
  menu_footer()
 end
 
@@ -1227,7 +1216,7 @@ function update_game()
    if #missions>current_mission then
     get_next_mission()
    elseif current_mission==#missions then
-    init_gamewin()
+    init_game_end(true)
    end
   end
  end
@@ -1291,7 +1280,7 @@ function update_game()
  update_explosions()
 
  if active_players()<1 and #explosions<1 then
-  init_gameover()
+  init_game_end(false)
  end
 end
 
