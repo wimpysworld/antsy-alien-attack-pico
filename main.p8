@@ -4,17 +4,6 @@ __lua__
 -- antsy alien attack pico
 -- wimpysworld.com
 
-// token anxiety
-// 27/may: 2500
-// 28/may: 5448
-// 29/may: 6071
-// 30/may: 6968
-// 31/may: 7204
-// 01/jun: 7199
-// 02/jun: 7514
-// 03/jun: 7787
-// 04/jun: 7917
-
 #include build_config.p8
 
 function _init()
@@ -96,13 +85,6 @@ function _draw()
 
  draw_stars()
  draw_loop()
- --[[
- cursor(0,12)
- color(7)
- for d in all(debug) do
-  print(d)
- end
- --]]
 end
 -->8
 -- game state & menus
@@ -615,35 +597,16 @@ function _normal(txt)
  return "\^-w\^-t\^-=\^-p\^-i\^-b\^-#"..tostr(txt)
 end
 
---[[
-function _wide(txt)
- _txt_wide=8
- return "\^w"..txt
-end
-
-function _tall(txt)
- _txt_high=10
- return "\^t"..txt
-end
---]]
-
 function _big(txt)
  _txt_wide,_txt_high=8,10
  return "\^t\^w"..txt
 end
-
---[[
-function _solid(txt)
- return "^\#"..txt
-end
---]]
 
 function _invert(txt)
  return "\^i"..txt
 end
 
 function _dotty(txt)
- //_txt_wide,_txt_high=8,10
  _big(txt)
  return "\^t\^w\^p"..txt
 end
@@ -662,11 +625,6 @@ function style_text(txt,style)
  if (style=="big")      return _big(txt)
  if (style=="invert")   return _invert(txt)
  if (style=="dotty")    return _dotty(txt)
- //if (style=="solid")    return _solid(txt)
- //if (style=="stripy_t") return "\^t\^="
- //if (style=="stripy_w") return "\^w\^="
- //if (style=="tall")     return _tall(txt)
- //if (style=="wide")     return _wide(txt)
 end
 
 function print_fx(txt,x,y,c,lo,hi,style)
@@ -713,29 +671,6 @@ function print_bounce(txt,x,y,c,lo,hi,speed,bounce,style)
  end
 end
 
---[[
-function print_wave(txt,x,y,c,lo,hi,speed,wave,style)
- //this just gets the font
- //dimensions
- style_text(txt,style)
-
- speed=speed or 0
- wave=wave or 0
- for i=1,#txt do
-  if (not x) x=_center(txt[i],_txt_wide)
-  print_fx(
-   _puny(txt[i]),
-   x+sin(time()+i/speed)*wave,
-   y,
-   c,
-   lo,
-   hi,
-   style)
-  y+=_txt_high+2
- end
-end
---]]
-
 function zero_pad(txt,len)
  if (#txt<len) return "0"..zero_pad(txt,len-1)
  return txt
@@ -765,19 +700,6 @@ function init_missions()
 
  missions={
   "players_off,jump",
-  //test: cargo run
-  //"level_in,fly_in,players_on,drop,cargo_in,cargo_game,cargo_out,level_out,players_off,jump,fly_out",
-  //test: power spree
-  //"level_in,fly_in,players_on,weapons_off,power_spree,wait,weapons_on,level_out,players_off,jump,fly_out",
-  //test: quick shoot
-  //"level_in,fly_in,players_on,drop,quick_shoot,wait,level_out,players_off,jump,fly_out",
-  //test: quick force
-  //"level_in,fly_in,players_on,weapons_off,quick_force,wait,level_out,players_off,jump,fly_out",
-  //test: asteroid fast
-  //"level_in,fly_in,players_on,weapons_off,asteroid_belt,wait,level_out,players_off,jump,fly_out",
-  //test: asteroid slow
-  //"level_in,fly_in,players_on,drop,asteroid_belt,wait,level_out,players_off,jump,fly_out",
-
   //1
   "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,silver,wait,asteroid_belt,wait,sapphire,wait,emerald,wait,level_out,players_off,jump,fly_out",
   //2
@@ -790,7 +712,7 @@ function init_missions()
   "level_in,fly_in,players_on,drop,armada,wait,pass_some,wait,armada,wait,asteroid_belt,wait,pass_none,wait,armada,wait,level_out,players_off,jump,fly_out",
   "drop",
  }
- 
+
  local m=0
  for mission in all(missions) do
   m+=1
@@ -1350,10 +1272,6 @@ function draw_game()
  draw_mission()
 end
 
-// recreated for each objective
-// counters used to determine
-// if game objectives have been
-// completed
 function create_gamestate()
  return {
   aliens_destroyed=0,
@@ -1619,8 +1537,6 @@ function apply_player_damage(pl,damage,shake,force)
   pl.shields+=180
   sfx(10)
 
-  // if the player has no hp
-  // but has generator power
   // transfer generator power
   // to hp
   if pl.hp<=0 and pl.generator>0 then
@@ -2228,8 +2144,6 @@ function create_projectile(actor,x,y)
  }
 end
 
-// generic properties for
-// players and npcs
 function create_actor(x,y)
  return {
   x=x,
@@ -2262,8 +2176,6 @@ function sprite_hitbox(s,hbx,hby,hbw,hbh,show)
   hby,
   hbw,
   hbh,
-  // calculate half widths/heights
-  // used for collision detection
   hbw/2,
   hbh/2,  
   show
@@ -2310,12 +2222,10 @@ function sprite_draw(s,x,y)
   s.y+s.hb_hh
 
  // do palette swaps
- // change the transparent col
  if (s.pal_trans>0) palt(s.pal_trans)
 
  // make sprite ghostly
  if s.pal_ghostly then
-  //make palette grey scale
   pal(split("5,5,5,5,13,6,7,6,6,7,7,7,6,6,7"))
  elseif s.pal_whiteflash>0 then
   s.pal_whiteflash-=1
@@ -2333,17 +2243,6 @@ function sprite_draw(s,x,y)
 
  // reset palette
  if (#s.pal_swaps or s.pal_trans!=0 or s.pal_whiteflash or s.pal_ghostly) pal()
- // useful fordebugging
- --[[
- if s.show_hitbox then
-   rect(
-    x+s.hb_x,
-    y+s.hb_y,
-    x+s.hb_x+s.hb_width,
-    y+s.hb_y+s.hb_height,
-    sparkle)
- end
- --]]
 end
 
 function sprite_loop_frame(s,val)
@@ -2351,7 +2250,6 @@ function sprite_loop_frame(s,val)
  if (flr(s.frame)>#s.frames) s.frame=1
 end
 
-// http://gamedev.docrobs.co.uk/first-steps-in-pico-8-hitting-things
 function sprite_collision(a,b)
  //ignore aliens spawning at the
  //top of the screen
@@ -2381,9 +2279,8 @@ end
 
 //function sound_channel_available(ch1,ch2,ch3,ch4)
 function sound_channel_available(channels)
- //if music is playing only check
- //channels 3 and 4 which are
- //reserved for sfx by music_play()
+ //if music is playing check
+ //channels 3 and 4
  local ch_start=1
  if (music_enabled>0) ch_start=3
  for ch=ch_start,4 do
@@ -2393,11 +2290,7 @@ function sound_channel_available(channels)
 end
 
 // only plays sfx if a channel
-// is available. use for low
-// priority sounds. essential
-// sounds should be played with
-// sfx() as it will drop currently
-// playing sfx
+// is available.
 function sound_play(sound)
  //pico-8 >= 0.2.4
  local channels=split("46,47,48,49")
