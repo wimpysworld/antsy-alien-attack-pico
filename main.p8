@@ -1029,7 +1029,7 @@ function draw_quick_play()
 end
 
 function quick_play(use_the_force)
- local time_limit=use_the_force and 720 or 600
+ local time_limit=use_the_force and 900 or 600
  if not gamestate.ready then  
   gamestate.hud_target,
   gamestate.title,
