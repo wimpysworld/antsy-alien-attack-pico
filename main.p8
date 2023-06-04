@@ -2175,7 +2175,7 @@ function create_pickup(x,y,force)
    angle=rnd_range(0,359),
    payload=pickup_payloads[payload]
   })
-  pu=pickups[#pickups]
+  local pu=pickups[#pickups]
   pu.sprite=sprite_create({pu.payload},1,1)
   add(pu.sprite.pal_swaps,{6,-1})
   add(pu.sprite.pal_swaps,{13,-1})
