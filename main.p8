@@ -73,7 +73,6 @@ function _update60()
  //supress pico-8 menu
  if (native_build) poke(0x5f30,1)
 
- //debug={}
  fc+=1
  sparkle=rnd_range(6,15)
  ignore_input=max(0,ignore_input-1)
