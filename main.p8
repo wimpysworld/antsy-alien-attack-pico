@@ -2146,8 +2146,8 @@ end
 
 function draw_aliens()
  local ghostly=false
- if (gamestate.aliens_jammed>0) ghostly=true
  for al in all(aliens) do
+  if (gamestate.aliens_jammed>0 and al.breed!="asteroid") ghostly=true
   sprite_draw(al.sprite,al.x,al.y,ghostly)
  end
 end
