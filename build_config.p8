@@ -1,1 +1,1 @@
-show_exit=true
+native_build=false
