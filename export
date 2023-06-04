@@ -3,7 +3,7 @@
 REALNAME="Antsy Alien Attack Pico"
 LOWERNAME="${REALNAME,,}"
 FILENAME="${LOWERNAME// /-}"
-VER="0.$(date +%y.%j%H)"
+VER="1.$(date +%y.%j%H)"
 P8="main.p8"
 OPTS="-windowed -0 -home ./config -root_path ."
 
@@ -29,11 +29,12 @@ function pico_export() {
   fi
 
   # Show EXIT in the main menu by default
-  echo "show_exit=true" > build_config.p8
+  echo "native_build=false" > build_config.p8
 
   # Export the target
   case "${TARGET}" in
    bin)
+     echo "native_build=true" > build_config.p8
      pico8 "${OPTS}" -export "${EXPORT_PATH}/${FILENAME}.bin" "${P8}"
      mv "${EXPORT_PATH}/${FILENAME}.bin"/*.zip exports/
      mkdir -p "${EXPORT_PATH}/${FILENAME}.bin/macos"
@@ -44,8 +45,6 @@ function pico_export() {
      cp "${EXPORT_PATH}/${FILENAME}.p8.png" exports/
      ;;
    html*|wasm*)
-     # disbale the EXIT option on HTML/WASM export, it is useless here
-     echo "show_exit=false" > build_config.p8
      pico8 "${OPTS}" -export "${EXPORT_OPTS} ${EXPORT_PATH}/${FILENAME}.html" "${P8}";;
   esac
 
