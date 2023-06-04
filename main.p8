@@ -1884,7 +1884,7 @@ function create_alien(x,y,breed)
   end
  end
 
- al=create_actor(x,y)
+ local al=create_actor(x,y)
  al.breed,
  al.collision_damage,
  al.shot_cooldown,
