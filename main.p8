@@ -1725,9 +1725,9 @@ function update_players()
 
   pl.shot_damage=11-pl.shot_pattern
 
-  if (#rockets<10) pl.shot_cooldown/=2
-  pl.shot_cooldown=3.5+pl.shot_pattern
-  pl.shot_cooldown_timer=max(pl.shot_cooldown_timer-1,0)
+  pl.shot_cooldown=2.75+pl.shot_pattern*0.325
+  pl.shot_cooldown_timer=max(pl.shot_cooldown_timer-0.75,0)
+  if (#rockets<pl.shot_pattern*5) pl.shot_cooldown_timer*=0.25
 
   pl.flash_hp=max(0,pl.flash_hp-1)
   pl.flash_dynamo=max(0,pl.flash_dynamo-1)
