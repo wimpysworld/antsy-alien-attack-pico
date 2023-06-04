@@ -1520,7 +1520,6 @@ function create_player(player)
   pl.explosion_size,
   pl.explosion_style,
   pl.sfx_shoot,
-  pl.shields,
   pl.score,
   pl.prev_dir,
   pl.generator,
@@ -1542,16 +1541,15 @@ function create_player(player)
    3,
    explosion_style,
    sfx_shoot,
-   100,
-   0,
-   -1,
-   0,
-   0,
-   false,
-   true,
-   true,
-   5,
-   0,
+   0,                //score
+   -1,               //pre_dir
+   0,                //generator
+   0,                //shields
+   false,            //lock to screen
+   true,             //controls enabled
+   true,             //shot_eanbled
+   5,                //shot_cooldown
+   0,                //shot_cooldown_timer
    rocket_sprites,
    0,
    0
