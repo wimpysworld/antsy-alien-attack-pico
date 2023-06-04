@@ -1683,7 +1683,7 @@ function check_player_collisions(pl)
     pu_sound=15
    elseif pu.payload==112 then
     //weapons
-    pl.shot_pattern=max(4,pl.shot_pattern+1)
+    pl.shot_pattern=min(4,pl.shot_pattern+1)
    elseif pu.payload==113 then
     //shields
     pl.shields+=pickup_base
