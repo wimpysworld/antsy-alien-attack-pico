@@ -967,7 +967,13 @@ function draw_quick_play()
 end
 
 function quick_play(use_the_force)
- local time_limit=use_the_force and 900 or 600
+ if use_the_force then
+  time_limit=1000
+  win_target=20
+ else
+  time_limit=900
+  win_target=30
+ end
  if not gamestate.ready then  
   gamestate.hud_target,
   gamestate.title,
@@ -975,9 +981,9 @@ function quick_play(use_the_force)
   gamestate.draw=
    time_limit,
    "quick draw",
-   "shoot 20 aliens quickly",
+   "tick. tock. destroy "..tostr(win_target).." aliens",
    draw_quick_play
-  if (use_the_force) gamestate.title,gamestate.text="use the force","crash into 20 aliens"
+  if (use_the_force) gamestate.title="use the force"
  else
   gamestate.hud_progress=min(gamestate.gametime,time_limit)
   
@@ -989,7 +995,7 @@ function quick_play(use_the_force)
    end
   end
 
-  if gamestate.aliens_destroyed>=20 then
+  if gamestate.aliens_destroyed>=win_target then
    objective_cleanup()
   end
 
