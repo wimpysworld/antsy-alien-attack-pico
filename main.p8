@@ -118,12 +118,12 @@ function init_attract()
   update_attract,draw_attract
  menu_items={}
  local menu_y=48
- if (show_exit) menu_y=44
+ if (native_build) menu_y=44
  add_menu_item("play",menu_y,init_game)
  add_menu_item("music",menu_y+10,music_toggle)
  add_menu_item("help",menu_y+20,init_help)
  add_menu_item("credits",menu_y+30,init_credits)
- if (show_exit) add_menu_item("exit",menu_y+40,exit_game)
+ if (native_build) add_menu_item("exit",menu_y+40,exit_game)
 end
 
 function update_attract()
