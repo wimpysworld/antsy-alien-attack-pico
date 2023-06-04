@@ -1304,16 +1304,24 @@ function update_game()
 end
 
 function draw_game()
- draw_bullets()
- draw_aliens()
- draw_pickups()
- draw_rockets()
+ local objects={
+  bullets,
+  aliens,
+  rockets,
+  pickups,  
+ }
 
- draw_hud()
+ for object in all(objects) do
+  for o in all(object) do
+   sprite_draw(o.sprite,o.x,o.y)
+  end
+ end
+
  //mini-game specific draws
  if (gamestate.draw) gamestate.draw()
 
  draw_players()
+ draw_hud()
 
  draw_shockwaves()
  draw_debris()
@@ -1486,12 +1494,6 @@ function update_rockets()
   else
    check_rocket_collision(rocket)
   end
- end
-end
-
-function draw_rockets()
- for rocket in all(rockets) do
-  sprite_draw(rocket.sprite,rocket.x,rocket.y)
  end
 end
 
@@ -1872,12 +1874,6 @@ function update_bullets()
  end
 end
 
-function draw_bullets()
- for bullet in all(bullets) do
-  sprite_draw(bullet.sprite,bullet.x,bullet.y)
- end
-end
-
 function create_alien(x,y,breed)
  //do not spawn over existing aliens
  if breed!="asteroid" then
@@ -2154,14 +2150,6 @@ function update_aliens()
  end
 end
 
-function draw_aliens()
- local ghostly=false
- for al in all(aliens) do
-  if (gamestate.aliens_jammed>0 and al.breed!="asteroid") ghostly=true
-  sprite_draw(al.sprite,al.x,al.y,ghostly)
- end
-end
-
 -->8
 -- helpers
 
@@ -2205,12 +2193,6 @@ function update_pickups()
   if (pu.origin_y<-12) del(pickups,pu)
  end
  pickup_timer=max(0,pickup_timer-1)
-end
-
-function draw_pickups()
- for pu in all(pickups) do
-  sprite_draw(pu.sprite,pu.x,pu.y)
- end
 end
 
 function create_projectile(actor,x,y)
