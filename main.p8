@@ -726,7 +726,7 @@ end
 function objective_cleanup()
  emit_smartbomb()
  for pl in all(players) do
-	 apply_generator_charge(pl,10)
+	 if (pl.hp>0) then apply_generator_charge(pl,10)
  end
  objective_complete=true
 end
@@ -999,7 +999,7 @@ function quick_play(use_the_force)
    end
   elseif use_the_force then
    for pl in all(players) do
-    pl.shields=120
+    if (pl.hp>0) pl.shields=120
    end
   end  
  end
@@ -2331,7 +2331,7 @@ end
 
 function score_update_all(val)
  for pl in all(players) do
-  score_update(pl,val)
+  if (pl.hp>0) score_update(pl,val)
  end
 end
 
