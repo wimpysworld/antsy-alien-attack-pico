@@ -976,7 +976,8 @@ function asteroid_belt()
   end
   
   if #aliens<gamestate.aliens_max and one_in(3) then
-   create_alien(rnd_range(2,126),-8,"asteroid")
+   al=create_alien(rnd_range(2,126),-8,"asteroid")
+   if (evade) al.speed_y+=0.5
   end
 
   score_update_all(10*level)
