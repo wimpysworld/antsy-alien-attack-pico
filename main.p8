@@ -955,8 +955,8 @@ end
 function asteroid_belt()
  local win_target=1000+level*250
  if not gamestate.ready then
-  local max_rocks,text=48,"shoot to survive"
-  if (evade) max_rocks,text=24,"fly to survive"
+  local max_rocks,title,text=52,"asteroid belt","get your rocks off baby"
+  if (evade) max_rocks,title,text=24,"fly to survive","rocks in a hard place"
   
   gamestate.hud_target,
   gamestate.aliens_max,
@@ -964,7 +964,7 @@ function asteroid_belt()
   gamestate.text=
    win_target,
    max_rocks,
-   "asteroid belt",
+   title,
    text
  else
   gamestate.hud_progress=gamestate.gametime
@@ -977,7 +977,7 @@ function asteroid_belt()
   
   if #aliens<gamestate.aliens_max and one_in(3) then
    al=create_alien(rnd_range(2,126),-8,"asteroid")
-   if (evade) al.speed_y+=0.5
+   if (evade) al.speed_y+=0.35 else al.hp*=0.6
   end
 
   score_update_all(10*level)
