@@ -899,7 +899,7 @@ end
 function asteroid_belt()
  local win_target=1000+level*250
  if not gamestate.ready then
-  local max_rocks,title,text=52,"asteroid belt","get your rocks off baby"
+  local max_rocks,title,text=32,"asteroid belt","get your rocks off baby"
   if (evade) max_rocks,title,text=24,"fly to survive","rocks in a hard place"
   
   gamestate.hud_target,
@@ -1899,14 +1899,13 @@ function create_alien(x,y,breed)
    al.framerate,
    al.collision_damage,
    al.speed_x,
-   al.speed_y,
-   al.explosion_size=
+   al.speed_y=
     60,
     0.085,
     30,
     rnd_range(-0.25,0.25,true),
-    rnd_range(0.5,0.65,true),
-    2
+    rnd_range(0.5,0.65,true)
+
    rocks=split("71,72,73,74")
   end
   al.sprite=sprite_create(rocks,1,1)
