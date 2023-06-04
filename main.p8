@@ -404,6 +404,8 @@ function emit_plume(x,y,wait,maxage,max_radius,spread,style)
 end
 
 function emit_explosion(x,y,size,explosion_style,debris_style)
+ if (#explosions>40) return
+
  local wait=size*3+(3/size)
  local max_radius,spread,maxage=
   wait+size,
