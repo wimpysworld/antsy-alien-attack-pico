@@ -56,7 +56,7 @@ end
 
 function _update60()
  //supress pico-8 menu
- poke(0x5f30,1)
+ if (native_build) poke(0x5f30,1)
 
  //debug={}
  fc+=1
