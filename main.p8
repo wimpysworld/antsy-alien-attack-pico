@@ -726,7 +726,7 @@ end
 function objective_cleanup()
  emit_smartbomb()
  for pl in all(players) do
-	 if (pl.hp>0) then apply_generator_charge(pl,10)
+	 if (pl.hp>0) apply_generator_charge(pl,10)
  end
  objective_complete=true
 end
