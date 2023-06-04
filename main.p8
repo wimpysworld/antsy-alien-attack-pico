@@ -982,8 +982,8 @@ function asteroid_belt()
   end
   
   if #aliens<gamestate.aliens_max and one_in(3) then
-   al=create_alien(rnd_range(2,126),-8,"asteroid")
-   if (evade) al.speed_y+=0.35 else al.hp*=0.6
+   local al=create_alien(rnd_range(2,126),-8,"asteroid")
+   if (al and evade) al.speed_y+=0.35 else al.hp*=0.6
   end
 
   score_update_all(10*level)
@@ -1011,7 +1011,7 @@ function power_spree()
   
   if #aliens<gamestate.aliens_max and one_in(5) then
    al=create_alien(rnd_range(2,126),-8,"asteroid")
-   al.speed_y+=1.9
+   if (al) al.speed_y+=1.9
   end
 
   for pu in all(pickups) do
@@ -1044,9 +1044,11 @@ function quick_play(use_the_force)
   gamestate.hud_progress=min(gamestate.gametime,time_limit)
   
   if #aliens<3 and one_in(3) then
-   al=create_alien(rnd_range(32,112),-8,"silver")
-   al.speed_y+=0.5
-   al.hp/=3
+   local al=create_alien(rnd_range(32,112),-8,"silver")
+   if al then
+    al.speed_y+=0.5
+    al.hp/=3
+   end
   end
 
   if gamestate.aliens_destroyed>=20 then
