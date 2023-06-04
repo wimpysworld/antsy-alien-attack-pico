@@ -28,7 +28,7 @@ function _init()
   0,
   0,
   4,
-  "1"
+  "2"
 
  cartdata("wimpy_antsy-alien-attack-pico_"..version_data)
  extcmd("set_title","antsy alien attack pico")
