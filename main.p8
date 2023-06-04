@@ -1580,7 +1580,10 @@ end
 
 function apply_generator_charge(pl,charge)
  local new_gen=pl.generator+charge
- if new_gen>100 then
+ if new_gen>98 and pl.hp>98 then
+  pl.generator,pl.hp=100,100
+  score_update(pl,25000)
+ elseif new_gen>100 then
   // if generator reaches 100
   // boost hp by 50
   pl.generator=new_gen-100
