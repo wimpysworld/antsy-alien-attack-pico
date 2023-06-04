@@ -1059,7 +1059,7 @@ function quick_play(use_the_force)
    for pl in all(players) do
     if (pl.hp<=0) goto already_dead
     // insta-death
-    apply_player_damage(pl,pl.hp+10,4,true)   
+    apply_player_damage(pl,pl.hp+10,4,true)
     ::already_dead::
    end
   elseif use_the_force then
