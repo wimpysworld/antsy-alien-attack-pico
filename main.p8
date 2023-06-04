@@ -827,7 +827,7 @@ function shmup(fleet)
  elseif fleet=="spheres" then
   spawn,title=
    split("drone,orby"),
-   "sphere attack"
+   "sphere them!"
  elseif fleet=="metal" then
   spawn,title=
    split("bronze,silver"),
