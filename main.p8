@@ -1574,9 +1574,9 @@ function create_player(player)
  add(pl.jet.pal_swaps,{10,pl.col_lt})
 end
 
-function apply_player_damage(pl,damage,shake)
+function apply_player_damage(pl,damage,shake,force)
  shake = shake or false
- if pl.shields<=0 then
+ if pl.shields<=0 or force then
   if (shake) then
    screen_flash+=3
    screen_shake+=16
