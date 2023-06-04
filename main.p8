@@ -1044,21 +1044,35 @@ function cargo(mode)
   if mode=="cargo_game" then
 	  gamestate.hud_progress=gamestate.gametime
 	  if #aliens<gamestate.aliens_max and one_in(3) then
-	   create_alien(rnd_range(2,126),-8,"asteroid")
+	   local spawn="asteroid"
+	   if (one_in(4)) spawn="bronze"
+	   create_alien(rnd_range(2,126),-8,spawn)
 	  end
 	
    score_update_all(20*level)
-  	
+
+   local player_damage=0
 	  for al in all(aliens) do
 	   if sprite_collision(gamestate.sprite,al.sprite) then
-	    for pl in all(players) do
-	     apply_player_damage(pl,al.collision_damage\2,4)
-	     emit_explosion(63,92,3,nil,1)
-	    end
+  	  player_damage+=al.collision_damage\2
+     emit_explosion(63,al.y+4,3,nil,1)
 	    del(aliens,al)
 	   end
 	  end
-	
+
+   for bl in all(bullets) do
+    if sprite_collision(gamestate.sprite,bl.sprite) then
+     sound_play(5)
+     emit_explosion(63,bl.y+4,1,nil,1)
+     player_damage+=bl.damage
+     del(bullets,bl)     
+    end
+   end
+
+   for pl in all(players) do
+    if (player_damage>0) apply_player_damage(pl,player_damage,player_damage\2)
+   end
+
 	  if gamestate.gametime>=win_target then
 	   objective_cleanup()
 	  end
