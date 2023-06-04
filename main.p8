@@ -2123,6 +2123,12 @@ end
 function update_aliens()
  for al in all(aliens) do
   make_firing_decision(al)
+
+  al.sprite.pal_ghostly=false
+  if gamestate.aliens_jammed>0 and al.breed!="asteroid" then
+   al.sprite.pal_ghostly=true
+  end
+  
   if al.breed=="drone" or al.breed=="emerald" then
    local cos_wave=cos(al.speed_x)*al.wave_width
    al.x+=cos_wave
@@ -2281,12 +2287,13 @@ function sprite_create(sprites,w,h)
   frame=1,
   pal_swaps={},
   pal_trans=0,
-  pal_whiteflash=0
+  pal_whiteflash=0,
+  pal_ghostly=false,
   //show_hitbox=false
  }
 end
 
-function sprite_draw(s,x,y,ghostly)
+function sprite_draw(s,x,y)
  // update x,y for collision detection
  s.x,s.y=x,y
 
@@ -2302,7 +2309,7 @@ function sprite_draw(s,x,y,ghostly)
  if (s.pal_trans>0) palt(s.pal_trans)
 
  // make sprite ghostly
- if ghostly then
+ if s.pal_ghostly then
   //make palette grey scale
   pal(split("5,5,5,5,13,6,7,6,6,7,7,7,6,6,7"))
  elseif s.pal_whiteflash>0 then
@@ -2320,7 +2327,7 @@ function sprite_draw(s,x,y,ghostly)
  spr(s.frames[flr(s.frame)],x,y,s.w,s.h,s.flip_x,s.flip_y)
 
  // reset palette
- if (#s.pal_swaps or s.pal_trans!=0 or s.pal_whiteflash or ghostly) pal()
+ if (#s.pal_swaps or s.pal_trans!=0 or s.pal_whiteflash or s.pal_ghostly) pal()
  // useful fordebugging
  --[[
  if s.show_hitbox then
