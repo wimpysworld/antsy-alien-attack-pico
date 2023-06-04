@@ -1905,7 +1905,7 @@ function create_alien(x,y,breed)
   al.speed_x,
   al.speed_y,
   al.shot_sprite=
-   40,
+   50,
    0.075,
    0,
    0.5,
