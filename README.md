@@ -10,9 +10,9 @@
 
 # Plot
 
-Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
+Antsy Alien Attack Pico is a juicy retro-style vertically scrolling shoot 'em up. It is my love letter 💌 to the shmups I played in the arcades in the '80s and '90s 🕹️ and my entry to [Linux Game Jam 2023](https://itch.io/jam/linux-game-jam2023) 🐧
 
-> **The year is 2139. Planet Earth is under attack by aliens, and they're (still) antsy!**
+> **The year is 2139. Planet Earth is under attack by aliens, and they're (*still*) antsy!**
 
 ## Objective
 
@@ -22,12 +22,12 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 
 ### One ship. One life. One mission.
 
-💥 Destroy aliens by **shooting, colliding with them or using smart weapons**
+💥 Destroy aliens by **shooting or colliding with them**
 🛸️ **Avoid the aliens** if you can't destroy them
-🔋 Collect power-ups to **charge the ship dynamo** and enhance your weapons
+🔋 Collect power-ups to enhance your weapons and **charge the ship dynamo**
 🛡️ A fully charged **dynamo boosts ship health by 50%**
 🛑 **Weapons go offline** when travelling at hyperspeed
-🌌 When your shields are depleted, **you're lost to the vacuum of space**
+🌌 When your ship health is depleted, **you're lost to the vacuum of space**
 
 ## Controls 🕹️
 
@@ -37,7 +37,7 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 |:---------:|:-----:|
 | Move      | <img src="art/controls/XboxOne_Dpad.png" width="32" alt="D-pad"><img src="art/controls/XboxOne_Left_Stick.png" width="32" alt="Left Stick"> |
 | Fire      | <img src="art/controls/XboxOne_A.png" width="32" alt="A"> |
-| Generator | <img src="art/controls/XboxOne_B.png" width="32" alt="B"> |
+| Fire      | <img src="art/controls/XboxOne_B.png" width="32" alt="B"> |
 
 ### 1-UP Keyboard 1️⃣
 
@@ -48,7 +48,7 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 | Up        | <img src="art/controls/Arrow_Up_Key_Dark.png" width="32"> |
 | Down      | <img src="art/controls/Arrow_Down_Key_Dark.png" width="32"> |
 | Fire      | <img src="art/controls/N_Key_Dark.png" width="32" alt="N"><img src="art/controls/Z_Key_Dark.png" width="32" alt="Z"><img src="art/controls/C_Key_Dark.png" width="32" alt="C"> |
-| Generator | <img src="art/controls/M_Key_Dark.png" width="32" alt="M"><img src="art/controls/X_Key_Dark.png" width="32" alt="X"><img src="art/controls/V_Key_Dark.png" width="32" alt="V"> |
+| Fire      | <img src="art/controls/M_Key_Dark.png" width="32" alt="M"><img src="art/controls/X_Key_Dark.png" width="32" alt="X"><img src="art/controls/V_Key_Dark.png" width="32" alt="V"> |
 
 ### 2-UP Keyboard 2️⃣
 
@@ -59,7 +59,7 @@ Antsy Alien Attack Pico is a retro-style vertically scrolling shoot 'em up.
 | Up        | <img src="art/controls/E_Key_Dark.png" width="32" alt="E"> |
 | Down      | <img src="art/controls/D_Key_Dark.png" width="32" alt="D"> |
 | Fire      | <img src="art/controls/Tab_Key_Dark.png" width="32" alt="Tab"><img src="art/controls/Q_Key_Dark.png" width="32" alt="Q">|
-| Generator | <img src="art/controls/Shift_Key_Dark.png" width="32" alt="Shift"><img src="art/controls/A_Key_Dark.png" width="32" alt="A">|
+| Fire      | <img src="art/controls/Shift_Key_Dark.png" width="32" alt="Shift"><img src="art/controls/A_Key_Dark.png" width="32" alt="A">|
 
 # Install
 
