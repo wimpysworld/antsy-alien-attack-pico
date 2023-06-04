@@ -7,6 +7,21 @@ __lua__
 #include build_config.p8
 
 function _init()
+ missions={
+  "players_off,jump",
+  //1
+  "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,asteroid_belt,wait,silver,wait,pass_some,wait,metal,level_out,players_off,jump,fly_out",
+  //2
+  "level_in,fly_in,players_on,drop,sapphire,wait,quick_shoot,wait,cargo_in,cargo_game,cargo_out,wait,jump,weapons_off,power_spree,wait,asteroid_belt,wait,weapons_on,drop,emerald,level_out,players_off,jump,fly_out",
+  //3
+  "level_in,fly_in,players_on,drop,gem,wait,jump,weapons_off,quick_force,wait,spheres,wait,asteroid_belt,wait,power_spree,wait,weapons_on,drop,metal,level_out,players_off,jump,fly_out",
+  //4
+  "level_in,fly_in,players_on,drop,gem,wait,pass_none,wait,quick_shoot,wait,spheres,wait,asteroid_belt,wait,jump,weapons_off,power_spree,weapons_on,level_out,players_off,fly_out",
+  //5
+  "level_in,fly_in,players_on,drop,armada,wait,cargo_in,cargo_game,cargo_out,wait,armada,wait,jump,weapons_off,asteroid_belt,wait,power_spree,wait,weapons_on,drop,armada,wait,level_out,players_off,jump,fly_out",
+  "drop",
+ }
+
  debris_red,
  debris_green,
  debris_fire,
@@ -698,21 +713,6 @@ function init_missions()
   0,
   0,
   false
-
- missions={
-  "players_off,jump",
-  //1
-  "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,asteroid_belt,wait,silver,wait,pass_some,wait,metal,level_out,players_off,jump,fly_out",
-  //2
-  "level_in,fly_in,players_on,drop,sapphire,wait,quick_shoot,wait,cargo_in,cargo_game,cargo_out,wait,jump,weapons_off,power_spree,wait,asteroid_belt,wait,weapons_on,drop,emerald,level_out,players_off,jump,fly_out",
-  //3
-  "level_in,fly_in,players_on,drop,gem,wait,jump,weapons_off,quick_force,wait,spheres,wait,asteroid_belt,wait,power_spree,wait,weapons_on,drop,metal,level_out,players_off,jump,fly_out",
-  //4
-  "level_in,fly_in,players_on,drop,gem,wait,pass_none,wait,quick_shoot,wait,spheres,wait,asteroid_belt,wait,jump,weapons_off,power_spree,weapons_on,level_out,players_off,fly_out",
-  //5
-  "level_in,fly_in,players_on,drop,armada,wait,cargo_in,cargo_game,cargo_out,wait,armada,wait,jump,weapons_off,asteroid_belt,wait,power_spree,wait,weapons_on,drop,armada,wait,level_out,players_off,jump,fly_out",
-  "drop",
- }
 
  local m=0
  for mission in all(missions) do
