@@ -1720,7 +1720,7 @@ function update_players()
    get_y_axis(controller),
    get_direction(controller)
 
-  if pl.controls_enabled then
+   if pl.controls_enabled then
     // if moving diagonally
     if abs(dx)+abs(dy)==2 then
      // normalize movement vector
