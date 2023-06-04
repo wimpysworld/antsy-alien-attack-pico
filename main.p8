@@ -838,7 +838,7 @@ function shmup(fleet)
    "gem squad"
  end
 
- if fleet!="spheres" then 
+ if fleet!="spheres" and fleet!="armada" then 
 	 if level>=2 then
 	  add(spawn,"drone")
 	  title=fleet.." scouts"
