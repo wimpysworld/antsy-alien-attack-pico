@@ -1712,8 +1712,9 @@ end
 
 function init_players()
  players,flashes,rockets={},{},{}
- create_player(1)
- if (num_players==2) create_player(2)
+ for i=1,num_players do
+  create_player(i)
+ end 
  players_startx()
 end
 
