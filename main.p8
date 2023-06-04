@@ -1508,7 +1508,7 @@ function create_player(player)
   x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot,rocket_sprites=
    56,8,2,96,5,debis_red,3,split("226,225,224,225")
  end
- add(players,create_actor(x,192))
+ add(players,create_actor(x,y))
 
  local pl=players[#players]
   pl.num,
