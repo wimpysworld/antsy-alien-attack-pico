@@ -1146,7 +1146,7 @@ function level_status(mode)
   gamestate.show_weapons=
    true,false
 
-  gamestate.title="zone "..tostr(level)
+  gamestate.title="zone "..tostr(level).." of 5"
   if mode=="level_out" then
    gamestate.title="zone "..tostr(level).." cleared"
    score_update_all(level*5000)
