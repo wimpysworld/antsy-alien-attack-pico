@@ -750,10 +750,14 @@ end
 -- game logic
 
 function init_missions()
+ objectives_total,
+ objectives_progress,
  current_mission,
  current_objective,
  level,
  objective_complete=
+  0,
+  0,
   0,
   0,
   0,
@@ -786,6 +790,14 @@ function init_missions()
   "level_in,fly_in,players_on,drop,armada,wait,pass_some,wait,armada,wait,asteroid_belt,wait,pass_none,wait,armada,wait,level_out,players_off,jump,fly_out",
   "drop",
  }
+ 
+ local m=0
+ for mission in all(missions) do
+  m+=1
+  for objective in all(split(mission)) do
+   if (m>1 and m<#missions) objectives_total+=1
+  end
+ end
 end
 
 function objective_cleanup()
@@ -1161,7 +1173,7 @@ function level_status(mode)
   gamestate.show_weapons=
    true,false
 
-  gamestate.title="zone "..tostr(level).." of 5"
+  gamestate.title="zone "..tostr(level).." of "..#missions-2
   if mode=="level_out" then
    gamestate.title="zone "..tostr(level).." cleared"
    score_update_all(level*5000)
@@ -1172,7 +1184,12 @@ function level_status(mode)
 end
 
 function draw_wait()
- print_fx("objective complete",nil,60,6,5,5)
+ print_fx("objective complete",nil,56,6,5,5)
+ local progress=round(objectives_progress/objectives_total*100)
+ if (level==#missions-2) progress=100
+  
+ rectfill(13,63,115,65,9)
+ line(14,64,progress+14,64,10)
 end
 
 function wait()
@@ -1357,6 +1374,7 @@ function create_gamestate()
 end
 
 function get_next_objective()
+ objectives_progress+=1
  current_objective+=1
  objective_complete=false
  objectives=split(mission)
@@ -1371,8 +1389,10 @@ end
 
 function get_next_mission()
  current_mission+=1
- current_objective,level=
-  0,current_mission-1
+ current_objective,
+ level=
+  0,
+  min(#missions-2,current_mission-1)
  
  mission=missions[current_mission]
  get_next_objective()
