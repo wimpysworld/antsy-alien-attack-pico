@@ -1446,7 +1446,7 @@ function emit_rocket(player_num)
     // 4-way
     dir,spread,spd=
      0.175,0.05,2
-   elseif pl.shot_pattern==4 then
+   elseif pl.shot_pattern>=4 then
     // 5-way
     dir,spread,spd=
      0.175,0.04,1.75
