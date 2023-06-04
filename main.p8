@@ -1851,14 +1851,15 @@ end
 function emit_bullet(al)
  al.shot_cooldown_timer=al.shot_cooldown
  al.sprite.pal_whiteflash=1
- add(bullets,create_projectile(al,al.x+al.x_off,al.y-al.y_off))
- local bullet=bullets[#bullets]
+ local bullet=create_projectile(al,al.x+al.x_off,al.y-al.y_off)
  bullet.sprite=sprite_create({al.shot_sprite},1,1)
  local size=3 
  if (al.shot_sprite==65) size=2
  if (al.shot_sprite==80) size=1
  sprite_hitbox(bullet.sprite,1,1,size,size)
  sfx(4)
+ add(bullets,bullet)
+ return bullet
 end
 
 function update_bullets()
@@ -2086,8 +2087,7 @@ function make_firing_decision(al)
     emit_bullet(al)
    end
   elseif al.breed=="bronze" and one_in(250) then
-   emit_bullet(al)
-   bullet=bullets[#bullets]
+   bullet=emit_bullet(al)
    local x_target=rnd_range(88,112)
    if (al.x>=64) x_target=rnd_range(16,40)
 
@@ -2098,15 +2098,13 @@ function make_firing_decision(al)
   elseif al.breed=="silver" and one_in(300) then
    //aimed shots
    for pl in all(players) do
-    emit_bullet(al)
-    bullet=bullets[#bullets]
+    bullet=emit_bullet(al)
     aim_shot(bullet,pl,al)
    end
   elseif al.breed=="sapphire" and one_in(300) then
    //aimed shots, with estimated predictive compensation
    for pl in all(players) do
-    emit_bullet(al)
-    bullet=bullets[#bullets]
+    bullet=emit_bullet(al)
     aim_shot(bullet,pl,al,true)
    end
   elseif al.breed=="emerald" and one_in(500) then
