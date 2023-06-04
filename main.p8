@@ -751,7 +751,7 @@ end
 function shmup(fleet)
  //armada is the default.
  local spawn,title,rate=
-  split("drone,bronze,silver,sapphire,emerald"),
+  split("asteroid,drone,orby,bronze,silver,sapphire,emerald,silver,sapphire,emerald,silver,sapphire,emerald"),
   "armada!",
   15
  if fleet=="drone" or
@@ -817,7 +817,11 @@ function shmup(fleet)
   end
  else
   if #aliens<gamestate.aliens_max and one_in(rate) then
-   create_alien(rnd_range(16,112),rnd_range(-16,-8),spawn[rnd_range(1,#spawn)])
+   local al=create_alien(rnd_range(16,112),rnd_range(-16,-8),spawn[rnd_range(1,#spawn)])
+   if (al and fleet=="armada") then
+    al.hp+=20
+    al.speed_y+=0.55
+   end
   end
 
   if evade then
