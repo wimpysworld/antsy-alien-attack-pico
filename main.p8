@@ -1003,8 +1003,7 @@ function power_spree()
   if (one_in(15)) create_pickup(rnd_range(4,120),-8,true)
   
   if #aliens<gamestate.aliens_max and one_in(5) then
-   create_alien(rnd_range(2,126),-8,"asteroid")
-   al=aliens[#aliens]
+   al=create_alien(rnd_range(2,126),-8,"asteroid")
    al.speed_y+=1.9
   end
 
@@ -1038,8 +1037,7 @@ function quick_play(use_the_force)
   gamestate.hud_progress=min(gamestate.gametime,time_limit)
   
   if #aliens<3 and one_in(3) then
-   create_alien(rnd_range(32,112),-8,"silver")
-   al=aliens[#aliens]
+   al=create_alien(rnd_range(32,112),-8,"silver")
    al.speed_y+=0.5
    al.hp/=3
   end
