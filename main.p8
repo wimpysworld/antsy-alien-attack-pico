@@ -78,9 +78,8 @@ function _update60()
  ignore_input=max(0,ignore_input-1)
 
  //update screen shake
- screen_shake=min(24,screen_shake)
  if (screen_shake>10) screen_shake*=0.95 else screen_shake-=1
- screen_shake=max(screen_shake,0)
+ screen_shake=mid(0,screen_shake,24)
 
  update_stars()
  update_loop()
