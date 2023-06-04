@@ -763,10 +763,8 @@ function init_missions()
   "players_off,jump",
   //test: cargo run
   //"level_in,fly_in,players_on,drop,cargo_in,cargo_game,cargo_out,level_out,players_off,jump,fly_out",
- 
   //test: power spree
   //"level_in,fly_in,players_on,weapons_off,power_spree,wait,weapons_on,level_out,players_off,jump,fly_out",
-
   //test: quick draw
   //"level_in,fly_in,players_on,drop,quick_draw,wait,level_out,players_off,jump,fly_out",
  
@@ -2405,7 +2403,6 @@ function score_update_all(val)
   score_update(pl,val)
  end
 end
-
 
 function round(n)
  return (n%1<0.5) and flr(n) or ceil(n)
