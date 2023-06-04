@@ -5,3 +5,5 @@ exports/
 build_config.p8
 
 screenshots/
+
+config/cdata/
