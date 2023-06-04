@@ -1880,9 +1880,7 @@ function create_alien(x,y,breed)
   end
  end
 
- add(aliens,create_actor(x,y))
-
- al=aliens[#aliens]
+ al=create_actor(x,y)
  al.breed,
  al.collision_damage,
  al.shot_cooldown,
@@ -2044,6 +2042,9 @@ function create_alien(x,y,breed)
  end
  al.debris_size=al.explosion_size
  al.reward=(al.hp+al.collision_damage*100)+al.explosion_size
+ 
+ add(aliens,al)
+ return al 
 end
 
 function aim_shot(bl,pl,al,predict)
