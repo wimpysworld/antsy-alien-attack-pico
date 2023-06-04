@@ -1204,6 +1204,13 @@ function update_game()
   gamestate.aliens_jammed=max(0,gamestate.aliens_jammed-1)
  end
 
+ update_players()
+ update_rockets()
+ update_pickups()
+
+ update_aliens()
+ update_bullets()
+
  //execute game logic
  if (objective=="players_on") activate_players(true)
  if (objective=="players_off") activate_players()
@@ -1246,13 +1253,6 @@ function update_game()
     objective=="armada" then
   shmup(objective)
  end
-
- update_players()
- update_rockets()
-
- update_pickups()
- update_aliens()
- update_bullets()
 
  update_shockwaves()
  update_debris()
