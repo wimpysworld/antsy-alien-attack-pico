@@ -1018,22 +1018,24 @@ function power_spree()
  end
 end
 
-function draw_quick_draw()
+function draw_quick_play()
  print_fx(tostr(gamestate.aliens_destroyed),nil,10,10,9,9)
 end
 
-function quick_draw()
+function quick_play(use_the_force)
+ local time_limit=use_the_force and 720 or 600
  if not gamestate.ready then  
   gamestate.hud_target,
   gamestate.title,
   gamestate.text,
   gamestate.draw=
-   600,
+   time_limit,
    "quick draw",
    "shoot 20 aliens quickly",
-   draw_quick_draw
+   draw_quick_play
+  if (use_the_force) gamestate.title,gamestate.text="use the force","crash into 20 aliens"
  else
-  gamestate.hud_progress=gamestate.gametime
+  gamestate.hud_progress=min(gamestate.gametime,time_limit)
   
   if #aliens<3 and one_in(3) then
    create_alien(rnd_range(32,112),-8,"silver")
@@ -1045,13 +1047,19 @@ function quick_draw()
   if gamestate.aliens_destroyed>=20 then
    objective_cleanup()
   end
-  
-  if gamestate.gametime>=600 then
+
+  if gamestate.gametime>=time_limit then
    for pl in all(players) do
+    if (pl.hp<=0) goto already_dead
     // insta-death
-    apply_player_damage(pl,pl.hp+10)
+    apply_player_damage(pl,pl.hp+10,4,true)   
+    ::already_dead::
    end
-  end
+  elseif use_the_force then
+   for pl in all(players) do
+    pl.shields=120
+   end
+  end  
  end
 end
 
@@ -1243,7 +1251,8 @@ function update_game()
  if (objective=="pass_none") pass()
  if (objective=="asteroid_belt") asteroid_belt()
  if (objective=="power_spree") power_spree() 
- if (objective=="quick_draw") quick_draw()  
+ if (objective=="quick_shoot") quick_play()
+ if (objective=="quick_force") quick_play(true)
 
  if objective=="level_in" or
     objective=="level_out" then
