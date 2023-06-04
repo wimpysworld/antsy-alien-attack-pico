@@ -253,53 +253,60 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ## Waves 🌊
 
+- Asteroid Belt Slow Weapons On
+- Asteroid Belt Fast Weapons Off
+- Power Spree Fast Weapons Off
+- Some Can Pass
+- None Can Pass
+- Spheres Attack
+- Spheres Evade Fast Weapons Off
+- Cargo Run
+- Quick Shoot
+- Quick Force Fast Weapons Off
+
 ### Level 1
 
 - Drone
 - Bronze
-- Silver
 - Asteroid Belt Slow Weapons On
-- Sapphire
-- Emerald
+- Silver
+- Some Can Pass
+- Metal Squad
 
 ### Level 2
 
-- Bronze Scouts
-- Silver Scouts
-- Some Can Pass
-- Bronze Scouts
-- Spheres
-- Metal Squad
+- Sapphire Scouts
+- Quick Draw
+- Cargo Run
+- Power Spree Fast Weapons Off
 - Asteroid Belt Fast Weapons Off
+- Emerald Scouts
 
 ### Level 3
 
-- Sapphire Scouts
-- Emerald Scouts
-- Evade Spheres Fast Weapons Off
-- Metal Squad
-- Spheres
 - Gem Squad
-- Asteroid Belt Slow Weapons On
+- Quick Force Fast Weapons Off
+- Spheres Evade Fast Weapons Off
+- Asteroid Belt Fast Weapons Off
+- Power Spree Fast Weapons Off
+- Metal Squad
 
 ### Level 4
 
-- Bronze Scouts
-- Silver Scouts
-- Sapphire Scouts
-- Emerald Scouts
-- None Shall Pass
-- Metal Squad
 - Gem Squad
-- Asteroid Belt Fast Weapons Off
+- None Can Pass
+- Quick Shoot
+- Spheres Attack
+- Asteroid Belt Slow Weapons On
+- Power Spree Fast Weapons Off
 
 ### Level 5
 
 - Armada
-- Some Can Pass
+- Cargo Run
 - Armada
-- Asteroid Belt Slow Weapons On
-- None Shall Pass
+- Asteroid Belt Fast Weapons Off
+- Power Spree Fast Weapons Off
 - Armada
 
 ### Mini-Games 🗺️
@@ -312,6 +319,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [ ] Push 'em back - push the aliens back into the obliterator
 - [x] Rock on - more rocks than you can avoid
 - [x] Quick draw - Shoot fast moving aliens within a tight time limit
+- [x] Use the Force - Shields up, crash into aliens within a tight time limit
 - [ ] Peekaboo - Aliens appear briefly, fire and leave
 - [ ] ~~Canyon run - narrow canyon with lots of rocks at speed (*stretch goal*)~~
 - [ ] ~~Tunnel through - make a path through the rocks (*stretch goal*)~~
