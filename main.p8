@@ -94,7 +94,8 @@ function _draw()
   cls()
  end
  local shakex,shakey=
-  rnd(screen_shake)-(screen_shake/2),rnd(screen_shake)-(screen_shake/2)
+  rnd(screen_shake)-(screen_shake/2),
+  rnd(screen_shake)-(screen_shake/2)
  camera(shakex,shakey)
 
  draw_stars()
@@ -1832,7 +1833,7 @@ function emit_bullet(al)
  al.sprite.pal_whiteflash=1
  local bullet=create_projectile(al,al.x+al.x_off,al.y-al.y_off)
  bullet.sprite=sprite_create({al.shot_sprite},1,1)
- local size=3 
+ local size=3
  if (al.shot_sprite==65) size=2
  if (al.shot_sprite==80) size=1
  sprite_hitbox(bullet.sprite,1,1,size,size)
