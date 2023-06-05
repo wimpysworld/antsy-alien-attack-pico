@@ -16,18 +16,18 @@ Antsy Alien Attack Pico is a juicy retro-style vertically scrolling shoot 'em up
 
 ## Objective
 
-🚀 **You're a mercenary** with a state-of-the-art space fighter and a gun for hire
-👾 The United Federation of Planet Earth has hired you to **dispatch the aliens and restore calm**
-💰️ **Complete every mission** to fulfil your contract and earn your pay
+🚀 **You're a mercenary** with a state-of-the-art space fighter and a gun for hire  
+👾 The United Federation of Planet Earth has hired you to **dispatch the aliens and restore calm**  
+💰️ **Complete every mission** to fulfil your contract and earn your pay  
 
 ### One ship. One life. One mission.
 
-💥 Destroy aliens by **shooting or colliding with them**
-🛸️ **Avoid the aliens** if you can't destroy them
-🔋 Collect power-ups to enhance your weapons and **charge the ship dynamo**
-🛡️ A fully charged **dynamo boosts ship health by 50%**
-🛑 **Weapons go offline** when travelling at hyperspeed
-🌌 When your ship health is depleted, **you're lost to the vacuum of space**
+💥 Destroy aliens by **shooting or colliding with them**  
+🛸️ **Avoid the aliens** if you can't destroy them  
+🔋 Collect power-ups to enhance your weapons and **charge the ship dynamo**  
+🛡️ A fully charged **dynamo boosts ship health by 50%**  
+🛑 **Weapons go offline** when travelling at hyperspeed  
+🌌 When your ship health is depleted, **you're lost to the vacuum of space**  
 
 ## Controls 🕹️
 
@@ -63,24 +63,17 @@ Antsy Alien Attack Pico is a juicy retro-style vertically scrolling shoot 'em up
 
 # Install
 
-## Debian/Ubuntu
+**All the install instructions are kept up-to-date on the [Antsy Alien Attack Pico page on Itch.io](https://wimpress.itch.io/antsy-alien-attack-pico).** Supported platforms are:
 
-Download the `.deb` package from Itch.io and install it using `apt-get`:
-
-```bash
-apt-get install ./antsy-alien-attack-pico_0.23.145_amd64.deb
-```
-
-## Snap
-
-```bash
-snap install antsy-alien-attack-pico
-snap connect antsy-alien-attack-pico:joystick
-```
-
-## Other Linux
-
-Download the Linux `.zip` from Itch.io, extract it and then run `./antsy-alien-attack-pico` from a terminal. **You will also need to install the SDL2 package for your distribution.**
+- [PICO-8 Cart](exports/antsy-alien-attack-pico.p8.png)
+- .deb for Debian & Ubuntu
+- Flake for NixOS
+- AppImage for x86_64 Linux
+- [Snap for x86_64 Linux](https://snapcraft.io/antsy-alien-attack-pico)
+- Tarball for x86_64 Linux
+- Tarball for 32-bit and 64-bit Raspberry Pi
+- Windows
+- macOS
 
 # Game design 📐
 
