@@ -1545,11 +1545,11 @@ function create_player(player)
    0,
    0
 
- pl.sprite=sprite_create({0,2,4,6,8},2,2)
+ pl.sprite=sprite_create(split"0,2,4,6,8",2,2)
  pl.sprite.frame=3.5
  sprite_hitbox(pl.sprite,4,3,7,9)
  //pl.sprite.show_hitbox=true
- pl.jet=sprite_create({40,41,56},1,1)
+ pl.jet=sprite_create(split"40,41,56",1,1)
  // recolor the sprite using palette swap
  add(pl.sprite.pal_swaps,{10,pl.col_lt})
  add(pl.sprite.pal_swaps,{9,pl.col_dk})
