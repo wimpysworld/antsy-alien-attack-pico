@@ -246,9 +246,7 @@ function draw_help()
  }
 --]]
 
- local help_text=split(
- "the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,weapons go offline at hyperspeed,power-ups enhance your ship,power-ups charge the dynamo,full dynamo adds 50% ship health"
- )
+ local help_text=split"the year is 2139.planet earth is,under attack by antsy aliens!, ,one ship. one life. one mission., ,shoot or collide with aliens,weapons go offline at hyperspeed,power-ups enhance your ship,power-ups charge the dynamo,full dynamo adds 50% ship health"
 
  local y=17
  for i=1,#help_text do
@@ -751,7 +749,7 @@ end
 function shmup(fleet)
  //armada is the default.
  local spawn,title,rate=
-  split("asteroid,drone,orby,bronze,silver,sapphire,emerald,silver,sapphire,emerald,silver,sapphire,emerald"),
+  split"asteroid,drone,orby,bronze,silver,sapphire,emerald,silver,sapphire,emerald,silver,sapphire,emerald",
   "armada!",
   15
  if fleet=="drone" or
@@ -767,15 +765,15 @@ function shmup(fleet)
   end
  elseif fleet=="spheres" then
   spawn,title=
-   split("drone,orby"),
+   split"drone,orby",
    "sphere them!"
  elseif fleet=="metal" then
   spawn,title=
-   split("bronze,silver"),
+   split"bronze,silver",
    "metal squad"
  elseif fleet=="gem" then
   spawn,title=
-   split("sapphire,emerald"),
+   split"sapphire,emerald",
    "gem squad"
  end
 
@@ -1180,7 +1178,7 @@ function init_game()
   {}, //shockwaves
   {}, //explosions
   pickup_base,
-  split("96,97,98,112,113,114"),
+  split"96,97,98,112,113,114",
   false,
   0
 
@@ -1484,10 +1482,10 @@ end
 
 function create_player(player)
  local x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot,rocket_sprites=
-  56,11,3,1,6,debris_green,2,split("194,193,192,193")
+  56,11,3,1,6,debris_green,2,split"194,193,192,193"
  if player==2 then
   x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot,rocket_sprites=
-   56,8,2,96,5,debis_red,3,split("226,225,224,225")
+   56,8,2,96,5,debis_red,3,split"226,225,224,225"
  end
  add(players,create_actor(x,y))
 
@@ -1795,7 +1793,7 @@ function emit_muzzle_flash(player_num)
  if #flashes<3 then
   add(flashes,{
    player=player_num,
-   sprite=sprite_create(split("32,34,36,38"),2,2)
+   sprite=sprite_create(split"32,34,36,38",2,2)
   })
   sound_play(players[player_num].sfx_shoot)
  end
@@ -1880,7 +1878,7 @@ function create_alien(x,y,breed)
    rnd_range(-0.25,0.25,true),
    1.25,
    80
-  al.sprite=sprite_create(split("107,108,109,123,124,125"),1,1)
+  al.sprite=sprite_create(split"107,108,109,123,124,125",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
  elseif breed=="asteroid" then
@@ -1893,7 +1891,7 @@ function create_alien(x,y,breed)
    0.055,
    rnd_range(-0.55,0.55,true),
    rnd_range(0.85,0.95,true)
-  local rocks=split("87,88,89,90")
+  local rocks=split"87,88,89,90"
   if one_in(3) then
    // grey asteroid
    al.hp,
@@ -1907,7 +1905,7 @@ function create_alien(x,y,breed)
     rnd_range(-0.25,0.25,true),
     rnd_range(0.5,0.65,true)
 
-   rocks=split("71,72,73,74")
+   rocks=split"71,72,73,74"
   end
   al.sprite=sprite_create(rocks,1,1)
   sprite_hitbox(al.sprite,2,1,3,4)
@@ -1923,7 +1921,7 @@ function create_alien(x,y,breed)
    0,
    0.5,
    80
-  al.sprite=sprite_create(split("91,75,76,77,93,77,76,75"),1,1)
+  al.sprite=sprite_create(split"91,75,76,77,93,77,76,75",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
  elseif breed=="bronze" then
@@ -1946,7 +1944,7 @@ function create_alien(x,y,breed)
    1.5,
    65,
    rnd_range(1,2)
-  al.sprite=sprite_create(split("68,69,70,69"),1,1)
+  al.sprite=sprite_create(split"68,69,70,69",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="silver" then
   al.x=rnd_range(24,104)
@@ -1967,7 +1965,7 @@ function create_alien(x,y,breed)
    1.75,
    80,
    2
-  al.sprite=sprite_create(split("103,104,105,106,119,120,121,122"),1,1)
+  al.sprite=sprite_create(split"103,104,105,106,119,120,121,122",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
  elseif breed=="sapphire" then
@@ -2253,10 +2251,10 @@ function sprite_draw(s,x,y)
 
  // make sprite ghostly
  if s.pal_ghostly then
-  pal(split("5,5,5,5,13,6,7,6,6,7,7,7,6,6,7"))
+  pal(split"5,5,5,5,13,6,7,6,6,7,7,7,6,6,7")
  elseif s.pal_whiteflash>0 then
   s.pal_whiteflash-=1
-  pal(split("13,13,13,13,13,7,7,7,6,7,7,7,6,6,7"))
+  pal(split"13,13,13,13,13,7,7,7,6,7,7,7,6,6,7")
  else
   // color replacements
   for pal_swap in all(s.pal_swaps) do
@@ -2320,11 +2318,11 @@ end
 // is available.
 function sound_play(sound)
  //pico-8 >= 0.2.4
- local channels=split("46,47,48,49")
+ local channels=split"46,47,48,49"
 
  // use deprecated audio sys
  // calls on pico-8 < 0.2.4
- if (stat(5)<36) channels=split("16,17,18,19")
+ if (stat(5)<36) channels=split"16,17,18,19"
 
  if sound_channel_available(channels) then
   sfx(sound)
