@@ -186,11 +186,11 @@ function draw_attract()
 
  print_fx(_puny("(c) 2023 wimpysworld.com"),nil,120,7,5,5)
  palt(12)
- spr(140,89,90,4,4)
+ spr(unpack_split"140,89,90,4,4")
  pal()
 
  print_fx(_puny("made with   for"),nil,100,7)
- spr(15,72,100,1,1)
+ spr(unpack_split"15,72,100,1,1")
  print_fx(_puny("linux game jam"),nil,106,7)
 end
 
