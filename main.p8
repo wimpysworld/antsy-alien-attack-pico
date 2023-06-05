@@ -46,7 +46,7 @@ function _init()
   "2"
 
  cartdata("wimpy_antsy-alien-attack-pico_"..version_data)
- extcmd("set_title","antsy alien attack pico")
+ extcmd("set_title","Antsy Alien Attack Pico")
 
  // persist hi_score
  hi_score=dget(0)
