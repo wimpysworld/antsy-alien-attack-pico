@@ -2117,6 +2117,10 @@ end
 -->8
 -- helpers
 
+function unpack_split(...)
+ return unpack(split(...))
+end
+
 function reset_pickup_timer()
  local low=rnd_range(pickup_base,pickup_base*1.5)
  pickup_timer=rnd_range(low,low*1.5)
