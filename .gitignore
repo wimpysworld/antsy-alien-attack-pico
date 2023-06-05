@@ -1,9 +1,9 @@
 config/activity_log.txt
 config/log.txt
 config/backup/
+config/cdata/
 exports/
 build_config.p8
-
 screenshots/
-
-config/cdata/
+screenshots-dev/
+appimagetool-x86_64.AppImage
