@@ -203,7 +203,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - [x] `.deb`
 - [x] Snap
 - [ ] Flatpak (*stretch goal*)
-- [ ] AppImage (*stretch goal*)
+- [x] AppImage (*stretch goal*)
 
 ## Player 🚀
 
@@ -249,19 +249,21 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 
 ### Boss patterns
 
-- tbd
+- **I ran out of tokens** 😭
 
 ## Waves 🌊
 
-- Asteroid Belt Slow Weapons On
-- Asteroid Belt Fast Weapons Off
+### Mini Games to distribute across the waves
+
+- Asteroid Belt Slow/Dense Weapons On
+- Asteroid Belt Fast/Sparse Weapons Off
 - Power Spree Fast Weapons Off
 - Some Can Pass
 - None Can Pass
-- Spheres Attack
-- Spheres Evade Fast Weapons Off
+- Spheres Attack Weapons On
+- Spheres Evade Weapons Off
 - Cargo Run
-- Quick Shoot
+- Quick Shoot Fast Weapons On
 - Quick Force Fast Weapons Off
 
 ### Level 1
