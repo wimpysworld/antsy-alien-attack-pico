@@ -123,8 +123,9 @@ function init_attract()
  else
   sfx(1)
  end
- ignore_input=15
- victory=false
+ ignore_input,victory=
+  15,
+  false
  music_play(0)
  init_stars()
  update_loop,draw_loop=
@@ -201,8 +202,6 @@ function init_game_end(status)
  gamestate={}
  
  if (victory) music_play(18) else music_play(0)
- update_loop,draw_loop=
-  update_any_action_btnp,draw_game_end
 end
 
 function draw_game_end()
@@ -816,9 +815,10 @@ function shmup(fleet)
    "destroy "..tostr(win_target).." aliens",
    draw_shmup
   if evade then
-   rate=30
+   rate,
    gamestate.aliens_max,
    gamestate.text=
+    30,
     2+level*3,
     "evasive manoeuvres only!"
   end
@@ -1319,20 +1319,23 @@ function create_gamestate()
   title="",
   text="",
   show_weapons=true,
-  draw=nil,
+  draw=nil
  }
 end
 
 function get_next_objective()
  objectives_progress+=1
  current_objective+=1
- objective_complete=false
- objectives=split(mission)
- objective=objectives[current_objective]
 
  //initialise game state
- aliens,bullets={},{}
-
+ objective_complete,
+ aliens,
+ bullets=
+  false,
+  {},
+  {}
+ objectives=split(mission)
+ objective=objectives[current_objective]
  gamestate=create_gamestate()
  reset_pickup_timer()
 end
