@@ -59,8 +59,29 @@ function pico_export() {
 
 function pico_appimage() {
   # https://www.booleanworld.com/creating-linux-apps-run-anywhere-appimage/
-  # https://github.com/boolean-world/appimage-resources/tree/master/hello-world-appimage
-  return
+  if [ -x appimagetool-x86_64.AppImage ]; then
+    local TARGET="AppImage"
+    mkdir -p "exports/${TARGET}"
+    local EXPORT_PATH="exports/${TARGET}"
+        
+    cp "exports/bin/${FILENAME}.bin/linux/antsy-alien-attack-pico" "${EXPORT_PATH}/"
+    cp "exports/bin/${FILENAME}.bin/linux/data.pod" "${EXPORT_PATH}/"
+    cp "exports/bin/${FILENAME}.bin/linux/${FILENAME}.png" "${EXPORT_PATH}/"  
+    cp packaging/antsy-alien-attack-pico.desktop "${EXPORT_PATH}/"
+    cat << 'EOF' > "${EXPORT_PATH}/AppRun"
+#!/bin/sh
+
+cd "$(dirname "$0")"
+exec ./antsy-alien-attack-pico
+EOF
+
+    chmod 755 "${EXPORT_PATH}/AppRun"
+    ./appimagetool-x86_64.AppImage "${EXPORT_PATH}" "exports/${FILENAME}_${VER}.AppImage"
+    chmod +x "exports/${FILENAME}_${VER}.AppImage"
+  else
+    wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O ./appimagetool-x86_64.AppImage
+    chmod 755 ./appimagetool-x86_64.AppImage
+  fi
 }
 
 function pico_flatpak() {
@@ -132,6 +153,7 @@ pico_export html
 pico_export html_crt
 pico_export wasm
 pico_export wasm_crt
+pico_appimage
 pico_deb
 pico_dmg
 pico_snap

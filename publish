@@ -13,8 +13,13 @@ fi
 
 if [ -e "${HOME}"/.config/itch/butler_creds ]; then
   VER=$(head -n1 exports/version.txt)
-  for PLATFORM in cart deb dmg linux raspi wasm_crt windows snap; do
+  for PLATFORM in appimage cart deb dmg linux raspi wasm_crt windows snap; do
     case "${PLATFORM}" in
+     appimage)
+       CHANNEL="linux_appimage"
+       EXT="AppImage"
+       butler push "exports/${FILENAME}_${VER}.${EXT}" "${ITCH_USER}/${ITCH_GAME}:${CHANNEL}" --userversion "${VER}"
+       ;;    
      cart)
        PLATFORM="p8"
        CHANNEL="pico-8"
