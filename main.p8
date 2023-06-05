@@ -259,7 +259,7 @@ function draw_help()
    1)
   y+=7
  end
- spr(110,56,99,2,2)
+ spr(unpack_split"110,56,99,2,2")
  menu_footer()
 end
 
