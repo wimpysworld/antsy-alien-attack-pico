@@ -749,8 +749,8 @@ function draw_shmup()
    spr(spr_num,pl.hud_x+spr_off,6,1,2,flip_h)
   end
   print_fx(_puny("progress"),nil,8,10)
-  spr(57,41,6,1,1)
-  spr(57,78,6,1,1,true)
+  spr(unpack_split"57,41,6,1,1")
+  spr(unpack_split"57,78,6,1,1,true")
  end
 end
 
@@ -847,8 +847,8 @@ function shmup(fleet)
 end
 
 function draw_pass()
- spr(81,0,125)
- spr(82,120,125)
+ spr(unpack_split"81,0,125")
+ spr(unpack_split"82,120,125")
  line(3,126,124,126,sparkle)
 end
 
