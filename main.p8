@@ -331,8 +331,8 @@ function emit_debris(x,y,size,style)
   add(debris,{
    x=x,
    y=y,
-   sx=rnd_range(-2.5,2.5,true),
-   sy=rnd_range(-0.8,0.8,true),
+   sx=rnd_range(unpack_split"-2.5,2.5,true"),
+   sy=rnd_range(unpack_split"-0.8,0.8,true"),
    col=col,
    decay=10
   })
@@ -530,7 +530,7 @@ function init_stars()
 
  for i=1,64 do
   local s,c=
-   rnd_range(0.25,1.25,true),
+   rnd_range(unpack_split"0.25,1.25,true"),
    1
   if (s>1) c=13
 
@@ -1887,7 +1887,7 @@ function create_alien(x,y,breed)
    0.1,
    0.010,
    0.90,
-   rnd_range(-0.25,0.25,true),
+   rnd_range(unpack_split"-0.25,0.25,true"),
    1.25,
    80
   al.sprite=sprite_create(split"107,108,109,123,124,125",1,1)
@@ -1901,8 +1901,8 @@ function create_alien(x,y,breed)
   al.speed_y=
    40,
    0.055,
-   rnd_range(-0.55,0.55,true),
-   rnd_range(0.85,0.95,true)
+   rnd_range(unpack_split"-0.55,0.55,true"),
+   rnd_range(unpack_split"0.85,0.95,true")
   local rocks=split"87,88,89,90"
   if one_in(3) then
    // grey asteroid
@@ -1914,8 +1914,8 @@ function create_alien(x,y,breed)
     60,
     0.085,
     30,
-    rnd_range(-0.25,0.25,true),
-    rnd_range(0.5,0.65,true)
+    rnd_range(unpack_split"-0.25,0.25,true"),
+    rnd_range(unpack_split"0.5,0.65,true")
 
    rocks=split"71,72,73,74"
   end
