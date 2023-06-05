@@ -223,9 +223,12 @@ function draw_game_end()
 end
 
 function init_help()
- ignore_input=15
- update_loop,draw_loop=
-  update_any_action_btnp,draw_help
+ ignore_input,
+ update_loop,
+ draw_loop=
+  15,
+  update_any_action_btnp,
+  draw_help
 end
 
 function draw_help()
