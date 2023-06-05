@@ -274,15 +274,21 @@ function add_credits(name,humans,y,lt,dk)
 end
 
 function init_credits()
- ignore_input=15
- update_loop,draw_loop=
-  update_any_action_btnp,draw_credits
- credits={}
- add_credits("code",    "martin wimpress",3,8,2)
- add_credits("music",   "chris donnelly",27,9,4)
- add_credits("sound",   "chris donnelly & martin wimpress",50,10,9)
- add_credits("graphics","alice masters, krystian majewski & martin wimpress",73,11,3)
- add_credits("testing & design", "alan pope, neil mcphail, stuart langridge, roger light, simon butcher & martin wimpress",96,12,1)
+ credits,
+ ignore_input,
+ update_loop,
+ draw_loop=
+  {},
+  15,
+  update_any_action_btnp,
+  draw_credits
+
+ //add_credits("code",    "martin wimpress",3,8,2)
+ add_credits(unpack_split"code,martin wimpress,3,8,2") 
+ add_credits(unpack_split"music,chris donnelly,27,9,4")
+ add_credits(unpack_split"sound,chris donnelly + martin wimpress,50,10,9")
+ add_credits(unpack_split"graphics,alice masters + krystian majewski + martin wimpress,73,11,3")
+ add_credits(unpack_split"testing & design,alan pope + neil mcphail + stuart langridge + roger light + simon butcher + martin wimpress,96,12,1")
 end
 
 function draw_credits()
