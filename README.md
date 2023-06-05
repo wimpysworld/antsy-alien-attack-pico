@@ -322,9 +322,9 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 ## Publishing 🕹️
 
 - [x] GitHub page
-- [x] Itch.io page
-- [x] Snapstore page
-- [ ] Lexaloffle BBS page
+- [x] [Itch.io page](https://wimpress.itch.io/antsy-alien-attack-pico)
+- [x] [Snapstore page](https://snapcraft.io/antsy-alien-attack-pico)
+- [x] [Lexaloffle BBS page](https://www.lexaloffle.com/bbs/?tid=52988)
 
 ## Stretch Goals 💪
 
