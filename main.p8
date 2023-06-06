@@ -12,18 +12,17 @@ function _init()
  debris_green,
  debris_fire=
   {
-   "players_off,jump",
+   //"players_off,jump,level_in,fly_in,players_on,drop,boss,wait,level_out,players_off,jump,fly_out",
    //1
-   "level_in,fly_in,players_on,drop,drone,wait,bronze,wait,asteroid_belt,wait,silver,wait,pass_some,wait,metal,level_out,players_off,jump,fly_out",
+   "players_off,jump,level_in,fly_in,players_on,drop,drone,wait,bronze,wait,asteroid_belt,wait,silver,wait,pass_some,wait,metal,level_out,players_off,jump,fly_out",
    //2
    "level_in,fly_in,players_on,drop,sapphire,wait,quick_shoot,wait,cargo_in,cargo_game,cargo_out,wait,jump,weapons_off,power_spree,wait,asteroid_belt,wait,weapons_on,drop,emerald,level_out,players_off,jump,fly_out",
    //3
-   "level_in,fly_in,players_on,drop,gem,wait,jump,weapons_off,quick_force,wait,spheres,wait,asteroid_belt,wait,power_spree,wait,weapons_on,drop,metal,level_out,players_off,jump,fly_out",
+   "level_in,fly_in,players_on,drop,gem,wait,jump,weapons_off,quick_force,wait,spheres,wait,weapons_on,drop,metal,wait,jump,weapons_off,asteroid_belt,wait,power_spree,wait,weapons_on,level_out,players_off,jump,fly_out",
    //4
    "level_in,fly_in,players_on,drop,gem,wait,pass_none,wait,quick_shoot,wait,spheres,wait,asteroid_belt,wait,jump,weapons_off,power_spree,weapons_on,level_out,players_off,fly_out",
    //5
-   "level_in,fly_in,players_on,drop,armada,wait,cargo_in,cargo_game,cargo_out,wait,armada,wait,jump,weapons_off,asteroid_belt,wait,power_spree,wait,weapons_on,drop,armada,wait,level_out,players_off,jump,fly_out",
-   "drop",
+   "level_in,fly_in,players_on,drop,armada,wait,cargo_in,cargo_game,cargo_out,wait,armada,wait,jump,weapons_off,asteroid_belt,wait,power_spree,wait,weapons_on,drop,boss,wait,level_out,players_off,jump,fly_out,drop",
   },
   "14,14,8,8,2,2",
   "10,11,11,11,3,3",
@@ -1102,7 +1101,7 @@ function level_status(mode)
   gamestate.show_weapons=
    true,false
 
-  gamestate.title="zone "..tostr(level).." of "..#missions-2
+  gamestate.title="zone "..tostr(level).." of "..#missions
   if mode=="level_out" then
    gamestate.title="zone "..tostr(level).." cleared"
    score_update_all(level*5000)
@@ -1115,7 +1114,7 @@ end
 function draw_wait()
  print_fx("total progress",nil,56,6,5,5)
  local progress=round(objectives_progress/objectives_total*100)
- if (level==#missions-2) progress=100
+ if (level==#missions) progress=100
 
  rectfill(unpack_split"13,63,115,65,9")
  line(14,64,progress+14,64,10)
@@ -1316,10 +1315,12 @@ end
 
 function get_next_mission()
  current_mission+=1
- current_objective,
- level=
+ current_objective,level=
   0,
-  min(#missions-2,current_mission-1)
+  current_mission
+ //level=
+ // 0,
+ // min(#missions-2,current_mission-1)
 
  mission=missions[current_mission]
  get_next_objective()
