@@ -82,10 +82,10 @@ function _draw()
  else
   cls()
  end
- local shakex,shakey=
+ camera(
   rnd(screen_shake)-(screen_shake/2),
   rnd(screen_shake)-(screen_shake/2)
- camera(shakex,shakey)
+ )
 
  draw_stars()
  draw_loop()
