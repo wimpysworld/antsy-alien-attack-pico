@@ -951,7 +951,7 @@ end
 
 function quick_play(use_the_force)
  if use_the_force then
-  time_limit,win_target=1000,20
+  time_limit,win_target=1180,20
  else
   time_limit,win_target=900,30
  end
