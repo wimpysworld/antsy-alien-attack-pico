@@ -154,12 +154,11 @@ function update_attract()
 end
 
 function draw_attract()
- local c=nil
+ local music_state,c="off"
  print_fx("antsy alien",nil,2,11,3,10,"big")
  print_fx("attack!",nil,16,8,2,14,"big")
  print_fx(_puny("pico"),nil,28,7)
 
- local music_state="off"
  if (music_enabled>=0) music_state="on"
  for i=1,#menu_items do
   local m=menu_items[i]
