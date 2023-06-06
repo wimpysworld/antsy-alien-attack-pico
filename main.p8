@@ -954,11 +954,9 @@ end
 
 function quick_play(use_the_force)
  if use_the_force then
-  time_limit=1000
-  win_target=20
+  time_limit,win_target=1000,20
  else
-  time_limit=900
-  win_target=30
+  time_limit,win_target=900,30
  end
  if not gamestate.ready then  
   gamestate.hud_target,
