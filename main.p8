@@ -1341,8 +1341,9 @@ function activate_weapons(status)
  for pl in all(players) do
   pl.shot_enabled=status
  end
- evade=not status
- objective_complete=true
+ evade,objective_complete=
+  not status,
+  true
 end
 
 function draw_mission()
