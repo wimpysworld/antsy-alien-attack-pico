@@ -927,10 +927,7 @@ function power_spree()
   gamestate.aliens_max,
   gamestate.title,
   gamestate.text=
-   600,
-   5,
-   "power spree",
-   "grab what you can"
+   unpack_split"600,5,power spree,grab what you can"
  else
   gamestate.hud_progress=gamestate.gametime
 
