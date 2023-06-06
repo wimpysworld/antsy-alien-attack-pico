@@ -906,7 +906,7 @@ function asteroid_belt()
 
   if evade then
    local startx=8
-   if (fc%2==0) startx=108
+   if (one_in(2)) startx=108
    if (one_in(250)) create_pickup(rnd_range(startx,startx+16),-8,true)
   end
 
@@ -926,16 +926,15 @@ end
 function power_spree()
  if not gamestate.ready then
   gamestate.hud_target,
-  gamestate.aliens_max,
   gamestate.title,
   gamestate.text=
-   unpack_split"600,5,power spree,grab what you can"
+   unpack_split"600,power spree,grab what you can"
  else
   gamestate.hud_progress=gamestate.gametime
 
   if (one_in(15)) create_pickup(rnd_range(4,120),-8,true)
 
-  if #aliens<gamestate.aliens_max and one_in(5) then
+  if #aliens<5 and one_in(5) then
    al=create_alien(rnd_range(2,126),-8,"asteroid")
    if (al) al.speed_y+=1.9
   end
@@ -1288,7 +1287,6 @@ function create_gamestate()
   aliens_escaped=0,
   aliens_jammed=0,
   aliens_max=0,
-  player_pickups=0,
   hud_progress=0,
   hud_target=nil,
   gametime=0,
@@ -1590,12 +1588,9 @@ end
 function check_player_collisions(pl)
  for pu in all(pickups) do
   if sprite_collision(pl.sprite,pu.sprite) then
-   gamestate.player_pickups+=1
    score_update(pl,10000)
-   local pu_sound=9
-
    //every power-up charges the generator
-   local charge=15
+   local pu_sound,charge=9,15
 
    if pu.payload==96 then
     // alien weapons jammer
