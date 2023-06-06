@@ -1938,6 +1938,15 @@ function create_alien(x,y,breed)
   al.x=rnd_range(0,31)
   local target_x=rnd_range(48,127)
 
+  if fc%2==0 then
+   al.x,
+   target_x=
+    rnd_range(95,127),
+    rnd_range(0,47)
+  end
+
+  local angle=atan2(target_x-al.x+al.x_off,127-al.y+al.y_off)
+
   al.speed_x,
   al.speed_y,   
   al.explosion_size=   
@@ -1945,13 +1954,6 @@ function create_alien(x,y,breed)
    sin(angle)*1.45,   
    rnd_range(2,3)
 
-  if fc%2==0 then
-   al.x,
-   target_x=
-    rnd_range(95,127),
-    rnd_range(0,47)
-  end
-  local angle=atan2(target_x-al.x+al.x_off,127-al.y+al.y_off)
   al.hp,
   al.shot_speed_x,
   al.shot_speed_y,
