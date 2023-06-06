@@ -1117,7 +1117,7 @@ function draw_wait()
  print_fx("total progress",nil,56,6,5,5)
  local progress=round(objectives_progress/objectives_total*100)
  if (level==#missions-2) progress=100
-  
+
  rectfill(unpack_split"13,63,115,65,9")
  line(14,64,progress+14,64,10)
 end
