@@ -1466,57 +1466,55 @@ function players_startx()
 end
 
 function create_player(player)
- local x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot,rocket_sprites=
-  56,11,3,1,6,debris_green,2,split"194,193,192,193"
+ local col_lt,col_dk,hud_x,explosion_style,sfx_shoot=
+  unpack_split"11,3,1,6,2"
+
+ local debris_style,rocket_sprites=
+   debris_green,
+   split"194,193,192,193"
+   
  if player==2 then
-  x,col_lt,col_dk,hud_x,explosion_style,debris_style,sfx_shoot,rocket_sprites=
-   56,8,2,96,5,debis_red,3,split"226,225,224,225"
+  col_lt,col_dk,hud_x,explosion_style,sfx_shoot= 
+   unpack_split"8,2,96,5,3"
+   
+  debris_style,rocket_sprites=
+   debris_red,
+   split"226,225,224,225"
  end
  add(players,create_actor(x,y))
 
  local pl=players[#players]
-  pl.num,
-  pl.col_lt,
-  pl.col_dk,
-  pl.speed,
-  pl.hud_x,
-  pl.debris_style,
-  pl.explosion_size,
-  pl.explosion_style,
-  pl.sfx_shoot,
-  pl.score,
-  pl.prev_dir,
-  pl.generator,
-  pl.shields,
-  pl.lock_to_screen,
-  pl.controls_enabled,
-  pl.shot_enabled,
-  pl.shot_cooldown,
-  pl.shot_cooldown_timer,
-  pl.rocket_sprites,
-  pl.flash_hp,
-  pl.flash_dynamo=
-   player,
-   col_lt,
-   col_dk,
-   1.35,
-   hud_x,
-   debris_style,
-   3,
-   explosion_style,
-   sfx_shoot,
-   0,                //score
-   -1,               //pre_dir
-   0,                //generator
-   0,                //shields
-   false,            //lock to screen
-   true,             //controls enabled
-   true,             //shot_eanbled
-   5,                //shot_cooldown
-   0,                //shot_cooldown_timer
-   rocket_sprites,
-   0,
-   0
+ pl.speed,
+ pl.explosion_size,
+ pl.score,
+ pl.prev_dir,
+ pl.generator,
+ pl.shields,
+ pl.lock_to_screen,
+ pl.controls_enabled,
+ pl.shot_enabled,
+ pl.shot_cooldown,
+ pl.shot_cooldown_timer,
+ pl.flash_hp,
+ pl.flash_dynamo= 
+  unpack_split"1.35,3,0,-1,0,0,false,true,true,5,0,0,0"
+ 
+ pl.num,
+ pl.col_lt,
+ pl.col_dk,
+ pl.hud_x,
+ pl.debris_style,
+ pl.explosion_style,
+ pl.sfx_shoot,
+ pl.rocket_sprites=
+  player,
+  col_lt,
+  col_dk,
+  hud_x,
+  debris_style,
+  explosion_style,
+  sfx_shoot,
+  rocket_sprites
 
  pl.sprite=sprite_create(split"0,2,4,6,8",2,2)
  pl.sprite.frame=3.5
