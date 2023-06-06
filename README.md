@@ -238,11 +238,11 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 | Silver          | Medium  | Vertical               | Aimed                   | Small      |  45  | 20           | 2         | Done   |
 | Sapphire        | Medium  | Diagonal               | Predictive              | Small      |  50  | 20           | 2 or 3    | Done   |
 | Emerald         | Fast    | Wide wave              | 4-way Spread            | Medium     |  60  | 20           | 3         | Done   |
-| Saucer          | Fast    | Swoop and retreat      | 360° Spiral             | Large      |  75  | 40           | 3         |        |
+| Saucer          | Fast    | Loop                   | 4-way Spread            | Large      | 5000 | 60           | 3         | Done   |
 
 ### Boss patterns
 
-- **I ran out of tokens** 😭
+- A flying saucer that loops around the screen and fires a 4-way spread of bullets.
 
 ## Waves 🌊
 
@@ -258,6 +258,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - Cargo Run
 - Quick Shoot Fast Weapons On
 - Quick Force Fast Weapons Off
+- Boss Fight
 
 ### Level 1
 
@@ -282,9 +283,9 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - Gem Squad
 - Quick Force Fast Weapons Off
 - Spheres Evade Fast Weapons Off
+- Metal Squad
 - Asteroid Belt Fast Weapons Off
 - Power Spree Fast Weapons Off
-- Metal Squad
 
 ### Level 4
 
@@ -302,7 +303,7 @@ The game code is licensed under the [MIT license](https://en.wikipedia.org/wiki/
 - Armada
 - Asteroid Belt Fast Weapons Off
 - Power Spree Fast Weapons Off
-- Armada
+- Boss Fight
 
 ### Mini-Games 🗺️
 
