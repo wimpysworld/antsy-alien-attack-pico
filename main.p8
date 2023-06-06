@@ -198,8 +198,8 @@ function init_game_end(status)
 end
 
 function draw_game_end()
- local outcome,message,col,dark,spr_num="game over","valiant effort",8,2,78
- if (victory) outcome,message,col,dark,spr_num="well done","planet earth is saved",11,3,110
+ local outcome,message,col,dark,spr_num=unpack_split"game over,valiant effort,8,2,78"
+ if (victory) outcome,message,col,dark,spr_num=unpack_split"well done,planet earth is saved,11,3,110"
 
  draw_hud() 
  print_fx(message,nil,24,col,dark,dark)
