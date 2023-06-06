@@ -699,11 +699,9 @@ function init_missions()
  objective_complete=
   unpack_split"0,0,0,0,0,false"
 
- local m=0
  for mission in all(missions) do
-  m+=1
   for objective in all(split(mission)) do
-   if (m>1 and m<#missions) objectives_total+=1
+   objectives_total+=1
   end
  end
 end
@@ -1141,11 +1139,10 @@ end
 
 function draw_wait()
  print_fx("total progress",nil,56,6,5,5)
- local progress=round(objectives_progress/objectives_total*100)
- if (level==#missions) progress=100
+ local progress=round(objectives_progress/objectives_total*100)+14
 
  rectfill(unpack_split"13,63,115,65,9")
- line(14,64,progress+14,64,10)
+ line(14,64,progress,64,10)
 end
 
 function wait()
