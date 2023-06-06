@@ -1075,6 +1075,35 @@ function cargo(mode)
  end
 end
 
+function boss()
+ if not gamestate.ready then
+  gamestate.title,
+  gamestate.text=
+   unpack_split"boss fight,smash that saucy saucer"
+  gamestate.boss_index=nil
+ else
+  if not gamestate.boss_index then
+   music_play(14)
+   create_alien(unpack_split"63,-16,boss")
+   local boss_hp=aliens[#aliens].hp
+   gamestate.boss_index,
+   gamestate.hud_target,
+   gamestate.hud_progress=
+    #aliens,
+    boss_hp,
+    boss_hp
+  end
+
+  if #aliens<4 then
+   create_alien(63,-8,"silver")
+  end
+
+  if gamestate.hud_progress<=0 then
+   objective_cleanup()
+  end
+ end
+end
+
 function autopilot(mode)
  local target_y=-32
  if (mode=="fly_in") target_y=96
@@ -1209,6 +1238,7 @@ function update_game()
  if (objective=="pass_some") pass(true)
  if (objective=="pass_none") pass()
  if (objective=="asteroid_belt") asteroid_belt()
+ if (objective=="boss") boss()
  if (objective=="power_spree") power_spree()
  if (objective=="quick_shoot") quick_play()
  if (objective=="quick_force") quick_play(true)
@@ -1420,10 +1450,16 @@ function check_rocket_collision(rocket)
     screen_shake+=al.explosion_size+1
     create_pickup(al.sprite.emit_x,al.sprite.emit_y)
     sfx(5+al.explosion_size)
+    if (al.breed=="boss") gamestate.hud_progress=0
     del(aliens,al)
    else
     emit_debris(al.sprite.emit_x,al.sprite.emit_y,al.debris_size,pl.debris_style)
-    al.y-=2
+    if al.breed=="boss" then
+     gamestate.hud_progress=al.hp
+     screen_shake+=0.5
+    else
+     al.y-=2
+    end
     al.sprite.pal_whiteflash=2
     sound_play(5)
    end
@@ -1560,12 +1596,15 @@ end
 function emit_smartbomb(pl)
  local max_exp=0
  for al in all(aliens) do
-  if (pl) score_update(pl,al.reward*max_exp)
-  if (max_exp<=6) emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,al.debris_size,debris_fire)
-  screen_shake+=al.explosion_size
-  max_exp+=1
+  if al.breed!="boss" then
+   if (pl) score_update(pl,al.reward*max_exp)
+   if (max_exp<=6) emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,al.debris_size,debris_fire)
+   screen_shake+=al.explosion_size
+   max_exp+=1
+   del(aliens,al)
+  end
  end
- aliens,bullets={},{}
+ bullets={}
  screen_flash+=3
  sfx(8)
 end
@@ -1632,14 +1671,16 @@ function check_player_collisions(pl)
 
  for al in all(aliens) do
   if sprite_collision(pl.sprite,al.sprite) then
-   // destroy the alien
-   gamestate.aliens_destroyed+=1
    score_update(pl,al.reward)
    emit_explosion(al.x+8,al.y,al.explosion_size)
    sfx(5+al.explosion_size)
    // damage the player
    apply_player_damage(pl,al.collision_damage,true)
-   del(aliens,al)
+   if al.breed!="boss" then
+    // destroy the alien
+    gamestate.aliens_destroyed+=1
+    del(aliens,al)
+   end
   end
  end
 
@@ -1929,14 +1970,12 @@ function create_alien(x,y,breed)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
  elseif breed=="sapphire" then
-  al.x=rnd_range(0,31)
-  local target_x=rnd_range(48,127)
+  al.x=rnd_range(95,127)
+  local target_x=rnd_range(0,47)
 
-  if fc%2==0 then
-   al.x,
-   target_x=
-    rnd_range(95,127),
-    rnd_range(0,47)
+  if one_in(2) then
+   al.x=rnd_range(0,31)
+   target_x+=63
   end
 
   local angle=atan2(target_x-al.x+al.x_off,127-al.y+al.y_off)
@@ -1966,6 +2005,16 @@ function create_alien(x,y,breed)
 
   al.sprite=sprite_create({117},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
+ elseif breed=="boss" then
+  al.hp,
+  al.collision_damage,
+  al.angle,
+  al.shot_sprite,
+  al.shot_cooldown,
+  al.explosion_size=
+   unpack_split"5000,60,90,64,300,3"
+  al.sprite=sprite_create(split"78",2,2)
+  sprite_hitbox(al.sprite,1,2,13,10)
  end
  al.debris_size,
  al.reward=
@@ -2027,12 +2076,15 @@ function make_firing_decision(al)
     bullet=emit_bullet(al)
     aim_shot(bullet,pl,al)
    end
-  elseif al.breed=="emerald" and one_in(500) then
+  elseif (al.breed=="emerald" and one_in(500)) or
+         (al.breed=="boss" and one_in(85)) then
+   local spd=1.5
+   if (al.breed=="boss") spd=0.95
    for i=0,3 do
     local ang=0.695+((0.04+fc)*i)
     al.shot_speed_x,al.shot_speed_y=
-     cos(ang)*1.5,
-     sin(ang)*1.5
+     cos(ang)*spd,
+     sin(ang)*spd
     emit_bullet(al)
    end
   end
@@ -2060,6 +2112,13 @@ function update_aliens()
     if (cos_wave>0.9) emerald_spr=118
     al.sprite.frames={emerald_spr}
    end
+  elseif al.breed=="boss" then
+   al.angle+=1.85
+   if (al.angle>360) al.angle=0
+   local move=al.angle/360
+   al.x,al.y=
+    56+58*cos(move),
+    32+36*sin(move)
   else
    al.x+=al.speed_x
    al.y+=al.speed_y
@@ -2208,7 +2267,7 @@ function sprite_draw(s,x,y)
  s.emit_x,
  s.emit_y=
   s.x+s.hb_hw,
-  s.y+s.hb_hh
+  s.y+s.hb_height+s.hb_hh
 
  // do palette swaps
  if (s.pal_trans>0) palt(s.pal_trans)
