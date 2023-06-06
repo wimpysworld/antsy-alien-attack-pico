@@ -185,10 +185,14 @@ function draw_attract()
 end
 
 function init_game_end(status)
- hyperspeed_target=0
- ignore_input=60
- victory=status
- gamestate={}
+ hyperspeed_target,
+ ignore_input,
+ victory,
+ gamestate=
+  0,
+  60,
+  status,
+  {}
  
  if (victory) music_play(18) else music_play(0)
 end
