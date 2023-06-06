@@ -1833,20 +1833,14 @@ function create_alien(x,y,breed)
  end
 
  local al=create_actor(x,y)
- al.breed,
+ al.breed=breed
  al.collision_damage,
  al.shot_cooldown,
  al.shot_cooldown_timer,
  al.x_off,
  al.y_off,
  al.framerate=
-  breed,
-  20,
-  180,
-  0,
-  2,
-  -6,
-  0
+  unpack_split"20,180,0,2,-6,0"
 
  if breed=="drone" then
   al.hp,
