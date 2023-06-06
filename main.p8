@@ -1696,11 +1696,8 @@ function update_players()
     apply_stars_accel(dx,dy)
 
     // finally, apply the input direction to the player
-    pl.vel_x,pl.vel_y=
-     dx*(pl.speed),
-     dy*(pl.speed)
-    pl.x+=pl.vel_x
-    pl.y+=pl.vel_y
+    pl.x+=dx*(pl.speed)
+    pl.y+=dy*(pl.speed)
     
 	  //fire rockets
 	  if btn(4,controller) or btn(5,controller) then
@@ -1980,19 +1977,22 @@ function create_alien(x,y,breed)
  return al 
 end
 
-function aim_shot(bl,pl,al,predict)
- local vel_x,vel_y=0,0
- if predict then
-  vel_x,vel_y=pl.vel_x,pl.vel_y
- end
+function aim_shot(bl,pl,al)
+ local skew=8
+ if (al.breed=="silver") skew=16
+ local target_x,target_y=pl.x+8,pl.y+8
+ target_x+=rnd_range(-skew,skew)
+ target_y+=rnd_range(-skew,skew)
 
- local angle=atan2(pl.x+8+vel_x-al.x+al.x_off,pl.y+8+vel_y-al.y+al.y_off)
- bl.speed_x=cos(angle)*al.shot_speed_x
- bl.speed_y=sin(angle)*al.shot_speed_y
+ local angle=atan2(target_x-al.x+al.x_off,target_y-al.y+al.y_off)
+ bl.speed_x,
+ bl.speed_y=
+  cos(angle)*al.shot_speed_x,
+  sin(angle)*al.shot_speed_y
 end
 
 function make_firing_decision(al)
- if (al.breed=="asteroid" or gamestate.aliens_jammed>0 or al.y>120) return
+ if (al.breed=="asteroid" or gamestate.aliens_jammed>0 or al.y>112) return
 
  if al.shot_cooldown_timer<=0 then
   if al.breed=="drone" then
@@ -2022,17 +2022,11 @@ function make_firing_decision(al)
    bullet.speed_x,bullet.speed_y=
     cos(angle)*al.shot_speed_x,
     sin(angle)*al.shot_speed_y
-  elseif al.breed=="silver" and one_in(300) then
+  elseif (al.breed=="silver" or al.breed=="sapphire") and one_in(300) then
    //aimed shots
    for pl in all(players) do
     bullet=emit_bullet(al)
     aim_shot(bullet,pl,al)
-   end
-  elseif al.breed=="sapphire" and one_in(300) then
-   //aimed shots, with estimated predictive compensation
-   for pl in all(players) do
-    bullet=emit_bullet(al)
-    aim_shot(bullet,pl,al,true)
    end
   elseif al.breed=="emerald" and one_in(500) then
    for i=0,3 do
