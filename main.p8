@@ -1481,7 +1481,7 @@ function create_player(player)
    debris_red,
    split"226,225,224,225"
  end
- add(players,create_actor(x,y))
+ add(players,create_actor(56,160))
 
  local pl=players[#players]
  pl.speed,
@@ -1490,14 +1490,13 @@ function create_player(player)
  pl.prev_dir,
  pl.generator,
  pl.shields,
- pl.lock_to_screen,
  pl.controls_enabled,
  pl.shot_enabled,
  pl.shot_cooldown,
  pl.shot_cooldown_timer,
  pl.flash_hp,
  pl.flash_dynamo= 
-  unpack_split"1.35,3,0,-1,0,0,false,true,true,5,0,0,0"
+  unpack_split"1.35,3,0,-1,0,0,true,true,5,0,0,0"
  
  pl.num,
  pl.col_lt,
@@ -1506,7 +1505,8 @@ function create_player(player)
  pl.debris_style,
  pl.explosion_style,
  pl.sfx_shoot,
- pl.rocket_sprites=
+ pl.rocket_sprites,
+ pl.lock_to_screen=
   player,
   col_lt,
   col_dk,
@@ -1514,7 +1514,8 @@ function create_player(player)
   debris_style,
   explosion_style,
   sfx_shoot,
-  rocket_sprites
+  rocket_sprites,
+  false
 
  pl.sprite=sprite_create(split"0,2,4,6,8",2,2)
  pl.sprite.frame=3.5
