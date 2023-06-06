@@ -10,8 +10,7 @@ function _init()
  missions,
  debris_red,
  debris_green,
- debris_fire,
- version_data=
+ debris_fire=
   {
    "players_off,jump",
    //1
@@ -28,13 +27,12 @@ function _init()
   },
   "14,14,8,8,2,2",
   "10,11,11,11,3,3",
-  "10,9,9,8,8,2",
-  "2"
+  "10,9,9,8,8,2"
 
  fc,ignore_input,num_players,pickup_base,screen_flash,screen_shake,sparkle=
   unpack_split"0,1,1,666,0,0,4"
 
- cartdata("wimpy_antsy-alien-attack-pico_"..version_data)
+ cartdata("wimpy_antsy-alien-attack-pico_2")
  extcmd("set_title","Antsy Alien Attack Pico")
 
  // persist hi_score
