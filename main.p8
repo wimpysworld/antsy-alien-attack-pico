@@ -2002,7 +2002,7 @@ function aim_shot(bl,pl,al,predict)
 end
 
 function make_firing_decision(al)
- if (al.breed=="asteroid" or gamestate.aliens_jammed>0) return
+ if (al.breed=="asteroid" or gamestate.aliens_jammed>0 or al.y>120) return
 
  if al.shot_cooldown_timer<=0 then
   if al.breed=="drone" then
