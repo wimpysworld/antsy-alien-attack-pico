@@ -805,7 +805,7 @@ function shmup(fleet)
   end
  else
   if #aliens<gamestate.aliens_max and one_in(rate) then
-   local al=create_alien(rnd_range(16,112),rnd_range(-16,-8),spawn[rnd_range(1,#spawn)])
+   local al=create_alien(rnd_range(16,112),-8,spawn[rnd_range(1,#spawn)])
    if (al and fleet=="armada") then
     al.hp+=20
     al.speed_y+=0.55
