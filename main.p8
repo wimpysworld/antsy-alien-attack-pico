@@ -503,7 +503,7 @@ function draw_explosions()
 end
 
 function init_stars()
- stars,
+ stars={}
  hyperspeed,
  hyperspeed_target,
  -- starfield acceleration
@@ -511,15 +511,8 @@ function init_stars()
  stars_max_accy,
  stars_min_accy,
  stars_accx,
- stars_accy,
- stars_min_accy=
-  {},
-  0,
-  0,
-  3,
-  1,
-  0,
-  1
+ stars_accy=
+  unpack_split"0,0,3,1,0,1"
 
  for i=1,64 do
   local s,c=
