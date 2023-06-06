@@ -1390,17 +1390,14 @@ function emit_rocket(player_num)
   // apply pattern
   if pl.shot_pattern>1 then  
    // 3-way  
-   local dir,spread,spd=
-    0.215,0.04,2.5
+   local dir,spread,spd=unpack_split"0.215,0.04,2.5"
 
    if pl.shot_pattern==3 then
     // 4-way
-    dir,spread,spd=
-     0.175,0.05,2
+    dir,spread,spd=unpack_split"0.175,0.05,2"
    elseif pl.shot_pattern>=4 then
     // 5-way
-    dir,spread,spd=
-     0.175,0.04,1.75
+    dir,spread,spd=unpack_split"0.175,0.04,1.75"
    end
   
    local ang=dir+((spread+fc)*i)
