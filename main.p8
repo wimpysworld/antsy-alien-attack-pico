@@ -1972,8 +1972,10 @@ function create_alien(x,y,breed)
   al.sprite=sprite_create({117},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  end
- al.debris_size=al.explosion_size
- al.reward=(al.hp+al.collision_damage*100)+al.explosion_size
+ al.debris_size,
+ al.reward=
+  al.explosion_size,
+  (al.hp+al.collision_damage*100)+al.explosion_size
 
  add(aliens,al)
  return al
@@ -2197,7 +2199,7 @@ function sprite_create(sprites,w,h)
   pal_swaps={},
   pal_trans=0,
   pal_whiteflash=0,
-  pal_ghostly=false,
+  pal_ghostly=false
   //show_hitbox=false
  }
 end
