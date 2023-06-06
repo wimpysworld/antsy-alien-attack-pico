@@ -188,12 +188,14 @@ function init_game_end(status)
  hyperspeed_target,
  ignore_input,
  victory,
- gamestate=
+ update_loop,
+ draw_loop=
   0,
   60,
   status,
-  {}
- 
+  update_any_action_btnp,
+  draw_game_end
+
  if (victory) music_play(18) else music_play(0)
 end
 
