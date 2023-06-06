@@ -1833,6 +1833,7 @@ function create_alien(x,y,breed)
 
  local al=create_actor(x,y)
  al.breed=breed
+
  al.collision_damage,
  al.shot_cooldown,
  al.shot_cooldown_timer,
@@ -1948,7 +1949,7 @@ function create_alien(x,y,breed)
    al.x,
    target_x=
     rnd_range(95,127),
-    rnd_range(0,47)   
+    rnd_range(0,47)
   end
   local angle=atan2(target_x-al.x+al.x_off,127-al.y+al.y_off)
   al.hp,
