@@ -1846,16 +1846,11 @@ function create_alien(x,y,breed)
   al.framerate,
   al.wave_speed,
   al.wave_width,
-  al.shot_speed_x,
   al.shot_speed_y,
   al.shot_sprite=
-   30,
-   0.1,
-   0.010,
-   0.90,
-   rnd_range(unpack_split"-0.25,0.25,true"),
-   1.25,
-   80
+   unpack_split"30,0.1,0.010,0.90,1.25,80"
+   
+  al.shot_speed_x=rnd_range(unpack_split"-0.25,0.25,true")
   al.sprite=sprite_create(split"107,108,109,123,124,125",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
@@ -1874,12 +1869,11 @@ function create_alien(x,y,breed)
    // grey asteroid
    al.hp,
    al.framerate,
-   al.collision_damage,
+   al.collision_damage=
+    unpack_split"60,0.085,30"
+
    al.speed_x,
-   al.speed_y=
-    60,
-    0.085,
-    30,
+   al.speed_y=    
     rnd_range(unpack_split"-0.25,0.25,true"),
     rnd_range(unpack_split"0.5,0.65,true")
 
@@ -1894,11 +1888,8 @@ function create_alien(x,y,breed)
   al.speed_x,
   al.speed_y,
   al.shot_sprite=
-   50,
-   0.075,
-   0,
-   0.5,
-   80
+   unpack_split"50,0.075,0,0.5,80"
+
   al.sprite=sprite_create(split"91,75,76,77,93,77,76,75",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
@@ -1908,66 +1899,64 @@ function create_alien(x,y,breed)
   if (x>63) angle=atan2(rnd_range(104,120)+al.x_off-al.x,127-al.y+al.y_off)
   al.hp,
   al.framerate,
-  al.speed_x,
-  al.speed_y,
   al.shot_speed_x,
   al.shot_speed_y,
-  al.shot_sprite,
-  al.explosion_size=
-   60,
-   0.1,
+  al.shot_sprite=
+   unpack_split"60,0.1,1.5,1.5,65"
+
+  al.speed_x,
+  al.speed_y,
+  al.explosion_size=     
    cos(angle)*1.1,
    sin(angle)*1.1,
-   1.5,
-   1.5,
-   65,
-   rnd_range(1,2)
+   rnd_range(1,2)   
+   
   al.sprite=sprite_create(split"68,69,70,69",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="silver" then
-  al.x=rnd_range(24,104)
+  al.x,
+  al.speed_x,
+  al.speed_y=
+   rnd_range(24,104),
+   cos(angle)*1.75,
+   sin(angle)*1.25
+  
   local angle=atan2(rnd_range(al.x-20,al.x+20)+al.x_off-al.x,127-al.y+al.y_off)
   al.hp,
   al.framerate,
-  al.speed_x,
-  al.speed_y,
   al.shot_speed_x,
   al.shot_speed_y,
   al.shot_sprite,
   al.explosion_size=
-   70,
-   0.2,
-   cos(angle)*1.75,
-   sin(angle)*1.25,
-   1.75,
-   1.75,
-   80,
-   2
+   unpack_split"70,0.2,1.75,1.75,80,2"
+      
   al.sprite=sprite_create(split"103,104,105,106,119,120,121,122",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
  elseif breed=="sapphire" then
   local target_x=rnd_range(48,127)
-  al.x=rnd_range(0,31)
+  al.x,
+  al.speed_x,
+  al.speed_y,   
+  al.explosion_size=   
+   rnd_range(0,31),
+   cos(angle)*1.45,
+   sin(angle)*1.45,   
+   rnd_range(2,3)
+
   if fc%2==0 then
-   al.x=rnd_range(95,127)
-   target_x=rnd_range(0,47)   
+   al.x,
+   target_x=
+    rnd_range(95,127),
+    rnd_range(0,47)   
   end
   local angle=atan2(target_x-al.x+al.x_off,127-al.y+al.y_off)
   al.hp,
-  al.speed_x,
-  al.speed_y,
   al.shot_speed_x,
   al.shot_speed_y,
-  al.shot_sprite,
-  al.explosion_size=
-   75,
-   cos(angle)*1.45,
-   sin(angle)*1.45,
-   1.75,
-   1.75,
-   80,
-   rnd_range(2,3)
+  al.shot_sprite=
+   unpack_split"75,1.75,1.75,80"
+   
   al.sprite=sprite_create({101},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="emerald" then
@@ -1976,11 +1965,8 @@ function create_alien(x,y,breed)
   al.wave_width,
   al.shot_sprite,
   al.explosion_size=
-   80,
-   0.007,
-   1.5,
-   65,
-   3
+   unpack_split"80,0.007,1.5,65,3"
+
   al.sprite=sprite_create({117},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  end
