@@ -25,7 +25,7 @@ function _init()
    //5
    "level_in,fly_in,players_on,drop,armada,wait,cargo_in,cargo_game,cargo_out,wait,armada,wait,jump,weapons_off,asteroid_belt,wait,power_spree,wait,weapons_on,drop,armada,wait,level_out,players_off,jump,fly_out",
    "drop",
-  }, 
+  },
   "14,14,8,8,2,2",
   "10,11,11,11,3,3",
   "10,9,9,8,8,2",
@@ -201,16 +201,16 @@ function draw_game_end()
  local outcome,message,col,dark,spr_num=unpack_split"game over,valiant effort,8,2,78"
  if (victory) outcome,message,col,dark,spr_num=unpack_split"well done,planet earth is saved,11,3,110"
 
- draw_hud() 
+ draw_hud()
  print_fx(message,nil,24,col,dark,dark)
  print_bounce(outcome,nil,60,col,nil,nil,34,8,"dotty")
- spr(spr_num,63-8,34,2,2) 
+ spr(spr_num,63-8,34,2,2)
 
  if hi_player>0 then
   print_fx(tostr(hi_player).."-up new hi-score!",nil,89,7,5,5)
   print_fx(numtostr(hi_score,8),nil,97,sparkle,1,1)
  end
- 
+
  menu_footer()
 end
 
@@ -236,7 +236,7 @@ function draw_help()
   "shoot or collide with aliens    ",
   "weapons go offline at hyperspeed",
   "power-ups enhance your ship     ",
-  "power-ups charge the dynamo     ",  
+  "power-ups charge the dynamo     ",
   "a full dynamo boosts shields 50%",
  }
 --]]
@@ -279,7 +279,7 @@ function init_credits()
   draw_credits
 
  //add_credits("code",    "martin wimpress",3,8,2)
- add_credits(unpack_split"code,martin wimpress,3,8,2") 
+ add_credits(unpack_split"code,martin wimpress,3,8,2")
  add_credits(unpack_split"music,chris donnelly,27,9,4")
  add_credits(unpack_split"sound,chris donnelly + martin wimpress,50,10,9")
  add_credits(unpack_split"graphics,alice masters + krystian majewski + martin wimpress,73,11,3")
@@ -507,7 +507,7 @@ function init_stars()
  hyperspeed,
  hyperspeed_target,
  -- starfield acceleration
- -- can react to player input 
+ -- can react to player input
  stars_max_accy,
  stars_min_accy,
  stars_accx,
@@ -726,7 +726,7 @@ function draw_shmup()
   for pl in all(players) do
    if (pl.num==2) x_off,spr_num,spr_off,flip_h=0,43,23,true
    print_fx(_puny("health"),pl.hud_x+x_off,8,pl.col_lt)
-   print_fx(_puny("dynamo"),pl.hud_x+x_off,13,12)    
+   print_fx(_puny("dynamo"),pl.hud_x+x_off,13,12)
    spr(spr_num,pl.hud_x+spr_off,6,1,2,flip_h)
   end
   print_fx(_puny("progress"),nil,8,10)
@@ -743,7 +743,7 @@ function shmup(fleet)
   15
  if fleet=="drone" or
     fleet=="bronze" or
-    fleet=="silver" or    
+    fleet=="silver" or
     fleet=="sapphire" or
     fleet=="emerald" then
   spawn,title=
@@ -766,7 +766,7 @@ function shmup(fleet)
    "gem squad"
  end
 
- if fleet!="spheres" and fleet!="armada" then 
+ if fleet!="spheres" and fleet!="armada" then
 	 if level>=2 then
 	  add(spawn,"drone")
 	  title=fleet.." scouts"
@@ -780,7 +780,7 @@ function shmup(fleet)
 	  title=fleet.." hunters"
 	 end
 	end
- 
+
  local win_target=level*25
  if (evade) win_target=750+level*250
 
@@ -858,7 +858,7 @@ function pass(can_pass)
   gamestate.hud_progress=gamestate.gametime
   if gamestate.gametime>=win_target then
    objective_cleanup()
-  end  
+  end
   if #aliens<gamestate.aliens_max and one_in(15) then
    // narrow the x range for
    // none shall pass
@@ -890,7 +890,7 @@ function asteroid_belt()
  if not gamestate.ready then
   local max_rocks,title,text=32,"asteroid belt","get your rocks off baby"
   if (evade) max_rocks,title,text=24,"fly to survive","rocks in a hard place"
-  
+
   gamestate.hud_target,
   gamestate.aliens_max,
   gamestate.title,
@@ -907,7 +907,7 @@ function asteroid_belt()
    if (fc%2==0) startx=108
    if (one_in(250)) create_pickup(rnd_range(startx,startx+16),-8,true)
   end
-  
+
   if #aliens<gamestate.aliens_max and one_in(3) then
    local al=create_alien(rnd_range(2,126),-8,"asteroid")
    if (al and evade) al.speed_y+=0.35 else al.hp*=0.6
@@ -922,7 +922,7 @@ function asteroid_belt()
 end
 
 function power_spree()
- if not gamestate.ready then  
+ if not gamestate.ready then
   gamestate.hud_target,
   gamestate.aliens_max,
   gamestate.title,
@@ -932,7 +932,7 @@ function power_spree()
   gamestate.hud_progress=gamestate.gametime
 
   if (one_in(15)) create_pickup(rnd_range(4,120),-8,true)
-  
+
   if #aliens<gamestate.aliens_max and one_in(5) then
    al=create_alien(rnd_range(2,126),-8,"asteroid")
    if (al) al.speed_y+=1.9
@@ -958,7 +958,7 @@ function quick_play(use_the_force)
  else
   time_limit,win_target=900,30
  end
- if not gamestate.ready then  
+ if not gamestate.ready then
   gamestate.hud_target,
   gamestate.title,
   gamestate.text,
@@ -970,7 +970,7 @@ function quick_play(use_the_force)
   if (use_the_force) gamestate.title="use the force"
  else
   gamestate.hud_progress=min(gamestate.gametime,time_limit)
-  
+
   if #aliens<3 and one_in(3) then
    local al=create_alien(rnd_range(32,112),-8,"silver")
    if al then
@@ -994,7 +994,7 @@ function quick_play(use_the_force)
    for pl in all(players) do
     if (pl.hp>0) pl.shields=120
    end
-  end  
+  end
  end
 end
 
@@ -1029,7 +1029,7 @@ function cargo(mode)
     win_target,
     level+10,
     "cargo run",
-    "protect the cargo ship",  
+    "protect the cargo ship",
     82
   end
 
@@ -1042,7 +1042,7 @@ function cargo(mode)
 	   if (one_in(4)) spawn="bronze"
 	   create_alien(rnd_range(2,126),-8,spawn)
 	  end
-	
+
    score_update_all(20*level)
 
    local player_damage=0
@@ -1059,7 +1059,7 @@ function cargo(mode)
      sound_play(5)
      emit_explosion(63,bl.y+4,1,nil,1)
      player_damage+=bl.damage
-     del(bullets,bl)     
+     del(bullets,bl)
     end
    end
 
@@ -1211,7 +1211,7 @@ function update_game()
  if (objective=="pass_some") pass(true)
  if (objective=="pass_none") pass()
  if (objective=="asteroid_belt") asteroid_belt()
- if (objective=="power_spree") power_spree() 
+ if (objective=="power_spree") power_spree()
  if (objective=="quick_shoot") quick_play()
  if (objective=="quick_force") quick_play(true)
 
@@ -1238,7 +1238,7 @@ function update_game()
     objective=="emerald" or
     objective=="spheres" or
     objective=="metal" or
-    objective=="gem" or    
+    objective=="gem" or
     objective=="armada" then
   shmup(objective)
  end
@@ -1257,7 +1257,7 @@ function draw_game()
   bullets,
   aliens,
   rockets,
-  pickups,  
+  pickups,
  }
 
  for object in all(objects) do
@@ -1322,7 +1322,7 @@ function get_next_mission()
  level=
   0,
   min(#missions-2,current_mission-1)
- 
+
  mission=missions[current_mission]
  get_next_objective()
 end
@@ -1343,7 +1343,7 @@ function activate_weapons(status)
   pl.shot_enabled=status
  end
  evade=not status
- objective_complete=true 
+ objective_complete=true
 end
 
 function draw_mission()
@@ -1377,7 +1377,7 @@ function emit_rocket(player_num)
   // this is for the basic weapon
   local x_offset=0
   if (i>0) x_offset=8
-  // spread shot x offset  
+  // spread shot x offset
   if (pl.shot_pattern>1) x_offset=4
 
   add(rockets,create_projectile(pl,pl.x+x_offset,pl.y-4))
@@ -1388,8 +1388,8 @@ function emit_rocket(player_num)
   //rocket.sprite.show_hitbox=true
 
   // apply pattern
-  if pl.shot_pattern>1 then  
-   // 3-way  
+  if pl.shot_pattern>1 then
+   // 3-way
    local dir,spread,spd=unpack_split"0.215,0.04,2.5"
 
    if pl.shot_pattern==3 then
@@ -1399,7 +1399,7 @@ function emit_rocket(player_num)
     // 5-way
     dir,spread,spd=unpack_split"0.175,0.04,1.75"
    end
-  
+
    local ang=dir+((spread+fc)*i)
    rocket.speed_x=cos(ang)*spd
    rocket.speed_y=sin(ang)*spd
@@ -1472,11 +1472,11 @@ function create_player(player)
  local debris_style,rocket_sprites=
    debris_green,
    split"194,193,192,193"
-   
+
  if player==2 then
-  col_lt,col_dk,hud_x,explosion_style,sfx_shoot= 
+  col_lt,col_dk,hud_x,explosion_style,sfx_shoot=
    unpack_split"8,2,96,5,3"
-   
+
   debris_style,rocket_sprites=
    debris_red,
    split"226,225,224,225"
@@ -1495,9 +1495,9 @@ function create_player(player)
  pl.shot_cooldown,
  pl.shot_cooldown_timer,
  pl.flash_hp,
- pl.flash_dynamo= 
+ pl.flash_dynamo=
   unpack_split"1.35,3,0,-1,0,0,true,true,5,0,0,0"
- 
+
  pl.num,
  pl.col_lt,
  pl.col_dk,
@@ -1563,7 +1563,7 @@ function emit_smartbomb(pl)
   if (pl) score_update(pl,al.reward*max_exp)
   if (max_exp<=6) emit_explosion(al.sprite.emit_x,al.sprite.emit_y,al.explosion_size,al.debris_size,debris_fire)
   screen_shake+=al.explosion_size
-  max_exp+=1  
+  max_exp+=1
  end
  aliens,bullets={},{}
  screen_flash+=3
@@ -1582,7 +1582,7 @@ function apply_generator_charge(pl,charge)
   pl.hp=min(100,pl.hp+50)
  else
   pl.generator=new_gen
- end   
+ end
 end
 
 function check_player_collisions(pl)
@@ -1596,7 +1596,7 @@ function check_player_collisions(pl)
    local charge=15
 
    if pu.payload==96 then
-    // alien weapons jammer   
+    // alien weapons jammer
     gamestate.aliens_jammed+=pickup_base
     bullets={}
    elseif pu.payload==97 then
@@ -1625,10 +1625,10 @@ function check_player_collisions(pl)
     pl.flash_hp+=300
     pu_sound=14
    end
-   
+
    sfx(pu_sound)
 		 apply_generator_charge(pl,charge)
-		    
+
    del(pickups,pu)
   end
  end
@@ -1660,7 +1660,7 @@ function init_players()
  players,flashes,rockets={},{},{}
  for i=1,num_players do
   create_player(i)
- end 
+ end
  players_startx()
 end
 
@@ -1698,7 +1698,7 @@ function update_players()
     // finally, apply the input direction to the player
     pl.x+=dx*(pl.speed)
     pl.y+=dy*(pl.speed)
-    
+
 	  //fire rockets
 	  if btn(4,controller) or btn(5,controller) then
 	   if pl.shot_cooldown_timer<=0 and pl.shot_enabled then
@@ -1707,7 +1707,7 @@ function update_players()
 	   elseif not pl.shot_enabled then
 	    sound_play(13)
 	   end
-	  end    
+	  end
   end
 
   // animate banking
@@ -1738,7 +1738,7 @@ function update_players()
 
   pl.flash_hp=max(0,pl.flash_hp-1)
   pl.flash_dynamo=max(0,pl.flash_dynamo-1)
-  
+
   check_player_collisions(pl)
 
   ::next_player::
@@ -1847,7 +1847,7 @@ function create_alien(x,y,breed)
   al.shot_speed_y,
   al.shot_sprite=
    unpack_split"30,0.1,0.010,0.90,1.25,80"
-   
+
   al.shot_speed_x=rnd_range(unpack_split"-0.25,0.25,true")
   al.sprite=sprite_create(split"107,108,109,123,124,125",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
@@ -1871,7 +1871,7 @@ function create_alien(x,y,breed)
     unpack_split"60,0.085,30"
 
    al.speed_x,
-   al.speed_y=    
+   al.speed_y=
     rnd_range(unpack_split"-0.25,0.25,true"),
     rnd_range(unpack_split"0.5,0.65,true")
 
@@ -1904,11 +1904,11 @@ function create_alien(x,y,breed)
 
   al.speed_x,
   al.speed_y,
-  al.explosion_size=     
+  al.explosion_size=
    cos(angle)*1.1,
    sin(angle)*1.1,
-   rnd_range(1,2)   
-   
+   rnd_range(1,2)
+
   al.sprite=sprite_create(split"68,69,70,69",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="silver" then
@@ -1919,7 +1919,7 @@ function create_alien(x,y,breed)
   al.speed_y=
    cos(angle)*1.75,
    sin(angle)*1.25
-  
+
   al.hp,
   al.framerate,
   al.shot_speed_x,
@@ -1927,7 +1927,7 @@ function create_alien(x,y,breed)
   al.shot_sprite,
   al.explosion_size=
    unpack_split"70,0.2,1.75,1.75,80,2"
-      
+
   al.sprite=sprite_create(split"103,104,105,106,119,120,121,122",1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
   al.sprite.frame=rnd_range(1,#al.sprite.frames)
@@ -1945,10 +1945,10 @@ function create_alien(x,y,breed)
   local angle=atan2(target_x-al.x+al.x_off,127-al.y+al.y_off)
 
   al.speed_x,
-  al.speed_y,   
-  al.explosion_size=   
+  al.speed_y,
+  al.explosion_size=
    cos(angle)*1.45,
-   sin(angle)*1.45,   
+   sin(angle)*1.45,
    rnd_range(2,3)
 
   al.hp,
@@ -1956,7 +1956,7 @@ function create_alien(x,y,breed)
   al.shot_speed_y,
   al.shot_sprite=
    unpack_split"75,1.75,1.75,80"
-   
+
   al.sprite=sprite_create({101},1,1)
   sprite_hitbox(al.sprite,1,1,5,5)
  elseif breed=="emerald" then
@@ -1972,9 +1972,9 @@ function create_alien(x,y,breed)
  end
  al.debris_size=al.explosion_size
  al.reward=(al.hp+al.collision_damage*100)+al.explosion_size
- 
+
  add(aliens,al)
- return al 
+ return al
 end
 
 function aim_shot(bl,pl,al)
@@ -2049,7 +2049,7 @@ function update_aliens()
   if gamestate.aliens_jammed>0 and al.breed!="asteroid" then
    al.sprite.pal_ghostly=true
   end
-  
+
   if al.breed=="drone" or al.breed=="emerald" then
    local cos_wave=cos(al.speed_x)*al.wave_width
    al.x+=cos_wave
@@ -2167,7 +2167,7 @@ function sprite_hitbox(s,hbx,hby,hbw,hbh,show)
   hbw,
   hbh,
   hbw/2,
-  hbh/2,  
+  hbh/2,
   show
 end
 
@@ -2349,13 +2349,13 @@ function draw_hud()
   if (pl.flash_dynamo>0) col_dynamo=sparkle
   hud_line(pl.hud_x,7,30,pl.generator,col_dynamo,1)
  end
- 
+
  print_fx("hi "..numtostr(hi_score,8),_center("hi 00000000",4),0,7)
 
  //mini-game hud
  if gamestate.hud_target then
   hud_line(42,6,42,gamestate.hud_progress/gamestate.hud_target*100,10,9)
- end 
+ end
 end
 
 function get_x_axis(controller)
