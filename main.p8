@@ -699,12 +699,7 @@ function init_missions()
  current_objective,
  level,
  objective_complete=
-  0,
-  0,
-  0,
-  0,
-  0,
-  false
+  unpack_split"0,0,0,0,0,false"
 
  local m=0
  for mission in all(missions) do
