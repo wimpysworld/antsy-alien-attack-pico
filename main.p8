@@ -12,7 +12,6 @@ function _init()
  debris_green,
  debris_fire=
   {
-   //"players_off,jump,level_in,fly_in,players_on,drop,boss,wait,level_out,players_off,jump,fly_out",
    //1
    "players_off,jump,level_in,fly_in,players_on,drop,drone,wait,bronze,wait,asteroid_belt,wait,silver,wait,pass_some,wait,metal,level_out,players_off,jump,fly_out",
    //2
