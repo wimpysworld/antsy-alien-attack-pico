@@ -109,14 +109,16 @@ function init_attract()
  else
   sfx(1)
  end
- ignore_input,victory=
+ ignore_input,victory,menu_items=
   15,
-  false
+  false,
+  {}
+
  music_play(0)
  init_stars()
  update_loop,draw_loop=
   update_attract,draw_attract
- menu_items={}
+
  local menu_y=48
  if (native_build) menu_y=44
  add_menu_item("play",menu_y,init_game)
