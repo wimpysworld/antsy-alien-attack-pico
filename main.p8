@@ -1403,7 +1403,7 @@ function emit_rocket(player_num)
   // spread shot x offset
   if (pl.shot_pattern>1) x_offset=4
 
-  add(rockets,create_projectile(pl,pl.x+x_offset,pl.y-4))
+  local rocket=add(rockets,create_projectile(pl,pl.x+x_offset,pl.y-4))
   local rocket=rockets[#rockets]
   rocket.owner=player_num
   rocket.sprite=sprite_create(pl.rocket_sprites,1,2)
@@ -1510,7 +1510,7 @@ function create_player(player)
    debris_red,
    split"226,225,224,225"
  end
- add(players,create_actor(56,160))
+ local pl=add(players,create_actor(56,160))
 
  local pl=players[#players]
  pl.speed,
@@ -2144,7 +2144,7 @@ function create_pickup(x,y,force)
   // do not reset the pickup
   // timer if a drop was forced
   if (not force) reset_pickup_timer()
-  add(pickups,{
+  local pu=add(pickups,{
    x=x,
    y=y,
    origin_x=x,
