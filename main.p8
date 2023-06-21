@@ -93,8 +93,6 @@ function add_menu_item(name,pos,init)
  add(menu_items,{
   name=name,
   pos=pos,
-  col=12,
-  out=1,
   init=init
  })
 end
@@ -152,18 +150,18 @@ function update_attract()
 end
 
 function draw_attract()
- local music_state,c="off"
+ local music_state="off"
  print_fx("antsy alien",nil,2,11,3,10,"big")
  print_fx("attack!",nil,16,8,2,14,"big")
  print_fx(_puny("pico"),nil,28,7)
 
  if (music_enabled>=0) music_state="on"
  for i=1,#menu_items do
-  local m=menu_items[i]
+  local m,c=menu_items[i],12
   if (i==1) m.name="play "..tostr(num_players).."-up"
   if (i==2) m.name="music "..music_state
-  if (menu_pos==i) c=sparkle else c=m.col
-  print_fx(m.name,nil,m.pos,c,m.out,m.out)
+  if (menu_pos==i) c=sparkle
+  print_fx(m.name,nil,m.pos,c,1,1)
 
   -- draw hints for toggles
   if i<=2 and i==menu_pos then
