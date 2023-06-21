@@ -451,15 +451,12 @@ function update_explosions()
    --max age
    if ex.age>=ex.maxage or ex.r<1 then
     if ex.at_end=="collapse" then
-     ex.maxage+=300
+     ex.maxage,
      ex.at_end,
      ex.tor,
      ex.spd,
      ex.wait=
-      nil,
-      0,
-      0.2,
-      0
+      unpack_split"300,nil,0,0.2,0"
     else
      del(explosions,ex)
     end
