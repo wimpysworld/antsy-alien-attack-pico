@@ -1341,9 +1341,6 @@ function get_next_mission()
  current_objective,level=
   0,
   current_mission
- //level=
- // 0,
- // min(#missions-2,current_mission-1)
 
  mission=missions[current_mission]
  get_next_objective()
