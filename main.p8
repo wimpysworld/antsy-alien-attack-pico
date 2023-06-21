@@ -1221,6 +1221,7 @@ function update_game()
  update_bullets()
 
  //execute game logic
+ //todo: do this better
  if (objective=="players_on") activate_players(true)
  if (objective=="players_off") activate_players()
  if (objective=="weapons_on") activate_weapons(true)
