@@ -84,23 +84,6 @@ EOF
   fi
 }
 
-function pico_flake() {
-  local TARGET="flake"
-  mkdir -p "exports/${TARGET}"
-  local EXPORT_PATH="exports/${TARGET}"
-      
-  cp "exports/bin/${FILENAME}.bin/linux/antsy-alien-attack-pico" "${EXPORT_PATH}/"
-  cp "exports/bin/${FILENAME}.bin/linux/data.pod" "${EXPORT_PATH}/"
-  cp "exports/bin/${FILENAME}.bin/linux/${FILENAME}.png" "${EXPORT_PATH}/"
-  cp packaging/nix/flake.nix "${EXPORT_PATH}/"
-  pushd "${EXPORT_PATH}/"
-  git init
-  git add flake.nix
-  git commit -m "${REALNAME} ${VER}"
-  popd
-  tar --directory="${EXPORT_PATH}" --xz --create --file "exports/${FILENAME}_${VER}_nix.tar.xz" .
-}
-
 function pico_flatpak() {
   # https://www.steinzone.de/wordpress/how-to-build-a-flatpak-of-a-sdl2-game-commander-genius/
   return
@@ -173,5 +156,5 @@ pico_export wasm_crt
 pico_appimage
 pico_deb
 pico_dmg
-pico_flake
+#pico_snap
 pico_snap
