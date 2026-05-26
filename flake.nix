@@ -1,6 +1,6 @@
 {
   description = "Antsy Alien Attack Pico";
-  inputs.nixpkgs.url = "nixpkgs/nixos-25.11";
+  inputs.nixpkgs.url = "nixpkgs/nixos-26.05";
   outputs = { self, nixpkgs }: {
     packages.x86_64-linux.default =
       with nixpkgs.legacyPackages.x86_64-linux;
